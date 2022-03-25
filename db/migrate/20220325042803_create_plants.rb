@@ -8,7 +8,6 @@ class CreatePlants < ActiveRecord::Migration[5.2]
       t.integer :hybrid_status
       t.boolean :organic
       t.boolean :from_seed
-      t.references :user, foreign_key: true
 
       t.timestamps
     end
