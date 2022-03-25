@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_044507) do
   create_table "user_plants", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "plant_id"
-    t.boolean "from_seed"
+    t.boolean "start_from_seed"
     t.index ["plant_id"], name: "index_user_plants_on_plant_id"
     t.index ["user_id"], name: "index_user_plants_on_user_id"
   end
