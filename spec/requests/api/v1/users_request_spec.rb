@@ -8,6 +8,29 @@ RSpec.describe 'Users API' do
       created_user = User.last
 
       expect(response).to be_successful
+
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(user_response).to be_a Hash
+
+      expect(user_response).to have_key(:data)
+      expect(user_response[:data]).to have_key(:id)
+
+      expect(user_response[:data]).to have_key(:type)
+      expect(user_response[:data][:type]).to be_a String
+      expect(user_response[:data][:type]).to eq("user")
+
+      expect(user_response[:data]).to have_key(:attributes)
+      expect(user_response[:data][:attributes]).to be_a Hash
+
+      expect(user_response[:data][:attributes]).to have_key(:name)
+      expect(user_response[:data][:attributes][:name]).to be_a String
+
+      expect(user_response[:data][:attributes]).to have_key(:email)
+      expect(user_response[:data][:attributes][:email]).to be_a String
+
+      expect(user_response[:data][:attributes]).to have_key(:zip_code)
+      expect(user_response[:data][:attributes][:zip_code]).to be_a String
     end
   end
 end
