@@ -1,4 +1,4 @@
-# Welcome to Plant Coach
+# 🪴Welcome to Plant Coach🪴
 
 ### Technologies
 - Ruby on Rails
