@@ -32,5 +32,16 @@ RSpec.describe 'Users API' do
       expect(user_response[:data][:attributes]).to have_key(:zip_code)
       expect(user_response[:data][:attributes][:zip_code]).to be_a String
     end
+
+    it 'will not allow duplicate users to be created' do
+      body = { name: 'Joel Grant', email: 'joel@plantcoach.com', zip_code: '80121', password: '12345', password_confirmation: '12345' }
+      post '/api/v1/users', params: body
+
+      # Try to create the same user a second time.
+      post '/api/v1/users', params: body
+      expected_error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(expected_error[:error]).to eq("This user already exists!!")
+    end
   end
 end
