@@ -3,11 +3,11 @@ class Api::V1::UsersController < ApplicationController
     user = User.create(user_params)
     if user.save
       render json: UserSerializer.new(user)
-    elsif User.find_by(email: params[:email])
+    elsif user_already_exists
       render json: UserSerializer.error("This user already exists!!"), status: 403
-    elsif params[:password] != params[:password_confirmation]
+    elsif passwords_dont_match
       render json: UserSerializer.error("Your passwords must match!"), status: 400
-    elsif user.errors.messages[:email]
+    elsif email_formatted_incorrectly(user)
       render json: UserSerializer.error("#{params[:email]} is not a valid email address!!")
     end
   end
