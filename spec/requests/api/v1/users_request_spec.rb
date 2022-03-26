@@ -52,5 +52,13 @@ RSpec.describe 'Users API' do
       expect(response.status).to eq(400)
       expect(result[:error]).to eq("Your passwords must match!")
     end
+
+    it 'doesnt allow anything other than an email address for a new user' do
+      body = { name: 'Joel Grant', email: 'joe.com', zip_code: '12345', password: '12345', password_confirmation: '12345'}
+      post '/api/v1/users', params: body
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to eq("#{body[:email]} is not a valid email address!!")
+    end
   end
 end
