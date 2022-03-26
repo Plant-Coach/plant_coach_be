@@ -43,5 +43,14 @@ RSpec.describe 'Users API' do
 
       expect(expected_error[:error]).to eq("This user already exists!!")
     end
+
+    it 'will not allow a user to register with unmatching passwords' do
+      body = { name: 'Joel Grant', email: 'joel@plantcoach.com', zip_code: '80000', password: '123457', password_confirmation: '12345'}
+      post '/api/v1/users', params: body
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(result[:error]).to eq("Your passwords must match!")
+    end
   end
 end
