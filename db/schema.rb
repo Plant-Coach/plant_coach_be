@@ -10,27 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_25_220519) do
+ActiveRecord::Schema.define(version: 2022_03_29_001229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "plants", force: :cascade do |t|
-    t.string "type"
     t.string "name"
-    t.string "latin_name"
     t.integer "days_to_maturity"
     t.integer "hybrid_status"
-    t.boolean "organic"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "days_relative_to_frost_date"
+    t.string "plant_type"
   end
 
   create_table "user_plants", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "plant_id"
-    t.boolean "start_from_seed"
     t.index ["plant_id"], name: "index_user_plants_on_plant_id"
     t.index ["user_id"], name: "index_user_plants_on_user_id"
   end
