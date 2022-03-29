@@ -6,6 +6,11 @@ class Api::V1::PlantsController < ApplicationController
     end
   end
 
+  def update
+    plant = Plant.update(plant_params)
+    render json: PlantSerializer.new(plant), status: 200
+  end
+
   private
   def plant_params
     params.permit(
