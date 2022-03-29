@@ -6,7 +6,7 @@ RSpec.describe 'Plant API Endpoints' do
       plant = {plant_type: "Tomato", name: "Sungold", days_relative_to_frost_date: 14, days_to_maturity: 54, hybrid_status: 1}
       post '/api/v1/plants', params: plant
       result = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
+
     end
   end
 end
