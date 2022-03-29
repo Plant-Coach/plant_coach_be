@@ -40,7 +40,13 @@ RSpec.describe 'Users API' do
     end
 
     it 'will not allow duplicate users to be created' do
-      body = { name: 'Joel Grant', email: 'joel@plantcoach.com', zip_code: '80121', password: '12345', password_confirmation: '12345' }
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
       post '/api/v1/users', params: body
 
       # Try to create the same user a second time.
@@ -51,7 +57,13 @@ RSpec.describe 'Users API' do
     end
 
     it 'will not allow a user to register with unmatching passwords' do
-      body = { name: 'Joel Grant', email: 'joel@plantcoach.com', zip_code: '80000', password: '123457', password_confirmation: '12345'}
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80000',
+        password: '123457',
+        password_confirmation: '12345'
+      }
       post '/api/v1/users', params: body
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -60,7 +72,13 @@ RSpec.describe 'Users API' do
     end
 
     it 'doesnt allow anything other than an email address for a new user' do
-      body = { name: 'Joel Grant', email: 'joe.com', zip_code: '12345', password: '12345', password_confirmation: '12345'}
+      body = {
+        name: 'Joel Grant',
+        email: 'joe.com',
+        zip_code: '12345',
+        password: '12345',
+        password_confirmation: '12345'
+      }
       post '/api/v1/users', params: body
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -70,7 +88,12 @@ RSpec.describe 'Users API' do
 
   describe 'PATCH user' do
     it 'allows a user and its attributes to be edited' do
-      user = User.create!(name: "Joel User", email: 'joel@123.com', password: "12345", zip_code: 80123)
+      user = User.create!(
+        name: "Joel User",
+        email: 'joel@123.com',
+        password: "12345",
+        zip_code: 80123
+      )
       new_zip_code =  { zip_code: 80111 }
 
       patch "/api/v1/users/#{user.id}", params: new_zip_code
@@ -83,12 +106,17 @@ RSpec.describe 'Users API' do
     end
 
     it 'will return an error in JSON if the user doesnt exist' do
-      user = User.create!(name: "Joel User", email: 'joel@123.com', password: "12345", zip_code: 80123)
+      user = User.create!(
+        name: "Joel User",
+        email: 'joel@123.com',
+        password: "12345",
+        zip_code: 80123
+      )
       new_zip_code =  { zip_code: 80111 }
 
       patch "/api/v1/users/9999999999", params: new_zip_code
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(result[:error]).to eq("User not found!!")
     end
   end
