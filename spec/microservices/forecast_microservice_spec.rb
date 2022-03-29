@@ -30,10 +30,10 @@ RSpec.describe ForecastMicroservice do
         expect(weather[:attributes][:sunset]).to be_a Integer
 
         expect(weather[:attributes]).to have_key(:high)
-        expect(weather[:attributes][:high]).to be_a Float
+        expect(weather[:attributes][:high]).to be_a(Float).or be_an Integer
 
         expect(weather[:attributes]).to have_key(:low)
-        expect(weather[:attributes][:low]).to be_a Float
+        expect(weather[:attributes][:low]).to be_a(Float).or be_an Integer
 
         expect(weather[:attributes]).to have_key(:humidity)
         expect(weather[:attributes][:humidity]).to be_an Integer
