@@ -12,6 +12,16 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def update
+    user = User.find_by(id: params[:id])
+    if !user.nil?
+      user.update(user_params)
+      render json: UserSerializer.new(user), status: 200
+    else
+      render json: UserSerializer.error("User not found!!"), status: 400
+    end
+  end
+
   private
   def user_params
     params.permit(:name, :email, :zip_code, :password, :password_confirmation)

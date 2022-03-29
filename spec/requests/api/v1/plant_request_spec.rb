@@ -30,5 +30,14 @@ RSpec.describe 'Plant API Endpoints' do
 
       expect(Plant.find_by(id: plant3.id)).to be nil
     end
+
+    it 'returns an error if the plant cant be found' do
+      plant1 = Plant.create(plant_type: "Tomato", name: "Sungold", days_relative_to_frost_date: 14, days_to_maturity: 54, hybrid_status: 1)
+      plant2 = Plant.create(plant_type: "Pepper", name: "Jalafuego", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1)
+      plant3 = Plant.create(plant_type: "Radish", name: "French Breakfast", days_relative_to_frost_date: 30, days_to_maturity: 21, hybrid_status: 1)
+      delete "/api/v1/plants/999999"
+      result = JSON.parse(response.body, symbolize_names: true)
+      expect(result[:error]).to eq("Something happened!")
+    end
   end
 end
