@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_28_214843) do
+ActiveRecord::Schema.define(version: 2022_03_29_001229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2022_03_28_214843) do
   create_table "user_plants", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "plant_id"
-    t.boolean "start_from_seed"
     t.index ["plant_id"], name: "index_user_plants_on_plant_id"
     t.index ["user_id"], name: "index_user_plants_on_user_id"
   end
