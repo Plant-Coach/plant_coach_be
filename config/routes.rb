@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :user_plants, only: [:create]
       resources :sessions, only: [:create]
       resources :forecast, only: [:create]
+      resources :plants, only: [:create]
     end
   end
 end
