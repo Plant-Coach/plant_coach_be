@@ -1,6 +1,6 @@
 class UserPlantSerializer
   include JSONAPI::Serializer
-
+  attributes :id, :user_id, :plant_id
 
   def self.format(user, plant)
     {
