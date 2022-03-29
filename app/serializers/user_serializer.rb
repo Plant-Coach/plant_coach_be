@@ -1,6 +1,6 @@
 class UserSerializer
   include JSONAPI::Serializer
-  attributes :name, :email, :zip_code
+  attributes :id, :name, :email, :zip_code
 
   def self.error(error_message)
     {
