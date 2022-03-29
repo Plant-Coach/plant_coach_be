@@ -14,8 +14,6 @@ RSpec.describe 'User Plants API Endpoint' do
       expect(response).to be_successful
       expect(new_plant.plant_id).to eq(plant.id)
       expect(new_plant.user_id).to eq(user.id)
-
-
     end
 
     it 'will return a json error message if there was a problem' do
@@ -24,7 +22,7 @@ RSpec.describe 'User Plants API Endpoint' do
 
       post '/api/v1/user_plants', params: { user_id: nil, plant_id: plant.id}
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response.status).to eq(400)
     end
   end
