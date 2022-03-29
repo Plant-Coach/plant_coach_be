@@ -11,6 +11,16 @@ class Api::V1::PlantsController < ApplicationController
     render json: PlantSerializer.new(plant), status: 200
   end
 
+  def destroy
+    plant = Plant.find(params[:id])
+    if !plant.nil?
+      deleted_plant = plant.destroy
+      render json: PlantSerializer.new(deleted_plant), status: 200
+    else
+      render json: PlantSerializer.error("Something happened!"), status: 400
+    end
+  end
+
   private
   def plant_params
     params.permit(
