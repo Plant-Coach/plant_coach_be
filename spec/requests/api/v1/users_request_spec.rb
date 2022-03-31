@@ -89,21 +89,35 @@ RSpec.describe 'Users API' do
 
   describe 'PATCH user' do
     it 'allows a user and its attributes to be edited' do
-      user = User.create!(
-        name: "Joel User",
-        email: 'joel@123.com',
-        password: "12345",
-        zip_code: 80123
-      )
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      created_user = User.last
+
+      expect(response).to be_successful
+
+      user_response = JSON.parse(response.body, symbolize_names: true)
+      # require 'pry'; binding.pry
+      # user = User.create!(
+      #   name: "Joel User",
+      #   email: 'joel@123.com',
+      #   password: "12345",
+      #   zip_code: 80123
+      # )
       new_zip_code =  { zip_code: 80111 }
 
-      patch "/api/v1/users/#{user.id}", params: new_zip_code
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:data][:id]).to eq("#{user.id}")
+      # expect(result[:data][:id]).to eq("#{user.id}")
       expect(result[:data][:attributes][:zip_code]).to eq("80111")
-      expect(result[:data][:attributes][:name]).to eq("Joel User")
-      expect(result[:data][:attributes][:email]).to eq("joel@123.com")
+      expect(result[:data][:attributes][:name]).to eq("Joel Grant")
+      expect(result[:data][:attributes][:email]).to eq("joel@plantcoach.com")
     end
 
     it 'will return an error in JSON if the user doesnt exist' do
