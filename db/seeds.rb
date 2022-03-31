@@ -11,4 +11,4 @@ User.create(
   zip_code: '80121',
   password: '12345',
   password_confirmation: '12345'
-}
+)
