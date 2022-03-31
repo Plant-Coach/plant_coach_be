@@ -67,7 +67,7 @@ RSpec.describe 'Users API' do
       post '/api/v1/users', params: body
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response.status).to eq(400)
+      expect(response).to_not be_successful
       expect(result[:error]).to eq("Your passwords must match!")
     end
 
