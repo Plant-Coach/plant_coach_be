@@ -19,24 +19,25 @@ RSpec.describe 'Users API' do
 
       expect(user_response).to be_a Hash
 
-      expect(user_response).to have_key(:data)
-      expect(user_response[:data]).to have_key(:id)
+      expect(user_response).to have_key(:user)
+      expect(user_response[:user]).to have_key(:data)
+      expect(user_response[:user][:data]).to have_key(:id)
 
-      expect(user_response[:data]).to have_key(:type)
-      expect(user_response[:data][:type]).to be_a String
-      expect(user_response[:data][:type]).to eq("user")
+      expect(user_response[:user][:data]).to have_key(:type)
+      expect(user_response[:user][:data][:type]).to be_a String
+      expect(user_response[:user][:data][:type]).to eq("user")
 
-      expect(user_response[:data]).to have_key(:attributes)
-      expect(user_response[:data][:attributes]).to be_a Hash
+      expect(user_response[:user][:data]).to have_key(:attributes)
+      expect(user_response[:user][:data][:attributes]).to be_a Hash
 
-      expect(user_response[:data][:attributes]).to have_key(:name)
-      expect(user_response[:data][:attributes][:name]).to be_a String
+      expect(user_response[:user][:data][:attributes]).to have_key(:name)
+      expect(user_response[:user][:data][:attributes][:name]).to be_a String
 
-      expect(user_response[:data][:attributes]).to have_key(:email)
-      expect(user_response[:data][:attributes][:email]).to be_a String
+      expect(user_response[:user][:data][:attributes]).to have_key(:email)
+      expect(user_response[:user][:data][:attributes][:email]).to be_a String
 
-      expect(user_response[:data][:attributes]).to have_key(:zip_code)
-      expect(user_response[:data][:attributes][:zip_code]).to be_a String
+      expect(user_response[:user][:data][:attributes]).to have_key(:zip_code)
+      expect(user_response[:user][:data][:attributes][:zip_code]).to be_a String
     end
 
     it 'will not allow duplicate users to be created' do
