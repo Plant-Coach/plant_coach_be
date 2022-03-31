@@ -29,6 +29,7 @@ gem 'faraday', '>= 1.8.0'
 gem 'figaro'
 gem 'jsonapi-serializer'
 gem 'rspec_junit_formatter'
+gem 'jwt'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
