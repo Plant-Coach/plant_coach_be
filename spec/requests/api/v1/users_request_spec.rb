@@ -121,15 +121,30 @@ RSpec.describe 'Users API' do
     end
 
     it 'will return an error in JSON if the user doesnt exist' do
-      user = User.create!(
-        name: "Joel User",
-        email: 'joel@123.com',
-        password: "12345",
-        zip_code: 80123
-      )
+      # user = User.create!(
+      #   name: "Joel User",
+      #   email: 'joel@123.com',
+      #   password: "12345",
+      #   zip_code: 80123
+      # )
+
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      created_user = User.last
+
+      expect(response).to be_successful
+
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
       new_zip_code =  { zip_code: 80111 }
 
-      patch "/api/v1/users/9999999999", params: new_zip_code
+      patch "/api/v1/users/9999999999", params: new_zip_code, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:error]).to eq("User not found!!")
