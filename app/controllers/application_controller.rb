@@ -10,4 +10,18 @@ class ApplicationController < ActionController::API
   def email_formatted_incorrectly(user)
     user.errors.messages[:email]
   end
+  def encode_token(payload)
+    JWT.encode(payload, 'secret')
+  end
+  def decoded_token(token)
+    if auth_header
+      token = auth_header.split(' ')[1]
+      begin
+        JWT.decode(token, 'secret', true, algorith: 'HS256')
+
+      rescue JWT::DecodeError
+        nil
+      end
+    end
+  end
 end
