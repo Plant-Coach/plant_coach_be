@@ -1,4 +1,13 @@
 class Api::V1::UsersController < ApplicationController
+  def index
+    user = User.find_by(email: params[:email])
+    if !user.nil?
+      render json: UserSerializer.new(user), status: 200
+    else
+      render json: UserSerializer.error("This user is not found!"), status: 400
+    end
+  end
+
   def create
     user = User.create(user_params)
     if user.save
