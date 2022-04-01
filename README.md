@@ -6,6 +6,7 @@
 - 🌱 Circle CI
 - 🌱 JWT
 - 🌱 Redis
+- 🌱 RSpec
 
 
 FE Application for this backend repo:
