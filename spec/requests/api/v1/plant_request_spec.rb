@@ -3,9 +3,27 @@ require 'rails_helper'
 RSpec.describe 'Plant API Endpoints' do
   describe 'POST /plants' do
     it 'creates a new plant in the database' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      created_user = User.last
+
+      expect(response).to be_successful
+
+      user_response = JSON.parse(response.body, symbolize_names: true)
       plant = {plant_type: "Tomato", name: "Sungold", days_relative_to_frost_date: 14, days_to_maturity: 54, hybrid_status: 1}
-      post '/api/v1/plants', params: plant
+      post '/api/v1/plants', params: plant, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
       result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Sungold")
     end
   end
 
