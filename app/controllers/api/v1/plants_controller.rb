@@ -1,6 +1,7 @@
 class Api::V1::PlantsController < ApplicationController
   def create
     plant = Plant.create(plant_params)
+    # require 'pry'; binding.pry
     if plant.save
       render json: PlantSerializer.new(plant), status: 201
     end
