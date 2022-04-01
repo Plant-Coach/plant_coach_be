@@ -4,6 +4,8 @@
 - 🌱 Ruby on Rails
 - 🌱 Heroku
 - 🌱 Circle CI
+- 🌱 JWT
+- 🌱 Redis
 
 
 FE Application for this backend repo:
