@@ -50,7 +50,6 @@ RSpec.describe 'Users API' do
       }
       post '/api/v1/users', params: body
 
-      # Try to create the same user a second time.
       post '/api/v1/users', params: body
       expected_error = JSON.parse(response.body, symbolize_names: true)
 
@@ -97,24 +96,14 @@ RSpec.describe 'Users API' do
         password_confirmation: '12345'
       }
       post '/api/v1/users', params: body
-      created_user = User.last
+      user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
-      user_response = JSON.parse(response.body, symbolize_names: true)
-      # require 'pry'; binding.pry
-      # user = User.create!(
-      #   name: "Joel User",
-      #   email: 'joel@123.com',
-      #   password: "12345",
-      #   zip_code: 80123
-      # )
       new_zip_code =  { zip_code: 80111 }
-
       patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      # expect(result[:data][:id]).to eq("#{user.id}")
       expect(result[:data][:attributes][:zip_code]).to eq("80111")
       expect(result[:data][:attributes][:name]).to eq("Joel Grant")
       expect(result[:data][:attributes][:email]).to eq("joel@plantcoach.com")
