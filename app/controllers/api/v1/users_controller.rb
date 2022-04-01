@@ -1,20 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
-  def index
-    # user = User.find_by(email: params[:email])
-    # if !user.nil?
-    #   render json: UserSerializer.new(user), status: 200
-    # else
-    #   render json: UserSerializer.error("This user is not found!"), status: 400
-    # end
-  end
-
   def create
     user = User.create(user_params)
     if user.valid?
       token = encode_token(user_id: user.id)
-      # This syntax could be problematic
       render json: { user: UserSerializer.new(user), jwt: token}, status: :created
     elsif user_already_exists
       render json: UserSerializer.error("This user already exists!!"), status: :not_acceptable
@@ -26,7 +16,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
     user = User.find_by(id: params[:id])
     if !user.nil?
       user.update(user_params)
