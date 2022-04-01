@@ -2,12 +2,12 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index
-    user = User.find_by(email: params[:email])
-    if !user.nil?
-      render json: UserSerializer.new(user), status: 200
-    else
-      render json: UserSerializer.error("This user is not found!"), status: 400
-    end
+    # user = User.find_by(email: params[:email])
+    # if !user.nil?
+    #   render json: UserSerializer.new(user), status: 200
+    # else
+    #   render json: UserSerializer.error("This user is not found!"), status: 400
+    # end
   end
 
   def create
