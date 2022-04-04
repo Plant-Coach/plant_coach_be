@@ -10,7 +10,7 @@ RSpec.describe 'User Sessions' do
       expect(response).to be_successful
 
       login_params = { email: 'joel@plantcoach.com', password: '12345' }
-      post '/api/v1/sessions', params: login_params, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
+      post '/api/v1/sessions', params: login_params #, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
 
       expect(response).to be_successful
     end
