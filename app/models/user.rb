@@ -7,4 +7,8 @@ class User < ApplicationRecord
 
   has_many :user_plants
   has_many :plants, through: :user_plants
+
+  def find_users_plants
+    plants.where('user_plants.user_id = ?', "#{self.id}")
+  end
 end
