@@ -20,15 +20,15 @@ RSpec.describe 'User Plants API Endpoint' do
         days_to_maturity: 54,
         hybrid_status: 1
       )
-      user = User.create!(
-        name: "Joel User",
-        email: 'joel@123.com',
-        password: "12345",
-        zip_code: 80123
-      )
-
+      # user = User.create!(
+      #   name: "Joel User",
+      #   email: 'joel@123.com',
+      #   password: "12345",
+      #   zip_code: 80123
+      # )
+      require 'pry'; binding.pry
       post '/api/v1/user_plants', params: {
-        user_id: user.id,
+        user_id: user_response[:user][:data][:id],
         plant_id: plant.id
         }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
