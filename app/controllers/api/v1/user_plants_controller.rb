@@ -19,7 +19,6 @@ class Api::V1::UserPlantsController < ApplicationController
   end
 
   def destroy
-    require 'pry'; binding.pry
     user_plant = UserPlant.find(params[:id])
     if user_plant != nil
       result = UserPlant.destroy(user_plant.id)
