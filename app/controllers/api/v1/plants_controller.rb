@@ -1,4 +1,9 @@
 class Api::V1::PlantsController < ApplicationController
+  def index
+    plants = Plant.all
+    render json: PlantSerializer.new(plants), status: :accepted
+  end
+
   def create
     plant = Plant.create(plant_params)
     # require 'pry'; binding.pry
