@@ -1,4 +1,9 @@
 class Api::V1::UserPlantsController < ApplicationController
+  def index
+    user_plants = @user.find_users_plants
+    render json: PlantSerializer.new(user_plants), status: 200
+  end
+
   def create
     user_plant = UserPlant.create(
       user_id: params[:user_id],
