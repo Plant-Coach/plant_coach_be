@@ -19,7 +19,7 @@ class Api::V1::UserPlantsController < ApplicationController
   end
 
   def destroy
-    user_plant = UserPlant.find(params[:id])
+    user_plant = @user.find_user_plant_by_plant_id(params[:id])
     if user_plant != nil
       result = UserPlant.destroy(user_plant.id)
       render json: UserPlantSerializer.confirm, status: 200
