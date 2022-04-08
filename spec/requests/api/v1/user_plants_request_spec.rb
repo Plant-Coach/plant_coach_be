@@ -159,9 +159,7 @@ RSpec.describe 'User Plants API Endpoint' do
       }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:data][:attributes][:id]).to eq(user_plant.id)
-      expect(result[:data][:attributes][:user_id]).to eq(user_response[:user][:data][:id].to_i)
-      expect(result[:data][:attributes][:plant_id]).to eq(plant.id)
+      expect(result[:status]).to eq("success")
     end
   end
 end
