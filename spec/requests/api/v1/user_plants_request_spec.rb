@@ -28,7 +28,7 @@ RSpec.describe 'User Plants API Endpoint' do
       new_plant = UserPlant.last
 
       expect(response).to be_successful
-      
+
       expect(new_plant.plant_id).to eq(plant.id)
 
       expect(result).to be_a Hash
@@ -154,7 +154,7 @@ RSpec.describe 'User Plants API Endpoint' do
         plant_id: plant.id
       )
       # Would like to refactor this to use params hash.
-      delete "/api/v1/user_plants/#{user_plant.id}", headers: {
+      delete "/api/v1/user_plants/#{plant.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
