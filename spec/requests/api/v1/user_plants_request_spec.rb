@@ -28,8 +28,14 @@ RSpec.describe 'User Plants API Endpoint' do
       new_plant = UserPlant.last
 
       expect(response).to be_successful
+      
       expect(new_plant.plant_id).to eq(plant.id)
-      # expect(new_plant.user_id).to eq(user.id)
+
+      expect(result).to be_a Hash
+      expect(result).to have_key(:data)
+
+      expect(result[:data]).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq(plant.name)
     end
 
     it 'will return a json error message if there was a problem' do
