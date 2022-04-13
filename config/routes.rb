@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :update]
       resources :user_plants, only: [:index, :create, :destroy]
       resources :sessions, only: [:create]
-      resources :forecast, only: [:create]
+      resources :forecast, only: [:index]
       resources :plants, only: [:index, :create, :update, :destroy]
     end
   end
