@@ -146,7 +146,14 @@ RSpec.describe 'Users API' do
 
       get '/api/v1/users', headers: { Authorization: "Bearer #{user_response[:jwt]}"}
       result = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
+
+      expect(result).to be_a Hash
+      expect(result[:data]).to be_a Hash
+      expect(result[:data]).to have_key(:attributes)
+      expect(result[:data][:attributes]).to have_key(:id)
+      expect(result[:data][:attributes]).to have_key(:name)
+      expect(result[:data][:attributes]).to have_key(:email)
+      expect(result[:data][:attributes]).to have_key(:zip_code)
     end
   end
 end
