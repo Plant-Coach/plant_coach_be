@@ -129,4 +129,31 @@ RSpec.describe 'Users API' do
       expect(result[:error]).to eq("User not found!!")
     end
   end
+
+  describe 'GET /users' do
+    it 'returns the users' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      get '/api/v1/users', headers: { Authorization: "Bearer #{user_response[:jwt]}"}
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to be_a Hash
+      expect(result[:data]).to be_a Hash
+      expect(result[:data]).to have_key(:attributes)
+      expect(result[:data][:attributes]).to have_key(:id)
+      expect(result[:data][:attributes]).to have_key(:name)
+      expect(result[:data][:attributes]).to have_key(:email)
+      expect(result[:data][:attributes]).to have_key(:zip_code)
+    end
+  end
 end
