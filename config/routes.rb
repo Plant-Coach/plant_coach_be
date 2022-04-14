@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :sessions, only: [:create]
       resources :forecast, only: [:index]
       resources :plants, only: [:index, :create, :update, :destroy]
+      resources :frost_dates, only: [:index]
     end
   end
 end
