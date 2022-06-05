@@ -31,6 +31,11 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    render status: 204
+  end
+
   private
   def user_params
     params.permit(:name, :email, :zip_code, :password, :password_confirmation)

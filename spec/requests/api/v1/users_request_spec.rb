@@ -156,4 +156,27 @@ RSpec.describe 'Users API' do
       expect(result[:data][:attributes]).to have_key(:zip_code)
     end
   end
+
+  describe 'DELETE /users' do
+    it 'deletes the users account and associations' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@requestspectests.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      get '/api/v1/users', headers: { Authorization: "Bearer #{user_response[:jwt]}"}
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      delete "/api/v1/users/#{result[:data][:id]}", headers: { Authorization: "Bearer #{user_response[:jwt]}" }
+
+      expect(response.status).to be 204
+    end
+  end
 end
