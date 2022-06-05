@@ -7,10 +7,4 @@ class UserSerializer
       "error": error_message
     }
   end
-
-  def self.delete(error_message)
-    {
-      "message": error_message
-    }
-  end
 end
