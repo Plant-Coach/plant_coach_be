@@ -7,4 +7,6 @@ class Plant < ApplicationRecord
 
   has_many :user_plants
   has_many :users, through: :user_plants
+
+  enum hybrid_status: [:open_pollinated, :f1]
 end

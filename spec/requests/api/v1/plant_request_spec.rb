@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Plant API Endpoints' do
   describe 'GET /plants' do
-    it 'retrieves all the plants that have been added to the application' do
+    it 'retrieves all the plants that have been added to the application by that user' do
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -13,6 +13,16 @@ RSpec.describe 'Plant API Endpoints' do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
+      # Created to make sure user's plants don't show up for other users
+      erroneous_user = {
+        name: 'Bad User',
+        email: 'bad@user.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+
+      post '/api/v1/users', params: erroneous_user
       expect(response).to be_successful
 
       plant1 = {
@@ -20,28 +30,35 @@ RSpec.describe 'Plant API Endpoints' do
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: :f1
       }
       plant2 = {
         plant_type: "Pepper",
         name: "Round of Hungary",
         days_relative_to_frost_date: 14,
         days_to_maturity: 60,
-        hybrid_status: 1
+        hybrid_status: :f1
       }
       plant3 = {
         plant_type: "Eggplant",
         name: "Rosa Bianca",
         days_relative_to_frost_date: 14,
         days_to_maturity: 68,
-        hybrid_status: 1
+        hybrid_status: :open_pollinated
       }
       plant4 = {
         plant_type: "Romaine Lettuce",
         name: "Costal Star",
         days_relative_to_frost_date: 30,
         days_to_maturity: 25,
-        hybrid_status: 1
+        hybrid_status: :f1
+      }
+      plant5 = {
+        plant_type: "Green Bean",
+        name: "Provider",
+        days_relative_to_frost_date: -7,
+        days_to_maturity: 45,
+        hybrid_status: :f1
       }
       post '/api/v1/plants', params: plant1, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
@@ -58,6 +75,11 @@ RSpec.describe 'Plant API Endpoints' do
       post '/api/v1/plants', params: plant4, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
+
+      post '/api/v1/plants', params: plant5, headers: {
+        Authorization: "Bearer #{erroneous_user[:jwt]}"
+      }
+
 
       get '/api/v1/plants', headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
@@ -92,7 +114,7 @@ RSpec.describe 'Plant API Endpoints' do
         expect(plant[:attributes][:days_to_maturity]).to be_an Integer
 
         expect(plant[:attributes]).to have_key(:hybrid_status)
-        expect(plant[:attributes][:hybrid_status]).to be_an Integer
+        expect(plant[:attributes][:hybrid_status]).to eq("f1").or eq("open_pollinated")
       end
     end
   end
@@ -116,7 +138,8 @@ RSpec.describe 'Plant API Endpoints' do
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1}
+        hybrid_status: :f1
+      }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
@@ -147,7 +170,8 @@ RSpec.describe 'Plant API Endpoints' do
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1)
+        hybrid_status: :f1
+      )
       patch "/api/v1/plants/#{plant.id}", params: {
         days_to_maturity: 61
         }, headers: {
@@ -178,21 +202,21 @@ RSpec.describe 'Plant API Endpoints' do
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
       plant2 = Plant.create(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
       plant3 = Plant.create(
         plant_type: "Radish",
         name: "French Breakfast",
         days_relative_to_frost_date: 30,
         days_to_maturity: 21,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
 
       delete "/api/v1/plants/#{plant3.id}", headers: {
@@ -221,21 +245,21 @@ RSpec.describe 'Plant API Endpoints' do
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
       plant2 = Plant.create(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
       plant3 = Plant.create(
         plant_type: "Radish",
         name: "French Breakfast",
         days_relative_to_frost_date: 30,
         days_to_maturity: 21,
-        hybrid_status: 1
+        hybrid_status: :f1
       )
       delete "/api/v1/plants/999999", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
