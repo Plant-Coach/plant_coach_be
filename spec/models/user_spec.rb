@@ -9,7 +9,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many(:user_plants) }
-    it { should have_many(:plants).through(:user_plants) }
+    it { should have_many(:plants) }
   end
 end
