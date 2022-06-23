@@ -14,14 +14,4 @@ class User < ApplicationRecord
   def find_user_plant_by_plant_id(id)
     user_plants.where(plant_id: id).first
   end
-
-  # Created it like this in order to maintain a many-to
-  # def create_unique_plant(plant_details)
-  #   existing_plant = plants.where('name = ?', plant_details["name"])
-  #   if existing_plant.empty?
-  #     Plant.create(plant_details)
-  #   else
-  #     "This plant already exists!"
-  #   end
-  # end
 end
