@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'User Plants API Endpoint' do
-  describe 'POST user plants' do
+RSpec.describe 'Garden Plants API Endpoint' do
+  describe 'POST garden plants' do
     it 'creates new plant that the user will be planting' do
       body = {
         name: 'Joel Grant',
@@ -13,15 +13,17 @@ RSpec.describe 'User Plants API Endpoint' do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      plant = Plant.create!(
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: 1,
+        organic: false
       )
 
-      post '/api/v1/user_plants', params: { plant_id: plant.id }, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -49,15 +51,17 @@ RSpec.describe 'User Plants API Endpoint' do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      plant = Plant.create!(
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: 1,
+        organic: false
       )
 
-      post '/api/v1/user_plants', params: { plant_id: "Useless Data"}, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: "Useless Data"}, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -66,7 +70,7 @@ RSpec.describe 'User Plants API Endpoint' do
     end
   end
 
-  describe 'GET /user_plants' do
+  describe 'GET /garden_plants' do
     it 'retrieves an array of the plants that belong to the user' do
       user_data = {
         name: 'Joel Grant',
@@ -78,37 +82,49 @@ RSpec.describe 'User Plants API Endpoint' do
       post '/api/v1/users', params: user_data
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      plant1 = Plant.create!(
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant1 = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: 1,
+        organic: false
       )
-      plant2 = Plant.create!(
+      plant2 = user.plants.create!(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
-        hybrid_status: 1
+        hybrid_status: 1,
+        organic: false
       )
-      unused_plant = Plant.create!(
+      unused_plant = user.plants.create!(
+        plant_type: "Something else",
+        name: "A plant you shouldn't see",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: 1,
+        organic: false
+      )
+      user.garden_plants.create!(
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: 1,
+        organic: false
+      )
+      user.garden_plants.create!(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
-        hybrid_status: 1
-      )
-      UserPlant.create(
-        user_id: user_response[:user][:data][:id],
-        plant_id: plant1.id
-      )
-      UserPlant.create(
-        user_id: user_response[:user][:data][:id],
-        plant_id: plant2.id
+        hybrid_status: 1,
+        organic: false
       )
 
-      get '/api/v1/user_plants', headers: {
+      get '/api/v1/garden_plants', headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -130,7 +146,7 @@ RSpec.describe 'User Plants API Endpoint' do
     end
   end
 
-  describe 'DELETE /user_plants' do
+  describe 'DELETE /garden_plants' do
     it 'removes the plant from the users list of plants' do
       body = {
         name: 'Joel Grant',
@@ -142,19 +158,26 @@ RSpec.describe 'User Plants API Endpoint' do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      plant = Plant.create!(
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
-        hybrid_status: 1
+        hybrid_status: 1,
+        organic: false
       )
-      user_plant = UserPlant.create(
-        user_id: user_response[:user][:data][:id],
-        plant_id: plant.id
+      # require 'pry'; binding.pry
+      user_plant = user.garden_plants.create!(
+          plant_type: "Tomato",
+          name: "Sungold",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 54,
+          hybrid_status: 1,
+          organic: false
       )
       # Would like to refactor this to use params hash.
-      delete "/api/v1/user_plants/#{plant.id}", headers: {
+      delete "/api/v1/garden_plants/#{plant.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
