@@ -5,8 +5,7 @@ class Plant < ApplicationRecord
                         :hybrid_status,
                         :days_relative_to_frost_date
 
-  has_many :user_plants
-  has_many :users, through: :user_plants
+  belongs_to :user
 
   enum hybrid_status: [:open_pollinated, :f1]
 end
