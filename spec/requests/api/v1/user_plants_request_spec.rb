@@ -125,7 +125,7 @@ RSpec.describe 'User Plants API Endpoint' do
         expect(plant[:attributes][:name]).to be_a String
         expect(plant[:attributes][:days_relative_to_frost_date]).to be_an Integer
         expect(plant[:attributes][:days_to_maturity]).to be_an Integer
-        expect(plant[:attributes][:hybrid_status]).to be_an Integer
+        expect(plant[:attributes][:hybrid_status]).to eq("f1").or eq("open_pollinated")
       end
     end
   end
