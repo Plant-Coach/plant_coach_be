@@ -164,8 +164,8 @@ RSpec.describe 'Plant API Endpoints' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-
-      plant = Plant.create(
+      user = User.last
+      plant = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
@@ -178,8 +178,7 @@ RSpec.describe 'Plant API Endpoints' do
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
-
-      expect(result[:data][0][:attributes][:days_to_maturity]).to eq(61)
+      expect(result[:data][:attributes][:days_to_maturity]).to eq(61)
     end
   end
 
@@ -196,22 +195,22 @@ RSpec.describe 'Plant API Endpoints' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-
-      plant1 = Plant.create(
+      user = User.last
+      plant1 = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: :f1
       )
-      plant2 = Plant.create(
+      plant2 = user.plants.create!(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
         hybrid_status: :f1
       )
-      plant3 = Plant.create(
+      plant3 = user.plants.create!(
         plant_type: "Radish",
         name: "French Breakfast",
         days_relative_to_frost_date: 30,
@@ -239,22 +238,22 @@ RSpec.describe 'Plant API Endpoints' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-
-      plant1 = Plant.create(
+      user = User.last
+      plant1 = user.plants.create!(
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: :f1
       )
-      plant2 = Plant.create(
+      plant2 = user.plants.create!(
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
         hybrid_status: :f1
       )
-      plant3 = Plant.create(
+      plant3 = user.plants.create!(
         plant_type: "Radish",
         name: "French Breakfast",
         days_relative_to_frost_date: 30,
