@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Plant, type: :model do
+RSpec.describe GardenPlant, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:plant_type) }
@@ -8,6 +8,7 @@ RSpec.describe Plant, type: :model do
     it { should validate_presence_of(:hybrid_status) }
     it { should validate_presence_of(:days_relative_to_frost_date) }
     it { should validate_uniqueness_of(:name) }
+    # Shouldamatchers recommends not validating boolean values.
   end
 
   describe 'relationships' do

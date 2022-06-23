@@ -1,4 +1,4 @@
-class Plant < ApplicationRecord
+class GardenPlant < ApplicationRecord
   validates_presence_of :name,
                         :plant_type,
                         :days_to_maturity,
@@ -10,5 +10,4 @@ class Plant < ApplicationRecord
   belongs_to :user
 
   enum hybrid_status: [:open_pollinated, :f1]
-  # enum organic: [true, false]
 end

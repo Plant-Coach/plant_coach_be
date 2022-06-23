@@ -5,8 +5,8 @@ class User < ApplicationRecord
   validates_presence_of :password_digest
   has_secure_password
 
-  has_many :user_plants
-  has_many :plants, through: :user_plants
+  has_many :plants
+  has_many :garden_plants
 
   def find_users_plants
     plants.where('user_plants.user_id = ?', "#{self.id}")
