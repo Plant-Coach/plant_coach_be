@@ -1,6 +1,8 @@
 class Api::V1::GardenPlantsController < ApplicationController
   def index
+    # Access all of the garden plants for the authenticated user.
     garden_plants = @user.garden_plants
+    # Send in JSON
     render json: GardenPlantSerializer.new(garden_plants), status: 200
   end
 
