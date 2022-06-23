@@ -27,17 +27,17 @@ RSpec.describe 'Garden Plants API Endpoint' do
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
-      new_plant = UserPlant.last
+      new_plant = GardenPlant.last
 
       expect(response).to be_successful
 
-      expect(new_plant.plant_id).to eq(plant.id)
+      expect(new_plant.id).to eq(result[:data][:id].to_i)
 
       expect(result).to be_a Hash
       expect(result).to have_key(:data)
 
       expect(result[:data]).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq(plant.name)
+      expect(result[:data][:attributes][:name]).to eq(new_plant.name)
     end
 
     it 'will return a json error message if there was a problem' do
@@ -61,7 +61,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: "Useless Data"}, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: 99999999999}, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -168,7 +168,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
       # require 'pry'; binding.pry
-      user_plant = user.garden_plants.create!(
+      garden_plant = user.garden_plants.create!(
           plant_type: "Tomato",
           name: "Sungold",
           days_relative_to_frost_date: 14,
@@ -177,7 +177,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
           organic: false
       )
       # Would like to refactor this to use params hash.
-      delete "/api/v1/garden_plants/#{plant.id}", headers: {
+      delete "/api/v1/garden_plants/#{garden_plant.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
