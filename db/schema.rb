@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_29_001229) do
+ActiveRecord::Schema.define(version: 2022_06_23_154321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "garden_plants", force: :cascade do |t|
+    t.string "name"
+    t.integer "days_to_maturity"
+    t.integer "hybrid_status"
+    t.integer "days_relative_to_frost_date"
+    t.string "plant_type"
+    t.bigint "user_id"
+    t.boolean "organic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_garden_plants_on_user_id"
+  end
 
   create_table "plants", force: :cascade do |t|
     t.string "name"
@@ -23,13 +36,8 @@ ActiveRecord::Schema.define(version: 2022_03_29_001229) do
     t.datetime "updated_at", null: false
     t.integer "days_relative_to_frost_date"
     t.string "plant_type"
-  end
-
-  create_table "user_plants", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "plant_id"
-    t.index ["plant_id"], name: "index_user_plants_on_plant_id"
-    t.index ["user_id"], name: "index_user_plants_on_user_id"
+    t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +49,6 @@ ActiveRecord::Schema.define(version: 2022_03_29_001229) do
     t.string "zip_code"
   end
 
-  add_foreign_key "user_plants", "plants"
-  add_foreign_key "user_plants", "users"
+  add_foreign_key "garden_plants", "users"
+  add_foreign_key "plants", "users"
 end
