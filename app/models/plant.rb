@@ -3,8 +3,8 @@ class Plant < ApplicationRecord
                         :plant_type,
                         :days_to_maturity,
                         :hybrid_status,
-                        :days_relative_to_frost_date,
-                        :organic
+                        :days_relative_to_frost_date
+  validates_inclusion_of :organic, in: [true, false]
   validates_uniqueness_of :name
 
   belongs_to :user
