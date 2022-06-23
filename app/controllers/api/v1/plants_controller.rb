@@ -1,18 +1,19 @@
 class Api::V1::PlantsController < ApplicationController
   def index
-    plants = Plant.all
+    plants = @user.plants
     render json: PlantSerializer.new(plants), status: :accepted
   end
 
   def create
-    plant = Plant.create(plant_params)
+    plant = @user.plants.create(plant_params)
     if plant.save
       render json: PlantSerializer.new(plant), status: 201
     end
   end
 
   def update
-    plant = Plant.update(plant_params)
+    plant = Plant.find(params[:id])
+    updated_plant = plant.update(plant_params)
     render json: PlantSerializer.new(plant), status: 200
   end
 
