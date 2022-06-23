@@ -8,7 +8,6 @@ class GardenPlant < ApplicationRecord
   validates_uniqueness_of :name
 
   belongs_to :user
-  
+
   enum hybrid_status: [:open_pollinated, :f1]
-  enum organic: [true, false]
 end
