@@ -7,7 +7,7 @@ class CreateGardenPlant < ActiveRecord::Migration[5.2]
       t.integer :days_relative_to_frost_date
       t.string :plant_type
       t.references :user, foreign_key: true
-      t.boolean :organic
+      t.boolean :organic, null: false, default: false
 
       t.timestamps
     end

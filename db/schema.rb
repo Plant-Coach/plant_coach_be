@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_160955) do
     t.integer "days_relative_to_frost_date"
     t.string "plant_type"
     t.bigint "user_id"
-    t.boolean "organic"
+    t.boolean "organic", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_160955) do
     t.integer "days_relative_to_frost_date"
     t.string "plant_type"
     t.bigint "user_id"
-    t.boolean "organic"
+    t.boolean "organic", default: false, null: false
     t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
