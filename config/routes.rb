@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :forecast, only: [:index]
       resources :plants, only: [:index, :create, :update, :destroy]
       resources :frost_dates, only: [:index]
+      resources :alert_check, only: [:create]
+      resources :weather_alerts, only: [:create]
     end
   end
 end

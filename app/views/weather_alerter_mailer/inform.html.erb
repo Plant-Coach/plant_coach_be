@@ -1,0 +1,17 @@
+Hello <%= @name %>!
+
+A weather alert has been detected for your area that could affect your garden!
+
+Alert:
+
+<% @alerts.each do |alert| %>
+  <p><%= alert.sender_name %></p>
+  <p><%= alert.event %></p>
+  <p><%= alert.start %></p>
+  <p><%= alert.end %></p>
+  <p><%= alert.description %></p>
+  <p><%= alert.tags %></p>
+<% end %>
+
+
+Thank you for using Grant's Plants!
