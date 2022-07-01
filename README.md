@@ -5,7 +5,6 @@
 - 🌱 Heroku
 - 🌱 Circle CI
 - 🌱 JWT
-- 🌱 Redis
 - 🌱 RSpec
 
 
