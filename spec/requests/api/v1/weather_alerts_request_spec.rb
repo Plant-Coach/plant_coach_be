@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Weather Alerts API Endpoints' do
-  describe 'POST /weather_alerts Endpoint' do
+  # Intentionally commented out to avoid emails being sent
+  xdescribe 'POST /weather_alerts Endpoint' do
     it 'accepts a list of alerts and the users they belong to' do
       user1 = {
         name: 'Joel Grant1',
