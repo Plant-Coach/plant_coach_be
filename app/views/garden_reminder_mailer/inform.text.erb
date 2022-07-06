@@ -1,0 +1,12 @@
+Hello <%= @name %>!
+
+You have the following reminders that you set for your garden!  Don't be lazy!
+Reminder:
+
+<% @reminders.each do |reminder| %>
+  <p><%= reminder.reminder_type %></p>
+  <p><%= reminder.description %></p>
+<% end %>
+
+
+Thank you for using Grant's Plants!
