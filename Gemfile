@@ -30,6 +30,7 @@ gem 'figaro'
 gem 'jsonapi-serializer'
 gem 'rspec_junit_formatter'
 gem 'jwt'
+gem 'coderay'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
