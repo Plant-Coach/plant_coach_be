@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Garden Reminder API Endpoints' do
-  # Intentionally commented out to avoid emails being sent
   describe 'POST /garden_reminder Endpoint' do
-    it 'allows an email reminder to be triggered and sent to a user' do
+    # Intentionally commented out to avoid emails being sent
+    xit 'allows an email reminder to be triggered and sent to a user' do
       user1 = {
         name: 'Joel Grant1',
         email: 'joel1@plantcoach.com',
@@ -41,13 +41,17 @@ RSpec.describe 'Garden Reminder API Endpoints' do
           }
         ]
       }]
-      post '/api/v1/garden_reminder', headers: { Auth: "qwerty", alert: body }
+      post '/api/v1/garden_reminder', headers: { Auth: ENV['microservice_key'], alert: body }
+      result = JSON.parse(response.body, symbolize_names: true)
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       email = ActionMailer::Base.deliveries.last
 
       expect(email.subject).to eq("#{user3[:name]}, you have a reminder to do!")
       expect(email.reply_to).to eq(['test@plants.asdf'])
+
+      expect(result).to have_key(:message)
+      expect(result[:message]).to eq("Reminder sent.")
     end
 
     it 'responds with a confirmation' do
