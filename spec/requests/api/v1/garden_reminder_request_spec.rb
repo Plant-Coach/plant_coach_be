@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Garden Reminder API Endpoints' do
   describe 'POST /garden_reminder Endpoint' do
     # Intentionally commented out to avoid emails being sent
-    it 'allows an email reminder to be triggered and sent to a user' do
+    xit 'allows an email reminder to be triggered and sent to a user' do
       user1 = {
         name: 'Joel Grant1',
         email: 'joel1@plantcoach.com',
