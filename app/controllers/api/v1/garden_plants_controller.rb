@@ -3,7 +3,7 @@ class Api::V1::GardenPlantsController < ApplicationController
     # Access all of the garden plants for the authenticated user.
     garden_plants = @user.garden_plants
     # Send in JSON
-    render json: GardenPlantSerializer.new(garden_plants), status: 200
+    render json: PlantSerializer.new(garden_plants), status: 200
   end
 
   def create
@@ -26,11 +26,11 @@ class Api::V1::GardenPlantsController < ApplicationController
         organic: plant.organic
       )
       # Return the newly created GardenPlant object to the FE
-      render json: GardenPlantSerializer.new(garden_plant)
+      render json: PlantSerializer.new(garden_plant)
     else
       # Return a generic error, though this should never be able to happen due
       # to controls that happen before this.
-      render json: GardenPlantSerializer.error("There was a problem."), status: 400
+      render json: PlantSerializer.error("There was a problem."), status: 400
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::GardenPlantsController < ApplicationController
     garden_plant = @user.garden_plants.where(id: params[:id]).first
     if !garden_plant.nil?
       result = GardenPlant.destroy(garden_plant.id)
-      render json: GardenPlantSerializer.confirm, status: 200
+      render json: PlantSerializer.confirm, status: 200
     end
   end
 end
