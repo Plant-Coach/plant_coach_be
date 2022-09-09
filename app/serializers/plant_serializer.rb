@@ -1,14 +1,23 @@
 class PlantSerializer
   include JSONAPI::Serializer
-  attributes  :plant_type,
+  attributes  :id,
               :name,
+              :plant_type,
               :days_relative_to_frost_date,
               :days_to_maturity,
-              :hybrid_status
+              :hybrid_status,
+              :organic
 
-  def self.error(error_message)
+
+  def self.error(message)
     {
-      "error": error_message
+      "error": message
+    }
+  end
+
+  def self.confirm
+    {
+      "status": "success"
     }
   end
 end
