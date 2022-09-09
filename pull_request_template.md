@@ -1,8 +1,9 @@
-What changed?
+What was the change?
 
 - [ ] Bug fix
 - [ ] New Feature (non-breaking change that adds functionality)
 - [ ] This change requires an update to documentation
+- [ ] Refactor
 
 Description of changes:
 
@@ -14,5 +15,6 @@ Description of changes:
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 - [ ] Any dependent changes have been merged and published in downstream modules
+- [ ] I have verified this change doesn't adversely affect another microservice, and if it does, I have opened an issue.
 
 SimpleCov test coverage:
