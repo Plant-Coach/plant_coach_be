@@ -5,7 +5,7 @@ class GardenPlant < ApplicationRecord
                         :hybrid_status,
                         :days_relative_to_frost_date
   validates_inclusion_of :organic, in: [true, false]
-  validates_uniqueness_of :name
+  validates :name, presence: true, uniqueness: { scope: :user_id }
 
   belongs_to :user
 
