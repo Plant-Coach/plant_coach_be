@@ -7,7 +7,7 @@ RSpec.describe GardenPlant, type: :model do
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }
     it { should validate_presence_of(:days_relative_to_frost_date) }
-    it { should validate_uniqueness_of(:name) }
+    it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
     # Shouldamatchers recommends not validating boolean values.
   end
 
