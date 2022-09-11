@@ -12,5 +12,4 @@ class Plant < ApplicationRecord
   belongs_to :user
 
   enum hybrid_status: [:open_pollinated, :f1]
-  # enum organic: [true, false]
 end
