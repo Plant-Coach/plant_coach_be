@@ -1,8 +1,9 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
+  # This is currently being used similarly to a show action.
   def index
-    if !@user.nil?
+    if @user
       render json: UserSerializer.new(@user), status: 200
     end
   end
@@ -21,6 +22,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # Allows a user to edit their details.
   def update
     user = User.find_by(id: params[:id])
     if !user.nil?

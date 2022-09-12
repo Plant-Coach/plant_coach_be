@@ -1,11 +1,10 @@
 class Api::V1::SessionsController < ApplicationController
   skip_before_action :authorized, only: [:create]
-  
+
   def create
     user = User.find_by(email: params[:email])
 
-    # Try changing !user.nil? to just user
-    if !user.nil? && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password]) # Changed from !user.nil? to just user.
       token = encode_token({ user_id: user.id})
       render json: { user: SessionsSerializer.new(user), jwt: token }, status: :accepted
     elsif user.nil?
