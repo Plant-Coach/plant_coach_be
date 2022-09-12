@@ -34,6 +34,8 @@ class Api::V1::GardenPlantsController < ApplicationController
     end
   end
 
+  # Destroying a GardenPlant object only means that the user is not planting it
+  # in their garden.  Will still retain the plant as a Plant object.
   def destroy
     garden_plant = @user.garden_plants.where(id: params[:id]).first
     if !garden_plant.nil?

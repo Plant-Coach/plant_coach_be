@@ -1,6 +1,8 @@
 class Api::V1::GardenReminderController < ApplicationController
+  # Skipped since this is available for a microservice and not a user request.
   skip_before_action :authorized, only: [:create]
 
+  # Triggers a reminder email to be sent.
   def create
     if request.headers['Auth'] == ENV['microservice_key']
       # Intentionally commented out
