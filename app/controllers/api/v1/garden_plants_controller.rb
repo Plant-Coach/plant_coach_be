@@ -16,6 +16,7 @@ class Api::V1::GardenPlantsController < ApplicationController
     if !plant_result.empty?
       # Now grab the plant object from the array since we know it exists.
       plant = plant_result.first
+      # Move to a model.
       # Copy all of the plant into the new Garden Plant that the user will plant.
       garden_plant = @user.garden_plants.create(
         plant_type: plant.plant_type,
