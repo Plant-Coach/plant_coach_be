@@ -38,7 +38,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
       expect(result[:data]).to be_a Hash
       expect(result[:data][:attributes][:name]).to eq(new_plant.name)
-
+      require 'pry'; binding.pry
       expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
     end
 
