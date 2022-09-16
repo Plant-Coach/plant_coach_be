@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_160955) do
+ActiveRecord::Schema.define(version: 2022_09_16_004428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_160955) do
     t.boolean "organic", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "recommended_transplant_date"
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end
 
@@ -48,6 +49,8 @@ ActiveRecord::Schema.define(version: 2022_06_23_160955) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "zip_code"
+    t.string "spring_frost_dates"
+    t.string "fall_frost_dates"
   end
 
   add_foreign_key "garden_plants", "users"

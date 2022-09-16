@@ -38,9 +38,11 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
       expect(result[:data]).to be_a Hash
       expect(result[:data][:attributes][:name]).to eq(new_plant.name)
-    end
 
-    it 'will return a json error message if there was a problem' do
+      expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
+    end
+    #likely to delete
+    xit 'will return a json error message if there was a problem' do
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',

@@ -6,7 +6,12 @@ class ApplicationController < ActionController::API
   end
 
   def user_already_exists
-    User.find_by(email: params[:email])
+    result = User.find_by(email: params[:email])
+    if result.nil?
+      false
+    else
+      true
+    end
   end
 
   def email_formatted_incorrectly(user)
