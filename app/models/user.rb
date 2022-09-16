@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # USers can have garden plants.
   has_many :garden_plants
 
-  after_validation :establish_and_save_frost_dates
+  before_create :establish_and_save_frost_dates
 
   # Returns the zip codes of all users in the database.  The corresponding
   # ids are also returned.
