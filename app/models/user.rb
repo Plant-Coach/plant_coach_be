@@ -11,9 +11,16 @@ class User < ApplicationRecord
   # USers can have garden plants.
   has_many :garden_plants
 
+  after_create :establish_and_save_frost_dates
+
   # Returns the zip codes of all users in the database.  The corresponding
   # ids are also returned.
   def self.all_zip_codes
     all.select(:id, :zip_code)
+  end
+  def establish_and_save_frost_dates
+    frost_dates = FrostDateFacade.get_frost_dates(self.zip_code)
+    self.spring_frost_dates = frost_dates.spring_frost
+    self.fall_frost_dates = frost_dates.fall_frost
   end
 end
