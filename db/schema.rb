@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_16_004428) do
+ActiveRecord::Schema.define(version: 2022_09_20_183641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,23 @@ ActiveRecord::Schema.define(version: 2022_09_16_004428) do
     t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
+  create_table "seed_actions", force: :cascade do |t|
+    t.bigint "garden_plant_id"
+    t.bigint "seed_coaching_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["garden_plant_id"], name: "index_seed_actions_on_garden_plant_id"
+    t.index ["seed_coaching_id"], name: "index_seed_actions_on_seed_coaching_id"
+  end
+
+  create_table "seed_coachings", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "days_to_remind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "password_digest"
@@ -55,4 +72,6 @@ ActiveRecord::Schema.define(version: 2022_09_16_004428) do
 
   add_foreign_key "garden_plants", "users"
   add_foreign_key "plants", "users"
+  add_foreign_key "seed_actions", "garden_plants"
+  add_foreign_key "seed_actions", "seed_coachings"
 end
