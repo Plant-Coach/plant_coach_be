@@ -4,6 +4,7 @@ What was the change?
 - [ ] New Feature (non-breaking change that adds functionality)
 - [ ] This change requires an update to documentation
 - [ ] Refactor
+- [ ] Database structure changes
 
 Description of changes:
 
