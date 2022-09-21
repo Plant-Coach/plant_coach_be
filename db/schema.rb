@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_20_202943) do
+ActiveRecord::Schema.define(version: 2022_09_21_032336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "garden_plant_actions", force: :cascade do |t|
+    t.bigint "garden_plant_id"
+    t.bigint "garden_plant_coaching_id"
+    t.index ["garden_plant_coaching_id"], name: "index_garden_plant_actions_on_garden_plant_coaching_id"
+    t.index ["garden_plant_id"], name: "index_garden_plant_actions_on_garden_plant_id"
+  end
 
   create_table "garden_plant_coachings", force: :cascade do |t|
     t.string "title"
@@ -78,6 +85,8 @@ ActiveRecord::Schema.define(version: 2022_09_20_202943) do
     t.string "fall_frost_dates"
   end
 
+  add_foreign_key "garden_plant_actions", "garden_plant_coachings"
+  add_foreign_key "garden_plant_actions", "garden_plants"
   add_foreign_key "garden_plants", "users"
   add_foreign_key "plants", "users"
   add_foreign_key "seed_actions", "garden_plants"
