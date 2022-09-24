@@ -8,7 +8,7 @@ RSpec.describe GardenCoaching, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many(:users) }
-    it { should have_many(:users).through(:user_garden_coachings) }
+    it { should have_many(:garden_user_coachings) }
+    it { should have_many(:users).through(:garden_user_coachings) }
   end
 end
