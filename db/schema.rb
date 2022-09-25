@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_25_035225) do
+ActiveRecord::Schema.define(version: 2022_09_25_171104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(version: 2022_09_25_035225) do
     t.string "title"
     t.string "description"
     t.integer "days_to_remind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seed_default_data", force: :cascade do |t|
+    t.string "plant_type"
+    t.integer "days_to_maturity"
+    t.integer "seed_days_to_transplant"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
