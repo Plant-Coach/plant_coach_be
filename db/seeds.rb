@@ -128,3 +128,19 @@ watermelon = PlantingGuide.create(
   plant_type: "watermelon",
   description: "<description_placeholder>"
 )
+
+tomato_seed = SeedDefaultData.create(
+  plant_type: "Tomato",
+  days_to_maturity: 55,
+  seed_days_to_transplant: 49
+)
+pepper_seed = SeedDefaultData.create(
+  plant_type: "Pepper",
+  days_to_maturity: 64,
+  seed_days_to_transplant: 49
+)
+eggplant_seed = SeedDefaultData.create(
+  plant_type: "Eggplant",
+  days_to_maturity: 68,
+  seed_days_to_transplant: 49
+)
