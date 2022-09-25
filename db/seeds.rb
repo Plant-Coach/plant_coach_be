@@ -43,3 +43,88 @@ user.garden_plants.create(name: "Provider", plant_type: "Pole Bean", days_relati
 
 user2.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
 user2.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
+
+basil = PlantingGuide.create(
+  plant_type: "Basil",
+  description: "<description_placeholder>"
+)
+broccoli  = PlantingGuide.create(
+  plant_type: "broccoli",
+  description: "<description_placeholder>"
+)
+cabbage  = PlantingGuide.create(
+  plant_type: "cabbage",
+  description: "<description_placeholder>"
+)
+cauliflower  = PlantingGuide.create(
+  plant_type: "cauliflower",
+  description: "<description_placeholder>"
+)
+celery  = PlantingGuide.create(
+  plant_type: "celery",
+  description: "<description_placeholder>"
+)
+cucumber  = PlantingGuide.create(
+  plant_type: "cucumber",
+  description: "<description_placeholder>"
+)
+eggplant  = PlantingGuide.create(
+  plant_type: "eggplant",
+  description: "<description_placeholder>"
+)
+kale  = PlantingGuide.create(
+  plant_type: "kale",
+  description: "<description_placeholder>"
+)
+leeks  = PlantingGuide.create(
+  plant_type: "leeks",
+  description: "<description_placeholder>"
+)
+lettuce  = PlantingGuide.create(
+  plant_type: "lettuce",
+  description: "<description_placeholder>"
+)
+melons  = PlantingGuide.create(
+  plant_type: "melons",
+  description: "<description_placeholder>"
+)
+onions  = PlantingGuide.create(
+  plant_type: "onions",
+  description: "<description_placeholder>"
+)
+parsley  = PlantingGuide.create(
+  plant_type: "parsley",
+  description: "<description_placeholder>"
+)
+peas  = PlantingGuide.create(
+  plant_type: "peas",
+  description: "<description_placeholder>"
+)
+peppers  = PlantingGuide.create(
+  plant_type: "peppers",
+  description: "<description_placeholder>"
+)
+pumpkins  = PlantingGuide.create(
+  plant_type: "pumpkins",
+  description: "<description_placeholder>"
+)
+spinach = PlantingGuide.create(
+  plant_type: "spinach",
+  description: "<description_placeholder>"
+)
+squash = PlantingGuide.create(
+  plant_type: "squash",
+  description: "<description_placeholder>"
+)
+swiss_chard = PlantingGuide.create(
+  plant_type: "swiss_chard",
+  description: "<description_placeholder>"
+)
+tomatoes = PlantingGuide.create(
+  plant_type: "tomatoes",
+  description: "<description_placeholder>"
+)
+watermelon = PlantingGuide.create(
+  plant_type: "watermelon",
+  description: "<description_placeholder>"
+)
