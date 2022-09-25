@@ -147,3 +147,15 @@ eggplant_seed = SeedDefaultData.create(
   seed_days_to_transplant: 49,
   days_relative_to_frost_date: 14
 )
+romaine_seed = SeedDefaultData.create(
+  plant_type: "Romaine Lettuce",
+  days_to_maturity: 35,
+  seed_days_to_transplant: 14,
+  days_relative_to_frost_date: -28
+)
+green_bean_seed = SeedDefaultData.create(
+  plant_type: "Green Bean",
+  days_to_maturity: 52,
+  seed_days_to_transplant: 14,
+  days_relative_to_frost_date: 0
+)
