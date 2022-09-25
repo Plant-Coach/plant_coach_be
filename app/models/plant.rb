@@ -17,5 +17,5 @@ class Plant < ApplicationRecord
   belongs_to :user
 
   # Hybrid Status can only be categorized as these two enumerables.
-  enum hybrid_status: [:open_pollinated, :f1]
+  enum hybrid_status: [:unknown, :open_pollinated, :f1]
 end
