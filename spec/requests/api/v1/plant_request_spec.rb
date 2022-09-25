@@ -167,6 +167,7 @@ RSpec.describe 'Plant API Endpoints' do
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
+        organic: true,
         days_to_maturity: 54
       }
       post '/api/v1/plants', params: plant, headers: {
@@ -179,6 +180,65 @@ RSpec.describe 'Plant API Endpoints' do
       expect(response).to be_successful
 
       expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+    end
+
+    it 'will create a new plant even if the organic status is not known' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to_not have_key(:error)
+
+      expect(response).to be_successful
+
+      expect(result[:data][:attributes][:organic]).to eq(false)
+    end
+
+    xit 'will replace information with default data that the user does not provide' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Sungold")
     end
   end
 
