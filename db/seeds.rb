@@ -132,15 +132,18 @@ watermelon = PlantingGuide.create(
 tomato_seed = SeedDefaultData.create(
   plant_type: "Tomato",
   days_to_maturity: 55,
-  seed_days_to_transplant: 49
+  seed_days_to_transplant: 49,
+  days_relative_to_frost_date: 14
 )
 pepper_seed = SeedDefaultData.create(
   plant_type: "Pepper",
   days_to_maturity: 64,
-  seed_days_to_transplant: 49
+  seed_days_to_transplant: 49,
+  days_relative_to_frost_date: 14
 )
 eggplant_seed = SeedDefaultData.create(
   plant_type: "Eggplant",
   days_to_maturity: 68,
-  seed_days_to_transplant: 49
+  seed_days_to_transplant: 49,
+  days_relative_to_frost_date: 14
 )
