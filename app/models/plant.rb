@@ -18,4 +18,21 @@ class Plant < ApplicationRecord
 
   # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
+
+  after_initialize :set_defaults, unless: :skip_callbacks
+
+  def get_default_maturity_date
+    SeedDefaultData.find_by(plant_type: plant_type).days_to_maturity
+  end
+
+  def get_default_frost_date
+    SeedDefaultData.find_by(plant_type: plant_type).days_relative_to_frost_date
+  end
+
+  private
+
+  def set_defaults
+    self.days_to_maturity = get_default_maturity_date if days_to_maturity.nil?
+    self.days_relative_to_frost_date = get_default_frost_date if days_relative_to_frost_date.nil?
+  end
 end
