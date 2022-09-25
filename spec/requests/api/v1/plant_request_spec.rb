@@ -317,7 +317,7 @@ RSpec.describe 'Plant API Endpoints' do
       expect(Plant.find_by(id: plant3.id)).to be nil
     end
 
-    it 'returns an error if the plant cant be found' do
+    it 'returns an error if the plant can not be found' do
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
