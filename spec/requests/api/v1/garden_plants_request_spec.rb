@@ -43,7 +43,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, plant_now: "yes"}, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.today }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -177,6 +177,73 @@ RSpec.describe 'Garden Plants API Endpoint' do
         expect(plant[:attributes][:days_to_maturity]).to be_an Integer
         expect(plant[:attributes][:hybrid_status]).to eq("f1").or eq("open_pollinated")
       end
+    end
+  end
+
+  describe 'PATCH /garden_plants' do
+    it 'allows the user to add an actual planting date to an existing garden_plant which also updates the planting status' do
+      tomato_seed = SeedDefaultData.create(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
+      user_data = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: user_data
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant = user.plants.create!(
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: 1,
+        organic: false
+      )
+
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+          Authorization: "Bearer #{user_response[:jwt]}"
+        }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+      garden_plant = GardenPlant.last
+
+      expect(response).to be_successful
+
+      expect(garden_plant.id).to eq(result[:data][:id].to_i)
+
+      expect(result).to be_a Hash
+      expect(result).to have_key(:data)
+
+      expect(result[:data]).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq(garden_plant.name)
+
+      expect(result[:data][:attributes]).to have_key(:name)
+      expect(result[:data][:attributes]).to have_key(:plant_type)
+      expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
+      expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
+      expect(result[:data][:attributes]).to have_key(:days_to_maturity)
+      expect(result[:data][:attributes]).to have_key(:hybrid_status)
+      expect(result[:data][:attributes]).to have_key(:organic)
+      expect(result[:data][:attributes]).to have_key(:planting_status)
+      expect(result[:data][:attributes]).to have_key(:start_from_seed)
+      expect(result[:data][:attributes]).to have_key(:direct_seed)
+      expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
+      expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
+      expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
+
+      patch "/api/v1/garden_plants/#{garden_plant.id}", params: { actual_seed_sewing_date: Date.yesterday }
+
+      patch_result = JSON.parse(response.body, symbolize_names: true)
+      require 'pry'; binding.pry
     end
   end
 
