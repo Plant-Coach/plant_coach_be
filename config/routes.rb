@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :frost_dates, only: [:index]
       resources :alert_check, only: [:create]
       resources :garden_reminder, only: [:create]
+      resources :started_indoor_seeds, only: [:index]
     end
   end
 end

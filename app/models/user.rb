@@ -59,4 +59,14 @@ class User < ApplicationRecord
     self.spring_frost_dates = frost_dates.spring_frost
     self.fall_frost_dates = frost_dates.fall_frost
   end
+
+  def started_indoor_seeds
+    GardenPlant.where(
+                      start_from_seed: true,
+                      direct_seed: false,
+                      planting_status: "started",
+                      actual_transplant_date: nil
+                    )
+               .order('projected_seedling_transplant_date ASC')
+  end
 end

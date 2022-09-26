@@ -5,5 +5,5 @@ class SeedDefaultData < ApplicationRecord
                         :days_relative_to_frost_date,
                         :direct_seed
 
-  enum direct_seed: [:yes, :no, :either]
+  # enum direct_seed: [:yes, :no, :either]
 end

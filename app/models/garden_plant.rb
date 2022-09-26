@@ -7,7 +7,7 @@ class GardenPlant < ApplicationRecord
                         :hybrid_status,
                         :days_relative_to_frost_date,
                         :recommended_transplant_date,
-                        :direct_seed,
+                        # :direct_seed,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :start_from_seed,
