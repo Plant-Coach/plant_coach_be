@@ -19,8 +19,16 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def create_garden_plant(basic_plant_data, start_from_seed)
-    require 'pry'; binding.pry
+  def planting_status_maker(decision)
+    if decision == "yes"
+      return "planted"
+    elsif decision == "no"
+      return "not planted"
+    end
+  end
+
+  def create_garden_plant(basic_plant_data, start_from_seed, plant_now)
+    # require 'pry'; binding.pry
     garden_plants.create(
       name: basic_plant_data[:name],
       days_to_maturity: basic_plant_data[:days_to_maturity],
@@ -30,7 +38,10 @@ class User < ApplicationRecord
       organic: basic_plant_data[:organic],
       recommended_transplant_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date],
       direct_seed: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).direct_seed,
-      start_from_seed: start_from_seed
+      start_from_seed: start_from_seed,
+      recommended_seed_sewing_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date] - SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
+      seedling_days_to_transplant: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
+      planting_status: planting_status_maker(plant_now)# Statuses: Waiting sewing, sewed, transplanted_outside, harvest, finished
     )
 
   end
