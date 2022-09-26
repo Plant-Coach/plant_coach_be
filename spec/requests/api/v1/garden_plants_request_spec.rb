@@ -1,29 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe 'Garden Plants API Endpoint' do
+  before(:each) do
+    @tomato_seed = SeedDefaultData.create!(
+      plant_type: "Tomato",
+      days_to_maturity: 55,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: false
+    )
+    pepper_seed = SeedDefaultData.create!(
+      plant_type: "Pepper",
+      days_to_maturity: 64,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: false
+    )
+    eggplant_seed = SeedDefaultData.create!(
+      plant_type: "Eggplant",
+      days_to_maturity: 68,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: false
+    )
+  end
+
   describe 'POST garden plants' do
     it 'creates new plant that the user will be planting' do
-      tomato_seed = SeedDefaultData.create(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
-      pepper_seed = SeedDefaultData.create(
-        plant_type: "Pepper",
-        days_to_maturity: 64,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
-      eggplant_seed = SeedDefaultData.create(
-        plant_type: "Eggplant",
-        days_to_maturity: 68,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -106,20 +109,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
   describe 'GET /garden_plants' do
     it 'retrieves an array of the plants that belong to the user' do
-      tomato_seed = SeedDefaultData.create(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
-      pepper_seed = SeedDefaultData.create(
-        plant_type: "Pepper",
-        days_to_maturity: 64,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -204,13 +193,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
   describe 'PATCH /garden_plants' do
     it 'allows the user to add an actual planting date to an existing garden_plant which also updates the planting status' do
-      tomato_seed = SeedDefaultData.create(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -273,17 +255,10 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
       expect(patch_result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.yesterday)
       expect(patch_result[:data][:attributes][:planting_status]).to eq("started")
-      expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + tomato_seed.seedling_days_to_transplant).to_s)
+      expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + @tomato_seed.seedling_days_to_transplant).to_s)
     end
 
     it 'will add a transplant date to the garden_plant object when giving a plant a transplant date' do
-      tomato_seed = SeedDefaultData.create(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -343,13 +318,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
   describe 'DELETE /garden_plants' do
     it 'removes the plant from the users list of plants' do
-      tomato_seed = SeedDefaultData.create(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: :no
-      )
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
