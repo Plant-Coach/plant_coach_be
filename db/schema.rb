@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_26_025436) do
+ActiveRecord::Schema.define(version: 2022_09_26_182935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2022_09_26_025436) do
     t.date "actual_seed_sewing_date"
     t.boolean "direct_seed"
     t.integer "seedling_days_to_transplant"
+    t.date "projected_seedling_transplant_date"
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end
 
