@@ -23,4 +23,5 @@ class GardenPlant < ApplicationRecord
 
   # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
+  enum planting_status: ["not planted", "planted"]
 end
