@@ -128,3 +128,39 @@ watermelon = PlantingGuide.create(
   plant_type: "watermelon",
   description: "<description_placeholder>"
 )
+
+tomato_seed = SeedDefaultData.create(
+  plant_type: "Tomato",
+  days_to_maturity: 55,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed: :no
+)
+pepper_seed = SeedDefaultData.create(
+  plant_type: "Pepper",
+  days_to_maturity: 64,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed: :no
+)
+eggplant_seed = SeedDefaultData.create(
+  plant_type: "Eggplant",
+  days_to_maturity: 68,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed: :no
+)
+romaine_seed = SeedDefaultData.create(
+  plant_type: "Romaine Lettuce",
+  days_to_maturity: 35,
+  seedling_days_to_transplant: 14,
+  days_relative_to_frost_date: -28,
+  direct_seed: :yes
+)
+green_bean_seed = SeedDefaultData.create(
+  plant_type: "Green Bean",
+  days_to_maturity: 52,
+  seedling_days_to_transplant: 14,
+  days_relative_to_frost_date: 0,
+  direct_seed: :yes
+)

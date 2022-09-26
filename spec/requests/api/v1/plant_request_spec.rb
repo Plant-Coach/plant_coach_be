@@ -149,6 +149,135 @@ RSpec.describe 'Plant API Endpoints' do
       expect(result).to be_a Hash
       expect(result[:data][:attributes][:name]).to eq("Sungold")
     end
+
+    it 'will create a plant with unknown as the hybrid status if it is not provided' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        organic: true,
+        days_to_maturity: 54
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to_not have_key(:error)
+
+      expect(response).to be_successful
+
+      expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+    end
+
+    it 'will create a new plant even if the organic status is not known' do
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to_not have_key(:error)
+
+      expect(response).to be_successful
+
+      expect(result[:data][:attributes][:organic]).to eq(false)
+    end
+
+    it 'will replace information with default data that the user does not provide' do
+      ActiveRecord::Base.skip_callbacks = false
+      tomato_seed = SeedDefaultData.create!(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: "no"
+      )
+      pepper_seed = SeedDefaultData.create!(
+        plant_type: "Pepper",
+        days_to_maturity: 64,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: "no"
+      )
+      eggplant_seed = SeedDefaultData.create!(
+        plant_type: "Eggplant",
+        days_to_maturity: 68,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: "no"
+      )
+      romaine_seed = SeedDefaultData.create(
+        plant_type: "Romaine Lettuce",
+        days_to_maturity: 35,
+        seedling_days_to_transplant: 14,
+        days_relative_to_frost_date: -28,
+        direct_seed: "yes"
+      )
+      green_bean_seed = SeedDefaultData.create(
+        plant_type: "Green Bean",
+        days_to_maturity: 52,
+        seedling_days_to_transplant: 14,
+        days_relative_to_frost_date: 0,
+        direct_seed: "yes"
+      )
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(response.status).to eq(201)
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:days_to_maturity]).to eq(55)
+      expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
+    end
   end
 
   describe 'PATCH /plants' do
@@ -226,7 +355,7 @@ RSpec.describe 'Plant API Endpoints' do
       expect(Plant.find_by(id: plant3.id)).to be nil
     end
 
-    it 'returns an error if the plant cant be found' do
+    it 'returns an error if the plant can not be found' do
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',

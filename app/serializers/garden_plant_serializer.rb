@@ -7,9 +7,14 @@ class GardenPlantSerializer
               :recommended_transplant_date,
               :days_to_maturity,
               :hybrid_status,
-              :organic
-
-
+              :organic,
+              :planting_status,
+              :start_from_seed,
+              :direct_seed,
+              :recommended_seed_sewing_date,
+              :actual_seed_sewing_date,
+              :seedling_days_to_transplant
+              
   def self.error(message)
     {
       "error": message

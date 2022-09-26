@@ -10,6 +10,8 @@ class Api::V1::PlantsController < ApplicationController
     # If all of the information was provided to create a plant record...
     if plant.save
       render json: PlantSerializer.new(plant), status: 201
+    else
+      render json: PlantSerializer.error("The plant could not be saved!"), status: 403
     end
   end
   # Allows a plant record to be edited by the user.
@@ -29,7 +31,7 @@ class Api::V1::PlantsController < ApplicationController
       render json: PlantSerializer.error("Something happened!"), status: 400
     end
   end
-  
+
   private
   def plant_params
     params.permit(
