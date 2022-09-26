@@ -19,7 +19,8 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def create_garden_plant(basic_plant_data)
+  def create_garden_plant(basic_plant_data, start_from_seed)
+    require 'pry'; binding.pry
     garden_plants.create(
       name: basic_plant_data[:name],
       days_to_maturity: basic_plant_data[:days_to_maturity],
@@ -27,8 +28,11 @@ class User < ApplicationRecord
       days_relative_to_frost_date: basic_plant_data[:days_relative_to_frost_date],
       plant_type: basic_plant_data[:plant_type],
       organic: basic_plant_data[:organic],
-      recommended_transplant_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date]
+      recommended_transplant_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date],
+      direct_seed: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).direct_seed,
+      start_from_seed: start_from_seed
     )
+
   end
 
   def establish_and_save_frost_dates

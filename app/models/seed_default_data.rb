@@ -4,4 +4,6 @@ class SeedDefaultData < ApplicationRecord
                         :seed_days_to_transplant,
                         :days_relative_to_frost_date,
                         :direct_seed
+
+  enum direct_seed: [:yes, :no, :either]
 end
