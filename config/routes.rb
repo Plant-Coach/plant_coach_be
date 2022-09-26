@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :alert_check, only: [:create]
       resources :garden_reminder, only: [:create]
       resources :started_indoor_seeds, only: [:index]
+      resources :plants_waiting_to_be_started, only: [:index]
     end
   end
 end

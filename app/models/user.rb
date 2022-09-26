@@ -69,4 +69,9 @@ class User < ApplicationRecord
                     )
                .order('projected_seedling_transplant_date ASC')
   end
+
+  def plants_waiting_to_be_started
+    GardenPlant.where(actual_seed_sewing_date: nil, planting_status: "not started")
+               .order("recommended_seed_sewing_date ASC")
+  end
 end
