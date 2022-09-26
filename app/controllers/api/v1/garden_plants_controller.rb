@@ -7,7 +7,7 @@ class Api::V1::GardenPlantsController < ApplicationController
 
   def create
     plant_result = Plant.find_by_id(params[:plant_id])
-    garden_plant = @user.create_garden_plant(plant_result, params[:start_from_seed])
+    garden_plant = @user.create_garden_plant(plant_result, params[:start_from_seed], params[:plant_now])
     render json: GardenPlantSerializer.new(garden_plant)
   end
 
