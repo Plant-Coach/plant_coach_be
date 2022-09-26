@@ -239,11 +239,17 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
+      expect(result[:data][:attributes]).to have_key(:projected_seedling_transplant_date)
 
-      patch "/api/v1/garden_plants/#{garden_plant.id}", params: { actual_seed_sewing_date: Date.yesterday }
+      patch "/api/v1/garden_plants/#{garden_plant.id}", params: { actual_seed_sewing_date: Date.yesterday }, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
 
       patch_result = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
+
+      expect(patch_result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.yesterday)
+      expect(patch_result[:data][:attributes][:planting_status]).to eq("planted")
+      expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + tomato_seed.seedling_days_to_transplant).to_s)
     end
   end
 
