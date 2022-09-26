@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_26_012518) do
+ActiveRecord::Schema.define(version: 2022_09_26_025436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2022_09_26_012518) do
     t.boolean "start_from_seed", default: false, null: false
     t.date "recommended_seed_sewing_date"
     t.date "actual_seed_sewing_date"
-    t.date "seedling_days_to_transplant"
     t.boolean "direct_seed"
+    t.integer "seedling_days_to_transplant"
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end
 
@@ -107,11 +107,11 @@ ActiveRecord::Schema.define(version: 2022_09_26_012518) do
   create_table "seed_default_data", force: :cascade do |t|
     t.string "plant_type"
     t.integer "days_to_maturity"
-    t.integer "seed_days_to_transplant"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "days_relative_to_frost_date"
     t.integer "direct_seed"
+    t.integer "seedling_days_to_transplant"
   end
 
   create_table "users", force: :cascade do |t|
