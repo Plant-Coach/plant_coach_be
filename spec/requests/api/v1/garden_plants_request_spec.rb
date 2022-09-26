@@ -6,21 +6,21 @@ RSpec.describe 'Garden Plants API Endpoint' do
       tomato_seed = SeedDefaultData.create(
         plant_type: "Tomato",
         days_to_maturity: 55,
-        seed_days_to_transplant: 49,
+        seedling_days_to_transplant: 49,
         days_relative_to_frost_date: 14,
         direct_seed: :no
       )
       pepper_seed = SeedDefaultData.create(
         plant_type: "Pepper",
         days_to_maturity: 64,
-        seed_days_to_transplant: 49,
+        seedling_days_to_transplant: 49,
         days_relative_to_frost_date: 14,
         direct_seed: :no
       )
       eggplant_seed = SeedDefaultData.create(
         plant_type: "Eggplant",
         days_to_maturity: 68,
-        seed_days_to_transplant: 49,
+        seedling_days_to_transplant: 49,
         days_relative_to_frost_date: 14,
         direct_seed: :no
       )
@@ -43,7 +43,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes }, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, plant_now: "yes"}, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
