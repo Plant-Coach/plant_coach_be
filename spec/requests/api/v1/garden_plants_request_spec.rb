@@ -3,6 +3,27 @@ require 'rails_helper'
 RSpec.describe 'Garden Plants API Endpoint' do
   describe 'POST garden plants' do
     it 'creates new plant that the user will be planting' do
+      tomato_seed = SeedDefaultData.create(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seed_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
+      pepper_seed = SeedDefaultData.create(
+        plant_type: "Pepper",
+        days_to_maturity: 64,
+        seed_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
+      eggplant_seed = SeedDefaultData.create(
+        plant_type: "Eggplant",
+        days_to_maturity: 68,
+        seed_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
