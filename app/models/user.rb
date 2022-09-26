@@ -21,9 +21,9 @@ class User < ApplicationRecord
 
   def planting_status_maker(date_or_nil)
     if date_or_nil.nil?
-      "not planted"
+      "not started"
     else
-      "planted"
+      "started"
     end
   end
 
