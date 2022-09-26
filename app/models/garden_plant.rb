@@ -6,7 +6,6 @@ class GardenPlant < ApplicationRecord
                         :days_to_maturity,
                         :hybrid_status,
                         :days_relative_to_frost_date,
-                        # :organic,
                         :recommended_transplant_date,
                         :direct_seed,
                         :recommended_seed_sewing_date,
@@ -24,4 +23,16 @@ class GardenPlant < ApplicationRecord
   # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not planted", "planted"]
+
+  before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
+
+  def update_planting_dates
+    if (actual_seed_sewing_date - Date.today).to_i < 0
+      self.planting_status = "planted"
+      self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
+    elsif (actual_seed_sewing_date - Date.today).to_i > 0
+      self.planting_status = "not planted"
+      self.projected_seedling_transplant_date = nil
+    end
+  end
 end
