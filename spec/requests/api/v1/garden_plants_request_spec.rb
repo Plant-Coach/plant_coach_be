@@ -33,7 +33,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
       }
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
-
       user = User.find_by_id(user_response[:user][:data][:id])
       plant = user.plants.create!(
         plant_type: "Tomato",
