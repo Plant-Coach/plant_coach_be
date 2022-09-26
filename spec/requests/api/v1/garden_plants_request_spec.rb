@@ -237,7 +237,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
 
       result = JSON.parse(response.body, symbolize_names: true)
       garden_plant = GardenPlant.last
-
       expect(response).to be_successful
 
       expect(garden_plant.id).to eq(result[:data][:id].to_i)
@@ -256,6 +255,9 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:hybrid_status)
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
+      expect(result[:data][:attributes][:planting_status]).to eq("not started")
+      # require 'pry'; binding.pry
+
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
       expect(result[:data][:attributes]).to have_key(:direct_seed)
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
@@ -270,8 +272,72 @@ RSpec.describe 'Garden Plants API Endpoint' do
       patch_result = JSON.parse(response.body, symbolize_names: true)
 
       expect(patch_result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.yesterday)
-      expect(patch_result[:data][:attributes][:planting_status]).to eq("planted")
+      expect(patch_result[:data][:attributes][:planting_status]).to eq("started")
       expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + tomato_seed.seedling_days_to_transplant).to_s)
+    end
+
+    it 'will add a transplant date to the garden_plant object when giving a plant a transplant date' do
+      tomato_seed = SeedDefaultData.create(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
+      user_data = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: user_data
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      user = User.find_by_id(user_response[:user][:data][:id])
+      plant = user.plants.create!(
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: 1,
+        organic: false
+      )
+
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+          Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+      garden_plant = GardenPlant.last
+      expect(response).to be_successful
+
+      expect(garden_plant.id).to eq(result[:data][:id].to_i)
+
+      expect(result).to be_a Hash
+      expect(result).to have_key(:data)
+
+      expect(result[:data]).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq(garden_plant.name)
+
+      expect(result[:data][:attributes]).to have_key(:name)
+      expect(result[:data][:attributes]).to have_key(:plant_type)
+      expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
+      expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
+      expect(result[:data][:attributes]).to have_key(:days_to_maturity)
+      expect(result[:data][:attributes]).to have_key(:hybrid_status)
+      expect(result[:data][:attributes]).to have_key(:organic)
+      expect(result[:data][:attributes]).to have_key(:planting_status)
+      expect(result[:data][:attributes][:planting_status]).to eq("started")
+
+      patch "/api/v1/garden_plants/#{garden_plant.id}", params: { actual_transplant_date: Date.today }, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+      patch_result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(patch_result[:data][:attributes]).to have_key(:actual_transplant_date)
+      expect(patch_result[:data][:attributes][:actual_transplant_date]).to eq(Date.today.to_s)
     end
   end
 
