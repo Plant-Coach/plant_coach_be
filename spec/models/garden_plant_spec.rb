@@ -7,7 +7,7 @@ RSpec.describe GardenPlant, type: :model do
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }
     # it { should validate_presence_of(:organic) }
-    it { should validate_presence_of(:direct_seed) }
+    # it { should validate_presence_of(:direct_seed) }
     it { should validate_presence_of(:start_from_seed) }
     it { should validate_presence_of(:planting_status) }
     it { should validate_presence_of(:recommended_transplant_date) }
