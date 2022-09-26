@@ -13,8 +13,9 @@ class GardenPlantSerializer
               :direct_seed,
               :recommended_seed_sewing_date,
               :actual_seed_sewing_date,
-              :seedling_days_to_transplant
-              
+              :seedling_days_to_transplant,
+              :projected_seedling_transplant_date
+
   def self.error(message)
     {
       "error": message

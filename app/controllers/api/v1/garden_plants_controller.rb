@@ -7,7 +7,13 @@ class Api::V1::GardenPlantsController < ApplicationController
 
   def create
     plant_result = Plant.find_by_id(params[:plant_id])
-    garden_plant = @user.create_garden_plant(plant_result, params[:start_from_seed], params[:plant_now])
+    garden_plant = @user.create_garden_plant(plant_result, params[:start_from_seed], params[:sewing_date])
+    render json: GardenPlantSerializer.new(garden_plant)
+  end
+
+  def update
+    garden_plant = @user.garden_plants.find_by(id: params[:id])
+    result = garden_plant.update(garden_plant_params)
     render json: GardenPlantSerializer.new(garden_plant)
   end
 
@@ -18,4 +24,14 @@ class Api::V1::GardenPlantsController < ApplicationController
       render json: GardenPlantSerializer.confirm, status: 200
     end
   end
+end
+
+private
+
+def garden_plant_params
+  params.permit(
+    :actual_seed_sewing_date,
+    :name,
+    :days_to_maturity
+  )
 end

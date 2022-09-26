@@ -19,17 +19,24 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def planting_status_maker(decision)
-    if decision == "yes"
-      return "planted"
-    elsif decision == "no"
-      return "not planted"
+  def planting_status_maker(date_or_nil)
+    if date_or_nil.nil?
+      "not planted"
+    else
+      "planted"
     end
   end
 
-  def create_garden_plant(basic_plant_data, start_from_seed, plant_now)
-    # require 'pry'; binding.pry
-    garden_plants.create(
+  def seedling_transplant_date_calculator(sewing_date, seedling_lifetime, plant_type)
+    if sewing_date.nil?
+      nil
+    else
+      sewing_date.to_date + SeedDefaultData.find_by(plant_type: plant_type).seedling_days_to_transplant
+    end
+  end
+
+  def create_garden_plant(basic_plant_data, start_from_seed, sewing_date)
+    garden_plant = garden_plants.create(
       name: basic_plant_data[:name],
       days_to_maturity: basic_plant_data[:days_to_maturity],
       hybrid_status: basic_plant_data[:hybrid_status],
@@ -41,9 +48,10 @@ class User < ApplicationRecord
       start_from_seed: start_from_seed,
       recommended_seed_sewing_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date] - SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
       seedling_days_to_transplant: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
-      planting_status: planting_status_maker(plant_now)# Statuses: Waiting sewing, sewed, transplanted_outside, harvest, finished
+      planting_status: planting_status_maker(sewing_date),# Statuses: Waiting sewing, sewed, transplanted_outside, harvest, finished
+      actual_seed_sewing_date: sewing_date,
+      projected_seedling_transplant_date: seedling_transplant_date_calculator(sewing_date, SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]), basic_plant_data[:plant_type])
     )
-
   end
 
   def establish_and_save_frost_dates
