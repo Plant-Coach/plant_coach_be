@@ -6,6 +6,13 @@ RSpec.describe GardenPlant, type: :model do
     it { should validate_presence_of(:plant_type) }
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }
+    it { should validate_presence_of(:organic) }
+    it { should validate_presence_of(:direct_seed) }
+    it { should validate_presence_of(:start_from_seed) }
+    it { should validate_presence_of(:planting_status) }
+    it { should validate_presence_of(:recommended_transplant_date) }
+    it { should validate_presence_of(:recommended_seed_sewing_date) }
+    it { should validate_presence_of(:seedling_days_to_transplant) }
     it { should validate_presence_of(:days_relative_to_frost_date) }
     it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
     # Shouldamatchers recommends not validating boolean values.
