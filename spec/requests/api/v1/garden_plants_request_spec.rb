@@ -105,7 +105,21 @@ RSpec.describe 'Garden Plants API Endpoint' do
   end
 
   describe 'GET /garden_plants' do
-    xit 'retrieves an array of the plants that belong to the user' do
+    it 'retrieves an array of the plants that belong to the user' do
+      tomato_seed = SeedDefaultData.create(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
+      pepper_seed = SeedDefaultData.create(
+        plant_type: "Pepper",
+        days_to_maturity: 64,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -141,21 +155,29 @@ RSpec.describe 'Garden Plants API Endpoint' do
         hybrid_status: 1,
         organic: false
       )
-      user.garden_plants.create!(
+      user.create_garden_plant(
+        {
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false
+      },
+      "yes",
+      nil
       )
-      user.garden_plants.create!(
+      user.create_garden_plant(
+        {
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
         hybrid_status: 1,
         organic: false
+      },
+      "yes",
+      nil
       )
 
       get '/api/v1/garden_plants', headers: {
@@ -254,7 +276,14 @@ RSpec.describe 'Garden Plants API Endpoint' do
   end
 
   describe 'DELETE /garden_plants' do
-    xit 'removes the plant from the users list of plants' do
+    it 'removes the plant from the users list of plants' do
+      tomato_seed = SeedDefaultData.create(
+        plant_type: "Tomato",
+        days_to_maturity: 55,
+        seedling_days_to_transplant: 49,
+        days_relative_to_frost_date: 14,
+        direct_seed: :no
+      )
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -275,15 +304,18 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
       # require 'pry'; binding.pry
-      garden_plant = user.garden_plants.create!(
-          plant_type: "Tomato",
-          name: "Sungold",
-          days_relative_to_frost_date: 14,
-          days_to_maturity: 54,
-          hybrid_status: 1,
-          organic: false,
-          direct_seed: true,
-
+      garden_plant = user.create_garden_plant(
+        {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: 1,
+        organic: false,
+        direct_seed: true
+        },
+        "yes",
+        nil
       )
       # Would like to refactor this to use params hash.
       delete "/api/v1/garden_plants/#{garden_plant.id}", headers: {
