@@ -43,7 +43,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id }, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
