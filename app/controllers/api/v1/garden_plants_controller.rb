@@ -32,6 +32,7 @@ def garden_plant_params
   params.permit(
     :actual_seed_sewing_date,
     :name,
-    :days_to_maturity
+    :days_to_maturity,
+    :actual_transplant_date
   )
 end
