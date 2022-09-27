@@ -1,6 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe 'Plant API Endpoints' do
+  before(:each) do
+    tomato_seed = SeedDefaultData.create!(
+      plant_type: "Tomato",
+      days_to_maturity: 55,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: "no"
+    )
+    pepper_seed = SeedDefaultData.create!(
+      plant_type: "Pepper",
+      days_to_maturity: 64,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: "no"
+    )
+    eggplant_seed = SeedDefaultData.create!(
+      plant_type: "Eggplant",
+      days_to_maturity: 68,
+      seedling_days_to_transplant: 49,
+      days_relative_to_frost_date: 14,
+      direct_seed: "no"
+    )
+    romaine_seed = SeedDefaultData.create(
+      plant_type: "Romaine Lettuce",
+      days_to_maturity: 35,
+      seedling_days_to_transplant: 14,
+      days_relative_to_frost_date: -28,
+      direct_seed: "yes"
+    )
+    green_bean_seed = SeedDefaultData.create(
+      plant_type: "Green Bean",
+      days_to_maturity: 52,
+      seedling_days_to_transplant: 14,
+      days_relative_to_frost_date: 0,
+      direct_seed: "yes"
+    )
+  end
   describe 'GET /plants' do
     it 'retrieves all the plants that have been added to the application by that user' do
       body = {
@@ -216,41 +253,41 @@ RSpec.describe 'Plant API Endpoints' do
 
     it 'will replace information with default data that the user does not provide' do
       ActiveRecord::Base.skip_callbacks = false
-      tomato_seed = SeedDefaultData.create!(
-        plant_type: "Tomato",
-        days_to_maturity: 55,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: "no"
-      )
-      pepper_seed = SeedDefaultData.create!(
-        plant_type: "Pepper",
-        days_to_maturity: 64,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: "no"
-      )
-      eggplant_seed = SeedDefaultData.create!(
-        plant_type: "Eggplant",
-        days_to_maturity: 68,
-        seedling_days_to_transplant: 49,
-        days_relative_to_frost_date: 14,
-        direct_seed: "no"
-      )
-      romaine_seed = SeedDefaultData.create(
-        plant_type: "Romaine Lettuce",
-        days_to_maturity: 35,
-        seedling_days_to_transplant: 14,
-        days_relative_to_frost_date: -28,
-        direct_seed: "yes"
-      )
-      green_bean_seed = SeedDefaultData.create(
-        plant_type: "Green Bean",
-        days_to_maturity: 52,
-        seedling_days_to_transplant: 14,
-        days_relative_to_frost_date: 0,
-        direct_seed: "yes"
-      )
+      # tomato_seed = SeedDefaultData.create!(
+      #   plant_type: "Tomato",
+      #   days_to_maturity: 55,
+      #   seedling_days_to_transplant: 49,
+      #   days_relative_to_frost_date: 14,
+      #   direct_seed: "no"
+      # )
+      # pepper_seed = SeedDefaultData.create!(
+      #   plant_type: "Pepper",
+      #   days_to_maturity: 64,
+      #   seedling_days_to_transplant: 49,
+      #   days_relative_to_frost_date: 14,
+      #   direct_seed: "no"
+      # )
+      # eggplant_seed = SeedDefaultData.create!(
+      #   plant_type: "Eggplant",
+      #   days_to_maturity: 68,
+      #   seedling_days_to_transplant: 49,
+      #   days_relative_to_frost_date: 14,
+      #   direct_seed: "no"
+      # )
+      # romaine_seed = SeedDefaultData.create(
+      #   plant_type: "Romaine Lettuce",
+      #   days_to_maturity: 35,
+      #   seedling_days_to_transplant: 14,
+      #   days_relative_to_frost_date: -28,
+      #   direct_seed: "yes"
+      # )
+      # green_bean_seed = SeedDefaultData.create(
+      #   plant_type: "Green Bean",
+      #   days_to_maturity: 52,
+      #   seedling_days_to_transplant: 14,
+      #   days_relative_to_frost_date: 0,
+      #   direct_seed: "yes"
+      # )
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -271,7 +308,7 @@ RSpec.describe 'Plant API Endpoints' do
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response.status).to eq(201)
       expect(result).to be_a Hash
       expect(result[:data][:attributes][:name]).to eq("Sungold")

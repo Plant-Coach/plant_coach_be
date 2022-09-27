@@ -21,9 +21,9 @@ class User < ApplicationRecord
 
   def planting_status_maker(date_or_nil)
     if date_or_nil.nil?
-      "not planted"
+      "not started"
     else
-      "planted"
+      "started"
     end
   end
 
@@ -58,5 +58,25 @@ class User < ApplicationRecord
     frost_dates = FrostDateFacade.get_frost_dates(self.zip_code)
     self.spring_frost_dates = frost_dates.spring_frost
     self.fall_frost_dates = frost_dates.fall_frost
+  end
+
+  def started_indoor_seeds
+    GardenPlant.where(
+                      start_from_seed: true,
+                      direct_seed: false,
+                      planting_status: "started",
+                      actual_transplant_date: nil
+                    )
+               .order('projected_seedling_transplant_date ASC')
+  end
+
+  def plants_waiting_to_be_started
+    GardenPlant.where(actual_seed_sewing_date: nil, planting_status: "not started")
+               .order("recommended_seed_sewing_date ASC")
+  end
+
+  def plants_in_the_garden
+    GardenPlant.where(planting_status: "started")
+               .where.not(actual_transplant_date: nil)
   end
 end
