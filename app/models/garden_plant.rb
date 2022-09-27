@@ -27,7 +27,7 @@ class GardenPlant < ApplicationRecord
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
 
   def update_planting_dates
-    if (actual_seed_sewing_date - Date.today).to_i < 0
+    if (actual_seed_sewing_date - Date.today).to_i <= 0
       self.planting_status = "started"
       self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
     elsif (actual_seed_sewing_date - Date.today).to_i > 0
