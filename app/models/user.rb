@@ -74,4 +74,9 @@ class User < ApplicationRecord
     GardenPlant.where(actual_seed_sewing_date: nil, planting_status: "not started")
                .order("recommended_seed_sewing_date ASC")
   end
+
+  def plants_in_the_garden
+    GardenPlant.where(planting_status: "started")
+               .where.not(actual_transplant_date: nil)
+  end
 end
