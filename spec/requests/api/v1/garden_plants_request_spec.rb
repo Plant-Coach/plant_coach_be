@@ -77,7 +77,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
     end
     #likely to delete
-    xit 'will return a json error message if there was a problem' do
+    it 'will return a json error message if there was a problem' do
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -104,6 +104,9 @@ RSpec.describe 'Garden Plants API Endpoint' do
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(400)
+
+      expect(result).to have_key(:error)
+      expect(result[:error]).to eq("There was a problem finding a plant to copy!")
     end
   end
 

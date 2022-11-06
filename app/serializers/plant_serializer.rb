@@ -14,10 +14,4 @@ class PlantSerializer
       "error": message
     }
   end
-
-  def self.confirm
-    {
-      "status": "success"
-    }
-  end
 end
