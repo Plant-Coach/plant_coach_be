@@ -253,6 +253,7 @@ RSpec.describe 'Plant API Endpoints' do
 
     it 'will replace information with default data that the user does not provide' do
       ActiveRecord::Base.skip_callbacks = false
+
       body = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -279,6 +280,32 @@ RSpec.describe 'Plant API Endpoints' do
       expect(result[:data][:attributes][:name]).to eq("Sungold")
       expect(result[:data][:attributes][:days_to_maturity]).to eq(55)
       expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
+    end
+
+    it 'will return an error message if the plant could not be created due to missing information' do
+      ActiveRecord::Base.skip_callbacks = true
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      plant = {
+        name: "Sungold",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to have_key(:error)
+      expect(result[:error]).to eq("The plant could not be saved!")
     end
   end
 
