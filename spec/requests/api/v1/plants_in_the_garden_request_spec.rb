@@ -51,17 +51,31 @@ RSpec.describe 'Plants In The Garden API Endpoint' do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
       user = User.find_by_id(user_response[:user][:data][:id])
+
+      # While a function of the app is to auto-provide missing attributes of a
+      # new plant, that does not seem to work quickly enough while RSpec is running tests.
+      # Therefore, they need to be explicitly assigned as this causes validation errors.
+      # It is also not the purpose of this test.
       plant = user.plants.create!(
+        name: "Sungold",
         plant_type: "Tomato",
-        name: "Sungold"
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 60,
+        hybrid_status: 1
       )
       plant1 = user.plants.create!(
+        name: "Jalafuego",
         plant_type: "Pepper",
-        name: "Jedi"
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: 1
       )
       plant2 = user.plants.create!(
+        name: "Rosa Bianca",
         plant_type: "Eggplant",
-        name: "Rosa Bianca"
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 70,
+        hybrid_status: 1
       )
       post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
