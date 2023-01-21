@@ -32,7 +32,7 @@ class Plant < ApplicationRecord
   private
 
   def set_defaults
-    self.days_to_maturity = get_default_maturity_date if days_to_maturity.nil?
-    self.days_relative_to_frost_date = get_default_frost_date if days_relative_to_frost_date.nil?
+    self.update(days_to_maturity: get_default_maturity_date) if days_to_maturity.nil?
+    self.update(days_relative_to_frost_date: get_default_frost_date) if days_relative_to_frost_date.nil?
   end
 end
