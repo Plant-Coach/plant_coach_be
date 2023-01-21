@@ -1,6 +1,5 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
-  # Standard validations that are required to save the record.
   validates_presence_of :name,
                         :plant_type,
                         :days_to_maturity,
