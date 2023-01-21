@@ -1,6 +1,5 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
-  # Standard validations that are required to save the record.
   validates_presence_of :name,
                         :plant_type,
                         :days_to_maturity,
@@ -24,15 +23,10 @@ class GardenPlant < ApplicationRecord
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not started", "started"] # Want to have: :not_planted, :sewn_indoors, :in_garden
 
+  # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
 
   def update_planting_dates
-    if (actual_seed_sewing_date - Date.today).to_i <= 0
-      self.planting_status = "started"
-      self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
-    elsif (actual_seed_sewing_date - Date.today).to_i > 0
-      self.planting_status = "not started"
-      self.projected_seedling_transplant_date = nil
-    end
+    self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
   end
 end

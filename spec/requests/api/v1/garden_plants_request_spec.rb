@@ -181,7 +181,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result).to be_a Hash
       expect(result[:data]).to be_an Array
 
-      #This makes sure the 'unused_plant' variable above is intentionally excluded
+      # This makes sure the 'unused_plant' variable above is intentionally excluded
       expect(result[:data].count).to eq(2)
 
       result[:data].each do |plant|
@@ -195,7 +195,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
   end
 
   describe 'PATCH /garden_plants' do
-    it 'allows the user to add an actual planting date to an existing garden_plant which also updates the planting status' do
+    it 'allows the user to add an actual planting date to an existing garden_plant' do
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -241,7 +241,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("not started")
-      # require 'pry'; binding.pry
 
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
       expect(result[:data][:attributes]).to have_key(:direct_seed)
@@ -257,7 +256,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
       patch_result = JSON.parse(response.body, symbolize_names: true)
 
       expect(patch_result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.yesterday)
-      expect(patch_result[:data][:attributes][:planting_status]).to eq("started")
       expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + @tomato_seed.seedling_days_to_transplant).to_s)
     end
 
