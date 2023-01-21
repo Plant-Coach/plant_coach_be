@@ -77,21 +77,36 @@ RSpec.describe 'Plants In The Garden API Endpoint' do
         days_to_maturity: 70,
         hybrid_status: 1
       )
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+
+      # Create three seeds that have been sewn but not transplanted, which is the
+      # distinguishing difference of this test...
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id, start_from_seed: :yes, sewing_date: Date.yesterday
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
-
-      patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: { actual_transplant_date: Date.today }, headers: {
+      # binding.pry
+      # Only one of the 3 plants are now planted in the ground - we expect one below.
+      patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
+        actual_transplant_date: Date.today
+        }, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
 
