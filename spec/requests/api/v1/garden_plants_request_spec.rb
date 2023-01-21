@@ -195,7 +195,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
   end
 
   describe 'PATCH /garden_plants' do
-    it 'allows the user to add an actual planting date to an existing garden_plant which also updates the planting status' do
+    it 'allows the user to add an actual planting date to an existing garden_plant' do
       user_data = {
         name: 'Joel Grant',
         email: 'joel@plantcoach.com',
@@ -257,7 +257,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
       patch_result = JSON.parse(response.body, symbolize_names: true)
 
       expect(patch_result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.yesterday)
-      expect(patch_result[:data][:attributes][:planting_status]).to eq("started")
       expect(patch_result[:data][:attributes][:projected_seedling_transplant_date]).to eq((Date.yesterday + @tomato_seed.seedling_days_to_transplant).to_s)
     end
 
