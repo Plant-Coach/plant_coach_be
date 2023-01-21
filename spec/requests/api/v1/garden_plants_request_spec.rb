@@ -181,7 +181,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result).to be_a Hash
       expect(result[:data]).to be_an Array
 
-      #This makes sure the 'unused_plant' variable above is intentionally excluded
+      # This makes sure the 'unused_plant' variable above is intentionally excluded
       expect(result[:data].count).to eq(2)
 
       result[:data].each do |plant|
@@ -241,7 +241,6 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("not started")
-      # require 'pry'; binding.pry
 
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
       expect(result[:data][:attributes]).to have_key(:direct_seed)
