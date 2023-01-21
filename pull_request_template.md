@@ -1,13 +1,17 @@
-What was the change?
+## What was the change?
+-
 
+
+## Fix Categories
 - [ ] Bug fix
 - [ ] New Feature (non-breaking change that adds functionality)
 - [ ] This change requires an update to documentation
 - [ ] Refactor
 - [ ] Database structure changes
+- [ ] Resiliency Enhancement
 
-Description of changes:
 
+## Developer Standards
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -18,4 +22,5 @@ Description of changes:
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] I have verified this change doesn't adversely affect another microservice, and if it does, I have opened an issue.
 
-SimpleCov test coverage:
+### SimpleCov test coverage:
+-
