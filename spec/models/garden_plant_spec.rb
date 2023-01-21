@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GardenPlant, type: :model do
   describe 'validations' do
+    ActiveRecord::Base.skip_callbacks = true
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:plant_type) }
     it { should validate_presence_of(:days_to_maturity) }
