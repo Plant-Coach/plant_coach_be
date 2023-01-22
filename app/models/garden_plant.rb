@@ -21,7 +21,8 @@ class GardenPlant < ApplicationRecord
 
   # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
-  enum planting_status: ["not started", "started"] # Want to have: :not_planted, :sewn_indoors, :in_garden
+
+  enum planting_status: ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]
 
   # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
