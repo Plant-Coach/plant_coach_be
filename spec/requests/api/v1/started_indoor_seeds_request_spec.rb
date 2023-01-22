@@ -7,35 +7,35 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 54,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 52,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     romaine_seed = SeedDefaultData.create(
       plant_type: "Romaine Lettuce",
       days_to_maturity: 35,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: -28,
-      direct_seed: true
+      direct_seed_recommendation: :yes
     )
     green_bean_seed = SeedDefaultData.create(
       plant_type: "Green Bean",
       days_to_maturity: 52,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: 0,
-      direct_seed: true
+      direct_seed_recommendation: :yes
     )
   end
 
@@ -77,15 +77,33 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         hybrid_status: 1
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -98,8 +116,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
@@ -149,19 +167,43 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         hybrid_status: 1
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+      },
+      headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant3.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant3.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "direct_sewn_outside"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -174,14 +216,14 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:plant_type]).to_not eq("Romaine Lettuce")
-        expect(plant[:attributes][:direct_seed]).to_not be true
+        expect(plant[:attributes][:direct_seed_recommendation]).to_not be true
         expect(plant[:attributes][:planting_status]).to_not eq("not started")
         expect(plant[:attributes][:start_from_seed]).to_not be false
 
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
@@ -231,19 +273,43 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         hybrid_status: 1
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      # This plant is not started yet
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant3.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant3.id,
+        start_from_seed: :yes,
+        sewing_date: Date.yesterday,
+        planting_status: "direct_sewn_outside"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -258,8 +324,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         expect(plant[:attributes][:plant_type]).to_not eq("Eggplant")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
@@ -309,21 +375,40 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         hybrid_status: 1
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: true,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: true,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: true,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
 
-      patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: { actual_transplant_date: Date.today }, headers: {
+      # Mimicks a plant who is plant outside, to test for false positives.
+      patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
+        actual_transplant_date: Date.today }, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -331,15 +416,15 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
-
+      binding.pry
       expect(result[:data].count).to eq(2)
 
       result[:data].each do |plant|
         expect(plant[:attributes][:plant_type]).to_not eq("Eggplant")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
@@ -388,7 +473,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         days_to_maturity: 30,
         hybrid_status: 1
       )
-      
+
       post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
@@ -418,8 +503,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints' do
         expect(plant[:attributes][:plant_type]).to_not eq("Romaine Lettuce")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end

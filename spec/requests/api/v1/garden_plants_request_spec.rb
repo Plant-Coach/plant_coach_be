@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Garden Plants API Endpoint' do
   before(:each) do
-  
+
     @tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
@@ -50,7 +50,9 @@ RSpec.describe 'Garden Plants API Endpoint' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: true,
-        sewing_date: Date.today
+        sewing_date: Date.today,
+        direct_seed_user_decision: :indirect,
+        planting_status: "started_indoors"
         },
         headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
@@ -160,10 +162,11 @@ RSpec.describe 'Garden Plants API Endpoint' do
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: 1,
-        organic: false
+        organic: false,
       },
       "yes",
-      nil
+      nil,
+      "started_indoors"
       )
       user.create_garden_plant(
         {
@@ -175,7 +178,8 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       },
       "yes",
-      nil
+      nil,
+      "started_indoors"
       )
 
       get '/api/v1/garden_plants', headers: {
@@ -222,9 +226,19 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: true, sewing_date: nil }, headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: true,
+        sewing_date: nil,
+        planting_status: "not_started"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+
+
+
 
       result = JSON.parse(response.body, symbolize_names: true)
       garden_plant = GardenPlant.last
@@ -246,7 +260,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:hybrid_status)
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
-      expect(result[:data][:attributes][:planting_status]).to eq("not started")
+      expect(result[:data][:attributes][:planting_status]).to eq("not_started")
 
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
       expect(result[:data][:attributes]).to have_key(:direct_seed_recommendation)
@@ -286,7 +300,13 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: true, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: true,
+        sewing_date: Date.yesterday,
+        planting_status: "started_indoors"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -310,7 +330,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:hybrid_status)
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
-      expect(result[:data][:attributes][:planting_status]).to eq("started")
+      expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
 
       patch "/api/v1/garden_plants/#{garden_plant.id}", params: { actual_transplant_date: Date.today }, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
@@ -356,7 +376,8 @@ RSpec.describe 'Garden Plants API Endpoint' do
         direct_seed_recommendation: :yes
         },
         "yes",
-        nil
+        nil,
+        "started_indoors"
       )
       # Would like to refactor this to use params hash.
       delete "/api/v1/garden_plants/#{garden_plant.id}", headers: {
