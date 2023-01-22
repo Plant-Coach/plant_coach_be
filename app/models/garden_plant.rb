@@ -6,12 +6,12 @@ class GardenPlant < ApplicationRecord
                         :hybrid_status,
                         :days_relative_to_frost_date,
                         :recommended_transplant_date,
-                        # :direct_seed,
+                        :direct_seed_recommendation,
+                        # :direct_seed_user_decision,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :start_from_seed,
                         :planting_status
-
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
   validates :name, presence: true, uniqueness: { scope: :user_id }
@@ -21,8 +21,9 @@ class GardenPlant < ApplicationRecord
 
   # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
-
   enum planting_status: ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]
+  enum direct_seed_recommendation: [:no, :yes]
+  enum direct_seed_user_decision: [:direct, :indirect]
 
   # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
