@@ -2,26 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Garden Plants API Endpoint' do
   before(:each) do
+  
     @tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
   end
 
@@ -46,7 +47,12 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.today }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: true,
+        sewing_date: Date.today
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -71,7 +77,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
-      expect(result[:data][:attributes]).to have_key(:direct_seed)
+      expect(result[:data][:attributes]).to have_key(:direct_seed_recommendation)
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
@@ -216,7 +222,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: true, sewing_date: nil }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
 
@@ -243,7 +249,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
       expect(result[:data][:attributes][:planting_status]).to eq("not started")
 
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
-      expect(result[:data][:attributes]).to have_key(:direct_seed)
+      expect(result[:data][:attributes]).to have_key(:direct_seed_recommendation)
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
@@ -280,7 +286,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         organic: false
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: Date.yesterday }, headers: {
+      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: true, sewing_date: Date.yesterday }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -347,7 +353,7 @@ RSpec.describe 'Garden Plants API Endpoint' do
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false,
-        direct_seed: true
+        direct_seed_recommendation: :yes
         },
         "yes",
         nil
