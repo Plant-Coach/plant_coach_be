@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
   before(:each) do
+    ActiveRecord::Base.skip_callbacks = false
+    
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
