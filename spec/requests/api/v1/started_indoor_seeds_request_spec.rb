@@ -90,7 +90,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -100,7 +100,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -110,7 +110,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -137,7 +137,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       },
       headers: {
@@ -147,7 +147,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -157,7 +157,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -167,7 +167,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant3.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
         },
         headers: {
@@ -200,7 +200,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
@@ -209,7 +209,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -220,7 +220,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: :yes,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
         },
         headers: {
@@ -230,7 +230,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant3.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
         },
         headers: {
@@ -259,7 +259,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -269,7 +269,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -279,7 +279,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         }, headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
@@ -315,7 +315,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -325,7 +325,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -335,7 +335,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {

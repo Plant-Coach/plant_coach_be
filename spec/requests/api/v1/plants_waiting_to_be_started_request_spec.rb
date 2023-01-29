@@ -81,7 +81,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
         start_from_seed: :yes,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
         },
         headers: {
@@ -91,7 +91,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
         start_from_seed: :yes,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
         },
         headers: {
@@ -101,7 +101,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
         start_from_seed: :yes,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
         },
         headers: {
@@ -119,7 +119,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
         expect(plant[:attributes][:planting_status]).to eq "not_started"
-        expect(plant[:attributes][:actual_seed_sewing_date]).to be nil
+        expect(plant[:attributes][:actual_seed_actual_seed_sewing_date]).to be nil
         expect(plant[:attributes][:start_from_seed]).to be true
       end
     end

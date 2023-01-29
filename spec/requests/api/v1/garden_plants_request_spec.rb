@@ -61,8 +61,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'creates new plant that the user will be planting' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.today,
+        actual_seed_sewing_date: Date.today,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
         },
@@ -176,7 +182,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
         start_from_seed: true,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
       },
       headers: {
@@ -230,7 +236,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -287,7 +293,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         nil,
         "started_indoors"
       )
-      
+
       delete "/api/v1/garden_plants/#{garden_plant.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
