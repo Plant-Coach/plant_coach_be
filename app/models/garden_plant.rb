@@ -18,8 +18,8 @@ class GardenPlant < ApplicationRecord
 
   # GardenPlants belong to a user.
   belongs_to :user
-
-  # Hybrid Status can only be categorized as these two enumerables.
+  # binding.pry
+  # Hybrid Status can only be categorized as these three enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
     "direct_sewn_outside", "transplanted_outside"]
@@ -28,8 +28,25 @@ class GardenPlant < ApplicationRecord
 
   # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
+  
+  # A GardenPlant requires fields that must be filled in and calculated by
+  # SeedDefaultData.  This triggers the process after #create is called.
+  after_initialize :generate_key_plant_dates
 
   def update_planting_dates
     self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
   end
+
+  def generate_key_plant_dates
+    user = User.find_by(id: self.user_id)
+    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
+
+    self.update(
+      recommended_transplant_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date,
+      recommended_seed_sewing_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data,
+      seedling_days_to_transplant: default_seed_data
+    )
+  end
+
+
 end
