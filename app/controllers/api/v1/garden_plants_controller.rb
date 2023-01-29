@@ -8,9 +8,15 @@ class Api::V1::GardenPlantsController < ApplicationController
   def create
     plant_result = Plant.find_by_id(params[:plant_id])
     if plant_result.nil?
-      render json: GardenPlantSerializer.error("There was a problem finding a plant to copy!"), status: 400
+      render json: GardenPlantSerializer.error(
+        "There was a problem finding a plant to copy!"), status: 400
     else
-      garden_plant = @user.create_garden_plant(plant_result, params[:start_from_seed], params[:sewing_date], params[:planting_status])
+      garden_plant = @user.create_garden_plant(
+        plant_result,
+        params[:start_from_seed],
+        params[:sewing_date],
+        params[:planting_status]
+      )
       render json: GardenPlantSerializer.new(garden_plant)
     end
   end
