@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/forecast
+    body:
+      encoding: UTF-8
+      string: location=80112
+    headers:
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Sun, 29 Jan 2023 06:50:03 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"1a51f57aa6a131dbdc5b812d49993952"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - ac6d5fee-b4b4-431f-96fb-1a5dbcb8cbc5
+      X-Runtime:
+      - '0.447579'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1674932400,"sunrise":1674915048,"sunset":1674951242,"high":28.85,"low":11.46,"humidity":80,"wind":9.95,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1675018800,"sunrise":1675001400,"sunset":1675037714,"high":14.29,"low":5.11,"humidity":82,"wind":9.89,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1675105200,"sunrise":1675087750,"sunset":1675124186,"high":12.61,"low":2.97,"humidity":82,"wind":8.05,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1675191600,"sunrise":1675174098,"sunset":1675210657,"high":36.37,"low":10.38,"humidity":58,"wind":8.61,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1675278000,"sunrise":1675260445,"sunset":1675297129,"high":36.54,"low":19.44,"humidity":55,"wind":7.78,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1675364400,"sunrise":1675346790,"sunset":1675383601,"high":39.87,"low":22.8,"humidity":50,"wind":7,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1675450800,"sunrise":1675433133,"sunset":1675470074,"high":43,"low":31.71,"humidity":43,"wind":7.96,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1675537200,"sunrise":1675519475,"sunset":1675556546,"high":42.58,"low":30.63,"humidity":51,"wind":7.27,"weather":"Snow"}}]}'
+  recorded_at: Sun, 29 Jan 2023 06:50:03 GMT
+recorded_with: VCR 6.1.0
