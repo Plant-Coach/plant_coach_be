@@ -44,7 +44,6 @@ def garden_plant_params
     :days_relative_to_frost_date, # Used for create.
     :direct_seed_user_decision, # Used for create.
     :planting_status, # Used for create.
-    :sewing_date, # Used for create.
     # :plant_id, # Used for create.
     :start_from_seed # Used for create.
   )

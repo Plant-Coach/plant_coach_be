@@ -28,10 +28,10 @@ class GardenPlant < ApplicationRecord
 
   # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
-  
+
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
-  after_initialize :generate_key_plant_dates
+  after_initialize :generate_key_plant_dates, unless: :skip_callbacks
 
   def update_planting_dates
     self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
@@ -46,6 +46,7 @@ class GardenPlant < ApplicationRecord
       recommended_seed_sewing_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data,
       seedling_days_to_transplant: default_seed_data
     )
+    # binding.pry
   end
 
 

@@ -19,14 +19,6 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def seedling_transplant_date_calculator(sewing_date, seedling_lifetime, plant_type)
-    if sewing_date.nil?
-      nil
-    else
-      sewing_date.to_date + SeedDefaultData.find_by(plant_type: plant_type).seedling_days_to_transplant
-    end
-  end
-
   def establish_and_save_frost_dates
     frost_dates = FrostDateFacade.get_frost_dates(self.zip_code)
     self.spring_frost_dates = frost_dates.spring_frost
