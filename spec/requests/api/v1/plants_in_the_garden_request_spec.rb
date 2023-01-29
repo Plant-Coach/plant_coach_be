@@ -113,7 +113,8 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
 
       # Only one of the 3 plants are now planted in the ground - we expect one below.
       patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
-        actual_transplant_date: Date.today
+        actual_transplant_date: Date.today,
+        planting_status: "transplanted_outside"
         }, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
@@ -127,7 +128,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to_not be nil
-        expect(plant[:attributes][:planting_status]).to eq "started"
+        expect(plant[:attributes][:planting_status]).to eq "transplanted_outside"
       end
     end
   end

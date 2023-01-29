@@ -79,7 +79,7 @@ class User < ApplicationRecord
   end
 
   def plants_in_the_garden
-    GardenPlant.where(planting_status: "started")
+    GardenPlant.where(planting_status: "transplanted_outside")
                .where.not(actual_transplant_date: nil)
   end
 end
