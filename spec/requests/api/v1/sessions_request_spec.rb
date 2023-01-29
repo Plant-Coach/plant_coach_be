@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'User Sessions', :vcr do
 
-
   before(:each) do
     post '/api/v1/users', params: body
   end
