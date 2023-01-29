@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Frost Date API Endpoint' do
+RSpec.describe 'Frost Date API Endpoint', :vcr do
   describe 'GET /frost_data' do
     it 'returns the the spring and fall frost dates in addition to more details location data' do
       body = {
