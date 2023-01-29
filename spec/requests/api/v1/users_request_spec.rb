@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Users API' do
+RSpec.describe 'Users API', :vcr do
 
   let(:body) {{
     name: 'Joel Grant',
@@ -11,19 +11,6 @@ RSpec.describe 'Users API' do
   }}
 
   before(:each) do
-    # The process of creating a new user involves calling another service that
-    # provides the user's frost date information, which is what this webmock is
-    # for.
-    json_response = File.read('spec/fixtures/get_frost_dates_request.json')
-    stub_request(:get, "https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121").
-         with(
-           headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'User-Agent'=>'Faraday v2.5.2'
-           }).
-         to_return(status: 200, body: json_response, headers: {})
-
     post '/api/v1/users', params: body
   end
 
