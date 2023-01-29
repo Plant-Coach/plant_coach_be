@@ -2,27 +2,37 @@ require 'rails_helper'
 
 RSpec.describe 'Users API' do
   before(:each) do
-    body = {
-      name: 'Joel Grant',
-      email: 'joel@plantcoach.com',
-      zip_code: '80121',
-      password: '12345',
-      password_confirmation: '12345'
-    }
-    post '/api/v1/users', params: body
+    # body = {
+    #   name: 'Joel Grant',
+    #   email: 'joel@plantcoach.com',
+    #   zip_code: '80121',
+    #   password: '12345',
+    #   password_confirmation: '12345'
+    # }
+    # post '/api/v1/users', params: body
+
   end
   describe 'POST user' do
     it 'creates a new user' do
-      # body = {
-      #   name: 'Joel Grant',
-      #   email: 'joel@plantcoach.com',
-      #   zip_code: '80121',
-      #   password: '12345',
-      #   password_confirmation: '12345'
-      # }
+      json_response = File.read('spec/fixtures/get_frost_dates_request.json')
+      stub_request(:get, "https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121").
+           with(
+             headers: {
+         	  'Accept'=>'*/*',
+         	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+         	  'User-Agent'=>'Faraday v2.5.2'
+             }).
+           to_return(status: 200, body: json_response, headers: {})
 
-      # post '/api/v1/users', params: body
-      binding.pry
+      body = {
+        name: 'Joel Grant',
+        email: 'joel@plantcoach.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: body
+
       created_user = User.last
 
       expect(response).to be_successful
