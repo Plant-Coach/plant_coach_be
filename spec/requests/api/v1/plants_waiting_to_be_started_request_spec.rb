@@ -78,15 +78,33 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         hybrid_status: 1
       )
 
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -100,7 +118,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "not started"
+        expect(plant[:attributes][:planting_status]).to eq "not_started"
         expect(plant[:attributes][:actual_seed_sewing_date]).to be nil
         expect(plant[:attributes][:start_from_seed]).to be true
       end
