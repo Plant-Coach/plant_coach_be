@@ -117,7 +117,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
         expect(plant[:attributes][:planting_status]).to eq "not_started"
         expect(plant[:attributes][:actual_seed_sewing_date]).to be nil
         expect(plant[:attributes][:start_from_seed]).to be true
