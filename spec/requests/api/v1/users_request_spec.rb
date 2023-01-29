@@ -1,38 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API' do
-  before(:each) do
-    # body = {
-    #   name: 'Joel Grant',
-    #   email: 'joel@plantcoach.com',
-    #   zip_code: '80121',
-    #   password: '12345',
-    #   password_confirmation: '12345'
-    # }
-    # post '/api/v1/users', params: body
 
+  let(:body) {{
+    name: 'Joel Grant',
+    email: 'joel@plantcoach.com',
+    zip_code: '80121',
+    password: '12345',
+    password_confirmation: '12345'
+  }}
+
+  before(:each) do
+    # The process of creating a new user involves calling another service that
+    # provides the user's frost date information, which is what this webmock is
+    # for.
+    json_response = File.read('spec/fixtures/get_frost_dates_request.json')
+    stub_request(:get, "https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121").
+         with(
+           headers: {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent'=>'Faraday v2.5.2'
+           }).
+         to_return(status: 200, body: json_response, headers: {})
+
+    post '/api/v1/users', params: body
   end
+
   describe 'POST user' do
     it 'creates a new user' do
-      json_response = File.read('spec/fixtures/get_frost_dates_request.json')
-      stub_request(:get, "https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121").
-           with(
-             headers: {
-         	  'Accept'=>'*/*',
-         	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-         	  'User-Agent'=>'Faraday v2.5.2'
-             }).
-           to_return(status: 200, body: json_response, headers: {})
-
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-
       created_user = User.last
 
       expect(response).to be_successful
@@ -63,15 +59,7 @@ RSpec.describe 'Users API' do
     end
 
     it 'will not allow duplicate users to be created' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-
+      # A second attempt to create the same user should be unsuccessful.
       post '/api/v1/users', params: body
       expected_error = JSON.parse(response.body, symbolize_names: true)
 
@@ -79,14 +67,15 @@ RSpec.describe 'Users API' do
     end
 
     it 'will not allow a user to register with unmatching passwords' do
-      body = {
+      body_with_password_mismatch = {
         name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
+        email: 'joel_password_mismatch@plantcoach.com',
         zip_code: '80000',
         password: '123457',
         password_confirmation: '12345'
       }
-      post '/api/v1/users', params: body
+
+      post '/api/v1/users', params: body_with_password_mismatch
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to_not be_successful
@@ -94,36 +83,35 @@ RSpec.describe 'Users API' do
     end
 
     it 'doesnt allow anything other than an email address for a new user' do
-      body = {
+      body_with_incorrectly_formatted_email = {
         name: 'Joel Grant',
         email: 'joe.com',
         zip_code: '12345',
         password: '12345',
         password_confirmation: '12345'
       }
-      post '/api/v1/users', params: body
+      post '/api/v1/users', params: body_with_incorrectly_formatted_email
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:error]).to eq("#{body[:email]} is not a valid email address!!")
+      expect(result[:error])
+      .to eq("#{body_with_incorrectly_formatted_email[:email]} is not a valid email address!!")
     end
   end
 
   describe 'PATCH user' do
     it 'allows a user and its attributes to be edited' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
       new_zip_code =  { zip_code: 80111 }
-      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
+
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}",
+      params: new_zip_code,
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data][:attributes][:zip_code]).to eq("80111")
@@ -132,20 +120,17 @@ RSpec.describe 'Users API' do
     end
 
     it 'will return an error in JSON if the user doesnt exist' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
       new_zip_code =  { zip_code: 80111 }
-      patch "/api/v1/users/9999999999", params: new_zip_code, headers: { Authorization: "Bearer #{user_response[:jwt]}" }
+      patch "/api/v1/users/9999999999",
+      params: new_zip_code,
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:error]).to eq("User not found!!")
@@ -154,19 +139,14 @@ RSpec.describe 'Users API' do
 
   describe 'GET /users' do
     it 'returns the users' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
-      get '/api/v1/users', headers: { Authorization: "Bearer #{user_response[:jwt]}"}
+      get '/api/v1/users', headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to be_a Hash
@@ -181,22 +161,19 @@ RSpec.describe 'Users API' do
 
   describe 'DELETE /users' do
     it 'deletes the users account and associations' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@requestspectests.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
-      get '/api/v1/users', headers: { Authorization: "Bearer #{user_response[:jwt]}"}
+      get '/api/v1/users', headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete "/api/v1/users/#{result[:data][:id]}", headers: { Authorization: "Bearer #{user_response[:jwt]}" }
+      delete "/api/v1/users/#{result[:data][:id]}", headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
 
       expect(response.status).to be 204
     end
