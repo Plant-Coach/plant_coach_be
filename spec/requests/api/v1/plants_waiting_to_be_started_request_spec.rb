@@ -56,21 +56,21 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       # new plant, that does not seem to work quickly enough while RSpec is running tests.
       # Therefore, they need to be explicitly assigned as this causes validation errors.
       # It is also not the purpose of this test.
-      plant = user.plants.create!(
+      plant1_object = user.plants.create!(
         name: "Sungold",
         plant_type: "Tomato",
         days_relative_to_frost_date: 14,
         days_to_maturity: 60,
         hybrid_status: 1
       )
-      plant1 = user.plants.create!(
+      plant2_object = user.plants.create!(
         name: "Jalafuego",
         plant_type: "Pepper",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
         hybrid_status: 1
       )
-      plant2 = user.plants.create!(
+      plant3_object = user.plants.create!(
         name: "Rosa Bianca",
         plant_type: "Eggplant",
         days_relative_to_frost_date: 14,
@@ -79,34 +79,55 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
       )
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
-        start_from_seed: :yes,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
         actual_seed_sewing_date: nil,
+        direct_seed_user_decision: :indirect,
         planting_status: "not_started"
         },
         headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
 
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
-        start_from_seed: :yes,
-        actual_seed_sewing_date: nil,
-        planting_status: "not_started"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant2_object.id,
+          name: "Jalafuego",
+          plant_type: "Pepper",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 65,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: nil,
+          planting_status: "not_started"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
 
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
-        start_from_seed: :yes,
-        actual_seed_sewing_date: nil,
-        planting_status: "not_started"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant3_object.id,
+          name: "Rosa Bianca",
+          plant_type: "Eggplant",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 70,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: nil,
+          planting_status: "not_started"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
 
       get '/api/v1/plants_waiting_to_be_started', headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
