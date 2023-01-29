@@ -44,6 +44,7 @@ def garden_plant_params
     :name,
     :days_to_maturity,
     :actual_transplant_date,
-    :direct_seed_user_decision
+    :direct_seed_user_decision,
+    :planting_status
   )
 end
