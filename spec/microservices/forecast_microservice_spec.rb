@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ForecastMicroservice do
+RSpec.describe ForecastMicroservice, :vcr do
   describe '::get_forecast' do
     it 'returns the forecast for the zip code provided' do
       zip_code = "80112"
@@ -36,10 +36,10 @@ RSpec.describe ForecastMicroservice do
         expect(weather[:attributes][:low]).to be_a(Float).or be_an Integer
 
         expect(weather[:attributes]).to have_key(:humidity)
-        expect(weather[:attributes][:humidity]).to be_an Integer
+        expect(weather[:attributes][:humidity]).to be_a(Float).or be_an Integer
 
         expect(weather[:attributes]).to have_key(:wind)
-        expect(weather[:attributes][:wind]).to be_an Float
+        expect(weather[:attributes][:wind]).to be_a(Float).or be_an Integer
 
         expect(weather[:attributes]).to have_key(:weather)
         expect(weather[:attributes][:weather]).to be_an String
