@@ -39,10 +39,17 @@ romaine_seed = SeedDefaultData.create(
   direct_seed_recommendation: :yes
 )
 green_bean_seed = SeedDefaultData.create(
-  plant_type: "Green Bean",
+  plant_type: "Pole Bean",
   days_to_maturity: 52,
-  seedling_days_to_transplant: 14,
+  seedling_days_to_transplant: 0,
   days_relative_to_frost_date: 0,
+  direct_seed_recommendation: :yes
+)
+radish_seed = SeedDefaultData.create(
+  plant_type: "Radish",
+  days_to_maturity: 30,
+  seedling_days_to_transplant: 0,
+  days_relative_to_frost_date: -60,
   direct_seed_recommendation: :yes
 )
 
