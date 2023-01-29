@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FrostDateService do
+RSpec.describe FrostDateService, :vcr do
   describe '::get_frost_dates' do
     it 'returns the spring and fall frost dates based on a users location' do
       zip_code = "80112"

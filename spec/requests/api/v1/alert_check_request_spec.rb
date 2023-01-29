@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Weather Alert API Endpoints' do
+RSpec.describe 'Weather Alert API Endpoints', :vcr do
   describe 'POST /alert_check endpoint' do
     it 'allows a microservice request to be made for a list of zip codes' do
       body1 = {

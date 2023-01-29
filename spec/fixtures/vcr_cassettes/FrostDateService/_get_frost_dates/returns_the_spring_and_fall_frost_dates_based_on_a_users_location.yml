@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80112
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.5.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Sun, 29 Jan 2023 06:50:04 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"d362a8e5be251dcc0b022e186fc017df"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 3de1e4f3-743d-42fa-a2de-27d255a979bb
+      X-Runtime:
+      - '0.400203'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80112","location_name":"Centennial","lat":39.5805,"lon":-104.9011,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Sun, 29 Jan 2023 06:50:04 GMT
+recorded_with: VCR 6.1.0

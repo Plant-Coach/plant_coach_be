@@ -6,7 +6,7 @@ RSpec.describe SeedDefaultData, type: :model do
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:seedling_days_to_transplant) }
     it { should validate_presence_of(:days_relative_to_frost_date) }
-    # it { should validate_presence_of(:direct_seed) }
+    it { should validate_presence_of(:direct_seed_recommendation) }
   end
 
   describe 'relationships' do

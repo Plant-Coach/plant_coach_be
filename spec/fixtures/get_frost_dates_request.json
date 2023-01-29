@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": null,
+    "type": "frost_date",
+    "attributes": {
+      "id": null,
+      "zip_code": "80125",
+      "location_name": "Douglas County",
+      "lat": 39.4845,
+      "lon": -105.0561,
+      "spring_frost": "0516",
+      "fall_frost": "0926"
+    }
+  }
+}

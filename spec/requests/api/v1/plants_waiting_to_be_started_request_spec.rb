@@ -1,41 +1,41 @@
 require 'rails_helper'
 
-RSpec.describe 'Plants Waiting To Be Started API Endpoint' do
+RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
   before(:each) do
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 54,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 52,
       days_relative_to_frost_date: 14,
-      direct_seed: false
+      direct_seed_recommendation: :no
     )
     romaine_seed = SeedDefaultData.create(
       plant_type: "Romaine Lettuce",
       days_to_maturity: 35,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: -28,
-      direct_seed: true
+      direct_seed_recommendation: :yes
     )
     green_bean_seed = SeedDefaultData.create(
       plant_type: "Green Bean",
       days_to_maturity: 52,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: 0,
-      direct_seed: true
+      direct_seed_recommendation: :yes
     )
   end
 
@@ -77,16 +77,34 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint' do
         days_to_maturity: 70,
         hybrid_status: 1
       )
-      
-      post '/api/v1/garden_plants', params: { plant_id: plant.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant1.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant1.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/garden_plants', params: { plant_id: plant2.id, start_from_seed: :yes, sewing_date: nil }, headers: {
+      post '/api/v1/garden_plants', params: {
+        plant_id: plant2.id,
+        start_from_seed: :yes,
+        sewing_date: nil,
+        planting_status: "not_started"
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -99,8 +117,8 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint' do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed]).to be false
-        expect(plant[:attributes][:planting_status]).to eq "not started"
+        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:planting_status]).to eq "not_started"
         expect(plant[:attributes][:actual_seed_sewing_date]).to be nil
         expect(plant[:attributes][:start_from_seed]).to be true
       end

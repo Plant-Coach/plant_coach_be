@@ -3,7 +3,7 @@ class SeedDefaultData < ApplicationRecord
                         :days_to_maturity,
                         :seedling_days_to_transplant,
                         :days_relative_to_frost_date,
-                        :direct_seed
+                        :direct_seed_recommendation
 
-  # enum direct_seed: [:yes, :no, :either]
+  enum direct_seed_recommendation: [:no, :yes]
 end

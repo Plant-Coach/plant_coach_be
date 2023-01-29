@@ -19,13 +19,13 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def planting_status_maker(date_or_nil)
-    if date_or_nil.nil?
-      "not started"
-    else
-      "started"
-    end
-  end
+  # def planting_status_decider(sewing_date_or_nil, start_from_seed, direct_seed_decision)
+  #   if sewing_date_or_nil.nil?
+  #     "not_started"
+  #   elsif
+  #     "started"
+  #   end
+  # end
 
   def seedling_transplant_date_calculator(sewing_date, seedling_lifetime, plant_type)
     if sewing_date.nil?
@@ -35,7 +35,9 @@ class User < ApplicationRecord
     end
   end
 
-  def create_garden_plant(basic_plant_data, start_from_seed, sewing_date)
+  def create_garden_plant(basic_plant_data, start_from_seed, sewing_date, planting_status)
+    direct_seed_decision = SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).direct_seed_recommendation
+
     garden_plant = garden_plants.create(
       name: basic_plant_data[:name],
       days_to_maturity: basic_plant_data[:days_to_maturity],
@@ -44,14 +46,15 @@ class User < ApplicationRecord
       plant_type: basic_plant_data[:plant_type],
       organic: basic_plant_data[:organic],
       recommended_transplant_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date],
-      direct_seed: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).direct_seed,
+      direct_seed_recommendation: direct_seed_decision,
       start_from_seed: start_from_seed,
       recommended_seed_sewing_date: self.spring_frost_dates.to_date + basic_plant_data[:days_relative_to_frost_date] - SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
       seedling_days_to_transplant: SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]).seedling_days_to_transplant,
-      planting_status: planting_status_maker(sewing_date),# Statuses: Waiting sewing, sewed, transplanted_outside, harvest, finished
+      planting_status: planting_status,
       actual_seed_sewing_date: sewing_date,
       projected_seedling_transplant_date: seedling_transplant_date_calculator(sewing_date, SeedDefaultData.find_by(plant_type: basic_plant_data[:plant_type]), basic_plant_data[:plant_type])
     )
+
   end
 
   def establish_and_save_frost_dates
@@ -63,20 +66,20 @@ class User < ApplicationRecord
   def started_indoor_seeds
     GardenPlant.where(
                       start_from_seed: true,
-                      direct_seed: false,
-                      planting_status: "started",
+                      direct_seed_recommendation: :no,
+                      planting_status: 1, # 1 = "started"
                       actual_transplant_date: nil
                     )
                .order('projected_seedling_transplant_date ASC')
   end
 
   def plants_waiting_to_be_started
-    GardenPlant.where(actual_seed_sewing_date: nil, planting_status: "not started")
+    GardenPlant.where(actual_seed_sewing_date: nil, planting_status: "not_started")
                .order("recommended_seed_sewing_date ASC")
   end
 
   def plants_in_the_garden
-    GardenPlant.where(planting_status: "started")
+    GardenPlant.where(planting_status: "transplanted_outside")
                .where.not(actual_transplant_date: nil)
   end
 end

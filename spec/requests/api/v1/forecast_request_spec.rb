@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Forecast API Endpoint' do
+RSpec.describe 'Forecast API Endpoint', :vcr do
   describe 'POST /forecast' do
     it 'returns the forecast based on the users zip code' do
       body = {
@@ -10,6 +10,7 @@ RSpec.describe 'Forecast API Endpoint' do
         password: '12345',
         password_confirmation: '12345'
       }
+
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
@@ -18,7 +19,7 @@ RSpec.describe 'Forecast API Endpoint' do
       }
 
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response).to be_successful
 
       expect(result).to be_a Hash

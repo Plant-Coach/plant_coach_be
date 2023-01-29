@@ -1,54 +1,119 @@
 require 'rails_helper'
 
-RSpec.describe 'Plant API Endpoints' do
+RSpec.describe 'Plant API Endpoints', :vcr do
   before(:each) do
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: "no"
+      direct_seed_recommendation: :no
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: "no"
+      direct_seed_recommendation: :no
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed: "no"
+      direct_seed_recommendation: :no
     )
     romaine_seed = SeedDefaultData.create(
       plant_type: "Romaine Lettuce",
       days_to_maturity: 35,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: -28,
-      direct_seed: "yes"
+      direct_seed_recommendation: :yes
     )
     green_bean_seed = SeedDefaultData.create(
       plant_type: "Green Bean",
       days_to_maturity: 52,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: 0,
-      direct_seed: "yes"
+      direct_seed_recommendation: :yes
     )
+
+    post '/api/v1/users', params: body
   end
+
+  let(:body) {{
+    name: 'Joel Grant',
+    email: 'joel@plantcoach.com',
+    zip_code: '80121',
+    password: '12345',
+    password_confirmation: '12345'
+  }}
+
+  let(:plant1_params) { {
+    plant_type: "Tomato",
+    name: "Sungold",
+    days_relative_to_frost_date: 14,
+    days_to_maturity: 54,
+    hybrid_status: :f1
+  } }
+  let(:plant2_params) { {
+    plant_type: "Pepper",
+    name: "Round of Hungary",
+    days_relative_to_frost_date: 14,
+    days_to_maturity: 60,
+    hybrid_status: :f1
+  } }
+  let(:plant3_params) { {
+    plant_type: "Eggplant",
+    name: "Rosa Bianca",
+    days_relative_to_frost_date: 14,
+    days_to_maturity: 68,
+    hybrid_status: :open_pollinated
+  } }
+  let(:plant4_params) { {
+    plant_type: "Romaine Lettuce",
+    name: "Costal Star",
+    days_relative_to_frost_date: 30,
+    days_to_maturity: 25,
+    hybrid_status: :f1
+  } }
+  let(:plant5_params) { {
+    plant_type: "Green Bean",
+    name: "Provider",
+    days_relative_to_frost_date: -7,
+    days_to_maturity: 45,
+    hybrid_status: :f1
+  } }
+
+  let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
+  let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
+
+  let(:last_user) { User.last }
+
+  let(:plant1_object) { last_user.plants.create!(
+    plant_type: "Tomato",
+    name: "Sungold",
+    days_relative_to_frost_date: 14,
+    days_to_maturity: 54,
+    hybrid_status: :f1
+  ) }
+  let(:plant2_object) { last_user.plants.create!(
+    plant_type: "Pepper",
+    name: "Jalafuego",
+    days_relative_to_frost_date: 14,
+    days_to_maturity: 65,
+    hybrid_status: :f1
+  ) }
+  let(:plant3_object) { last_user.plants.create!(
+    plant_type: "Radish",
+    name: "French Breakfast",
+    days_relative_to_frost_date: 30,
+    days_to_maturity: 21,
+    hybrid_status: :f1
+  ) }
+
   describe 'GET /plants' do
     it 'retrieves all the plants that have been added to the application by that user' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
 
       # Created to make sure user's plants don't show up for other users
       erroneous_user = {
@@ -62,61 +127,25 @@ RSpec.describe 'Plant API Endpoints' do
       post '/api/v1/users', params: erroneous_user
       expect(response).to be_successful
 
-      plant1 = {
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :f1
-      }
-      plant2 = {
-        plant_type: "Pepper",
-        name: "Round of Hungary",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 60,
-        hybrid_status: :f1
-      }
-      plant3 = {
-        plant_type: "Eggplant",
-        name: "Rosa Bianca",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 68,
-        hybrid_status: :open_pollinated
-      }
-      plant4 = {
-        plant_type: "Romaine Lettuce",
-        name: "Costal Star",
-        days_relative_to_frost_date: 30,
-        days_to_maturity: 25,
-        hybrid_status: :f1
-      }
-      plant5 = {
-        plant_type: "Green Bean",
-        name: "Provider",
-        days_relative_to_frost_date: -7,
-        days_to_maturity: 45,
-        hybrid_status: :f1
-      }
-      post '/api/v1/plants', params: plant1, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-      # require 'pry'; binding.pry
-      post '/api/v1/plants', params: plant2, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-      # require 'pry'; binding.pry
-      post '/api/v1/plants', params: plant3, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-      # require 'pry'; binding.pry
-      post '/api/v1/plants', params: plant4, headers: {
+      post '/api/v1/plants', params: plant1_params, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      post '/api/v1/plants', params: plant5, headers: {
+      post '/api/v1/plants', params: plant2_params, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+      post '/api/v1/plants', params: plant3_params, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+      post '/api/v1/plants', params: plant4_params, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
+      post '/api/v1/plants', params: plant5_params, headers: {
         Authorization: "Bearer #{erroneous_user[:jwt]}"
       }
-
 
       get '/api/v1/plants', headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
@@ -158,26 +187,9 @@ RSpec.describe 'Plant API Endpoints' do
 
   describe 'POST /plants' do
     it 'creates a new plant in the database' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
 
-      plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :f1
-      }
-      post '/api/v1/plants', params: plant, headers: {
+      post '/api/v1/plants', params: plant1_params, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
@@ -188,81 +200,51 @@ RSpec.describe 'Plant API Endpoints' do
     end
 
     it 'will create a plant with unknown as the hybrid status if it is not provided' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
 
-      plant = {
+      plant_without_hybrid_status = {
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         organic: true,
         days_to_maturity: 54
       }
-      post '/api/v1/plants', params: plant, headers: {
+
+      post '/api/v1/plants', params: plant_without_hybrid_status, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to_not have_key(:error)
-
       expect(response).to be_successful
-
       expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
     end
 
     it 'will create a new plant even if the organic status is not known' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
 
-      plant = {
+      plant_with_missing_organic_field = {
         plant_type: "Tomato",
         name: "Sungold",
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: :f1
       }
-      post '/api/v1/plants', params: plant, headers: {
+
+      post '/api/v1/plants', params: plant_with_missing_organic_field, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to_not have_key(:error)
-
       expect(response).to be_successful
-
       expect(result[:data][:attributes][:organic]).to eq(false)
     end
 
     it 'will replace information with default data that the user does not provide' do
       ActiveRecord::Base.skip_callbacks = false
-
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
@@ -284,21 +266,13 @@ RSpec.describe 'Plant API Endpoints' do
 
     it 'will return an error message if the plant could not be created due to missing information' do
       ActiveRecord::Base.skip_callbacks = true
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
 
       plant = {
         name: "Sungold",
       }
+
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
@@ -311,113 +285,37 @@ RSpec.describe 'Plant API Endpoints' do
 
   describe 'PATCH /plants' do
     it 'updates an existing plant with new attributes' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
-      user = User.last
-      plant = user.plants.create!(
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :f1
-      )
-      patch "/api/v1/plants/#{plant.id}", params: {
+
+      patch "/api/v1/plants/#{plant1_object.id}", params: {
         days_to_maturity: 61
-        }, headers: {
+        },
+        headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
+
       result = JSON.parse(response.body, symbolize_names: true)
+
       expect(result[:data][:attributes][:days_to_maturity]).to eq(61)
     end
   end
 
   describe 'DELETE /plants' do
     it 'removes a plant from the list of available plants' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
-      user = User.last
-      plant1 = user.plants.create!(
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :f1
-      )
-      plant2 = user.plants.create!(
-        plant_type: "Pepper",
-        name: "Jalafuego",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 65,
-        hybrid_status: :f1
-      )
-      plant3 = user.plants.create!(
-        plant_type: "Radish",
-        name: "French Breakfast",
-        days_relative_to_frost_date: 30,
-        days_to_maturity: 21,
-        hybrid_status: :f1
-      )
 
-      delete "/api/v1/plants/#{plant3.id}", headers: {
+
+      delete "/api/v1/plants/#{plant3_object.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(Plant.find_by(id: plant3.id)).to be nil
+      expect(Plant.find_by(id: plant3_object.id)).to be nil
     end
 
     it 'returns an error if the plant can not be found' do
-      body = {
-        name: 'Joel Grant',
-        email: 'joel@plantcoach.com',
-        zip_code: '80121',
-        password: '12345',
-        password_confirmation: '12345'
-      }
-      post '/api/v1/users', params: body
-      user_response = JSON.parse(response.body, symbolize_names: true)
-
       expect(response).to be_successful
-      user = User.last
-      plant1 = user.plants.create!(
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :f1
-      )
-      plant2 = user.plants.create!(
-        plant_type: "Pepper",
-        name: "Jalafuego",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 65,
-        hybrid_status: :f1
-      )
-      plant3 = user.plants.create!(
-        plant_type: "Radish",
-        name: "French Breakfast",
-        days_relative_to_frost_date: 30,
-        days_to_maturity: 21,
-        hybrid_status: :f1
-      )
+
       delete "/api/v1/plants/999999", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
