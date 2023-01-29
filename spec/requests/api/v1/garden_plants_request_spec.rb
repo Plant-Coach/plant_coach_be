@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Garden Plants API Endpoint', :vcr do
   before(:each) do
-
+    ActiveRecord::Base.skip_callbacks = false
     @tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
@@ -61,8 +61,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'creates new plant that the user will be planting' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.today,
+        actual_seed_sewing_date: Date.today,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
         },
@@ -122,7 +128,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         hybrid_status: 1,
         organic: false
       )
-      user.create_garden_plant(
+      user.garden_plants.create!(
         {
         plant_type: "Tomato",
         name: "Sungold",
@@ -130,23 +136,23 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false,
-      },
-      "yes",
-      nil,
-      "started_indoors"
+        direct_seed_user_decision: :indirect,
+        planting_status: "not_started",
+        start_from_seed: true
+        }
       )
-      user.create_garden_plant(
+      user.garden_plants.create!(
         {
         plant_type: "Pepper",
         name: "Jalafuego",
         days_relative_to_frost_date: 14,
         days_to_maturity: 65,
         hybrid_status: 1,
-        organic: false
-      },
-      "yes",
-      nil,
-      "started_indoors"
+        organic: false,
+        direct_seed_user_decision: :indirect,
+        planting_status: "not_started",
+        start_from_seed: true
+        }
       )
 
       get '/api/v1/garden_plants', headers: {
@@ -175,8 +181,15 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'allows the user to add an actual planting date to an existing garden_plant' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: nil,
+        actual_seed_sewing_date: nil,
+        direct_seed_user_decision: :indirect,
         planting_status: "not_started"
       },
       headers: {
@@ -229,8 +242,15 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'will add a transplant date to the garden_plant object when giving a plant a transplant date' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.today,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
         },
         headers: {
@@ -273,7 +293,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   describe 'DELETE /garden_plants' do
     it 'removes the plant from the users list of plants' do
-      garden_plant = user.create_garden_plant(
+      garden_plant = user.garden_plants.create!(
         {
         plant_type: "Tomato",
         name: "Sungold",
@@ -281,13 +301,12 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false,
-        direct_seed_recommendation: :yes
-        },
-        "yes",
-        nil,
-        "started_indoors"
+        direct_seed_user_decision: :indirect,
+        planting_status: "not_started",
+        start_from_seed: true
+        }
       )
-      
+
       delete "/api/v1/garden_plants/#{garden_plant.id}", headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }

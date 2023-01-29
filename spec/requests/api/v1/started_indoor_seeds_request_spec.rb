@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
-
   before(:each) do
+    ActiveRecord::Base.skip_callbacks = false
+    
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
@@ -53,28 +54,28 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
   let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
   let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
 
-  let(:plant) { user.plants.create!(
+  let(:plant1_object) { user.plants.create!(
     name: "Sungold",
     plant_type: "Tomato",
     days_relative_to_frost_date: 14,
     days_to_maturity: 60,
     hybrid_status: 1
   ) }
-  let(:plant1)  { user.plants.create!(
+  let(:plant2_object)  { user.plants.create!(
     name: "Jalafuego",
     plant_type: "Pepper",
     days_relative_to_frost_date: 14,
     days_to_maturity: 65,
     hybrid_status: 1
   ) }
-  let(:plant2) { user.plants.create!(
+  let(:plant3_object) { user.plants.create!(
     name: "Rosa Bianca",
     plant_type: "Eggplant",
     days_relative_to_frost_date: 14,
     days_to_maturity: 70,
     hybrid_status: 1
   ) }
-  let(:plant3) { user.plants.create!(
+  let(:plant4_object) { user.plants.create!(
     name: "Coastal Star",
     plant_type: "Romaine Lettuce",
     days_relative_to_frost_date: -45,
@@ -88,34 +89,55 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
     it 'gets all the plants in the users garden that have also been started inside and not yet transplanted outdoors' do
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        actual_seed_sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
         },
         headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
 
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
-        planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant2_object.id,
+          name: "Jalafuego",
+          plant_type: "Pepper",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 65,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: Date.yesterday,
+          planting_status: "started_indoors"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
 
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
-        planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant3_object.id,
+          name: "Rosa Bianca",
+          plant_type: "Eggplant",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 70,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: Date.yesterday,
+          planting_status: "started_indoors"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
 
       get '/api/v1/started_indoor_seeds', headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
@@ -135,39 +157,67 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
     it 'does not get any plants that have not been started' do
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
-        planting_status: "started_indoors"
-      },
-      headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        actual_seed_sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
         },
         headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
+
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant2_object.id,
+          name: "Jalafuego",
+          plant_type: "Pepper",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 65,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: Date.yesterday,
+          planting_status: "started_indoors"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
+
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant3_object.id,
+          name: "Rosa Bianca",
+          plant_type: "Eggplant",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 70,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          direct_seed_user_decision: :indirect,
+          actual_seed_sewing_date: Date.yesterday,
+          planting_status: "started_indoors"
+          },
+          headers: {
+            Authorization: "Bearer #{user_response[:jwt]}"
+        }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
-        planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant3.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant4_object.id,
+        sname: "Coastal Star",
+        plant_type: "Romaine Lettuce",
+        days_relative_to_frost_date: -45,
+        days_to_maturity: 30,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
         },
         headers: {
@@ -198,43 +248,72 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
     it 'will not include plants that are waiting to be planted' do
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        actual_seed_sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-        }, headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant2_object.id,
+        name: "Jalafuego",
+        plant_type: "Pepper",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       # This plant is not started yet
       post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
-        start_from_seed: :yes,
-        sewing_date: nil,
+        plant_id: plant3_object.id,
+        name: "Rosa Bianca",
+        plant_type: "Eggplant",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 70,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: nil,
         planting_status: "not_started"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant3.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant4_object.id,
+        sname: "Coastal Star",
+        plant_type: "Romaine Lettuce",
+        days_relative_to_frost_date: -45,
+        days_to_maturity: 30,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :direct,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       get '/api/v1/started_indoor_seeds', headers: {
@@ -257,39 +336,62 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
     it 'will not include plants that have been transplanted outdoors' do
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        actual_seed_sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
+        plant_id: plant2_object.id,
+        name: "Jalafuego",
+        plant_type: "Pepper",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
+        plant_id: plant3_object.id,
+        name: "Rosa Bianca",
+        plant_type: "Eggplant",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 70,
+        hybrid_status: :open_pollinated,
+        organic: false,
         start_from_seed: true,
-        sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        }, headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
 
       # Mimicks a plant who is plant outside, to test for false positives.
       patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
-        actual_transplant_date: Date.today }, headers: {
+        actual_transplant_date: Date.today,
+        planting_status: "transplanted_outside" }, headers: {
         Authorization: "Bearer #{user_response[:jwt]}"
       }
 
@@ -313,47 +415,62 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
     it 'will not include plants that are direct-sewn' do
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant1_object.id,
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 54,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        actual_seed_sewing_date: Date.yesterday,
+        direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant1.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        plant_id: plant2_object.id,
+        name: "Jalafuego",
+        plant_type: "Pepper",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
-        plant_id: plant2.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
-        planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
+        plant_id: plant4_object.id,
+        sname: "Coastal Star",
+        plant_type: "Romaine Lettuce",
+        days_relative_to_frost_date: -45,
+        days_to_maturity: 30,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :direct,
+        actual_seed_sewing_date: Date.yesterday,
+        planting_status: "direct_sewn_outside"
+      },
+      headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
 
-      patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
-        actual_transplant_date: Date.today
-        },
-        headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
       get '/api/v1/started_indoor_seeds', headers: {
           Authorization: "Bearer #{user_response[:jwt]}"
         }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(2)

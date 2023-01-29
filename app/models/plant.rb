@@ -22,18 +22,11 @@ class Plant < ApplicationRecord
   # unless: :skip_callbacks was introduced to help with erroneous validation test failures.
   after_initialize :set_defaults, unless: :skip_callbacks
 
-  def get_default_maturity_date
-    SeedDefaultData.find_by(plant_type: plant_type).days_to_maturity
-  end
-
-  def get_default_frost_date
-    SeedDefaultData.find_by(plant_type: plant_type).days_relative_to_frost_date
-  end
-
   private
 
   def set_defaults
-    self.update(days_to_maturity: get_default_maturity_date) if days_to_maturity.nil?
-    self.update(days_relative_to_frost_date: get_default_frost_date) if days_relative_to_frost_date.nil?
+    plant_defaults = SeedDefaultData.find_by(plant_type: plant_type)
+    self.update(days_to_maturity: plant_defaults.days_to_maturity) if days_to_maturity.nil?
+    self.update(days_relative_to_frost_date: plant_defaults.days_relative_to_frost_date) if days_relative_to_frost_date.nil?
   end
 end

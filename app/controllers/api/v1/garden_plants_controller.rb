@@ -11,13 +11,8 @@ class Api::V1::GardenPlantsController < ApplicationController
       render json: GardenPlantSerializer.error(
         "There was a problem finding a plant to copy!"), status: 400
     else
-      garden_plant = @user.create_garden_plant(
-        plant_result,
-        params[:start_from_seed],
-        params[:sewing_date],
-        params[:planting_status]
-      )
-      render json: GardenPlantSerializer.new(garden_plant)
+      new_garden_plant = @user.garden_plants.create(garden_plant_params)
+      render json: GardenPlantSerializer.new(new_garden_plant)
     end
   end
 
@@ -44,7 +39,12 @@ def garden_plant_params
     :name,
     :days_to_maturity,
     :actual_transplant_date,
-    :direct_seed_user_decision,
-    :planting_status
+    :plant_type, # Used for create.
+    :hybrid_status, # Used for create.
+    :days_relative_to_frost_date, # Used for create.
+    :direct_seed_user_decision, # Used for create.
+    :planting_status, # Used for create.
+    # :plant_id, # Used for create.
+    :start_from_seed # Used for create.
   )
 end

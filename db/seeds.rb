@@ -8,6 +8,50 @@
 GardenPlant.destroy_all
 Plant.destroy_all
 User.destroy_all
+SeedDefaultData.destroy_all
+
+tomato_seed = SeedDefaultData.create(
+  plant_type: "Tomato",
+  days_to_maturity: 55,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed_recommendation: :no
+)
+pepper_seed = SeedDefaultData.create(
+  plant_type: "Pepper",
+  days_to_maturity: 64,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed_recommendation: :no
+)
+eggplant_seed = SeedDefaultData.create(
+  plant_type: "Eggplant",
+  days_to_maturity: 68,
+  seedling_days_to_transplant: 49,
+  days_relative_to_frost_date: 14,
+  direct_seed_recommendation: :no
+)
+romaine_seed = SeedDefaultData.create(
+  plant_type: "Romaine Lettuce",
+  days_to_maturity: 35,
+  seedling_days_to_transplant: 14,
+  days_relative_to_frost_date: -28,
+  direct_seed_recommendation: :yes
+)
+green_bean_seed = SeedDefaultData.create(
+  plant_type: "Pole Bean",
+  days_to_maturity: 52,
+  seedling_days_to_transplant: 0,
+  days_relative_to_frost_date: 0,
+  direct_seed_recommendation: :yes
+)
+radish_seed = SeedDefaultData.create(
+  plant_type: "Radish",
+  days_to_maturity: 30,
+  seedling_days_to_transplant: 0,
+  days_relative_to_frost_date: -60,
+  direct_seed_recommendation: :yes
+)
 
 user = User.create(
   name: 'Joel Grant',
@@ -35,14 +79,14 @@ plant8 = user.plants.create(name: "Genovese", plant_type: "Basil", days_relative
 plant9 = user.plants.create(name: "Corinto", plant_type: "Cucumber", days_relative_to_frost_date: 14, days_to_maturity: 49, hybrid_status: 1)
 plant10 = user.plants.create(name: "Champion", plant_type: "Pumpkin", days_relative_to_frost_date: 21, days_to_maturity: 75, hybrid_status: 1)
 
-user.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
-user.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
-user.garden_plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1)
-user.garden_plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1)
-user.garden_plants.create(name: "Provider", plant_type: "Pole Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1)
+user.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user.garden_plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user.garden_plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user.garden_plants.create(name: "Provider", plant_type: "Pole Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
 
-user2.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
-user2.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
+user2.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user2.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
 
 basil = PlantingGuide.create(
   plant_type: "Basil",
@@ -127,40 +171,4 @@ tomatoes = PlantingGuide.create(
 watermelon = PlantingGuide.create(
   plant_type: "watermelon",
   description: "<description_placeholder>"
-)
-
-tomato_seed = SeedDefaultData.create(
-  plant_type: "Tomato",
-  days_to_maturity: 55,
-  seedling_days_to_transplant: 49,
-  days_relative_to_frost_date: 14,
-  direct_seed_recommendation: :no
-)
-pepper_seed = SeedDefaultData.create(
-  plant_type: "Pepper",
-  days_to_maturity: 64,
-  seedling_days_to_transplant: 49,
-  days_relative_to_frost_date: 14,
-  direct_seed_recommendation: :no
-)
-eggplant_seed = SeedDefaultData.create(
-  plant_type: "Eggplant",
-  days_to_maturity: 68,
-  seedling_days_to_transplant: 49,
-  days_relative_to_frost_date: 14,
-  direct_seed_recommendation: :no
-)
-romaine_seed = SeedDefaultData.create(
-  plant_type: "Romaine Lettuce",
-  days_to_maturity: 35,
-  seedling_days_to_transplant: 14,
-  days_relative_to_frost_date: -28,
-  direct_seed_recommendation: :yes
-)
-green_bean_seed = SeedDefaultData.create(
-  plant_type: "Green Bean",
-  days_to_maturity: 52,
-  seedling_days_to_transplant: 14,
-  days_relative_to_frost_date: 0,
-  direct_seed_recommendation: :yes
 )

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
   before(:each) do
+    ActiveRecord::Base.skip_callbacks = false
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
@@ -81,8 +82,15 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
       # distinguishing difference of this test...
       post '/api/v1/garden_plants', params: {
         plant_id: plant.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        name: "Sungold",
+        plant_type: "Tomato",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 60,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -91,8 +99,15 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
 
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        name: "Jalafuego",
+        plant_type: "Pepper",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 65,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
@@ -101,8 +116,15 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
 
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
-        start_from_seed: :yes,
-        sewing_date: Date.yesterday,
+        name: "Rosa Bianca",
+        plant_type: "Eggplant",
+        days_relative_to_frost_date: 14,
+        days_to_maturity: 70,
+        hybrid_status: :open_pollinated,
+        organic: false,
+        start_from_seed: true,
+        direct_seed_user_decision: :indirect,
+        actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         },
         headers: {
