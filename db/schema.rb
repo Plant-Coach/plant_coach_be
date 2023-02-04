@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_04_070124) do
+ActiveRecord::Schema.define(version: 2023_02_04_071848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,19 @@ ActiveRecord::Schema.define(version: 2023_02_04_070124) do
     t.integer "direct_seed_user_decision", default: 0
     t.integer "direct_seed_recommendation", default: 0
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
+  end
+
+  create_table "harvest_coachings", force: :cascade do |t|
+    t.bigint "harvest_guide_id"
+    t.bigint "garden_plant_id"
+    t.index ["garden_plant_id"], name: "index_harvest_coachings_on_garden_plant_id"
+    t.index ["harvest_guide_id"], name: "index_harvest_coachings_on_harvest_guide_id"
+  end
+
+  create_table "harvest_guides", force: :cascade do |t|
+    t.date "when"
+    t.string "how"
+    t.string "harvest_time"
   end
 
   create_table "planting_guides", force: :cascade do |t|
@@ -156,6 +169,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_070124) do
   add_foreign_key "garden_plant_actions", "garden_plant_coachings"
   add_foreign_key "garden_plant_actions", "garden_plants"
   add_foreign_key "garden_plants", "users"
+  add_foreign_key "harvest_coachings", "garden_plants"
+  add_foreign_key "harvest_coachings", "harvest_guides"
   add_foreign_key "plants", "users"
   add_foreign_key "seed_coachings", "garden_plants"
   add_foreign_key "seed_coachings", "seed_guides"
