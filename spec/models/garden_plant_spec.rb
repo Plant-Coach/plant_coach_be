@@ -23,5 +23,7 @@ RSpec.describe GardenPlant, type: :model do
 
   describe 'relationships' do
     it { should belong_to(:user) }
+    it { should have_many(:transplant_coachings) }
+    it { should have_many(:transplant_guides).through(:transplant_coachings) }
   end
 end

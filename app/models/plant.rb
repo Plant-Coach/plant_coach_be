@@ -16,7 +16,6 @@ class Plant < ApplicationRecord
   # Plants belong to a user.
   belongs_to :user
 
-  # Hybrid Status can only be categorized as these two enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
 
   # unless: :skip_callbacks was introduced to help with erroneous validation test failures.

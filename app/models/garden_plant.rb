@@ -18,6 +18,8 @@ class GardenPlant < ApplicationRecord
 
   # GardenPlants belong to a user.
   belongs_to :user
+  has_many :transplant_coachings
+  has_many :transplant_guides, through: :transplant_coachings
   # binding.pry
   # Hybrid Status can only be categorized as these three enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
