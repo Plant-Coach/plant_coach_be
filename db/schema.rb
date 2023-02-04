@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_04_060733) do
+ActiveRecord::Schema.define(version: 2023_02_04_070124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,17 @@ ActiveRecord::Schema.define(version: 2023_02_04_060733) do
     t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
+  create_table "seed_coachings", force: :cascade do |t|
+    t.date "when_to_remind"
+    t.boolean "remind"
+    t.bigint "seed_guide_id"
+    t.bigint "garden_plant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["garden_plant_id"], name: "index_seed_coachings_on_garden_plant_id"
+    t.index ["seed_guide_id"], name: "index_seed_coachings_on_seed_guide_id"
+  end
+
   create_table "seed_default_data", force: :cascade do |t|
     t.string "plant_type"
     t.integer "days_to_maturity"
@@ -89,6 +100,24 @@ ActiveRecord::Schema.define(version: 2023_02_04_060733) do
     t.integer "days_relative_to_frost_date"
     t.integer "seedling_days_to_transplant"
     t.integer "direct_seed_recommendation", default: 0
+  end
+
+  create_table "seed_guides", force: :cascade do |t|
+    t.integer "germination_temp"
+    t.integer "growing_temp"
+    t.text "equipment_needed"
+    t.string "description"
+    t.string "sewing_depth"
+    t.string "when_ready_for_transplant"
+    t.boolean "needs_fertilization"
+    t.integer "fertilization_frequency"
+    t.boolean "direct_seed_recommended"
+    t.boolean "recommended_transplant_date"
+    t.boolean "recommended_seed_start_date"
+    t.boolean "needs_potting_up"
+    t.string "potting_up_advice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transplant_coachings", force: :cascade do |t|
@@ -128,6 +157,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_060733) do
   add_foreign_key "garden_plant_actions", "garden_plants"
   add_foreign_key "garden_plants", "users"
   add_foreign_key "plants", "users"
+  add_foreign_key "seed_coachings", "garden_plants"
+  add_foreign_key "seed_coachings", "seed_guides"
   add_foreign_key "transplant_coachings", "garden_plants"
   add_foreign_key "transplant_coachings", "transplant_guides"
 end
