@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
     t.date "recommended_seed_sewing_date"
     t.date "actual_seed_sewing_date"
     t.integer "seedling_days_to_transplant"
-    t.date "projected_seedling_transplant_date"
     t.date "actual_transplant_date"
     t.integer "direct_seed_user_decision", default: 0
     t.integer "direct_seed_recommendation", default: 0

@@ -15,6 +15,5 @@ class PlantsInTheGardenSerializer
               :recommended_seed_sewing_date,
               :actual_seed_sewing_date,
               :seedling_days_to_transplant,
-              :projected_seedling_transplant_date,
               :actual_transplant_date
 end

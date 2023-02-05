@@ -36,7 +36,7 @@ class GardenPlant < ApplicationRecord
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
 
   def update_planting_dates
-    self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
+    self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
   end
 
   def generate_key_plant_dates
