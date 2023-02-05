@@ -1,4 +1,4 @@
-class CreateNewSeedCoaching < ActiveRecord::Migration[5.2]
+class CreateSeedCoaching < ActiveRecord::Migration[5.2]
   def change
     create_table :seed_coachings do |t|
       t.date :when_to_remind

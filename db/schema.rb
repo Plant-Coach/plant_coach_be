@@ -15,29 +15,6 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "garden_coachings", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.integer "days_to_remind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "garden_plant_actions", force: :cascade do |t|
-    t.bigint "garden_plant_id"
-    t.bigint "garden_plant_coaching_id"
-    t.index ["garden_plant_coaching_id"], name: "index_garden_plant_actions_on_garden_plant_coaching_id"
-    t.index ["garden_plant_id"], name: "index_garden_plant_actions_on_garden_plant_id"
-  end
-
-  create_table "garden_plant_coachings", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.integer "days_to_remind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "garden_plants", force: :cascade do |t|
     t.string "name"
     t.integer "days_to_maturity"
@@ -72,13 +49,6 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
     t.date "when"
     t.string "how"
     t.string "harvest_time"
-  end
-
-  create_table "planting_guides", force: :cascade do |t|
-    t.string "plant_type"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "plants", force: :cascade do |t|
@@ -166,8 +136,6 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
     t.string "fall_frost_dates"
   end
 
-  add_foreign_key "garden_plant_actions", "garden_plant_coachings"
-  add_foreign_key "garden_plant_actions", "garden_plants"
   add_foreign_key "garden_plants", "users"
   add_foreign_key "harvest_coachings", "garden_plants"
   add_foreign_key "harvest_coachings", "harvest_guides"
