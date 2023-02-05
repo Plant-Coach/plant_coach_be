@@ -47,9 +47,18 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   end
 
   create_table "harvest_guides", force: :cascade do |t|
-    t.date "when"
+    t.string "plant_type"
+    t.integer "when"
     t.string "how"
     t.string "harvest_time"
+    t.bigint "plant_coach_guide_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_harvest_guides_on_plant_coach_guide_id"
+  end
+
+  create_table "plant_coach_guides", force: :cascade do |t|
+    t.string "plant_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -89,9 +98,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   end
 
   create_table "seed_guides", force: :cascade do |t|
+    t.string "plant_type"
     t.integer "germination_temp"
-    t.integer "growing_temp"
-    t.text "equipment_needed"
     t.string "description"
     t.string "sewing_depth"
     t.string "when_ready_for_transplant"
@@ -101,9 +109,10 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
     t.boolean "recommended_transplant_date"
     t.boolean "recommended_seed_start_date"
     t.boolean "needs_potting_up"
-    t.string "potting_up_advice"
+    t.bigint "plant_coach_guide_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_seed_guides_on_plant_coach_guide_id"
   end
 
   create_table "transplant_coachings", force: :cascade do |t|
@@ -118,14 +127,17 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   end
 
   create_table "transplant_guides", force: :cascade do |t|
+    t.string "plant_type"
     t.string "growth_habit"
     t.string "spacing"
     t.string "depth"
     t.string "recommended_tools"
     t.string "sun_requirements"
     t.string "description"
+    t.bigint "plant_coach_guide_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_transplant_guides_on_plant_coach_guide_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -142,9 +154,12 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   add_foreign_key "garden_plants", "users"
   add_foreign_key "harvest_coachings", "garden_plants"
   add_foreign_key "harvest_coachings", "harvest_guides"
+  add_foreign_key "harvest_guides", "plant_coach_guides"
   add_foreign_key "plants", "users"
   add_foreign_key "seed_coachings", "garden_plants"
   add_foreign_key "seed_coachings", "seed_guides"
+  add_foreign_key "seed_guides", "plant_coach_guides"
   add_foreign_key "transplant_coachings", "garden_plants"
   add_foreign_key "transplant_coachings", "transplant_guides"
+  add_foreign_key "transplant_guides", "plant_coach_guides"
 end

@@ -7,6 +7,7 @@ namespace :guides do
     SeedGuide.destroy_all
     TransplantGuide.destroy_all
     HarvestGuide.destroy_all
+    PlantCoachGuide.destroy_all
 
     CSV.foreach('lib/seed_guides.csv', :headers => true) do |row|
       SeedGuide.create(row.to_hash)

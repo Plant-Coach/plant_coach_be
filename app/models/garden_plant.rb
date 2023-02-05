@@ -20,7 +20,11 @@ class GardenPlant < ApplicationRecord
   belongs_to :user
   has_many :transplant_coachings
   has_many :transplant_guides, through: :transplant_coachings
-  # binding.pry
+  has_many :seed_coachings
+  has_many :seed_guides, through: :seed_coachings
+  has_many :harvest_coachings
+  has_many :harvest_guides, through: :harvest_coachings
+
   # Hybrid Status can only be categorized as these three enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",

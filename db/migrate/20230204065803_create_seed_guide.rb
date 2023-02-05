@@ -1,9 +1,8 @@
 class CreateSeedGuide < ActiveRecord::Migration[5.2]
   def change
     create_table :seed_guides do |t|
+      t.string :plant_type
       t.integer :germination_temp
-      t.integer :growing_temp
-      t.text :equipment_needed
       t.string :description
       t.string :sewing_depth
       t.string :when_ready_for_transplant
@@ -13,7 +12,7 @@ class CreateSeedGuide < ActiveRecord::Migration[5.2]
       t.boolean :recommended_transplant_date
       t.boolean :recommended_seed_start_date
       t.boolean :needs_potting_up
-      t.string :potting_up_advice
+      t.references :plant_coach_guide, foreign_key: true
 
       t.timestamps
     end

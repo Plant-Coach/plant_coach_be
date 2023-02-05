@@ -25,5 +25,9 @@ RSpec.describe GardenPlant, type: :model do
     it { should belong_to(:user) }
     it { should have_many(:transplant_coachings) }
     it { should have_many(:transplant_guides).through(:transplant_coachings) }
+    it { should have_many(:seed_coachings) }
+    it { should have_many(:seed_guides).through(:seed_coachings) }
+    it { should have_many(:harvest_coachings) }
+    it { should have_many(:harvest_guides).through(:harvest_coachings) }
   end
 end
