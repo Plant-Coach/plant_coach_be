@@ -1,0 +1,4 @@
+plant_type,when,how,harvest_time
+Tomato,55,onoing,Fruit is red or desired color
+Pepper,55,onoing,Can be picked when green or red
+Eggplant,55,onoing,"Fruit is shiny, and reached normal coloring"
