@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 29 Jan 2023 06:33:30 GMT
+      - Sun, 05 Feb 2023 06:46:28 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - e5b5b1e0-03e5-4809-a8ec-f5df26219220
+      - f4c78cd2-2538-4ae0-9762-6e9203a0fc68
       X-Runtime:
-      - '3.995999'
+      - '0.367460'
       Transfer-Encoding:
       - chunked
       Via:
@@ -42,5 +42,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 29 Jan 2023 06:33:30 GMT
+  recorded_at: Sun, 05 Feb 2023 06:46:28 GMT
 recorded_with: VCR 6.1.0

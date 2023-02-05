@@ -18,7 +18,13 @@ class GardenPlant < ApplicationRecord
 
   # GardenPlants belong to a user.
   belongs_to :user
-  # binding.pry
+  has_many :transplant_coachings
+  has_many :transplant_guides, through: :transplant_coachings
+  has_many :seed_coachings
+  has_many :seed_guides, through: :seed_coachings
+  has_many :harvest_coachings
+  has_many :harvest_guides, through: :harvest_coachings
+
   # Hybrid Status can only be categorized as these three enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
@@ -34,7 +40,7 @@ class GardenPlant < ApplicationRecord
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
 
   def update_planting_dates
-    self.projected_seedling_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
+    self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
   end
 
   def generate_key_plant_dates

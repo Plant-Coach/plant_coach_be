@@ -32,7 +32,7 @@ class User < ApplicationRecord
                       planting_status: 1, # 1 = "started"
                       actual_transplant_date: nil
                     )
-               .order('projected_seedling_transplant_date ASC')
+               .order('recommended_transplant_date ASC')
   end
 
   def plants_waiting_to_be_started

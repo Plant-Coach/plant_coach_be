@@ -10,33 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_22_205207) do
+ActiveRecord::Schema.define(version: 2023_02_04_071848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "garden_coachings", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.integer "days_to_remind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "garden_plant_actions", force: :cascade do |t|
-    t.bigint "garden_plant_id"
-    t.bigint "garden_plant_coaching_id"
-    t.index ["garden_plant_coaching_id"], name: "index_garden_plant_actions_on_garden_plant_coaching_id"
-    t.index ["garden_plant_id"], name: "index_garden_plant_actions_on_garden_plant_id"
-  end
-
-  create_table "garden_plant_coachings", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.integer "days_to_remind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "garden_plants", force: :cascade do |t|
     t.string "name"
@@ -54,25 +31,34 @@ ActiveRecord::Schema.define(version: 2023_01_22_205207) do
     t.date "recommended_seed_sewing_date"
     t.date "actual_seed_sewing_date"
     t.integer "seedling_days_to_transplant"
-    t.date "projected_seedling_transplant_date"
     t.date "actual_transplant_date"
     t.integer "direct_seed_user_decision", default: 0
     t.integer "direct_seed_recommendation", default: 0
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end
 
-  create_table "garden_user_coachings", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "garden_coaching_id"
+  create_table "harvest_coachings", force: :cascade do |t|
+    t.bigint "harvest_guide_id"
+    t.bigint "garden_plant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["garden_coaching_id"], name: "index_garden_user_coachings_on_garden_coaching_id"
-    t.index ["user_id"], name: "index_garden_user_coachings_on_user_id"
+    t.index ["garden_plant_id"], name: "index_harvest_coachings_on_garden_plant_id"
+    t.index ["harvest_guide_id"], name: "index_harvest_coachings_on_harvest_guide_id"
   end
 
-  create_table "planting_guides", force: :cascade do |t|
+  create_table "harvest_guides", force: :cascade do |t|
     t.string "plant_type"
-    t.string "description"
+    t.integer "when"
+    t.string "how"
+    t.string "harvest_time"
+    t.bigint "plant_coach_guide_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_harvest_guides_on_plant_coach_guide_id"
+  end
+
+  create_table "plant_coach_guides", force: :cascade do |t|
+    t.string "plant_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,21 +76,15 @@ ActiveRecord::Schema.define(version: 2023_01_22_205207) do
     t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
-  create_table "seed_actions", force: :cascade do |t|
-    t.bigint "garden_plant_id"
-    t.bigint "seed_coaching_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["garden_plant_id"], name: "index_seed_actions_on_garden_plant_id"
-    t.index ["seed_coaching_id"], name: "index_seed_actions_on_seed_coaching_id"
-  end
-
   create_table "seed_coachings", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.integer "days_to_remind"
+    t.date "when_to_remind"
+    t.boolean "remind"
+    t.bigint "seed_guide_id"
+    t.bigint "garden_plant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["garden_plant_id"], name: "index_seed_coachings_on_garden_plant_id"
+    t.index ["seed_guide_id"], name: "index_seed_coachings_on_seed_guide_id"
   end
 
   create_table "seed_default_data", force: :cascade do |t|
@@ -115,6 +95,49 @@ ActiveRecord::Schema.define(version: 2023_01_22_205207) do
     t.integer "days_relative_to_frost_date"
     t.integer "seedling_days_to_transplant"
     t.integer "direct_seed_recommendation", default: 0
+  end
+
+  create_table "seed_guides", force: :cascade do |t|
+    t.string "plant_type"
+    t.integer "germination_temp"
+    t.string "description"
+    t.string "sewing_depth"
+    t.string "when_ready_for_transplant"
+    t.boolean "needs_fertilization"
+    t.integer "fertilization_frequency"
+    t.boolean "direct_seed_recommended"
+    t.boolean "recommended_transplant_date"
+    t.boolean "recommended_seed_start_date"
+    t.boolean "needs_potting_up"
+    t.bigint "plant_coach_guide_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_seed_guides_on_plant_coach_guide_id"
+  end
+
+  create_table "transplant_coachings", force: :cascade do |t|
+    t.date "when_to_remind"
+    t.boolean "remind"
+    t.bigint "transplant_guide_id"
+    t.bigint "garden_plant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["garden_plant_id"], name: "index_transplant_coachings_on_garden_plant_id"
+    t.index ["transplant_guide_id"], name: "index_transplant_coachings_on_transplant_guide_id"
+  end
+
+  create_table "transplant_guides", force: :cascade do |t|
+    t.string "plant_type"
+    t.string "growth_habit"
+    t.string "spacing"
+    t.string "depth"
+    t.string "recommended_tools"
+    t.string "sun_requirements"
+    t.string "description"
+    t.bigint "plant_coach_guide_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_coach_guide_id"], name: "index_transplant_guides_on_plant_coach_guide_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -128,12 +151,15 @@ ActiveRecord::Schema.define(version: 2023_01_22_205207) do
     t.string "fall_frost_dates"
   end
 
-  add_foreign_key "garden_plant_actions", "garden_plant_coachings"
-  add_foreign_key "garden_plant_actions", "garden_plants"
   add_foreign_key "garden_plants", "users"
-  add_foreign_key "garden_user_coachings", "garden_coachings"
-  add_foreign_key "garden_user_coachings", "users"
+  add_foreign_key "harvest_coachings", "garden_plants"
+  add_foreign_key "harvest_coachings", "harvest_guides"
+  add_foreign_key "harvest_guides", "plant_coach_guides"
   add_foreign_key "plants", "users"
-  add_foreign_key "seed_actions", "garden_plants"
-  add_foreign_key "seed_actions", "seed_coachings"
+  add_foreign_key "seed_coachings", "garden_plants"
+  add_foreign_key "seed_coachings", "seed_guides"
+  add_foreign_key "seed_guides", "plant_coach_guides"
+  add_foreign_key "transplant_coachings", "garden_plants"
+  add_foreign_key "transplant_coachings", "transplant_guides"
+  add_foreign_key "transplant_guides", "plant_coach_guides"
 end

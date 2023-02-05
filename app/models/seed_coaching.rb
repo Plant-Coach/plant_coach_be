@@ -1,5 +1,6 @@
 class SeedCoaching < ApplicationRecord
-  validates_presence_of :title, :description, :days_to_remind
-  has_many :seed_actions
-  has_many :garden_plants, through: :seed_actions
+  validates_presence_of :when_to_remind,
+                        :remind
+  belongs_to :seed_guide
+  belongs_to :garden_plant
 end
