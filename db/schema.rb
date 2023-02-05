@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
   create_table "harvest_coachings", force: :cascade do |t|
     t.bigint "harvest_guide_id"
     t.bigint "garden_plant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["garden_plant_id"], name: "index_harvest_coachings_on_garden_plant_id"
     t.index ["harvest_guide_id"], name: "index_harvest_coachings_on_harvest_guide_id"
   end
@@ -48,6 +50,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_071848) do
     t.date "when"
     t.string "how"
     t.string "harvest_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "plants", force: :cascade do |t|
