@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 29 Jan 2023 06:50:04 GMT
+      - Sun, 05 Feb 2023 06:51:23 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 3de1e4f3-743d-42fa-a2de-27d255a979bb
+      - 991dace2-1a99-4391-bad6-7d91fc2c148c
       X-Runtime:
-      - '0.400203'
+      - '0.438883'
       Transfer-Encoding:
       - chunked
       Via:
@@ -41,5 +41,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80112","location_name":"Centennial","lat":39.5805,"lon":-104.9011,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 29 Jan 2023 06:50:04 GMT
+  recorded_at: Sun, 05 Feb 2023 06:51:23 GMT
 recorded_with: VCR 6.1.0
