@@ -10,7 +10,7 @@ class PlantsInTheGardenSerializer
               :organic,
               :planting_status,
               :start_from_seed,
-              :direct_seed_recommendation,
+              :direct_seed_recommended,
               :direct_seed_user_decision,
               :recommended_seed_sewing_date,
               :actual_seed_sewing_date,

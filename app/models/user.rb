@@ -27,7 +27,7 @@ class User < ApplicationRecord
   def started_indoor_seeds
     GardenPlant.where(
                       start_from_seed: true,
-                      direct_seed_recommendation: :no,
+                      direct_seed_recommended: false,
                       planting_status: 1, # 1 = "started"
                       actual_transplant_date: nil
                     )

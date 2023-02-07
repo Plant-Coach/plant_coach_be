@@ -3,41 +3,41 @@ require 'rails_helper'
 RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
   before(:each) do
     ActiveRecord::Base.skip_callbacks = false
-    
+
     tomato_seed = SeedDefaultData.create!(
       plant_type: "Tomato",
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 54,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 52,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
     romaine_seed = SeedDefaultData.create(
       plant_type: "Romaine Lettuce",
       days_to_maturity: 35,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: -28,
-      direct_seed_recommendation: :yes
+      direct_seed_recommended: true
     )
     green_bean_seed = SeedDefaultData.create(
       plant_type: "Green Bean",
       days_to_maturity: 52,
       seedling_days_to_transplant: 14,
       days_relative_to_frost_date: 0,
-      direct_seed_recommendation: :yes
+      direct_seed_recommended: true
     )
 
     post '/api/v1/users', params: body
@@ -148,7 +148,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
@@ -233,13 +233,13 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:plant_type]).to_not eq("Romaine Lettuce")
-        expect(plant[:attributes][:direct_seed_recommendation]).to_not be true
+        expect(plant[:attributes][:direct_seed_recommended]).to_not be true
         expect(plant[:attributes][:planting_status]).to_not eq("not started")
         expect(plant[:attributes][:start_from_seed]).to_not be false
 
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
@@ -327,7 +327,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:plant_type]).to_not eq("Eggplant")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
@@ -406,7 +406,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:plant_type]).to_not eq("Eggplant")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end
@@ -479,7 +479,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:plant_type]).to_not eq("Romaine Lettuce")
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
-        expect(plant[:attributes][:direct_seed_recommendation]).to eq("no")
+        expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
         expect(plant[:attributes][:start_from_seed]).to be true
       end

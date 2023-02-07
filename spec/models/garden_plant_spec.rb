@@ -9,7 +9,7 @@ RSpec.describe GardenPlant, type: :model do
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }
     # it { should validate_presence_of(:organic) }
-    it { should validate_presence_of(:direct_seed_recommendation) }
+    it { should validate_inclusion_of(:direct_seed_recommended).in_array([true, false]) }
     # This can't be expected until plant_status is not "not_started".
     # it { should validate_presence_of(:direct_seed_user_decision) }
     it { should validate_presence_of(:start_from_seed) }
