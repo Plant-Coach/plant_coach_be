@@ -31,6 +31,8 @@ gem 'jsonapi-serializer'
 gem 'rspec_junit_formatter'
 gem 'jwt'
 gem 'coderay'
+gem "factory_bot_rails"
+gem 'faker'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
