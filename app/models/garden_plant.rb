@@ -1,7 +1,6 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
-  validates_presence_of :name,
-                        :plant_type,
+  validates_presence_of :plant_type,
                         :days_to_maturity,
                         :hybrid_status,
                         :days_relative_to_frost_date,
@@ -13,7 +12,7 @@ class GardenPlant < ApplicationRecord
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
   validates :name, presence: true, uniqueness: { scope: :user_id }
-  validates :direct_seed_recommended, inclusion: [true, false], null: false
+  validates :direct_seed_recommended, inclusion: [true, false]
 
   # GardenPlants belong to a user.
   belongs_to :user

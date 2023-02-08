@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 FactoryBot.define do
   factory :user do
@@ -14,7 +14,7 @@ FactoryBot.define do
     transient do
       user { build(:user) }
     end
-    
+
     name { Faker::Restaurant.name }
     days_to_maturity { Faker::Number.number(digits: 2) }
     hybrid_status { :unknown }
