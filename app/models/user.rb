@@ -1,16 +1,21 @@
 class User < ApplicationRecord
-  validates_presence_of :name, :email, :password_digest, presence: true
-  validates_uniqueness_of :email
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates_presence_of :password_digest
-
-  # Bcrypt method to encrypt the password digest (above).
+  validates :name, presence: true
+  validates :password_digest, presence: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
+                    uniqueness: true,
+                    presence: true
+  validates :spring_frost_dates, presence: true, on: :update
+  validates :fall_frost_dates, presence: true, on: :update
   has_secure_password
+
+  validates_associated :plants
+  validates_associated :garden_plants
 
   has_many :plants
   has_many :garden_plants
 
   before_create :establish_and_save_frost_dates
+
 
   # Returns the zip codes of all users in the database.  The corresponding
   # ids also need to be returned.

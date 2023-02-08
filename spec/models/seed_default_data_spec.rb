@@ -8,9 +8,4 @@ RSpec.describe SeedDefaultData, type: :model do
     it { should validate_presence_of(:days_relative_to_frost_date) }
     it { should validate_inclusion_of(:direct_seed_recommended).in_array([true, false]) }
   end
-
-  describe 'relationships' do
-
-  end
-
 end
