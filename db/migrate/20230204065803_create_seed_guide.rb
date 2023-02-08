@@ -7,7 +7,7 @@ class CreateSeedGuide < ActiveRecord::Migration[5.2]
       t.string :sewing_depth
       t.string :when_ready_for_transplant
       t.boolean :needs_fertilization
-      t.integer :fertilization_frequency
+      t.string :fertilization_frequency
       t.boolean :direct_seed_recommended
       t.boolean :recommended_transplant_date
       t.boolean :recommended_seed_start_date

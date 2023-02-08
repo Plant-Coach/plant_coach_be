@@ -1,20 +1,24 @@
 class User < ApplicationRecord
-  validates_presence_of :name, :email, :password_digest, presence: true
-  validates_uniqueness_of :email
-  # Only allowed formatting for email addresses.
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates_presence_of :password_digest
-  # Bcrypt method to encrypt the password digest (above).
+  validates :name, presence: true
+  validates :password_digest, presence: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
+                    uniqueness: true,
+                    presence: true
+  validates :spring_frost_dates, presence: true, on: :update
+  validates :fall_frost_dates, presence: true, on: :update
   has_secure_password
-  # Users can have plants.
+
+  validates_associated :plants
+  validates_associated :garden_plants
+
   has_many :plants
-  # USers can have garden plants.
   has_many :garden_plants
 
   before_create :establish_and_save_frost_dates
 
+
   # Returns the zip codes of all users in the database.  The corresponding
-  # ids are also returned.
+  # ids also need to be returned.
   def self.all_zip_codes
     all.select(:id, :zip_code)
   end
@@ -28,7 +32,7 @@ class User < ApplicationRecord
   def started_indoor_seeds
     GardenPlant.where(
                       start_from_seed: true,
-                      direct_seed_recommendation: :no,
+                      direct_seed_recommended: false,
                       planting_status: 1, # 1 = "started"
                       actual_transplant_date: nil
                     )

@@ -1,13 +1,10 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
-  validates_presence_of :name,
-                        :plant_type,
+  validates_presence_of :plant_type,
                         :days_to_maturity,
                         :hybrid_status,
                         :days_relative_to_frost_date,
                         :recommended_transplant_date,
-                        :direct_seed_recommendation,
-                        # :direct_seed_user_decision,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :start_from_seed,
@@ -15,6 +12,7 @@ class GardenPlant < ApplicationRecord
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
   validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :direct_seed_recommended, inclusion: [true, false]
 
   # GardenPlants belong to a user.
   belongs_to :user
@@ -29,7 +27,6 @@ class GardenPlant < ApplicationRecord
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
     "direct_sewn_outside", "transplanted_outside"]
-  enum direct_seed_recommendation: [:no, :yes]
   enum direct_seed_user_decision: [:direct, :indirect]
 
   # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
@@ -38,6 +35,7 @@ class GardenPlant < ApplicationRecord
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
+  after_initialize :add_seed_recommendation, unless: :skip_callbacks
 
   def update_planting_dates
     self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
@@ -52,7 +50,11 @@ class GardenPlant < ApplicationRecord
       recommended_seed_sewing_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data,
       seedling_days_to_transplant: default_seed_data
     )
-    # binding.pry
+  end
+
+  def add_seed_recommendation
+    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type)
+    self.update(direct_seed_recommended: default_seed_data.direct_seed_recommended)
   end
 
 

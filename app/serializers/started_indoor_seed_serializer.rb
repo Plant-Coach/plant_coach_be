@@ -10,7 +10,7 @@ class StartedIndoorSeedSerializer
               :organic,
               :planting_status,
               :start_from_seed,
-              :direct_seed_recommendation,
+              :direct_seed_recommended,
               :recommended_seed_sewing_date,
               :actual_seed_sewing_date,
               :seedling_days_to_transplant,

@@ -8,21 +8,21 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       days_to_maturity: 55,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
     pepper_seed = SeedDefaultData.create!(
       plant_type: "Pepper",
       days_to_maturity: 64,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
     eggplant_seed = SeedDefaultData.create!(
       plant_type: "Eggplant",
       days_to_maturity: 68,
       seedling_days_to_transplant: 49,
       days_relative_to_frost_date: 14,
-      direct_seed_recommendation: :no
+      direct_seed_recommended: false
     )
 
     post '/api/v1/users', params: body
@@ -98,7 +98,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
-      expect(result[:data][:attributes]).to have_key(:direct_seed_recommendation)
+      expect(result[:data][:attributes]).to have_key(:direct_seed_recommended)
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
@@ -220,7 +220,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result[:data][:attributes][:planting_status]).to eq("not_started")
 
       expect(result[:data][:attributes]).to have_key(:start_from_seed)
-      expect(result[:data][:attributes]).to have_key(:direct_seed_recommendation)
+      expect(result[:data][:attributes]).to have_key(:direct_seed_recommended)
       expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
       expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)

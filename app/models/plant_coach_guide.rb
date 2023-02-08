@@ -8,7 +8,8 @@ class PlantCoachGuide < ApplicationRecord
   after_create :create_complete_guide
 
   # A PlantCoachGuide contains SeedGuide, TransplantGuide, and HarvestGuide.
-  # This gives the PlantCoachGuide all the information that is needed.
+  # This gives the PlantCoachGuide all the information that is needed to provide
+  # a complete Plant Guide.
   def create_complete_guide
     seed_guide = SeedGuide.find_by(plant_type: self.plant_type)
     transplant_guide = TransplantGuide.find_by(plant_type: self.plant_type)
