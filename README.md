@@ -7,25 +7,24 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 #### Relevant details to define for consistency 
 
 **List of details when you click on a plant**
-`Plant Type: <string>`
-`Name: <string>`
-`Chose to start from seed?: <boolean>`
-`Direct Seed Recommended: <boolean>`
-`direct_seed_user_decision: <boolean>`
-`Days to Maturity: <integer>`
-`Hybrid Status: <integer>`
-`Days to transplant before/after frost date: <integer>`
-`Organic: <boolean>`
-`Recommended Transplant Date: normal recommended date`
-`Planting Status: <string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
-`Recommended Seed Sewing Date: <date>`
-`Actual Seed Sewing Date: <date>`
-`Seedling Days To Transplant: <integer>`
-`Actual Transplant Date: <date>`
-`Override seed-start date?`
-`chosen_overridden_seed-start_date`
-`Override transplant date?`
-`Chosen Overridden seed-start date`
+- `Plant Type: <string>`
+- `Name: <string>`
+- `Chose to start from seed?: <boolean>`
+- `Direct Seed Recommended: <boolean>`
+- `direct_seed_user_decision: <boolean>`Days to Maturity: <integer>`
+- `Hybrid Status: <integer>`
+- `Days to transplant before/after frost date: <integer>`
+- `Organic: <boolean>`
+- `Recommended Transplant Date: normal recommended date`
+- `Planting Status: <string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
+- `Recommended Seed Sewing Date: <date>`
+- `Actual Seed Sewing Date: <date>`
+- `Seedling Days To Transplant: <integer>`
+- `Actual Transplant Date: <date>`
+- `Override seed-start date?`
+- `chosen_overridden_seed-start_date`
+- `Override transplant date?`
+- `Chosen Overridden seed-start date`
 
 **Key Attributes for Transition Changes**
     - Chose to start from seed?: `<boolean>`
@@ -47,78 +46,78 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 
 ---
 **Account Creation**
-As a User
-I can visit `/` and see an option to login or create an account
-When I select "Create an Account"
-I can create an account with name, email, password, and my zip code
-And when I select "Create"
-I am taken to an empty dashboard with columns for:
--`My Saved Plants`
--`Plants Waiting to Start`
--`Plants that can be Started by now`
--`Seedlings Growing Inside`
--`Planted Outside`
--`Weather Alerts`
--`My Reminders`
-I see buttons for:
--`View Plant Coach Guides`
--`Add a Plant to my Personal List of Plants`
-- Each icon on the list has an button to `Add to my Garden`.
+- [ ] As a User
+- [ ] I can visit `/` and see an option to login or create an account
+- [ ] When I select "Create an Account"
+- [ ] I can create an account with name, email, password, and my zip code
+- [ ] And when I select "Create"
+- [ ] I am taken to an empty dashboard with columns for:
+    -`My Saved Plants`
+    -`Plants Waiting to Start`
+    -`Plants that can be Started by now`
+    -`Seedlings Growing Inside`
+    -`Planted Outside`
+    -`Weather Alerts`
+    -`My Reminders`
+- [ ] I see buttons for:
+    -`View Plant Coach Guides`
+    -`Add a Plant to my Personal List of Plants`
+    - Each icon on the list has an button to `Add to my Garden`.
 
 
 ---
 **Basic Login**
-As a registered, but unauthenticated User
-I can visit `plantcoach.graden` and select `sign in`
-And I am able to enter my email and password and select `"Sign In"`
-And I am taken to my dashboard.
+- [ ] As a registered, but unauthenticated User
+- [ ] I can visit `plantcoach.graden` and select `sign in`
+- [ ] And I am able to enter my email and password and select `"Sign In"`
+- [ ] And I am taken to my dashboard.
 
 ---
 **Basic Logout**
-As a registered, but unauthenticated User
-I can visit `plantcoach.graden` and select `sign in`
-And I am able to enter my email and password and select `"Sign In"`
-And I am taken to my dashboard.
-And I see a button that says "Log Out"
-And when I click it, I am taken to a logout screen that says "Thank you for using Plant Coach"
-And I see a button that says "Log In"
-But I do not see a button that says "Log Out"
+- [ ] As a registered, but unauthenticated User
+- [ ] I can visit `plantcoach.graden` and select `sign in`
+- [ ] And I am able to enter my email and password and select `"Sign In"`
+- [ ] And I am taken to my dashboard.
+- [ ] And I see a button that says "Log Out"
+- [ ] And when I click it, I am taken to a logout screen that says "Thank you for using Plant Coach"
+- [ ] And I see a button that says "Log In"
+- [ ] But I do not see a button that says "Log Out"
 
 ---
 **Add plant to personal database**
-As an authenticated user
-When I visit my dashboard
-I can click "Add a Plant to my Personal Database"
-And I am taken to a screen to enter details for:
-- Name (optional)
-- Plant Type (REQUIRED)
-- Days to Maturity (optional)
-- Hybrid Status (optional)
-- When to start the plant (optional)
-- Organic? (checkbox) (optional)
-When I click: `Add`
-I see feedback that my plant has been added to my list of saved plants.
-I am shown a planting guide for that plant type and see sections for:
--`Seed Guide`
--`Transplant Guide`
--`Harvest Guide`
-I can select `Close` and see a message that says that I can still access these growing guides at any time.
-I am taken back to my Kanban Board/Dashboard and see my newly-created Plant in the "My Saved Plants" list
-with a button that says `I want to plant this`.
+- [ ] As an authenticated user
+- [ ] When I visit my dashboard
+- [ ] I can click "Add a Plant to my Personal Database"
+- [ ] And I am taken to a screen to enter details for:
+    - Name (optional)
+    - Plant Type (REQUIRED)
+    - Days to Maturity (optional)
+    - Hybrid Status (optional)
+    - When to start the plant (optional)
+    - Organic? (checkbox) (optional)
+- [ ] When I click: `Add`
+- [ ] I see feedback that my plant has been added to my list of saved plants.
+- [ ] I am shown a planting guide for that plant type and see sections for:
+    -`Seed Guide`
+    -`Transplant Guide`
+    -`Harvest Guide`
+- [ ] I can select `Close` and see a message that says that I can still access these growing guides at any time.
+- [ ] I am taken back to my Kanban Board/Dashboard and see my newly-created Plant in the "My Saved Plants" list
+- [ ] with a button that says `I want to plant this`.
 
 ---
 **Pre-purchased plant - Already Planted**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `No`
-And a window appears that asks if I have already planted this.
-When I select `yes` 
-I am I asked `when?` where I can provide today's date.
-I am returned to the dashboard where I see my plant in the `Planted Outside` column.
-When I click on the plant, I see
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `No`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `yes` 
+- [ ] I am I asked `when?` where I can provide today's date.
+- [ ] I am returned to the dashboard where I see my plant in the `Planted Outside` column.
+- [ ] When I click on the plant, I see
     - Chose to start from seed?: `False`
     - Direct Seed Recommended: `No`
     - Direct Seed User Decision: `No`
@@ -136,18 +135,18 @@ When I click on the plant, I see
 
 ---
 **Pre-purchased plant - Future Planting - App recommended timing**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `No`
-And a window appears that asks if I have already planted this.
-When I select `No`
-I am asked if I would like to set the planting date manually or take the app's advice.
-I select `take the apps advice`
-I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
-And when I click on the plant
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `No`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `No`
+- [ ] I am asked if I would like to set the planting date manually or take the app's advice.
+- [ ] I select `take the apps advice`
+- [ ] I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
+- [ ] And when I click on the plant
     - Chose to start from seed?: `False`
     - Direct Seed Recommended: `No`
     - Direct Seed User Decision: `No`
@@ -166,19 +165,19 @@ And when I click on the plant
 
 ---
 **Pre-purchased plant - future planting - overridden planting date**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `No`
-And a window appears that asks if I have already planted this.
-When I select `No`
-I am asked if I would like to set the planting date manually or take the app's advice.
-I select `Set Manually`
-and I can set the future plant date myself
-I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
-And when I click on the plant
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `No`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `No`
+- [ ] I am asked if I would like to set the planting date manually or take the app's advice.
+- [ ] I select `Set Manually`
+- [ ] and I can set the future plant date myself
+- [ ] I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
+- [ ] And when I click on the plant
     - Chose to start from seed?: `False`
     - Direct Seed Recommended: `No`
     - Direct Seed User Decision: `No`
@@ -196,20 +195,20 @@ And when I click on the plant
 
 ---
 **Start from Seed - future - starting inside**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `Yes`
-And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
-And I select `Start Inside`
-And a window appears that asks if I have already planted this.
-When I select `No` 
-I am asked if I would like to set the planting date manually or take the app's advice.
-I select `take the apps advice`
-I am returned to the dashboard where I see my plant in the `Plants Ready to Start` column.
-And when I click on the plant,
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] nd I select `Yes`
+- [ ] And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+- [ ] And I select `Start Inside`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `No` 
+- [ ] I am asked if I would like to set the planting date manually or take the app's advice.
+- [ ] I select `take the apps advice`
+- [ ] I am returned to the dashboard where I see my plant in the `Plants Ready to Start` column.
+- [ ] And when I click on the plant,
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `false`
     - Direct Seed User Decision: `false`
@@ -227,19 +226,19 @@ And when I click on the plant,
 
 ---
 **Start from seed - today - inside**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `Yes`
-And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
-And I select `Start Inside`
-And a window appears that asks if I have already planted this.
-When I select `Yes`
-And I am asked when I started it and I can select todady's date.
-I am returned to the dashboard where I see my plant in the `Started Indoors` column.
-And when I click on the plant,
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `Yes`
+- [ ] And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+- [ ] And I select `Start Inside`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `Yes`
+- [ ] And I am asked when I started it and I can select todady's date.
+- [ ] I am returned to the dashboard where I see my plant in the `Started Indoors` column.
+- [ ] And when I click on the plant,
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `false`
     - Direct Seed User Decision: `false`
@@ -257,19 +256,19 @@ And when I click on the plant,
 
  ---
 **Start from seed - today - outside"**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `Yes`
-And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
-And I select `Start Outside`
-And a window appears that asks if I have already planted this.
-When I select `Yes`
-And I am asked when I started it and I can select todady's date.
-I am returned to the dashboard where I see my plant in the `Planted Outside` column.
-And when I click on the plant,
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `Yes`
+- [ ] And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+- [ ] And I select `Start Outside`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `Yes`
+- [ ] And I am asked when I started it and I can select todady's date.
+- [ ] I am returned to the dashboard where I see my plant in the `Planted Outside` column.
+- [ ] And when I click on the plant,
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `true`
     - Direct Seed User Decision: `true`
@@ -287,20 +286,20 @@ And when I click on the plant,
 
 ---
 **Direct-seed in the future**
-As an authenticated User
-When I visit my dashboard
-I can still see my new plant in the `My Saved Plants` category
-I can click a button that says `I want to plant this`
-And a window appears that asks if I plan to start the plant from seed
-and I select `Yes`
-And a window appears that asks if I plant to start the seed inside or direct-seed it? (and a recommendation warning is shown)
-And I select `Start Outside`
-And a window appears that asks if I have already planted this.
-When I select `no`
-I am asked if I would like to set the planting date manually or take the app's advice.
-I select `take the apps advice`
-I am returned to the Dashboard where I see my plant listed under `Plants Ready to Start`
-And when I click on the plant,
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] I can click a button that says `I want to plant this`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `Yes`
+- [ ] And a window appears that asks if I plant to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+- [ ] And I select `Start Outside`
+- [ ] And a window appears that asks if I have already planted this.
+- [ ] When I select `no`
+- [ ] I am asked if I would like to set the planting date manually or take the app's advice.
+- [ ] I select `take the apps advice`
+- [ ] I am returned to the Dashboard where I see my plant listed under `Plants Ready to Start`
+- [ ] And when I click on the plant,
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `true`
     - Direct Seed User Decision: `true`
@@ -319,14 +318,14 @@ And when I click on the plant,
 
 ---
 **Start indoor seed**
-As an authenticated User
-When I visit my dashboard
-And I see a Plant in my `Plants Ready to Start` column that is also a plant I want to grow from seed,
-I can change the status to `Seedlings Growing Inside`
-I am asked when they were started
-and I can select: `Today`
-And I see the plant in the `Seedlings Growing Inside`.
-And when I click on the plant,
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] And I see a Plant in my `Plants Ready to Start` column that is also a plant I want to grow from seed,
+- [ ] I can change the status to `Seedlings Growing Inside`
+- [ ] I am asked when they were started
+- [ ] and I can select: `Today`
+- [ ] And I see the plant in the `Seedlings Growing Inside`.
+- [ ] And when I click on the plant,
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `true`
     - Direct Seed User Decision: `true`
@@ -344,32 +343,32 @@ And when I click on the plant,
 
 ---
 **User Story in which a future seed-starting date is set by the user saying when they've already started a seed (should return an error)**
-As an authenticated User
-When I visit my dashboard
-And I see a Plant in my `Plants Ready to Start` column
-I can change the status to `Seedlings Growing Inside`
-I am asked when they were started
-and when I select:
-Select date
-and select a date in the future,
-I see a flash message that dates must only be today or in the past.
-When I select an appropriate date,
-I can select `Ok`
-And I see the plant in the `Seedlings Growing Inside`.
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] And I see a Plant in my `Plants Ready to Start` column
+- [ ] I can change the status to `Seedlings Growing Inside`
+- [ ] I am asked when they were started
+- [ ] and when I select:
+- [ ] Select date
+- [ ] and select a date in the future,
+- [ ] I see a flash message that dates must only be today or in the past.
+- [ ] When I select an appropriate date,
+- [ ] I can select `Ok`
+- [ ] And I see the plant in the `Seedlings Growing Inside`.
 
 
 ### User Stories related to a User moving a plant from "started inside" to "transplanted outside"
 
 ---
 ***Change plant status from "started indoors" to "transplanted outside"**
-As an authenticated User
-When I visit my dashboard
-And I see a Plant in my `Seedlings Growing Inside` column,
-I can change the status to `Planted Outside`
-And I am asked when it was transplanted outside
-And I can select todays date
-And I am taken to the dashboard and see my plant in the `Planted Outside` column
-And when I select the plant, I see:
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] And I see a Plant in my `Seedlings Growing Inside` column,
+- [ ] I can change the status to `Planted Outside`
+- [ ] And I am asked when it was transplanted outside
+- [ ] And I can select todays date
+- [ ] And I am taken to the dashboard and see my plant in the `Planted Outside` column
+- [ ] And when I select the plant, I see:
     - Chose to start from seed?: `Yes`
     - Direct Seed Recommended: `false`
     - Direct Seed User Decision: `false`
@@ -395,12 +394,12 @@ And when I select the plant, I see:
 
 ---
 **Upcoming Seed Transplant Date**
-As an authenticated User
-When I visit my dashboard
-And I see a Plant in my `Seedlings Growing Inside` column,
-And the plant is within a week of the date that it is recommended to be planted outside,
-I see a visual indication of an upcoming event for the plant
-When I click on it, I can see `Plant is nearing its transplant date`
+- [ ] As an authenticated User
+- [ ] When I visit my dashboard
+- [ ] And I see a Plant in my `Seedlings Growing Inside` column,
+- [ ] And the plant is within a week of the date that it is recommended to be planted outside,
+- [ ] I see a visual indication of an upcoming event for the plant
+- [ ] When I click on it, I can see `Plant is nearing its transplant date`
 
 
 ### User Stories related to a user being shown a visual cue about an overdue task
@@ -441,11 +440,11 @@ When I click on it, I can see `Plant is nearing its transplant date`
 
 ---
 **View Planting Guide from clicking on plant on the kanban board**
-As an Authenticated User
-When I visit my dashboard
-And I click on the name of the plant that is in the `Planted Outside` column,
-and I click the link to go to the plant guide
-I am taken to a page where I see the complete information available in the plant guide
+- [ ] As an Authenticated User
+- [ ] When I visit my dashboard
+- [ ] And I click on the name of the plant that is in the `Planted Outside` column,
+- [ ] and I click the link to go to the plant guide
+- [ ] I am taken to a page where I see the complete information available in the plant guide
 
 **View Planting Guides from a plant index page**
 
@@ -467,4 +466,4 @@ Move Plant backwards/accidental status update
 ### View Harvest Timeframes on a Calendar
 
 ### Succession Planting Stories
-</details>
+</detail- [ ] s>

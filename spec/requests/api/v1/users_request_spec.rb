@@ -23,7 +23,7 @@ RSpec.describe 'Users API', :vcr do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(user_response).to be_a Hash
-
+      binding.pry;
       expect(user_response).to have_key(:user)
       expect(user_response[:user]).to have_key(:data)
       expect(user_response[:user][:data]).to have_key(:id)
@@ -44,6 +44,13 @@ RSpec.describe 'Users API', :vcr do
       expect(user_response[:user][:data][:attributes]).to have_key(:zip_code)
       expect(user_response[:user][:data][:attributes][:zip_code]).to be_a String
     end
+
+    it 'will create a JWT for secure API calls' do
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(user_response).to have_key(:jwt)
+      expect(user_response[:jwt]).to be_a String
+    end 
 
     it 'will not allow duplicate users to be created' do
       # A second attempt to create the same user should be unsuccessful.
@@ -125,7 +132,7 @@ RSpec.describe 'Users API', :vcr do
   end
 
   describe 'GET /users' do
-    it 'returns the users' do
+    it 'returns the user that is identified by the JWT' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
@@ -144,6 +151,19 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes]).to have_key(:email)
       expect(result[:data][:attributes]).to have_key(:zip_code)
     end
+
+    it 'will not return anything if a JWT is not provided' do
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      get '/api/v1/users'
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result).to be_a Hash
+      expect(result[:message]).to eq("Please log in")
+    end 
   end
 
   describe 'DELETE /users' do
