@@ -23,7 +23,7 @@ RSpec.describe 'Users API', :vcr do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(user_response).to be_a Hash
-      binding.pry;
+
       expect(user_response).to have_key(:user)
       expect(user_response[:user]).to have_key(:data)
       expect(user_response[:user][:data]).to have_key(:id)
