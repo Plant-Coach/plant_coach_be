@@ -1,7 +1,8 @@
 Please visit the main README [here](https://github.com/Plant-Coach) on the project's main page.
 
 
-# PLant Coach User Stories
+<details> 
+    <summary>PLant Coach User Stories</summary>
 
 #### Relevant details to define for consistency 
 
@@ -466,3 +467,4 @@ Move Plant backwards/accidental status update
 ### View Harvest Timeframes on a Calendar
 
 ### Succession Planting Stories
+</details>
