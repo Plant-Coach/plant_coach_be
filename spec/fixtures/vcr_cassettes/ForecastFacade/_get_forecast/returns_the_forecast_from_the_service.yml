@@ -23,25 +23,25 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 05 Feb 2023 06:46:17 GMT
+      - Mon, 13 Feb 2023 02:10:04 GMT
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"ea9f55588a0cdf53cb4976803286d8cf"
+      - W/"a9b6431b8d7926a2dcbb005c9f00ae2a"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 30a75efe-859c-47f7-92fd-d64cba833c13
+      - 9897e303-9ae5-4c48-8128-1e92f5def1d6
       X-Runtime:
-      - '0.528407'
+      - '0.691118'
       Transfer-Encoding:
       - chunked
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1675537200,"sunrise":1675519475,"sunset":1675556546,"high":47.37,"low":31.23,"humidity":36,"wind":8.99,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1675623600,"sunrise":1675605815,"sunset":1675643018,"high":48.27,"low":32.94,"humidity":33,"wind":10.13,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1675710000,"sunrise":1675692153,"sunset":1675729489,"high":40.21,"low":29.16,"humidity":28,"wind":16.28,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1675796400,"sunrise":1675778490,"sunset":1675815961,"high":44.89,"low":28.87,"humidity":25,"wind":7.02,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1675882800,"sunrise":1675864826,"sunset":1675902433,"high":48.9,"low":27.99,"humidity":31,"wind":21.47,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1675969200,"sunrise":1675951160,"sunset":1675988904,"high":27.12,"low":23.16,"humidity":25,"wind":21.85,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1676055600,"sunrise":1676037493,"sunset":1676075376,"high":37.09,"low":20.64,"humidity":16,"wind":5.77,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1676142000,"sunrise":1676123824,"sunset":1676161847,"high":51.85,"low":30.31,"humidity":24,"wind":5.97,"weather":"Clouds"}}]}'
-  recorded_at: Sun, 05 Feb 2023 06:46:17 GMT
+      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1676228400,"sunrise":1676210154,"sunset":1676248318,"high":47.26,"low":32.22,"humidity":37,"wind":7.38,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1676314800,"sunrise":1676296482,"sunset":1676334788,"high":54.73,"low":34.11,"humidity":23,"wind":9.31,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1676401200,"sunrise":1676382810,"sunset":1676421258,"high":42.24,"low":26.89,"humidity":39,"wind":14.32,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1676487600,"sunrise":1676469136,"sunset":1676507728,"high":24.08,"low":8.69,"humidity":89,"wind":16.13,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1676574000,"sunrise":1676555460,"sunset":1676594198,"high":29.77,"low":5.04,"humidity":45,"wind":7.78,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1676660400,"sunrise":1676641784,"sunset":1676680668,"high":45.01,"low":15.04,"humidity":75,"wind":9.19,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1676746800,"sunrise":1676728106,"sunset":1676767137,"high":51.78,"low":31.33,"humidity":40,"wind":11.77,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1676833200,"sunrise":1676814428,"sunset":1676853605,"high":50.23,"low":34.59,"humidity":29,"wind":14.47,"weather":"Clouds"}}]}'
+  recorded_at: Mon, 13 Feb 2023 02:10:05 GMT
 recorded_with: VCR 6.1.0

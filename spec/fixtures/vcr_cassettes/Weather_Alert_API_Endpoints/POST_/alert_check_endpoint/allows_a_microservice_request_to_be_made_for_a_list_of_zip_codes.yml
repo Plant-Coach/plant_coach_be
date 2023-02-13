@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 05 Feb 2023 06:46:18 GMT
+      - Mon, 13 Feb 2023 02:10:06 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - acbbd59a-0f39-44ec-be84-d73dceb17fc9
+      - bc127a78-bb92-4fa0-b2f7-f6d14b7098e1
       X-Runtime:
-      - '0.516405'
+      - '0.574458'
       Transfer-Encoding:
       - chunked
       Via:
@@ -41,7 +41,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80123","location_name":"Lakewood","lat":39.6206,"lon":-105.0901,"spring_frost":"0512","fall_frost":"0928"}}}'
-  recorded_at: Sun, 05 Feb 2023 06:46:19 GMT
+  recorded_at: Mon, 13 Feb 2023 02:10:07 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80124
@@ -63,7 +63,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 05 Feb 2023 06:46:19 GMT
+      - Mon, 13 Feb 2023 02:10:08 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -73,9 +73,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 3dda3c75-4a50-41ed-a94d-4176c1927a29
+      - 4dcaa816-89bf-406a-90c3-bee864970ed5
       X-Runtime:
-      - '0.544579'
+      - '0.773635'
       Transfer-Encoding:
       - chunked
       Via:
@@ -84,7 +84,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80124","location_name":"Lone
         Tree","lat":39.5517,"lon":-104.8863,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 05 Feb 2023 06:46:19 GMT
+  recorded_at: Mon, 13 Feb 2023 02:10:08 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80125
@@ -106,7 +106,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 05 Feb 2023 06:46:20 GMT
+      - Mon, 13 Feb 2023 02:10:09 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -116,9 +116,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - f56ac565-b720-43f1-9262-cb13c13952ab
+      - 64ccdec2-b4cf-432c-bfb1-94b5cd2caacd
       X-Runtime:
-      - '0.496847'
+      - '0.490607'
       Transfer-Encoding:
       - chunked
       Via:
@@ -127,5 +127,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80125","location_name":"Douglas
         County","lat":39.4845,"lon":-105.0561,"spring_frost":"0516","fall_frost":"0926"}}}'
-  recorded_at: Sun, 05 Feb 2023 06:46:20 GMT
+  recorded_at: Mon, 13 Feb 2023 02:10:09 GMT
 recorded_with: VCR 6.1.0
