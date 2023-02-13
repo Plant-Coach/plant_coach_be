@@ -9,6 +9,7 @@
 - [ ] Refactor
 - [ ] Database structure changes
 - [ ] Resiliency Enhancement
+- [ ] Documemtation update
 
 
 ## Developer Standards
