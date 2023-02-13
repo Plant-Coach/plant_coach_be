@@ -59,11 +59,6 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
     -`Planted Outside`
     -`Weather Alerts`
     -`My Reminders`
-- [ ] I see buttons for:
-    -`View Plant Coach Guides`
-    -`Add a Plant to my Personal List of Plants`
-    - Each icon on the list has an button to `Add to my Garden`.
-
 
 ---
 **Basic Login**
