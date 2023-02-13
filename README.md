@@ -1,10 +1,16 @@
 Please visit the main README [here](https://github.com/Plant-Coach) on the project's main page.
 
-List of details when you click on a plant:
+
+# PLant Coach User Stories
+
+#### Relevant details to define for consistency 
+
+**List of details when you click on a plant**
 `Plant Type: <string>`
 `Name: <string>`
 `Chose to start from seed?: <boolean>`
 `Direct Seed Recommended: <boolean>`
+`direct_seed_user_decision: <boolean>`
 `Days to Maturity: <integer>`
 `Hybrid Status: <integer>`
 `Days to transplant before/after frost date: <integer>`
@@ -23,6 +29,7 @@ List of details when you click on a plant:
 **Key Attributes for Transition Changes**
     - Chose to start from seed?: `<boolean>`
     - Direct Seed Recommended: `<boolean>`
+    - Direct Seed User Decision: `<boolean>`
     - Days to Maturity: `<integer>`
     - Recommended Transplant Date: `<date>`
     - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
@@ -30,23 +37,12 @@ List of details when you click on a plant:
     - Actual Seed Sewing Date: `<date>`
     - Seedling Days To Transplant: `<integer>`
     - Actual Transplant Date: `<date>`
-    - Override seed-start date?
+    - Override seed-start date? (This is only used when the planting date is in the future)
     - chosen_overridden_seed-start_date
     - Override transplant date?
     - Chosen Overridden seed-start date
 
-Types of workflows to cover:
-Create Plant that is stored in the database
-**Future Plantings:**
-    - Start from seed (indoors) 
-        - Needed Transitions: (-> Started Inside -> Planted Outside -> Harvest)
-    - Start from seed (direct seed) 
-        - Needed Transitions: (-> Planted Outside -> Harvest)
-    - Start from pre-purchased plant 
-        - Needed Transitions: (-> Planted Outside)
-
-**Started Plantings:**
-    -
+# v1 User Stories
 
 ---
 **Account Creation**
@@ -77,7 +73,7 @@ And I am able to enter my email and password and select `"Sign In"`
 And I am taken to my dashboard.
 
 ---
-***Basic Logout***
+**Basic Logout**
 As a registered, but unauthenticated User
 I can visit `plantcoach.graden` and select `sign in`
 And I am able to enter my email and password and select `"Sign In"`
@@ -110,7 +106,7 @@ I am taken back to my Kanban Board/Dashboard and see my newly-created Plant in t
 with a button that says `I want to plant this`.
 
 ---
-**"I planted a pre-purchased plant"**
+**Pre-purchased plant - Already Planted**
 As an authenticated User
 When I visit my dashboard
 I can still see my new plant in the `My Saved Plants` category
@@ -124,6 +120,7 @@ I am returned to the dashboard where I see my plant in the `Planted Outside` col
 When I click on the plant, I see
     - Chose to start from seed?: `False`
     - Direct Seed Recommended: `No`
+    - Direct Seed User Decision: `No`
     - Actual Transplant Date: `<Today's Date>`
     - Days to Maturity: `<harvest date - actual transplant date>`
     - Recommended Transplant Date: `normal recommended date`
@@ -131,13 +128,13 @@ When I click on the plant, I see
     - Recommended Seed Sewing Date: `nil`
     - Actual Seed Sewing Date: `nil`
     - Seedling Days To Transplant: `<integer>`
-    - Override seed-start date?
-    - chosen_overridden_seed-start_date
-    - Override transplant date?
-    - Chosen Overridden seed-start date
+    - Override seed-start date? "not started from seed"
+    - chosen_overridden_seed-start_date nil
+    - Override transplant date? "yes"
+    - Chosen Overridden seed-start <Today's Date>
 
 ---
-**"I want to plant a pre-purchased plant when the apps says the time is right."**
+**Pre-purchased plant - Future Planting - App recommended timing**
 As an authenticated User
 When I visit my dashboard
 I can still see my new plant in the `My Saved Plants` category
@@ -152,6 +149,7 @@ I am returned to the dashboard where I see my plant in the `Plants Waiting to St
 And when I click on the plant
     - Chose to start from seed?: `False`
     - Direct Seed Recommended: `No`
+    - Direct Seed User Decision: `No`
     - Actual Transplant Date: `Not yet Transplanted outside`
     - Days to Maturity: `<harvest date - actual transplant date>`
     - Recommended Transplant Date: `normal recommended date`
@@ -159,14 +157,14 @@ And when I click on the plant
     - Recommended Seed Sewing Date: `nil`
     - Actual Seed Sewing Date: `nil`
     - Seedling Days To Transplant: `<integer>`
-    -- Override seed-start date?
+    -- Override seed-start date? No 
     - chosen_overridden_seed-start_date
-    - Override transplant date?
+    - Override transplant date? No
     - Chosen Overridden seed-start date
 
 
 ---
-**"I want to plant a pre-purchased plant in the future, and choose my own planting date instead."**
+**Pre-purchased plant - future planting - overridden planting date**
 As an authenticated User
 When I visit my dashboard
 I can still see my new plant in the `My Saved Plants` category
@@ -180,13 +178,23 @@ I select `Set Manually`
 and I can set the future plant date myself
 I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
 And when I click on the plant
-And I see that start-from-seed is" `False`
-And I see my self-chosen transplant date
-And I do not see a recommended transplant date
-And I do not see a recommended seed-starting date
+    - Chose to start from seed?: `False`
+    - Direct Seed Recommended: `No`
+    - Direct Seed User Decision: `No`
+    - Actual Transplant Date: `Not yet Transplanted outside`
+    - Days to Maturity: `<harvest date - actual transplant date>`
+    - Recommended Transplant Date: `normal recommended date`
+    - Planting Status: `["not_started"]` 
+    - Recommended Seed Sewing Date: `nil`
+    - Actual Seed Sewing Date: `nil`
+    - Seedling Days To Transplant: `<integer>`
+    - Override seed-start date? Not started from seed
+    - chosen_overridden_seed-start_date
+    - Override transplant date? Yes
+    - Chosen Overridden seed-start <user-chosen date>
 
 ---
-**"I want to plant this from seed - starting inside"**
+**Start from Seed - future - starting inside**
 As an authenticated User
 When I visit my dashboard
 I can still see my new plant in the `My Saved Plants` category
@@ -201,14 +209,83 @@ I am asked if I would like to set the planting date manually or take the app's a
 I select `take the apps advice`
 I am returned to the dashboard where I see my plant in the `Plants Ready to Start` column.
 And when I click on the plant,
-I see that Starting-From-Seed is: `True`
-I see a recommended seed-sewing date
-I see that direct-seed is set to `False`
-I see a recommended transplant date
-
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `false`
+    - Direct Seed User Decision: `false`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
+    - Recommended Seed Sewing Date: `<date>`
+    - Actual Seed Sewing Date: `<date>`
+    - Seedling Days To Transplant: `<integer>`
+    - Actual Transplant Date: `<date>`
+    - Override seed-start date?
+    - chosen_overridden_seed-start_date
+    - Override transplant date?
+    - Chosen Overridden seed-start date
 
 ---
-**"I want to direct-seed"**
+**Start from seed - today - inside**
+As an authenticated User
+When I visit my dashboard
+I can still see my new plant in the `My Saved Plants` category
+I can click a button that says `I want to plant this`
+And a window appears that asks if I plan to start the plant from seed
+and I select `Yes`
+And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+And I select `Start Inside`
+And a window appears that asks if I have already planted this.
+When I select `Yes`
+And I am asked when I started it and I can select todady's date.
+I am returned to the dashboard where I see my plant in the `Started Indoors` column.
+And when I click on the plant,
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `false`
+    - Direct Seed User Decision: `false`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `<string> ["started_indoors"]` 
+    - Recommended Seed Sewing Date: `<date>`
+    - Actual Seed Sewing Date: `Today's date`
+    - Seedling Days To Transplant: `<integer>`
+    - Actual Transplant Date: `nil`
+    - Override seed-start date?
+    - chosen_overridden_seed-start_date
+    - Override transplant date?
+    - Chosen Overridden seed-start date
+
+ ---
+**Start from seed - today - outside"**
+As an authenticated User
+When I visit my dashboard
+I can still see my new plant in the `My Saved Plants` category
+I can click a button that says `I want to plant this`
+And a window appears that asks if I plan to start the plant from seed
+and I select `Yes`
+And a window appears that asks if I plan to start the seed inside or direct-seed it? (and a recommendation warning is shown)
+And I select `Start Outside`
+And a window appears that asks if I have already planted this.
+When I select `Yes`
+And I am asked when I started it and I can select todady's date.
+I am returned to the dashboard where I see my plant in the `Planted Outside` column.
+And when I click on the plant,
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `true`
+    - Direct Seed User Decision: `true`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `nil`
+    - Planting Status: `<string> ["direct_sewn_outside"]` 
+    - Recommended Seed Sewing Date: `nil`
+    - Actual Seed Sewing Date: `<Today's Date>`
+    - Seedling Days To Transplant: `<integer>`
+    - Actual Transplant Date: `nil`
+    - Override seed-start date? 
+    - chosen_overridden_seed-start_date
+    - Override transplant date?
+    - Chosen Overridden seed-start date
+
+---
+**Direct-seed in the future**
 As an authenticated User
 When I visit my dashboard
 I can still see my new plant in the `My Saved Plants` category
@@ -223,29 +300,49 @@ I am asked if I would like to set the planting date manually or take the app's a
 I select `take the apps advice`
 I am returned to the Dashboard where I see my plant listed under `Plants Ready to Start`
 And when I click on the plant,
-I can see a recommended seed-sewing date,
-I see that direct-seed is set to: `True`
-I do not see an actual seed-sewing date
-I do not see a recommended transplant date
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `true`
+    - Direct Seed User Decision: `true`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `<string> ["not_started"]` 
+    - Recommended Seed Sewing Date: `<make this the same as the recommended transplant date, if there is one>`
+    - Actual Seed Sewing Date: `nil`
+    - Seedling Days To Transplant: `nil`
+    - Actual Transplant Date: `<same as actual seed-sewing date>`
+    - Override seed-start date? No
+    - chosen_overridden_seed-start_date nil
+    - Override transplant date? No
+    - Chosen Overridden seed-start nil
 
 
 ---
-**Status Change - Plant Ready -> Seedlings growing inside**
+**Start indoor seed**
 As an authenticated User
 When I visit my dashboard
 And I see a Plant in my `Plants Ready to Start` column that is also a plant I want to grow from seed,
 I can change the status to `Seedlings Growing Inside`
 I am asked when they were started
-and I can select:
-- Select: `Today`
-- Enter a different date (only in the past...)
-- `Ok`
+and I can select: `Today`
 And I see the plant in the `Seedlings Growing Inside`.
-And when I look at the seedling information,
-I can see a recommended transplant outside, an actual seed sewing date (that is today) but not an actual transplant date
+And when I click on the plant,
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `true`
+    - Direct Seed User Decision: `true`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
+    - Recommended Seed Sewing Date: `<make this the same as the recommended transplant date, if there is one>`
+    - Actual Seed Sewing Date: `nil`
+    - Seedling Days To Transplant: `nil`
+    - Actual Transplant Date: `<same as actual seed-sewing date>`
+    - Override seed-start date? No
+    - chosen_overridden_seed-start_date nil
+    - Override transplant date? No
+    - Chosen Overridden seed-start nil
 
 ---
-User Story in which a seed starting date
+**User Story in which a future seed-starting date is set by the user saying when they've already started a seed (should return an error)**
 As an authenticated User
 When I visit my dashboard
 And I see a Plant in my `Plants Ready to Start` column
@@ -259,51 +356,113 @@ When I select an appropriate date,
 I can select `Ok`
 And I see the plant in the `Seedlings Growing Inside`.
 
+
+### User Stories related to a User moving a plant from "started inside" to "transplanted outside"
+
 ---
-User Story in which a seed starting date
+***Change plant status from "started indoors" to "transplanted outside"**
 As an authenticated User
 When I visit my dashboard
-And I see a Plant in my `Plants Ready to Start` column
+And I see a Plant in my `Seedlings Growing Inside` column,
 I can change the status to `Planted Outside`
-I am asked when it was planted outside
-and I see options for:
-- `Today`
-- `<select date>`
-When I select today
-Then select `Ok`
-Then I can see the plant in the `Planted Outside` column.
+And I am asked when it was transplanted outside
+And I can select todays date
+And I am taken to the dashboard and see my plant in the `Planted Outside` column
+And when I select the plant, I see:
+    - Chose to start from seed?: `Yes`
+    - Direct Seed Recommended: `false`
+    - Direct Seed User Decision: `false`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `["transplanted_outside"]` 
+    - Recommended Seed Sewing Date: `<date>`
+    - Actual Seed Sewing Date: `<date>`
+    - Seedling Days To Transplant: `<integer>`
+    - Actual Transplant Date: `<Today's Date>`
+    - Override seed-start date? No
+    - chosen_overridden_seed-start_date nil
+    - Override transplant date? No
+    - Chosen Overridden seed-start nil
+
+
+### User Stories related to a user being shown a visual cue about an upcoming task
+---
+**Upcoming Seed Start - Inside**
 
 ---
-As an Authenticated User
+**Upcoming Seed Start - Outside**
+
+---
+**Upcoming Seed Transplant Date**
+As an authenticated User
 When I visit my dashboard
-And I click on the name of the plant that is in the `Planted Outside` column,
-I then see:
-- A link to go to the plant guide
-- An estimated harvest date or range
-- The date that the plant was started
-- The date that the seeds were started (if applicable)
-- Organic
-- Plant Type
-- Name
-- Hybrid Status
-- Planting Status
-- Link: "My Notes on #{plant_type}s #{<number of entries>}"
+And I see a Plant in my `Seedlings Growing Inside` column,
+And the plant is within a week of the date that it is recommended to be planted outside,
+I see a visual indication of an upcoming event for the plant
+When I click on it, I can see `Plant is nearing its transplant date`
+
+
+### User Stories related to a user being shown a visual cue about an overdue task
+---
+**Seed Start Now- Inside**
 
 ---
+**Seed Start Now - Outside**
+
+---
+**Seed Transplant Now**
+
+
+### User Stories related to a user receiving a notification abodut and upcoming task
+
+---
+**Upcoming Seed Start - Inside**
+
+---
+**Upcoming Seed Start - Outside**
+
+---
+**Upcoming Seed Transplant Date**
+
+
+### User Stories related to a user receiving a notification about a potentially overdue task---
+**Seed Start Now- Inside**
+
+---
+**Seed Start Now - Outside**
+
+---
+**Seed Transplant Now**
+
+### User Stories related to a User moving a planting status "backwards"
+
+### User accessing the Planting Guide
+
+---
+**View Planting Guide from clicking on plant on the kanban board**
 As an Authenticated User
 When I visit my dashboard
 And I click on the name of the plant that is in the `Planted Outside` column,
 and I click the link to go to the plant guide
 I am taken to a page where I see the complete information available in the plant guide
 
+**View Planting Guides from a plant index page**
+
 ---
 Move Plant backwards/accidental status update
 
----
-Add Journal entry to a garden_plant
 
----
-Scroll down to see a calendar where I can see the events of each garden plant
+## v2.0 Planned User Stories
 
----
-When an plant has not been started yet but is within 1 week of the recommended seed-starting date,
+### Add Personalized Reminders
+
+### Add Journal entry to a garden_plant
+
+### Scroll down to see a calendar where I can see the events of each garden plant
+
+
+## v3.0 Planned User Stories
+
+### View Harvest Timeframes on a Calendar
+
+### Succession Planting Stories
