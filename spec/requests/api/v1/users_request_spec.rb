@@ -143,7 +143,7 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes]).to have_key(:zip_code)
     end
     
-    xit 'will not return anything if a Cookie is not provided' do
+    it 'will not return anything if a Cookie is not provided' do
       user_response = JSON.parse(response.body, symbolize_names: true)
       
       expect(response).to be_successful
