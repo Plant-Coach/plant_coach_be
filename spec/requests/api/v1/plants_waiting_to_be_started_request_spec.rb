@@ -92,9 +92,6 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         actual_seed_sewing_date: nil,
         direct_seed_user_decision: :indirect,
         planting_status: "not_started"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
         }
 
         post '/api/v1/garden_plants', params: {
@@ -109,10 +106,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
         post '/api/v1/garden_plants', params: {
           plant_id: plant3_object.id,
@@ -126,14 +120,9 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
-      get '/api/v1/plants_waiting_to_be_started', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      get '/api/v1/plants_waiting_to_be_started'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(3)

@@ -92,10 +92,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
 
       post '/api/v1/garden_plants', params: {
         plant_id: plant1.id,
@@ -109,10 +106,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
 
       post '/api/v1/garden_plants', params: {
         plant_id: plant2.id,
@@ -126,10 +120,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        }
 
       last_garden_plant = GardenPlant.last
 
@@ -137,13 +128,9 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
       patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
         actual_transplant_date: Date.today,
         planting_status: "transplanted_outside"
-        }, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      get '/api/v1/plants_in_the_garden', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
         }
+
+      get '/api/v1/plants_in_the_garden'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(1)

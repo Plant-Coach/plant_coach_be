@@ -100,9 +100,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         actual_seed_sewing_date: Date.yesterday,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
         }
 
         post '/api/v1/garden_plants', params: {
@@ -117,10 +114,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
         post '/api/v1/garden_plants', params: {
           plant_id: plant3_object.id,
@@ -134,14 +128,9 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
-      get '/api/v1/started_indoor_seeds', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      get '/api/v1/started_indoor_seeds'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(3)
@@ -168,14 +157,11 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         actual_seed_sewing_date: Date.yesterday,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
         }
 
         post '/api/v1/garden_plants', params: {
-          plant_id: plant2_object.id,
-          name: "Jalafuego",
+        plant_id: plant2_object.id,
+        name: "Jalafuego",
           plant_type: "Pepper",
           days_relative_to_frost_date: 14,
           days_to_maturity: 65,
@@ -185,10 +171,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
         post '/api/v1/garden_plants', params: {
           plant_id: plant3_object.id,
@@ -202,10 +185,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           direct_seed_user_decision: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
-          },
-          headers: {
-            Authorization: "Bearer #{user_response[:jwt]}"
-        }
+          }
 
       post '/api/v1/garden_plants', params: {
         plant_id: plant4_object.id,
@@ -219,14 +199,9 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      get '/api/v1/started_indoor_seeds', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
         }
+
+      get '/api/v1/started_indoor_seeds'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(3)
@@ -259,9 +234,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         actual_seed_sewing_date: Date.yesterday,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -276,9 +248,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       # This plant is not started yet
@@ -294,9 +263,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: nil,
         planting_status: "not_started"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -311,14 +277,9 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :direct,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
-      get '/api/v1/started_indoor_seeds', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      get '/api/v1/started_indoor_seeds'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(2)
@@ -347,9 +308,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         actual_seed_sewing_date: Date.yesterday,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -364,9 +322,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -381,9 +336,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
@@ -391,13 +343,9 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
       # Mimicks a plant who is plant outside, to test for false positives.
       patch "/api/v1/garden_plants/#{last_garden_plant.id}", params: {
         actual_transplant_date: Date.today,
-        planting_status: "transplanted_outside" }, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+        planting_status: "transplanted_outside" }
 
-      get '/api/v1/started_indoor_seeds', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      get '/api/v1/started_indoor_seeds'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(2)
@@ -426,9 +374,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         actual_seed_sewing_date: Date.yesterday,
         direct_seed_user_decision: :indirect,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -443,9 +388,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       post '/api/v1/garden_plants', params: {
@@ -460,16 +402,11 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         direct_seed_user_decision: :direct,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
-      },
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
       }
 
       last_garden_plant = GardenPlant.last
 
-      get '/api/v1/started_indoor_seeds', headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      get '/api/v1/started_indoor_seeds'
 
       result = JSON.parse(response.body, symbolize_names: true)
 

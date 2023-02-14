@@ -14,9 +14,7 @@ RSpec.describe 'Forecast API Endpoint', :vcr do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      get '/api/v1/forecast', headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      get '/api/v1/forecast'
 
       result = JSON.parse(response.body, symbolize_names: true)
 

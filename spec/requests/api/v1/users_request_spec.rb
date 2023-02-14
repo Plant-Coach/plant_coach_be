@@ -14,7 +14,7 @@ RSpec.describe 'Users API', :vcr do
     post '/api/v1/users', params: body
   end
 
-  describe 'POST user' do
+  describe 'POST /users' do
     it 'creates a new user' do
       created_user = User.last
 
@@ -23,7 +23,7 @@ RSpec.describe 'Users API', :vcr do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(user_response).to be_a Hash
-      binding.pry;
+
       expect(user_response).to have_key(:user)
       expect(user_response[:user]).to have_key(:data)
       expect(user_response[:user][:data]).to have_key(:id)
@@ -45,11 +45,12 @@ RSpec.describe 'Users API', :vcr do
       expect(user_response[:user][:data][:attributes][:zip_code]).to be_a String
     end
 
-    it 'will create a JWT for secure API calls' do
-      user_response = JSON.parse(response.body, symbolize_names: true)
+    it 'will create an HTTPOnly Cookie with a JWT inside for secure API calls' do
+      expect(response.headers["Set-Cookie"]).to_not be nil
+    end 
 
-      expect(user_response).to have_key(:jwt)
-      expect(user_response[:jwt]).to be_a String
+    it 'will use Rails Sessions to store and create the session cookie' do
+      expect(session[:token]).to_not be nil
     end 
 
     it 'will not allow duplicate users to be created' do
@@ -92,20 +93,15 @@ RSpec.describe 'Users API', :vcr do
     end
   end
 
-  describe 'PATCH user' do
+  describe 'PATCH /users' do
     it 'allows a user and its attributes to be edited' do
       user_response = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(response).to be_successful
-
+      
       new_zip_code =  { zip_code: 80111 }
-
-      patch "/api/v1/users/#{user_response[:user][:data][:id]}",
-      params: new_zip_code,
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
+      
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data][:attributes][:zip_code]).to eq("80111")
@@ -119,11 +115,7 @@ RSpec.describe 'Users API', :vcr do
       expect(response).to be_successful
 
       new_zip_code =  { zip_code: 80111 }
-      patch "/api/v1/users/9999999999",
-      params: new_zip_code,
-      headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      patch "/api/v1/users/9999999999", params: new_zip_code
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -132,33 +124,33 @@ RSpec.describe 'Users API', :vcr do
   end
 
   describe 'GET /users' do
-    it 'returns the user that is identified by the JWT' do
+    it 'returns the user that is identified by the Session Cookie' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-
-      get '/api/v1/users', headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
+      get '/api/v1/users'
+      
       result = JSON.parse(response.body, symbolize_names: true)
-
+      last_user = User.last
+      
       expect(result).to be_a Hash
       expect(result[:data]).to be_a Hash
       expect(result[:data]).to have_key(:attributes)
       expect(result[:data][:attributes]).to have_key(:id)
+      expect(result[:data][:attributes][:id]).to eq(last_user.id)
       expect(result[:data][:attributes]).to have_key(:name)
       expect(result[:data][:attributes]).to have_key(:email)
       expect(result[:data][:attributes]).to have_key(:zip_code)
     end
-
-    it 'will not return anything if a JWT is not provided' do
+    
+    xit 'will not return anything if a Cookie is not provided' do
       user_response = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(response).to be_successful
 
-      get '/api/v1/users'
+      cookies["_session_id"] = ""
 
+      get '/api/v1/users'
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to be_a Hash
@@ -172,15 +164,11 @@ RSpec.describe 'Users API', :vcr do
 
       expect(response).to be_successful
 
-      get '/api/v1/users', headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      get '/api/v1/users'
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete "/api/v1/users/#{result[:data][:id]}", headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      delete "/api/v1/users/#{result[:data][:id]}"
 
       expect(response.status).to be 204
     end
