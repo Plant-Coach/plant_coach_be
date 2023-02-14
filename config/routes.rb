@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :create, :update, :destroy]
       resources :garden_plants, only: [:index, :create, :update, :destroy]
-      resources :sessions, only: [:create]
+      resources :sessions, only: [:create, :destroy]
       resources :forecast, only: [:index]
       resources :plants, only: [:index, :create, :update, :destroy]
       resources :frost_dates, only: [:index]
