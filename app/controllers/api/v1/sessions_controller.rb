@@ -14,4 +14,9 @@ class Api::V1::SessionsController < ApplicationController
       render json: SessionsSerializer.error("Your credentials are incorrect!"), status: :unauthorized
     end
   end
+
+  def destroy
+    session.destroy
+    render status: :no_content
+  end
 end
