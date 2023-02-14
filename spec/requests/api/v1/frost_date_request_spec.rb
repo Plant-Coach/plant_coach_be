@@ -13,9 +13,7 @@ RSpec.describe 'Frost Date API Endpoint', :vcr do
       post '/api/v1/users', params: body
       user_response = JSON.parse(response.body, symbolize_names: true)
 
-      get '/api/v1/frost_dates', headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      get '/api/v1/frost_dates'
 
       result = JSON.parse(response.body, symbolize_names: true)
 

@@ -116,40 +116,28 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'retrieves all the plants that have been added to the application by that user' do
 
       # Created to make sure user's plants don't show up for other users
-      erroneous_user = {
-        name: 'Bad User',
+      other_user = {
+      name: 'Bad User',
         email: 'bad@user.com',
         zip_code: '80121',
         password: '12345',
         password_confirmation: '12345'
       }
 
-      post '/api/v1/users', params: erroneous_user
+      post '/api/v1/plants', params: plant1_params
+      post '/api/v1/plants', params: plant2_params
+      post '/api/v1/plants', params: plant3_params
+      post '/api/v1/plants', params: plant4_params
+      # Capture cookie data in order to reuse later.
+      cookie_1 = response.cookies["_session_id"]
+
+      post '/api/v1/users', params: other_user
       expect(response).to be_successful
+      post '/api/v1/plants', params: plant5_params
 
-      post '/api/v1/plants', params: plant1_params, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/plants', params: plant2_params, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/plants', params: plant3_params, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/plants', params: plant4_params, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
-
-      post '/api/v1/plants', params: plant5_params, headers: {
-        Authorization: "Bearer #{erroneous_user[:jwt]}"
-      }
-
-      get '/api/v1/plants', headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      # Sets the cookie to call the first user's plants instead of the second user's.
+      cookies["_session_id"] = cookie_1
+      get '/api/v1/plants'
 
       data = JSON.parse(response.body, symbolize_names: true)
 
@@ -189,9 +177,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'creates a new plant in the database' do
       expect(response).to be_successful
 
-      post '/api/v1/plants', params: plant1_params, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      post '/api/v1/plants', params: plant1_params
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
@@ -210,9 +196,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         days_to_maturity: 54
       }
 
-      post '/api/v1/plants', params: plant_without_hybrid_status, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      post '/api/v1/plants', params: plant_without_hybrid_status
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -232,9 +216,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         hybrid_status: :f1
       }
 
-      post '/api/v1/plants', params: plant_with_missing_organic_field, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      post '/api/v1/plants', params: plant_with_missing_organic_field
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -252,9 +234,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         plant_type: "Tomato",
         name: "Sungold",
       }
-      post '/api/v1/plants', params: plant, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      post '/api/v1/plants', params: plant
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(201)
@@ -273,9 +253,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         name: "Sungold",
       }
 
-      post '/api/v1/plants', params: plant, headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      post '/api/v1/plants', params: plant
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to have_key(:error)
@@ -287,12 +265,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'updates an existing plant with new attributes' do
       expect(response).to be_successful
 
-      patch "/api/v1/plants/#{plant1_object.id}", params: {
-        days_to_maturity: 61
-        },
-        headers: {
-          Authorization: "Bearer #{user_response[:jwt]}"
-        }
+      patch "/api/v1/plants/#{plant1_object.id}", params: { days_to_maturity: 61 }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -304,10 +277,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'removes a plant from the list of available plants' do
       expect(response).to be_successful
 
-
-      delete "/api/v1/plants/#{plant3_object.id}", headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      delete "/api/v1/plants/#{plant3_object.id}"
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(Plant.find_by(id: plant3_object.id)).to be nil
@@ -316,9 +286,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'returns an error if the plant can not be found' do
       expect(response).to be_successful
 
-      delete "/api/v1/plants/999999", headers: {
-        Authorization: "Bearer #{user_response[:jwt]}"
-      }
+      delete "/api/v1/plants/999999"
+
       result = JSON.parse(response.body, symbolize_names: true)
       expect(result[:error]).to eq("Something happened!")
     end

@@ -12,7 +12,8 @@ class Api::V1::UsersController < ApplicationController
     user = User.create(user_params)
     if user.valid?
       token = encode_token(user_id: user.id)
-      render json: { user: UserSerializer.new(user), jwt: token}, status: :created
+      session[:token] = { value: token, http_only: true }
+      render json: { user: UserSerializer.new(user) }, status: :created
     elsif user_already_exists
       render json: UserSerializer.error("This user already exists!!"), status: :not_acceptable
     elsif passwords_dont_match
@@ -22,7 +23,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # Allows a user to edit their details.
   def update
     user = User.find_by(id: params[:id])
     if !user.nil?
