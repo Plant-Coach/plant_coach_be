@@ -58,58 +58,79 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
   ) }
 
   describe 'POST garden plants' do
-    it 'creates new plant that the user will be planting' do
-      post '/api/v1/garden_plants', params: {
-        plant_id: plant1_object.id,
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :open_pollinated,
-        organic: false,
-        start_from_seed: true,
-        actual_seed_sewing_date: Date.today,
-        direct_seed_user_decision: :indirect,
-        planting_status: "started_indoors"
-        }
+    context 'starting a plant from seed' do 
+      it 'creates new plant that the user will be planting' do
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant1_object.id,
+          plant_type: "Tomato",
+          name: "Sungold",
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 54,
+          hybrid_status: :open_pollinated,
+          organic: false,
+          start_from_seed: true,
+          actual_seed_sewing_date: Date.today,
+          direct_seed_user_decision: :indirect,
+          planting_status: "started_indoors"
+          }
 
-      result = JSON.parse(response.body, symbolize_names: true)
-      new_plant = GardenPlant.last
+        result = JSON.parse(response.body, symbolize_names: true)
+        new_plant = GardenPlant.last
 
-      expect(response).to be_successful
+        expect(response).to be_successful
 
-      expect(new_plant.id).to eq(result[:data][:id].to_i)
+        expect(new_plant.id).to eq(result[:data][:id].to_i)
 
-      expect(result).to be_a Hash
-      expect(result).to have_key(:data)
+        expect(result).to be_a Hash
+        expect(result).to have_key(:data)
 
-      expect(result[:data]).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq(new_plant.name)
+        expect(result[:data]).to be_a Hash
+        expect(result[:data][:attributes][:name]).to eq(new_plant.name)
 
-      expect(result[:data][:attributes]).to have_key(:name)
-      expect(result[:data][:attributes]).to have_key(:plant_type)
-      expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
-      expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
-      expect(result[:data][:attributes]).to have_key(:days_to_maturity)
-      expect(result[:data][:attributes]).to have_key(:hybrid_status)
-      expect(result[:data][:attributes]).to have_key(:organic)
-      expect(result[:data][:attributes]).to have_key(:planting_status)
-      expect(result[:data][:attributes]).to have_key(:start_from_seed)
-      expect(result[:data][:attributes]).to have_key(:direct_seed_recommended)
-      expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
-      expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
-      expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
+        expect(result[:data][:attributes]).to have_key(:name)
+        expect(result[:data][:attributes]).to have_key(:plant_type)
+        expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
+        expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
+        expect(result[:data][:attributes]).to have_key(:days_to_maturity)
+        expect(result[:data][:attributes]).to have_key(:hybrid_status)
+        expect(result[:data][:attributes]).to have_key(:organic)
+        expect(result[:data][:attributes]).to have_key(:planting_status)
+        expect(result[:data][:attributes]).to have_key(:start_from_seed)
+        expect(result[:data][:attributes]).to have_key(:direct_seed_recommended)
+        expect(result[:data][:attributes]).to have_key(:recommended_seed_sewing_date)
+        expect(result[:data][:attributes]).to have_key(:actual_seed_sewing_date)
+        expect(result[:data][:attributes]).to have_key(:seedling_days_to_transplant)
+      end
+      #likely to delete
+      it 'will return a json error message if there was a problem' do
+        post '/api/v1/garden_plants', params: { plant_id: 99999999999}
+
+        result = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(400)
+
+        expect(result).to have_key(:error)
+        expect(result[:error]).to eq("There was a problem finding a plant to copy!")
+      end
     end
-    #likely to delete
-    it 'will return a json error message if there was a problem' do
-      post '/api/v1/garden_plants', params: { plant_id: 99999999999}
 
-      result = JSON.parse(response.body, symbolize_names: true)
-
-      expect(response.status).to eq(400)
-
-      expect(result).to have_key(:error)
-      expect(result[:error]).to eq("There was a problem finding a plant to copy!")
+    context 'starting as a plant' do
+      it 'creates a garden plant that is updated with information relevant to being place outside' do
+        post '/api/v1/garden_plants', params: {
+          plant_id: plant2_object.id,
+          plant_type: "Pepper",
+          name: "Jalafuego",
+          start_from_seed: false,
+          days_relative_to_frost_date: 14,
+          days_to_maturity: 55,
+          planting_status: "transplanted_outside",
+          actual_transplant_date: Date.today,
+          organic: false
+        }
+        
+        result = JSON.parse(response.body, symbolize_names: true)
+        
+      end
     end
   end
 
