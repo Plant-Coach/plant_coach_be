@@ -98,7 +98,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
         }
 
@@ -111,7 +111,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seed_user_decision: :indirect,
+          direct_seeded: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -125,7 +125,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seed_user_decision: :indirect,
+          direct_seeded: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -155,7 +155,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
         }
 
@@ -168,7 +168,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seed_user_decision: :indirect,
+          direct_seeded: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -182,7 +182,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seed_user_decision: :indirect,
+          direct_seeded: :indirect,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -196,7 +196,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
         }
@@ -232,7 +232,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
       }
 
@@ -245,7 +245,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -260,7 +260,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: nil,
         planting_status: "not_started"
       }
@@ -274,7 +274,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :direct,
+        direct_seeded: :direct,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
       }
@@ -306,7 +306,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
       }
 
@@ -319,7 +319,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -333,7 +333,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -372,7 +372,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
       }
 
@@ -385,7 +385,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -399,7 +399,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         hybrid_status: :open_pollinated,
         organic: false,
         start_from_seed: true,
-        direct_seed_user_decision: :direct,
+        direct_seeded: :direct,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
       }
