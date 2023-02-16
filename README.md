@@ -160,7 +160,7 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 
 
 ---
-**Pre-purchased plant - future planting - overridden planting date**
+<!-- **Pre-purchased plant - future planting - overridden planting date**
 - [ ] As an authenticated User
 - [ ] When I visit my dashboard
 - [ ] I can still see my new plant in the `My Saved Plants` category
@@ -187,7 +187,7 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
     - Override seed-start date? Not started from seed
     - chosen_overridden_seed-start_date
     - Override transplant date? Yes
-    - Chosen Overridden seed-start <user-chosen date>
+    - Chosen Overridden seed-start <user-chosen date> -->
 
 ---
 **Start from Seed - future - starting inside**
