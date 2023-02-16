@@ -158,7 +158,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           expect(result[:data][:attributes][:start_from_seed]).to eq(false)
           expect(result[:data][:attributes][:direct_seeded]).to eq(false)
           expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
-          expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+          expect(result[:data][:attributes][:recommended_seed_sewing_date]).to be nil
         end
       end
     end
