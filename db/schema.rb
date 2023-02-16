@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
   create_table "garden_plants", force: :cascade do |t|
     t.string "name"
     t.integer "days_to_maturity"
-    t.integer "hybrid_status"
+    t.integer "hybrid_status", default: 0, null: false
     t.integer "days_relative_to_frost_date"
     t.string "plant_type"
     t.bigint "user_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
     t.date "actual_seed_sewing_date"
     t.integer "seedling_days_to_transplant"
     t.date "actual_transplant_date"
-    t.integer "direct_seed_user_decision", default: 0
+    t.boolean "direct_seeded", default: false, null: false
     t.boolean "direct_seed_recommended", null: false
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end

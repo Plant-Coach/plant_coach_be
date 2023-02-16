@@ -11,7 +11,7 @@ class PlantsInTheGardenSerializer
               :planting_status,
               :start_from_seed,
               :direct_seed_recommended,
-              :direct_seed_user_decision,
+              :direct_seeded,
               :recommended_seed_sewing_date,
               :actual_seed_sewing_date,
               :seedling_days_to_transplant,

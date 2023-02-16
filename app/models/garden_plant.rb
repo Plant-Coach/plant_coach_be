@@ -2,17 +2,19 @@
 class GardenPlant < ApplicationRecord
   validates_presence_of :plant_type,
                         :days_to_maturity,
-                        :hybrid_status,
                         :days_relative_to_frost_date,
                         :recommended_transplant_date,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
-                        :start_from_seed,
-                        :planting_status
+                        :planting_status,
+                        :hybrid_status
+
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :direct_seed_recommended, inclusion: [true, false]
+  validates :start_from_seed, inclusion: [true, false]
+  validates :direct_seeded, inclusion: [true, false]
 
   # GardenPlants belong to a user.
   belongs_to :user
@@ -27,11 +29,9 @@ class GardenPlant < ApplicationRecord
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
     "direct_sewn_outside", "transplanted_outside"]
-  enum direct_seed_user_decision: [:direct, :indirect]
 
-  # _changed? is built-in ActiveRecord Rails magic that knows if an attribute was changed.
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
-
+  before_save :new_transplant, unless: :transplant_date_nil
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
@@ -57,5 +57,12 @@ class GardenPlant < ApplicationRecord
     self.update(direct_seed_recommended: default_seed_data.direct_seed_recommended)
   end
 
+  def new_transplant
+    self.planting_status = "transplanted_outside"
+  end
 
+private
+  def transplant_date_nil
+    self.actual_transplant_date.nil?
+  end
 end

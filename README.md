@@ -11,7 +11,7 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - `Name: <string>`
 - `Chose to start from seed?: <boolean>`
 - `Direct Seed Recommended: <boolean>`
-- `direct_seed_user_decision: <boolean>`Days to Maturity: <integer>`
+- `direct_seeded: <boolean>`Days to Maturity: <integer>`
 - `Hybrid Status: <integer>`
 - `Days to transplant before/after frost date: <integer>`
 - `Organic: <boolean>`
@@ -113,20 +113,23 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] I am I asked `when?` where I can provide today's date.
 - [ ] I am returned to the dashboard where I see my plant in the `Planted Outside` column.
 - [ ] When I click on the plant, I see
-    - Chose to start from seed?: `False`
-    - Direct Seed Recommended: `No`
-    - Direct Seed User Decision: `No`
-    - Actual Transplant Date: `<Today's Date>`
-    - Days to Maturity: `<harvest date - actual transplant date>`
-    - Recommended Transplant Date: `normal recommended date`
-    - Planting Status: `["transplanted_outside"]` 
-    - Recommended Seed Sewing Date: `nil`
-    - Actual Seed Sewing Date: `nil`
-    - Seedling Days To Transplant: `<integer>`
-    - Override seed-start date? "not started from seed"
-    - chosen_overridden_seed-start_date nil
-    - Override transplant date? "yes"
-    - Chosen Overridden seed-start <Today's Date>
+    // Decision points above:
+    - [ ] Actual Transplant Date: `<Today's Date>`
+    - [ ] Chose to start from seed?: `False`
+    // Dependent attributes:
+    - [ ] Direct Seed User Decision: `No`
+    - [ ] Planting Status: `["transplanted_outside"]` 
+    - [ ] Actual Seed Sewing Date: `nil`
+    - [ ] Override seed-start date? "not started from seed"
+    - [ ] chosen_overridden_seed-start_date nil
+    - [ ] Override transplant date? nil
+    - [ ] Chosen Overridden seed-start <Today's Date>
+    // Factual/constant attributes:
+    - [ ] Direct Seed Recommended: `No`
+    - [ ] Days to Maturity: `<harvest date - actual transplant date>`
+    - [ ] Recommended Transplant Date: `normal recommended date`
+    - [ ] Recommended Seed Sewing Date: `nil`
+    - [ ] Seedling Days To Transplant: `<integer>`
 
 ---
 **Pre-purchased plant - Future Planting - App recommended timing**

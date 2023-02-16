@@ -70,7 +70,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           organic: false,
           start_from_seed: true,
           actual_seed_sewing_date: Date.today,
-          direct_seed_user_decision: :indirect,
+          direct_seeded: :indirect,
           planting_status: "started_indoors"
           }
 
@@ -118,18 +118,25 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       it 'creates a garden plant that is updated with information relevant to being place outside' do
         post '/api/v1/garden_plants', params: {
           plant_id: plant2_object.id,
+          # This...
+          actual_transplant_date: Date.today,
+          # and this...should be enough to indicate the plant is transplanted outside.
+          start_from_seed: false,
           plant_type: "Pepper",
           name: "Jalafuego",
-          start_from_seed: false,
           days_relative_to_frost_date: 14,
-          days_to_maturity: 55,
-          planting_status: "transplanted_outside",
-          actual_transplant_date: Date.today,
-          organic: false
+          days_to_maturity: 55
         }
         
         result = JSON.parse(response.body, symbolize_names: true)
-        
+
+        expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
+        expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+        expect(result[:data][:attributes][:start_from_seed]).to eq(false)
+        expect(result[:data][:attributes][:direct_seeded]).to eq(false)
+        expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
+        expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+        expect(result[:data][:attributes][:direct_seed_recommended]).to_not be nil
       end
     end
   end
@@ -152,7 +159,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "not_started",
         start_from_seed: true
         }
@@ -165,7 +172,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         days_to_maturity: 65,
         hybrid_status: 1,
         organic: false,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "not_started",
         start_from_seed: true
         }
@@ -202,7 +209,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: nil,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "not_started"
       }
 
@@ -256,7 +263,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.today,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "started_indoors"
         }
 
@@ -302,7 +309,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         days_to_maturity: 54,
         hybrid_status: 1,
         organic: false,
-        direct_seed_user_decision: :indirect,
+        direct_seeded: :indirect,
         planting_status: "not_started",
         start_from_seed: true
         }
