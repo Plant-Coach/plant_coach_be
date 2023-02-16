@@ -137,28 +137,26 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] When I visit my dashboard
 - [ ] I can still see my new plant in the `My Saved Plants` category
 - [ ] I can click a button that says `I want to plant this`
-- [ ] And a window appears that asks if I plan to start the plant from seed
-- [ ] and I select `No`
 - [ ] And a window appears that asks if I have already planted this.
 - [ ] When I select `No`
-- [ ] I am asked if I would like to set the planting date manually or take the app's advice.
-- [ ] I select `take the apps advice`
+- [ ] And a window appears that asks if I plan to start the plant from seed
+- [ ] and I select `No`
 - [ ] I am returned to the dashboard where I see my plant in the `Plants Waiting to Start` column.
 - [ ] And when I click on the plant
-    - Chose to start from seed?: `False`
-    - Direct Seed Recommended: `No`
-    - Direct Seed User Decision: `No`
-    - Actual Transplant Date: `Not yet Transplanted outside`
-    - Days to Maturity: `<harvest date - actual transplant date>`
-    - Recommended Transplant Date: `normal recommended date`
-    - Planting Status: `["not_started"]` 
-    - Recommended Seed Sewing Date: `nil`
-    - Actual Seed Sewing Date: `nil`
-    - Seedling Days To Transplant: `<integer>`
-    -- Override seed-start date? No 
-    - chosen_overridden_seed-start_date
-    - Override transplant date? No
-    - Chosen Overridden seed-start date
+    - [ ] Chose to start from seed?: `False`
+    - [ ] Direct Seed User Decision: `No`
+    - [ ] Direct Seed Recommended: `No`
+    - [ ] Actual Transplant Date: `Not yet Transplanted outside`
+    - [ ] Days to Maturity: `<harvest date - actual transplant date>`
+    - [ ] Recommended Transplant Date: `normal recommended date`
+    - [ ] Planting Status: `["not_started"]` 
+    - [ ] Recommended Seed Sewing Date: `nil`
+    - [ ] Actual Seed Sewing Date: `nil`
+    - [ ] Seedling Days To Transplant: `<integer>`
+    - [ ] Override seed-start date? No 
+    - [ ] chosen_overridden_seed-start_date
+    - [ ] Override transplant date? No
+    - [ ] Chosen Overridden seed-start date
 
 
 ---
