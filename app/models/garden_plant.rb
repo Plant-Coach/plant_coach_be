@@ -32,6 +32,7 @@ class GardenPlant < ApplicationRecord
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
   before_save :new_transplant, if: :qualified_quick_plant
+  before_save :future_transplant, if: :qualified_future_transplant
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
@@ -61,8 +62,17 @@ class GardenPlant < ApplicationRecord
     self.planting_status = "transplanted_outside"
   end
 
+  def future_transplant
+    self.planting_status = "not_started"
+    self.recommended_seed_sewing_date = nil
+  end
+
 private
   def qualified_quick_plant
     !self.actual_transplant_date.nil? && self.start_from_seed == false
+  end
+
+  def qualified_future_transplant
+    self.start_from_seed == false && self.actual_transplant_date.nil?
   end
 end

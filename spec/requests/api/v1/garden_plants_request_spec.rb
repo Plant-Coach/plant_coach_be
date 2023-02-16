@@ -115,28 +115,51 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     end
 
     context 'starting as a plant' do
-      it 'creates a garden plant that is updated with information relevant to being place outside' do
-        post '/api/v1/garden_plants', params: {
-          plant_id: plant2_object.id,
-          # This...
-          actual_transplant_date: Date.today,
-          # and this...should be enough to indicate the plant is transplanted outside.
-          start_from_seed: false,
-          plant_type: "Pepper",
-          name: "Jalafuego",
-          days_relative_to_frost_date: 14,
-          days_to_maturity: 55
-        }
-        
-        result = JSON.parse(response.body, symbolize_names: true)
+      context 'right now' do
+        it 'creates a garden plant that is updated with information relevant to being place outside' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant2_object.id,
+            # This...
+            actual_transplant_date: Date.today,
+            # and this...should be enough to indicate the plant is transplanted outside.
+            start_from_seed: false,
+            plant_type: "Pepper",
+            name: "Jalafuego",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 55
+          }
+          
+          result = JSON.parse(response.body, symbolize_names: true)
 
-        expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
-        expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
-        expect(result[:data][:attributes][:start_from_seed]).to eq(false)
-        expect(result[:data][:attributes][:direct_seeded]).to eq(false)
-        expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
-        expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-        expect(result[:data][:attributes][:direct_seed_recommended]).to_not be nil
+          expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
+          expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+          expect(result[:data][:attributes][:start_from_seed]).to eq(false)
+          expect(result[:data][:attributes][:direct_seeded]).to eq(false)
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
+          expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+          expect(result[:data][:attributes][:direct_seed_recommended]).to_not be nil
+        end
+      end
+
+      context 'in the future' do
+        it 'creates a garden plant that is scheduled with a planting in the future' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant2_object.id,
+            start_from_seed: false,
+            plant_type: "Pepper",
+            name: "Jalafuego",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 55
+          }
+          
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+          expect(result[:data][:attributes][:start_from_seed]).to eq(false)
+          expect(result[:data][:attributes][:direct_seeded]).to eq(false)
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
+          expect(result[:data][:attributes][:recommended_seed_sewing_date]).to be nil
+        end
       end
     end
   end
