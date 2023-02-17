@@ -26,7 +26,7 @@ FactoryBot.define do
     start_from_seed { Faker::Boolean.boolean(true_ratio: 0.5) }
     recommended_seed_sewing_date { Faker::Date.forward(days: 20) }
     seedling_days_to_transplant { Faker::Number.between(from: 7, to: 75) }
-    direct_seeded { :indirect }
+    seed_sew_type { :indirect }
     direct_seed_recommended { Faker::Boolean.boolean(true_ratio: 0.5) }
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe GardenPlant, type: :model do
     it { should validate_presence_of(:hybrid_status) }
     it { should validate_inclusion_of(:organic).in_array([true, false]) }
     it { should validate_inclusion_of(:direct_seed_recommended).in_array([true, false]) }
-    it { should validate_inclusion_of(:direct_seeded).in_array([true, false]) }
+    it { should validate_presence_of(:seed_sew_type) }
     it { should validate_inclusion_of(:start_from_seed).in_array([true, false]) }
     it { should validate_presence_of(:planting_status) }
     it { should validate_presence_of(:recommended_transplant_date) }

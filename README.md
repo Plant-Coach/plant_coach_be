@@ -11,7 +11,7 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - `Name: <string>`
 - `Chose to start from seed?: <boolean>`
 - `Direct Seed Recommended: <boolean>`
-- `direct_seeded: <boolean>`Days to Maturity: <integer>`
+- `seed_sew_type: <boolean>`Days to Maturity: <integer>`
 - `Hybrid Status: <integer>`
 - `Days to transplant before/after frost date: <integer>`
 - `Organic: <boolean>`
