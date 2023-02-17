@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
     t.string "plant_type"
     t.bigint "user_id"
     t.boolean "organic", default: false, null: false
+    t.integer "seed_sew_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "recommended_transplant_date"
@@ -32,7 +33,6 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
     t.date "actual_seed_sewing_date"
     t.integer "seedling_days_to_transplant"
     t.date "actual_transplant_date"
-    t.boolean "direct_seeded", default: false, null: false
     t.boolean "direct_seed_recommended", null: false
     t.index ["user_id"], name: "index_garden_plants_on_user_id"
   end
