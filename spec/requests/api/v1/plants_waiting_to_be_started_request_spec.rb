@@ -90,7 +90,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: nil,
-        direct_seeded: :indirect,
+        seed_sew_type: :indirect,
         planting_status: "not_started"
         }
 
@@ -103,7 +103,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seeded: :indirect,
+          seed_sew_type: :indirect,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
           }
@@ -117,7 +117,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           hybrid_status: :open_pollinated,
           organic: false,
           start_from_seed: true,
-          direct_seeded: :indirect,
+          seed_sew_type: :indirect,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
           }

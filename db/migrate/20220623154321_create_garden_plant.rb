@@ -8,6 +8,7 @@ class CreateGardenPlant < ActiveRecord::Migration[5.2]
       t.string :plant_type
       t.references :user, foreign_key: true
       t.boolean :organic, null: false, default: false
+      t.integer :seed_sew_type, null: false, default: 0
 
       t.timestamps
     end

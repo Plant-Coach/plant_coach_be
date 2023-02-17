@@ -42,7 +42,7 @@ def garden_plant_params
     :plant_type, # Used for create.
     :hybrid_status, # Used for create.
     :days_relative_to_frost_date, # Used for create.
-    :direct_seeded, # Used for create.
+    :seed_sew_type, # Used for create.
     :planting_status, # Used for create.
     # :plant_id, # Used for create.
     :start_from_seed # Used for create.

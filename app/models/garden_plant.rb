@@ -7,14 +7,14 @@ class GardenPlant < ApplicationRecord
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :planting_status,
-                        :hybrid_status
+                        :hybrid_status,
+                        :seed_sew_type
 
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
-  validates :direct_seeded, inclusion: [true, false]
 
   # GardenPlants belong to a user.
   belongs_to :user
@@ -29,10 +29,12 @@ class GardenPlant < ApplicationRecord
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
     "direct_sewn_outside", "transplanted_outside"]
+  enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
   before_save :new_transplant, if: :qualified_quick_plant
   before_save :future_transplant, if: :qualified_future_transplant
+  before_save :seed_sew_type_decider, if: :start_from_seed_false
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
@@ -67,6 +69,10 @@ class GardenPlant < ApplicationRecord
     self.recommended_seed_sewing_date = nil
   end
 
+  def seed_sew_type_decider
+    self.seed_sew_type = :not_applicable
+  end
+
 private
   def qualified_quick_plant
     !self.actual_transplant_date.nil? && self.start_from_seed == false
@@ -74,5 +80,9 @@ private
 
   def qualified_future_transplant
     self.start_from_seed == false && self.actual_transplant_date.nil?
+  end
+
+  def start_from_seed_false
+    self.start_from_seed == false
   end
 end
