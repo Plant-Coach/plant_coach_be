@@ -39,6 +39,7 @@ class GardenPlant < ApplicationRecord
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
   after_initialize :add_seed_recommendation, unless: :skip_callbacks
+  after_initialize :set_started_indoors, if: :started_indoors
 
   def update_planting_dates
     self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
@@ -73,6 +74,10 @@ class GardenPlant < ApplicationRecord
     self.seed_sew_type = :not_applicable
   end
 
+  def set_started_indoors
+    self.planting_status = "started_indoors"
+  end
+
 private
   def qualified_quick_plant
     !self.actual_transplant_date.nil? && self.start_from_seed == false
@@ -84,5 +89,9 @@ private
 
   def start_from_seed_false
     self.start_from_seed == false
+  end
+
+  def started_indoors
+    self.seed_sew_type == "indirect" && !self.actual_seed_sewing_date.nil? && self.actual_transplant_date.nil?
   end
 end
