@@ -63,16 +63,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'creates new plant that the user will be planting' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
+            start_from_seed: true,
+            seed_sew_type: :indirect,
+            actual_seed_sewing_date: Date.today,
+
             plant_type: "Tomato",
             name: "Sungold",
             days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
-            start_from_seed: true,
-            actual_seed_sewing_date: Date.today,
-            seed_sew_type: :indirect,
-            planting_status: "started_indoors"
+            days_to_maturity: 54
             }
 
           result = JSON.parse(response.body, symbolize_names: true)
@@ -87,6 +85,8 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
           expect(result[:data]).to be_a Hash
           expect(result[:data][:attributes][:name]).to eq(new_plant.name)
+          
+          expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
 
           expect(result[:data][:attributes]).to have_key(:name)
           expect(result[:data][:attributes]).to have_key(:plant_type)
