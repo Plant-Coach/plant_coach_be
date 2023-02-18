@@ -14,7 +14,6 @@ class Plant < ApplicationRecord
 
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
 
-  # unless: :skip_callbacks was introduced to help with erroneous validation test failures.
   after_initialize :set_defaults, unless: :skip_callbacks
 
   private
