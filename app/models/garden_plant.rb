@@ -32,16 +32,16 @@ class GardenPlant < ApplicationRecord
   enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
-  before_save :new_transplant, if: :qualified_quick_plant
-  before_save :future_transplant, if: :qualified_future_transplant
-  before_save :seed_sew_type_decider, if: :start_from_seed_false
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
+  after_initialize :seed_sew_type_not_applicable, if: :start_from_seed_false
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
   after_initialize :add_seed_recommendation, unless: :skip_callbacks
+  after_initialize :set_new_transplant, if: :immediate_transplant
+  after_initialize :future_transplant, if: :qualified_future_transplant
   after_initialize :set_started_indoors, if: :started_indoors
-  after_initialize :direct_sewn_seed, if: :direct_sewn
-  after_initialize :direct_sew_future_seed, if: :direct_future_sew
+  after_initialize :set_direct_sewn, if: :direct_sewn
+  after_initialize :set_direct_future_sew_seed, if: :direct_future_sew
 
   def update_planting_dates
     self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
@@ -51,19 +51,17 @@ class GardenPlant < ApplicationRecord
     user = User.find_by(id: self.user_id)
     default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
 
-    self.update(
-      recommended_transplant_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date,
-      recommended_seed_sewing_date: user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data,
-      seedling_days_to_transplant: default_seed_data
-    )
+    self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
+    self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
+    self.seedling_days_to_transplant = default_seed_data
   end
 
   def add_seed_recommendation
     default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type)
-    self.update(direct_seed_recommended: default_seed_data.direct_seed_recommended)
+    self.direct_seed_recommended = default_seed_data.direct_seed_recommended
   end
 
-  def new_transplant
+  def set_new_transplant
     self.planting_status = "transplanted_outside"
   end
 
@@ -72,7 +70,7 @@ class GardenPlant < ApplicationRecord
     self.recommended_seed_sewing_date = nil
   end
 
-  def seed_sew_type_decider
+  def seed_sew_type_not_applicable
     self.seed_sew_type = :not_applicable
   end
 
@@ -80,17 +78,17 @@ class GardenPlant < ApplicationRecord
     self.planting_status = "started_indoors"
   end
 
-  def direct_sewn_seed
+  def set_direct_sewn
     self.planting_status = "direct_sewn_outside"
   end
 
-  def direct_sew_future_seed
+  def set_direct_future_sew_seed
     self.recommended_seed_sewing_date = self.recommended_transplant_date
   end
 
   
 private
-  def qualified_quick_plant
+  def immediate_transplant
     !self.actual_transplant_date.nil? && self.start_from_seed == false
   end
 
@@ -107,7 +105,7 @@ private
   end
 
   def direct_sewn
-    self.start_from_seed == true && self.seed_sew_type == "direct" && !self.actual_seed_sewing_date.nil?
+    self.seed_sew_type == "direct" && !self.actual_seed_sewing_date.nil?
   end
 
   def direct_future_sew
