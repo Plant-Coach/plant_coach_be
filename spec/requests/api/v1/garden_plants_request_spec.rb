@@ -60,23 +60,47 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
   describe 'POST garden plants' do
     context 'starting a plant from seed' do
       context 'outside' do
-        it 'creates a garden plant that already has an updated planting status' do
-          post '/api/v1/garden_plants', params: {
-            plant_id: plant1_object.id,
-            start_from_seed: true,
-            seed_sew_type: :direct,
-            actual_seed_sewing_date: Date.today,
-            plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54
-          }
+        context 'right now' do
+          it 'creates a garden plant that already has an updated planting status' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+              actual_seed_sewing_date: Date.today,
+              plant_type: "Tomato",
+              name: "Sungold",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 54
+            }
 
-          result = JSON.parse(response.body, symbolize_names: true)
+            result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(response).to be_successful
+            expect(response).to be_successful
 
-          expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
+            expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
+          end
+        end
+
+        context 'in the future' do
+          it 'creates a garden plant that has the information needed to be planted later' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+              plant_type: "Tomato",
+              name: "Sungold",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 54
+            }
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_successful
+
+            expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+            expect(result[:data][:attributes][:recommended_transplant_date]).to_not be nil
+            expect(result[:data][:attributes][:recommended_seed_sewing_date]).to eq(result[:data][:attributes][:recommended_transplant_date])
+          end
         end
       end
 

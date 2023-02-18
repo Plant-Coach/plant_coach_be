@@ -41,6 +41,7 @@ class GardenPlant < ApplicationRecord
   after_initialize :add_seed_recommendation, unless: :skip_callbacks
   after_initialize :set_started_indoors, if: :started_indoors
   after_initialize :direct_sewn_seed, if: :direct_sewn
+  after_initialize :direct_sew_future_seed, if: :direct_future_sew
 
   def update_planting_dates
     self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
@@ -83,6 +84,11 @@ class GardenPlant < ApplicationRecord
     self.planting_status = "direct_sewn_outside"
   end
 
+  def direct_sew_future_seed
+    self.recommended_seed_sewing_date = self.recommended_transplant_date
+  end
+
+  
 private
   def qualified_quick_plant
     !self.actual_transplant_date.nil? && self.start_from_seed == false
@@ -102,5 +108,9 @@ private
 
   def direct_sewn
     self.start_from_seed == true && self.seed_sew_type == "direct" && !self.actual_seed_sewing_date.nil?
+  end
+
+  def direct_future_sew
+    self.seed_sew_type == "direct" && actual_seed_sewing_date.nil?
   end
 end
