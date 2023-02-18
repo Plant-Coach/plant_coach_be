@@ -235,20 +235,20 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] And I am asked when I started it and I can select todady's date.
 - [ ] I am returned to the dashboard where I see my plant in the `Started Indoors` column.
 - [ ] And when I click on the plant,
-    - Chose to start from seed?: `Yes`
-    - Direct Seed Recommended: `false`
-    - Direct Seed User Decision: `false`
-    - Days to Maturity: `<integer>`
-    - Recommended Transplant Date: `<date>`
-    - Planting Status: `<string> ["started_indoors"]` 
-    - Recommended Seed Sewing Date: `<date>`
-    - Actual Seed Sewing Date: `Today's date`
-    - Seedling Days To Transplant: `<integer>`
-    - Actual Transplant Date: `nil`
-    - Override seed-start date?
-    - chosen_overridden_seed-start_date
-    - Override transplant date?
-    - Chosen Overridden seed-start date
+    - [ ] Chose to start from seed?: `Yes`
+    - [ ] Direct Seed Recommended: `false`
+    - [ ] Direct Seed User Decision: `false`
+    - [ ] Days to Maturity: `<integer>`
+    - [ ] Recommended Transplant Date: `<date>`
+    - [ ] Planting Status: `<string> ["started_indoors"]` 
+    - [ ] Recommended Seed Sewing Date: `<date>`
+    - [ ] Actual Seed Sewing Date: `Today's date`
+    - [ ] Seedling Days To Transplant: `<integer>`
+    - [ ] Actual Transplant Date: `nil`
+    - [ ] Override seed-start date?
+    - [ ] chosen_overridden_seed-start_date
+    - [ ] Override transplant date?
+    - [ ] Chosen Overridden seed-start date
 
  ---
 **Start from seed - today - outside"**
@@ -311,31 +311,6 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
     - Override transplant date? No
     - Chosen Overridden seed-start nil
 
-
----
-**Start indoor seed**
-- [ ] As an authenticated User
-- [ ] When I visit my dashboard
-- [ ] And I see a Plant in my `Plants Ready to Start` column that is also a plant I want to grow from seed,
-- [ ] I can change the status to `Seedlings Growing Inside`
-- [ ] I am asked when they were started
-- [ ] and I can select: `Today`
-- [ ] And I see the plant in the `Seedlings Growing Inside`.
-- [ ] And when I click on the plant,
-    - Chose to start from seed?: `Yes`
-    - Direct Seed Recommended: `true`
-    - Direct Seed User Decision: `true`
-    - Days to Maturity: `<integer>`
-    - Recommended Transplant Date: `<date>`
-    - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
-    - Recommended Seed Sewing Date: `<make this the same as the recommended transplant date, if there is one>`
-    - Actual Seed Sewing Date: `nil`
-    - Seedling Days To Transplant: `nil`
-    - Actual Transplant Date: `<same as actual seed-sewing date>`
-    - Override seed-start date? No
-    - chosen_overridden_seed-start_date nil
-    - Override transplant date? No
-    - Chosen Overridden seed-start nil
 
 ---
 **User Story in which a future seed-starting date is set by the user saying when they've already started a seed (should return an error)**
