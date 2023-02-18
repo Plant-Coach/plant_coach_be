@@ -23,7 +23,7 @@ class Plant < ApplicationRecord
   # in some of the blanks with default data.
   def set_defaults
     plant_defaults = SeedDefaultData.find_by(plant_type: plant_type)
-    self.update(days_to_maturity: plant_defaults.days_to_maturity) if days_to_maturity.nil?
-    self.update(days_relative_to_frost_date: plant_defaults.days_relative_to_frost_date) if days_relative_to_frost_date.nil?
+    self.days_to_maturity = plant_defaults.days_to_maturity if days_to_maturity.nil?
+    self.days_relative_to_frost_date = plant_defaults.days_relative_to_frost_date if days_relative_to_frost_date.nil?
   end
 end
