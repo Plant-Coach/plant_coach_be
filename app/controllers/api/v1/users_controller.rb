@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApplicationController
   # This is currently being used similarly to a show action.
   def index
     if @user
-      render json: UserSerializer.new(@user), status: 200
+      render json: UserSerializer.new(@user), status: :ok
     end
   end
 
@@ -27,9 +27,9 @@ class Api::V1::UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     if !user.nil?
       user.update(user_params)
-      render json: UserSerializer.new(user), status: 200
+      render json: UserSerializer.new(user), status: :ok
     else
-      render json: UserSerializer.error("User not found!!"), status: 400
+      render json: UserSerializer.error("User not found!!"), status: :bad_request
     end
   end
 

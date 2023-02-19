@@ -2,14 +2,14 @@ class Api::V1::GardenPlantsController < ApplicationController
   def index
     # Access all of the garden plants for the authenticated user.
     garden_plants = @user.garden_plants
-    render json: GardenPlantSerializer.new(garden_plants), status: 200
+    render json: GardenPlantSerializer.new(garden_plants), status: :ok
   end
 
   def create
     plant_result = Plant.find_by_id(params[:plant_id])
     if plant_result.nil?
       render json: GardenPlantSerializer.error(
-        "There was a problem finding a plant to copy!"), status: 400
+        "There was a problem finding a plant to copy!"), status: :bad_request
       else
         new_garden_plant = @user.garden_plants.create(garden_plant_params)
       render json: GardenPlantSerializer.new(new_garden_plant)
@@ -26,7 +26,7 @@ class Api::V1::GardenPlantsController < ApplicationController
     garden_plant = @user.garden_plants.where(id: params[:id]).first
     if !garden_plant.nil?
       result = GardenPlant.destroy(garden_plant.id)
-      render json: GardenPlantSerializer.confirm, status: 200
+      render json: GardenPlantSerializer.confirm, status: :ok
     end
   end
 end

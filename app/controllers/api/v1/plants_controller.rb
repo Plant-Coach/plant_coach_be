@@ -8,25 +8,25 @@ class Api::V1::PlantsController < ApplicationController
   def create
     plant = @user.plants.create(plant_params)
     if plant.save
-      render json: PlantSerializer.new(plant), status: 201
+      render json: PlantSerializer.new(plant), status: :created
     else
-      render json: PlantSerializer.error("The plant could not be saved!"), status: 403
+      render json: PlantSerializer.error("The plant could not be saved!"), status: :forbidden
     end
   end
 
   def update
     plant = Plant.find(params[:id])
     updated_plant = plant.update(plant_params)
-    render json: PlantSerializer.new(plant), status: 200
+    render json: PlantSerializer.new(plant), status: :ok
   end
 
   def destroy
     plant = Plant.find_by(id: params[:id])
     if !plant.nil?
       deleted_plant = plant.destroy
-      render json: PlantSerializer.new(deleted_plant), status: 200
+      render json: PlantSerializer.new(deleted_plant), status: :ok
     else
-      render json: PlantSerializer.error("Something happened!"), status: 400
+      render json: PlantSerializer.error("Something happened!"), status: :bad_request
     end
   end
 
