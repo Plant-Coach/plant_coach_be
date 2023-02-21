@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApplicationController
   # This is currently being used similarly to a show action.
   def index
     if @user
-      render json: UserSerializer.new(@user), status: 200
+      render json: UserSerializer.new(@user), status: :ok
     end
   end
 
@@ -16,10 +16,10 @@ class Api::V1::UsersController < ApplicationController
       render json: { user: UserSerializer.new(user) }, status: :created
     elsif user_already_exists
       render json: UserSerializer.error("This user already exists!!"), status: :not_acceptable
-    elsif passwords_dont_match
-      render json: UserSerializer.error("Your passwords must match!"), status: :not_acceptable
     elsif email_formatted_incorrectly(user)
       render json: UserSerializer.error("#{params[:email]} is not a valid email address!!"), status: :not_acceptable
+    elsif passwords_dont_match
+      render json: UserSerializer.error("Your passwords must match!"), status: :not_acceptable
     end
   end
 
@@ -27,9 +27,9 @@ class Api::V1::UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     if !user.nil?
       user.update(user_params)
-      render json: UserSerializer.new(user), status: 200
+      render json: UserSerializer.new(user), status: :ok
     else
-      render json: UserSerializer.error("User not found!!"), status: 400
+      render json: UserSerializer.error("User not found!!"), status: :bad_request
     end
   end
 

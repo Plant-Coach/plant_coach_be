@@ -64,7 +64,7 @@ RSpec.describe 'Users API', :vcr do
     it 'will not allow a user to register with unmatching passwords' do
       body_with_password_mismatch = {
         name: 'Joel Grant',
-        email: 'joel_password_mismatch@plantcoach.com',
+        email: 'joel@mismatch.com',
         zip_code: '80000',
         password: '123457',
         password_confirmation: '12345'

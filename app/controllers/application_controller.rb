@@ -15,7 +15,11 @@ class ApplicationController < ActionController::API
   end
 
   def email_formatted_incorrectly(user)
-    user.errors.messages[:email]
+    if user.errors.messages[:email].empty?
+      false 
+    elsif user.errors[:email].include?("is invalid")
+      true
+    end
   end
 
   def encode_token(payload)
