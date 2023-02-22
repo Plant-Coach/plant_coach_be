@@ -293,6 +293,61 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
   end
 
   describe 'PATCH /garden_plants' do
+    context 'when updating a GardenPlants planting status' do
+      describe 'from not started to transplanted outside' do
+        it 'will require the user to provide an actual transplant date' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :not_applicable,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "transplanted_outside"
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:error]).to eq("You must specify a transplant date!")
+        end
+
+        it 'will only update the object when an actual_transplant_date is passed' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :not_applicable,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "transplanted_outside", 
+            actual_transplant_date: Date.today
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
+          expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
+        end
+      end
+    end
     it 'allows the user to add an actual planting date to an existing garden_plant' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,

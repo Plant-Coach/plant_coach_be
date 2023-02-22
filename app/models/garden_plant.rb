@@ -15,8 +15,11 @@ class GardenPlant < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
+  validates :actual_transplant_date, presence: {
+    message: "You must specify a transplant date!" }, unless: -> { 
+      planting_status != "transplanted_outside" 
+    }
 
-  # GardenPlants belong to a user.
   belongs_to :user
   has_many :transplant_coachings
   has_many :transplant_guides, through: :transplant_coachings
@@ -25,7 +28,6 @@ class GardenPlant < ApplicationRecord
   has_many :harvest_coachings
   has_many :harvest_guides, through: :harvest_coachings
 
-  # Hybrid Status can only be categorized as these three enumerables.
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: ["not_started", "started_indoors",
     "direct_sewn_outside", "transplanted_outside"]
@@ -85,6 +87,7 @@ class GardenPlant < ApplicationRecord
   def set_direct_future_sew_seed
     self.recommended_seed_sewing_date = self.recommended_transplant_date
   end
+
 
   
 private

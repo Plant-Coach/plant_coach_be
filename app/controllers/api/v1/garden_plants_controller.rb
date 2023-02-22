@@ -19,7 +19,11 @@ class Api::V1::GardenPlantsController < ApplicationController
   def update
     garden_plant = @user.garden_plants.find_by(id: params[:id])
     result = garden_plant.update(garden_plant_params)
-    render json: GardenPlantSerializer.new(garden_plant)
+    if garden_plant.valid?
+      render json: GardenPlantSerializer.new(garden_plant)
+    elsif !garden_plant.errors[:actual_transplant_date].empty?
+      render json: GardenPlantSerializer.error(garden_plant.errors[:actual_transplant_date].first)
+    end
   end
 
   def destroy
