@@ -16,8 +16,8 @@ class GardenPlant < ApplicationRecord
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
-    message: "You must specify a transplant date!" }, unless: -> { 
-      planting_status != "transplanted_outside" 
+    message: "You must specify a transplant date!" }, if: -> { 
+      planting_status == "transplanted_outside" 
     }
 
   belongs_to :user
