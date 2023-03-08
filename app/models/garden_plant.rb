@@ -17,7 +17,7 @@ class GardenPlant < ApplicationRecord
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
     message: "You must specify a transplant date!" }, unless: -> { 
-      planting_status != "transplanted_outside" 
+      ["transplanted_outside", "direct_sewn_outside"].exclude?(planting_status)
     }
 
   belongs_to :user
@@ -34,6 +34,8 @@ class GardenPlant < ApplicationRecord
   enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
+  before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
+
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :seed_sew_type_not_applicable, if: :start_from_seed_false
@@ -51,8 +53,8 @@ class GardenPlant < ApplicationRecord
 
   def generate_key_plant_dates
     user = User.find_by(id: self.user_id)
-    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
 
+    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
@@ -88,7 +90,9 @@ class GardenPlant < ApplicationRecord
     self.recommended_seed_sewing_date = self.recommended_transplant_date
   end
 
-
+  def update_direct_seed_dates
+    self.actual_seed_sewing_date = self.actual_transplant_date
+  end
   
 private
   def immediate_transplant
@@ -113,5 +117,9 @@ private
 
   def direct_future_sew
     self.seed_sew_type == "direct" && actual_seed_sewing_date.nil?
+  end
+
+  def status_changed_from_not_started_to_direct_sewn
+    planting_status_changed?(from: "not_started", to: "direct_sewn_outside")
   end
 end

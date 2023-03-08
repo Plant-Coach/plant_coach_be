@@ -24,6 +24,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       days_relative_to_frost_date: 14,
       direct_seed_recommended: false
     )
+    radish_seed = SeedDefaultData.create(
+      plant_type: "Radish",
+      days_to_maturity: 30,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: -60,
+      direct_seed_recommended: true
+    )
 
     post '/api/v1/users', params: body
   end
@@ -294,8 +301,8 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   describe 'PATCH /garden_plants' do
     context 'when updating a GardenPlants planting status' do
-      describe 'from not started to transplanted outside' do
-        it 'will require the user to provide an actual transplant date' do
+      describe 'from not started inside to transplanted outside' do
+        it 'will return a meaningful error response if the frontend doesnt provide an actual transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
@@ -347,7 +354,62 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
         end
       end
+
+      describe 'from Not Started to Direct Seeded Outside' do
+        it 'will update the status and transplant date' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Radish",
+            name: "French Breakfast",
+            days_relative_to_frost_date: -45,
+            days_to_maturity: 30,
+            hybrid_status: :unknown,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :direct,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "direct_sewn_outside", 
+            actual_transplant_date: Date.today
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
+          expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to_not be nil
+          expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
+        end
+
+        it 'will return an error if the necessary information was not provided' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Radish",
+            name: "French Breakfast",
+            days_relative_to_frost_date: -45,
+            days_to_maturity: 30,
+            hybrid_status: :unknown,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :direct,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "direct_sewn_outside"
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+          
+          expect(result[:error]).to eq("You must specify a transplant date!")
+        end
+      end
     end
+
     it 'allows the user to add an actual planting date to an existing garden_plant' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
