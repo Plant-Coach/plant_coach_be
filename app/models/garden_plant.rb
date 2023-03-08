@@ -17,7 +17,7 @@ class GardenPlant < ApplicationRecord
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
     message: "You must specify a transplant date!" }, unless: -> { 
-      planting_status != "transplanted_outside" 
+      ["transplanted_outside", "direct_sewn_outside"].exclude?(planting_status)
     }
 
   belongs_to :user
@@ -51,8 +51,8 @@ class GardenPlant < ApplicationRecord
 
   def generate_key_plant_dates
     user = User.find_by(id: self.user_id)
-    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
 
+    default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
