@@ -356,7 +356,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       end
 
       describe 'from Not Started to Direct Seeded Outside' do
-        it 'will update the appropriate attributes' do
+        it 'will update the status and transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Radish",
@@ -380,6 +380,8 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
           expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
           expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to_not be nil
+          expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
         end
 
         it 'will return an error if the necessary information was not provided' do

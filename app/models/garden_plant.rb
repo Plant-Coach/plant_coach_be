@@ -34,6 +34,8 @@ class GardenPlant < ApplicationRecord
   enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
+  before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
+
   # A GardenPlant requires fields that must be filled in and calculated by
   # SeedDefaultData.  This triggers the process after #create is called.
   after_initialize :seed_sew_type_not_applicable, if: :start_from_seed_false
@@ -88,7 +90,9 @@ class GardenPlant < ApplicationRecord
     self.recommended_seed_sewing_date = self.recommended_transplant_date
   end
 
-
+  def update_direct_seed_dates
+    self.actual_seed_sewing_date = self.actual_transplant_date
+  end
   
 private
   def immediate_transplant
@@ -113,5 +117,9 @@ private
 
   def direct_future_sew
     self.seed_sew_type == "direct" && actual_seed_sewing_date.nil?
+  end
+
+  def status_changed_from_not_started_to_direct_sewn
+    planting_status_changed?(from: "not_started", to: "direct_sewn_outside")
   end
 end
