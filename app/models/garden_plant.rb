@@ -19,6 +19,11 @@ class GardenPlant < ApplicationRecord
     message: "You must specify a transplant date!" }, unless: -> { 
       ["transplanted_outside", "direct_sewn_outside"].exclude?(planting_status)
     }
+  validates :actual_seed_sewing_date, presence: {
+    message: "You must specify a seed-sewing date!" }, unless: -> {
+      ["started_indoors"].exclude?(planting_status)
+    }
+  
 
   belongs_to :user
   has_many :transplant_coachings
