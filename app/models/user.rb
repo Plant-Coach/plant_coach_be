@@ -14,8 +14,8 @@ class User < ApplicationRecord
   has_many :plants
   has_many :garden_plants
 
-  before_create :establish_and_save_frost_dates
-
+  before_create :establish_frost_dates
+  before_update :establish_frost_dates, if: :zip_code_changed?
 
   # Returns the zip codes of all users in the database.  The corresponding
   # ids also need to be returned.
@@ -23,7 +23,7 @@ class User < ApplicationRecord
     all.select(:id, :zip_code)
   end
 
-  def establish_and_save_frost_dates
+  def establish_frost_dates
     frost_dates = FrostDateFacade.get_frost_dates(self.zip_code)
     self.spring_frost_dates = frost_dates.spring_frost
     self.fall_frost_dates = frost_dates.fall_frost

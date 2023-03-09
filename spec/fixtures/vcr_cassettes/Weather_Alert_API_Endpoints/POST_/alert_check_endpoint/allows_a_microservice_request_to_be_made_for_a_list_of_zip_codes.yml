@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Mon, 13 Feb 2023 02:10:06 GMT
+      - Thu, 09 Mar 2023 04:42:03 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - bc127a78-bb92-4fa0-b2f7-f6d14b7098e1
+      - 49b7c7a9-1163-47ec-9cd9-cf642d43926d
       X-Runtime:
-      - '0.574458'
+      - '0.463894'
       Transfer-Encoding:
       - chunked
       Via:
@@ -41,7 +41,49 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80123","location_name":"Lakewood","lat":39.6206,"lon":-105.0901,"spring_frost":"0512","fall_frost":"0928"}}}'
-  recorded_at: Mon, 13 Feb 2023 02:10:07 GMT
+  recorded_at: Thu, 09 Mar 2023 04:42:03 GMT
+- request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80123
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.5.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 09 Mar 2023 04:42:03 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"55455d1ded21fc81c4627a1b33b7039a"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 3121dbe7-38a0-4faa-8d03-3ae1a6367beb
+      X-Runtime:
+      - '0.488962'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80123","location_name":"Lakewood","lat":39.6206,"lon":-105.0901,"spring_frost":"0512","fall_frost":"0928"}}}'
+  recorded_at: Thu, 09 Mar 2023 04:42:04 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80124
@@ -63,7 +105,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Mon, 13 Feb 2023 02:10:08 GMT
+      - Thu, 09 Mar 2023 04:42:05 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -73,9 +115,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 4dcaa816-89bf-406a-90c3-bee864970ed5
+      - c1812cee-41f5-44c5-859e-e1d4b1e12969
       X-Runtime:
-      - '0.773635'
+      - '0.565732'
       Transfer-Encoding:
       - chunked
       Via:
@@ -84,7 +126,50 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80124","location_name":"Lone
         Tree","lat":39.5517,"lon":-104.8863,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Mon, 13 Feb 2023 02:10:08 GMT
+  recorded_at: Thu, 09 Mar 2023 04:42:05 GMT
+- request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80124
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.5.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 09 Mar 2023 04:42:05 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"4bc7c8e7e777bbfdc04254b976059e3e"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 0bf48a6a-35c4-4178-ad8d-3c6bcf8353fc
+      X-Runtime:
+      - '0.481036'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80124","location_name":"Lone
+        Tree","lat":39.5517,"lon":-104.8863,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Thu, 09 Mar 2023 04:42:06 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80125
@@ -106,7 +191,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Mon, 13 Feb 2023 02:10:09 GMT
+      - Thu, 09 Mar 2023 04:42:06 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -116,9 +201,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 64ccdec2-b4cf-432c-bfb1-94b5cd2caacd
+      - 3a235e64-b8c8-4540-b657-62b33ecb6cc1
       X-Runtime:
-      - '0.490607'
+      - '0.468246'
       Transfer-Encoding:
       - chunked
       Via:
@@ -127,5 +212,48 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80125","location_name":"Douglas
         County","lat":39.4845,"lon":-105.0561,"spring_frost":"0516","fall_frost":"0926"}}}'
-  recorded_at: Mon, 13 Feb 2023 02:10:09 GMT
+  recorded_at: Thu, 09 Mar 2023 04:42:07 GMT
+- request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80125
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.5.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 09 Mar 2023 04:42:07 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"10b6fd41b86ba1c6fd05f1c53e980285"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 437b7c14-4cf5-4944-84d2-4be69ac342a3
+      X-Runtime:
+      - '0.626434'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80125","location_name":"Douglas
+        County","lat":39.4845,"lon":-105.0561,"spring_frost":"0516","fall_frost":"0926"}}}'
+  recorded_at: Thu, 09 Mar 2023 04:42:07 GMT
 recorded_with: VCR 6.1.0
