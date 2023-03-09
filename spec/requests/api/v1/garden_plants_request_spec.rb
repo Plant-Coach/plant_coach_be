@@ -301,7 +301,62 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   describe 'PATCH /garden_plants' do
     context 'when updating a GardenPlants planting status' do
-      describe 'from not started inside to transplanted outside' do
+      describe 'from not started to started indoors' do
+        it 'returns will update the planting status and the seed-sewing date' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :not_applicable,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "started_indoors",
+            actual_seed_sewing_date: Date.today
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to_not be nil
+          expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
+        end
+
+        it 'returns a meaningful error response if the frontend doesnt provide...' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :not_applicable,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "started_indoors"
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:error]).to eq("You must specify a seed-sewing date!")
+        end
+      end
+      
+      describe 'from not started to transplanted outside' do
         it 'will return a meaningful error response if the frontend doesnt provide an actual transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
