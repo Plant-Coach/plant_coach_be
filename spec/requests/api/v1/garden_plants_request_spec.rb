@@ -313,7 +313,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
-            seed_sew_type: :not_applicable,
+            seed_sew_type: :indirect,
             planting_status: "not_started"
           }
 
@@ -341,7 +341,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
-            seed_sew_type: :not_applicable,
+            seed_sew_type: :indirect,
             planting_status: "not_started"
           }
 
@@ -353,6 +353,61 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:error]).to eq("You must specify a seed-sewing date!")
+        end
+      end
+
+      describe 'from Started Indoors to Transplanted Outside' do
+        it 'will update the planting status and the actual transplant date' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: Date.yesterday,
+            seed_sew_type: :indirect,
+            planting_status: "started_indoors"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "transplanted_outside",
+            actual_transplant_date: Date.today
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
+          expect(result[:data][:attributes][:actual_transplant_date]).to_not be nil
+          expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
+        end
+
+        it 'returns a meaningful error response if the frontend doesnt provide...' do
+          post '/api/v1/garden_plants', params: {
+            plant_id: plant1_object.id,
+            plant_type: "Tomato",
+            name: "Sungold",
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 54,
+            hybrid_status: :open_pollinated,
+            organic: false,
+            start_from_seed: true,
+            actual_seed_sewing_date: nil,
+            seed_sew_type: :indirect,
+            planting_status: "not_started"
+          }
+
+          new_garden_plant = GardenPlant.last
+
+          patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
+            planting_status: "transplanted_outside"
+          }
+          result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(result[:error]).to eq("You must specify a transplant date!")
         end
       end
       
@@ -368,7 +423,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
-            seed_sew_type: :not_applicable,
+            seed_sew_type: :indirect,
             planting_status: "not_started"
           }
 
@@ -393,7 +448,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
-            seed_sew_type: :not_applicable,
+            seed_sew_type: :indirect,
             planting_status: "not_started"
           }
 
