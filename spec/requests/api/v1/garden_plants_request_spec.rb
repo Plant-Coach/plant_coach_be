@@ -342,13 +342,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
-            planting_status: "not_started"
+            planting_status: :not_started
           }
 
           new_garden_plant = GardenPlant.last
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
-            planting_status: "started_indoors"
+            planting_status: :started_indoors
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
@@ -369,13 +369,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             start_from_seed: true,
             actual_seed_sewing_date: Date.yesterday,
             seed_sew_type: :indirect,
-            planting_status: "started_indoors"
+            planting_status: :started_indoors
           }
 
           new_garden_plant = GardenPlant.last
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
-            planting_status: "transplanted_outside",
+            planting_status: :transplanted_outside,
             actual_transplant_date: Date.today
           }
           result = JSON.parse(response.body, symbolize_names: true)
@@ -403,7 +403,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           new_garden_plant = GardenPlant.last
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
-            planting_status: "transplanted_outside"
+            planting_status: :transplanted_outside
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
