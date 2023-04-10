@@ -34,8 +34,8 @@ class GardenPlant < ApplicationRecord
   has_many :harvest_guides, through: :harvest_coachings
 
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
-  enum planting_status: ["not_started", "started_indoors",
-    "direct_sewn_outside", "transplanted_outside"]
+  enum planting_status: [:not_started, :started_indoors,
+    :direct_sewn_outside, :transplanted_outside]
   enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
