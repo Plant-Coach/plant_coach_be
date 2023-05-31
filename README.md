@@ -49,8 +49,8 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] As a User
 - [ ] I can visit `/` and see an option to login or create an account
 - [ ] When I select "Create an Account"
-- [ ] I can create an account with name, email, password, and my zip code
-- [ ] And when I select "Create"
+- [ ] I see fields to enter name, email, password, and zip code
+- [ ] And when I click "Create"
 - [ ] I am taken to an empty dashboard with columns for:
     -`My Saved Plants`
     -`Plants Waiting to Start`
@@ -63,7 +63,7 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 ---
 **Basic Login**
 - [ ] As a registered, but unauthenticated User
-- [ ] I can visit `plantcoach.graden` and select `sign in`
+- [ ] I can visit `plantcoach.garden` and select `sign in`
 - [ ] And I am able to enter my email and password and select `"Sign In"`
 - [ ] And I am taken to my dashboard.
 
