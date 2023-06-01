@@ -51,37 +51,34 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] When I select "Create an Account"
 - [ ] I see fields to enter name, email, password, and zip code
 - [ ] And when I click "Create"
-- [ ] I am taken to an empty dashboard with columns for:
-    -`My Saved Plants`
-    -`Plants Waiting to Start`
-    -`Plants that can be Started by now`
-    -`Seedlings Growing Inside`
-    -`Planted Outside`
-    -`Weather Alerts`
-    -`My Reminders`
+- [ ] I am taken to `/dashboard`
 
 ---
 **Basic Login**
 - [ ] As a registered, but unauthenticated User
-- [ ] I can visit `plantcoach.garden` and select `sign in`
+- [ ] I can visit `/` 
+- [ ] and I can click a button to `sign in`
 - [ ] And I am able to enter my email and password and select `"Sign In"`
-- [ ] And I am taken to my dashboard.
+- [ ] And I am taken to `/dashboard`
 
 ---
 **Basic Logout**
 - [ ] As a registered, but unauthenticated User
-- [ ] I can visit `plantcoach.graden` and select `sign in`
+- [ ] I can visit `/` 
+- [ ] and I can click a button to `sign in`
 - [ ] And I am able to enter my email and password and select `"Sign In"`
-- [ ] And I am taken to my dashboard.
+- [ ] And I am taken to `/dashboard`
 - [ ] And I see a button that says "Log Out"
+- [ ] And i do not see a button that says log in. 
 - [ ] And when I click it, I am taken to a logout screen that says "Thank you for using Plant Coach"
-- [ ] And I see a button that says "Log In"
+- [ ] And I see a button that says "Log Back In"
 - [ ] But I do not see a button that says "Log Out"
+
 
 ---
 **Add plant to personal database**
 - [ ] As an authenticated user
-- [ ] When I visit my dashboard
+- [ ] When I visit `/dashboard`
 - [ ] I can click "Add a Plant to my Personal Database"
 - [ ] And I am taken to a screen to enter details for:
     - Name (optional)
