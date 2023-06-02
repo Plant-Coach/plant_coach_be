@@ -98,10 +98,13 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] with a button that says `I want to plant this`.
 
 ---
+**
+
+---
 **Pre-purchased plant - Already Planted**
 - [ ] As an authenticated User
-- [ ] When I visit my dashboard
-- [ ] I can still see my new plant in the `My Saved Plants` category
+- [ ] When I visit `/dashboard`
+- [ ] I can still see a new plant in the `My Saved Plants` category
 - [ ] I can click a button that says `I want to plant this`
 - [ ] And a window appears that asks if I plan to start the plant from seed
 - [ ] and I select `No`
@@ -428,10 +431,14 @@ Move Plant backwards/accidental status update
 
 ### Scroll down to see a calendar where I can see the events of each garden plant
 
+### User info updates
+
 
 ## v3.0 Planned User Stories
 
 ### View Harvest Timeframes on a Calendar
 
 ### Succession Planting Stories
+
+### 
 </detail- [ ] s>
