@@ -63,6 +63,8 @@ class GardenPlant < ApplicationRecord
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
+    self.harvest_start = self.recommended_transplant_date + self.days_to_maturity
+    self.harvest_finish = user.fall_frost_dates.to_date
   end
 
   def add_seed_recommendation

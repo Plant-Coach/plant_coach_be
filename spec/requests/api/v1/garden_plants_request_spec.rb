@@ -64,6 +64,15 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     organic: false
   ) }
 
+  let(:plant3_object) { user.plants.create!(
+    plant_type: "Basil",
+    name: "Thai Towers",
+    days_relative_to_frost_date: 0,
+    days_to_maturity: 40,
+    hybrid_status: 1,
+    organic: true
+  ) }
+
   describe 'POST garden plants' do
     context 'starting a plant from seed' do
       context 'outside' do
@@ -85,6 +94,56 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(response).to be_successful
 
             expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
+          end
+
+          it 'provides an expected date range that the plant will be in a period of harvest' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+              actual_seed_sewing_date: Date.today,
+              plant_type: "Tomato",
+              name: "Sungold",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 54
+            }
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_successful
+
+            transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
+            days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
+
+            harvest_start = transplant_date + days_to_maturity
+            harvest_finish = user.fall_frost_dates.to_date
+
+            expect(result[:data][:attributes][:harvest_start].to_date).to eq(harvest_start)
+            expect(result[:data][:attributes][:harvest_finish].to_date).to eq(harvest_finish)
+          end
+
+          xit 'provides a harvest range that is shorter for limited-harvest plants' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant3_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+              actual_seed_sewing_date: Date.today,
+              plant_type: "Basil",
+              name: "Basil"
+            }
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_successful
+
+            transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
+            days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
+
+            harvest_start = transplant_date + days_to_maturity
+            harvest_finish = harvest_date + 21
+
+            expect(result[:data][:attributes][:harvest_start]).to eq(harvest_start)
+            expect(result[:data][:attributes][:harvest_finish]).to eq(harvest_finish)
           end
         end
 
