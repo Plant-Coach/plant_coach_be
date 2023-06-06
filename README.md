@@ -2,45 +2,8 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 
 
 <details> 
-    <summary>PLant Coach User Stories</summary>
+    <summary>Plant Coach User Stories</summary>
 
-#### Relevant details to define for consistency 
-
-**List of details when you click on a plant**
-- `Plant Type: <string>`
-- `Name: <string>`
-- `Chose to start from seed?: <boolean>`
-- `Direct Seed Recommended: <boolean>`
-- `seed_sew_type: <boolean>`Days to Maturity: <integer>`
-- `Hybrid Status: <integer>`
-- `Days to transplant before/after frost date: <integer>`
-- `Organic: <boolean>`
-- `Recommended Transplant Date: normal recommended date`
-- `Planting Status: <string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
-- `Recommended Seed Sewing Date: <date>`
-- `Actual Seed Sewing Date: <date>`
-- `Seedling Days To Transplant: <integer>`
-- `Actual Transplant Date: <date>`
-- `Override seed-start date?`
-- `chosen_overridden_seed-start_date`
-- `Override transplant date?`
-- `Chosen Overridden seed-start date`
-
-**Key Attributes for Transition Changes**
-    - Chose to start from seed?: `<boolean>`
-    - Direct Seed Recommended: `<boolean>`
-    - Direct Seed User Decision: `<boolean>`
-    - Days to Maturity: `<integer>`
-    - Recommended Transplant Date: `<date>`
-    - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
-    - Recommended Seed Sewing Date: `<date>`
-    - Actual Seed Sewing Date: `<date>`
-    - Seedling Days To Transplant: `<integer>`
-    - Actual Transplant Date: `<date>`
-    - Override seed-start date? (This is only used when the planting date is in the future)
-    - chosen_overridden_seed-start_date
-    - Override transplant date?
-    - Chosen Overridden seed-start date
 
 # v1 User Stories
 
@@ -441,4 +404,43 @@ Move Plant backwards/accidental status update
 ### Succession Planting Stories
 
 ### 
+
+
+#### Relevant details to define for consistency 
+
+**List of details when you click on a plant**
+- `Plant Type: <string>`
+- `Name: <string>`
+- `Chose to start from seed?: <boolean>`
+- `Direct Seed Recommended: <boolean>`
+- `seed_sew_type: <boolean>`Days to Maturity: <integer>`
+- `Hybrid Status: <integer>`
+- `Days to transplant before/after frost date: <integer>`
+- `Organic: <boolean>`
+- `Recommended Transplant Date: normal recommended date`
+- `Planting Status: <string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
+- `Recommended Seed Sewing Date: <date>`
+- `Actual Seed Sewing Date: <date>`
+- `Seedling Days To Transplant: <integer>`
+- `Actual Transplant Date: <date>`
+- `Override seed-start date?`
+- `chosen_overridden_seed-start_date`
+- `Override transplant date?`
+- `Chosen Overridden seed-start date`
+
+**Key Attributes for Transition Changes**
+    - Chose to start from seed?: `<boolean>`
+    - Direct Seed Recommended: `<boolean>`
+    - Direct Seed User Decision: `<boolean>`
+    - Days to Maturity: `<integer>`
+    - Recommended Transplant Date: `<date>`
+    - Planting Status: `<string> ["not_started", "started_indoors", "direct_sewn_outside", "transplanted_outside"]` 
+    - Recommended Seed Sewing Date: `<date>`
+    - Actual Seed Sewing Date: `<date>`
+    - Seedling Days To Transplant: `<integer>`
+    - Actual Transplant Date: `<date>`
+    - Override seed-start date? (This is only used when the planting date is in the future)
+    - chosen_overridden_seed-start_date
+    - Override transplant date?
+    - Chosen Overridden seed-start date
 </detail- [ ] s>
