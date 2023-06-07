@@ -58,7 +58,7 @@ class GardenPlant < ApplicationRecord
 
   def generate_key_plant_dates
     user = User.find_by(id: self.user_id)
-
+    # binding.pry;
     default_seed_data = SeedDefaultData.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data

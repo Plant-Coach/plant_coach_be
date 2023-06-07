@@ -52,6 +52,13 @@ radish_seed = SeedDefaultData.create(
   days_relative_to_frost_date: -60,
   direct_seed_recommended: true
 )
+basil_seed = SeedDefaultData.create(
+  plant_type: "Basil",
+  days_to_maturity: 40,
+  seedling_days_to_transplant: 0,
+  days_relative_to_frost_date: 0,
+  direct_seed_recommended: true
+)
 
 user = User.create(
   name: 'Joel Grant',

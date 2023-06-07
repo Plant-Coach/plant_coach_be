@@ -31,6 +31,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       days_relative_to_frost_date: -60,
       direct_seed_recommended: true
     )
+    basil_seed = SeedDefaultData.create(
+      plant_type: "Basil",
+      days_to_maturity: 40,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
 
     post '/api/v1/users', params: body
   end
@@ -122,14 +129,16 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(result[:data][:attributes][:harvest_finish].to_date).to eq(harvest_finish)
           end
 
-          xit 'provides a harvest range that is shorter for limited-harvest plants' do
+          it 'provides a harvest range that is shorter for limited-harvest plants' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant3_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
               actual_seed_sewing_date: Date.today,
               plant_type: "Basil",
-              name: "Basil"
+              name: "Thai Towers",
+              days_relative_to_frost_date: 0,
+              days_to_maturity: 40
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -140,10 +149,10 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
 
             harvest_start = transplant_date + days_to_maturity
-            harvest_finish = harvest_date + 21
-
-            expect(result[:data][:attributes][:harvest_start]).to eq(harvest_start)
-            expect(result[:data][:attributes][:harvest_finish]).to eq(harvest_finish)
+            harvest_finish = harvest_start + 21
+# binding.pry;
+            expect(result[:data][:attributes][:harvest_start].to_date).to eq(harvest_start)
+            expect(result[:data][:attributes][:harvest_finish].to_date).to eq(harvest_finish)
           end
         end
 
