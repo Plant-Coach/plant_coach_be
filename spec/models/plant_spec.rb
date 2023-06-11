@@ -9,6 +9,7 @@ RSpec.describe Plant, type: :model do
     it { should validate_presence_of(:plant_type) }
     it { should validate_presence_of(:days_relative_to_frost_date) }
     it { should validate_inclusion_of(:organic).in_array([true, false]) }
+    it { should validate_presence_of(:harvest_period) }
   end
 
   describe 'relationships' do
