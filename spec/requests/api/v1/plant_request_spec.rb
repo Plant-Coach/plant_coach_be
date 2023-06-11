@@ -58,6 +58,13 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       days_relative_to_frost_date: 0,
       direct_seed_recommended: true
     )
+    cilantro_seed = SeedDefaultData.create(
+      plant_type: "Cilantro",
+      days_to_maturity: 37,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
     carrot_seed = SeedDefaultData.create(
       plant_type: "Carrot",
       days_to_maturity: 55,
@@ -351,12 +358,12 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(result[:data][:attributes][:harvest_period]).to eq("three_week")
     end
 
-    it 'will assign a two-week harvest period to a plant such as a cucumber' do
+    it 'will assign a two-week harvest period to a plant such as cilantro' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Cucumber",
-        name: "Corinto",
+        plant_type: "Cilantro",
+        name: "CantThinkOfAName",
       }
       post '/api/v1/plants', params: plant
       result = JSON.parse(response.body, symbolize_names: true)
@@ -364,8 +371,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Cucumber")
-      expect(result[:data][:attributes][:name]).to eq("Corinto")
+      expect(result[:data][:attributes][:name]).to eq("Cilantro")
+      expect(result[:data][:attributes][:name]).to eq("CantThinkOfAName")
       expect(result[:data][:attributes][:harvest_period]).to eq("two_week")
     end
 

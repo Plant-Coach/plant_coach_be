@@ -38,6 +38,41 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       days_relative_to_frost_date: 0,
       direct_seed_recommended: true
     )
+    broccoli_seed = SeedDefaultData.create(
+      plant_type: "Sprouting Broccoli",
+      days_to_maturity: 40,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    cucumber_seed = SeedDefaultData.create(
+      plant_type: "Cucumber",
+      days_to_maturity: 35,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    cilantro_seed = SeedDefaultData.create(
+      plant_type: "Cilantro",
+      days_to_maturity: 37,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    carrot_seed = SeedDefaultData.create(
+      plant_type: "Carrot",
+      days_to_maturity: 55,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    romaine_lettuce_seed = SeedDefaultData.create(
+      plant_type: "Romaine Lettuce",
+      days_to_maturity: 32,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
 
     post '/api/v1/users', params: body
   end
@@ -73,11 +108,27 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   let(:plant3_object) { user.plants.create!(
     plant_type: "Basil",
-    name: "Thai Towers",
-    days_relative_to_frost_date: 0,
-    days_to_maturity: 40,
-    hybrid_status: 1,
-    organic: true
+    name: "Thai Towers"
+  ) }
+
+  let(:plant4_object) { user.plants.create!(
+    plant_type: "Sprouting Broccoli",
+    name: "Di Cicco"
+  ) }
+
+  let(:plant5_object) { user.plants.create!(
+    plant_type: "Cucumber",
+    name: "Corinto"
+  ) }
+
+  let(:plant6_object) { user.plants.create!(
+    plant_type: "Carrot",
+    name: "SugarSnax"
+  ) }
+
+  let(:plant7_object) { user.plants.create!(
+    plant_type: "Romaine Lettuce",
+    name: "Coastal Star"
   ) }
 
   describe 'POST garden plants' do
@@ -256,6 +307,186 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
               expect(result[:data][:attributes][:seed_sew_type]).to eq("indirect")
               expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a season-long-harvest plant such as a tomato' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :indirect,
+
+              plant_type: "Tomato",
+              name: "Sungold",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 54
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("indirect")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = user.fall_frost_dates
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:season_long)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a four-week long harvested plant such as sprouting broccoli' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant2_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+
+              plant_type: "Sprouting Broccoli",
+              name: "Di Cicco"
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("direct")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              four_weeks_in_days = 4 * 7
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = expected_harvest_start + four_weeks_in_days
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:four_week)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a three-week long harvested plant such as a cucumber' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant3_object.id,
+              start_from_seed: true,
+              seed_sew_type: :indirect,
+
+              plant_type: "Cucumber",
+              name: "Corinto"
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("direct")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              three_weeks_in_days = 3 * 7
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = expected_harvest_start + three_weeks_in_days
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:three_week)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a two-week long harvested plant such as cilantro' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+
+              plant_type: "Cilantro",
+              name: "Something"
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("direct")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              two_weeks_in_days = 2 * 7
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = expected_harvest_start + two_weeks_in_days
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:two_week)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a 1-week long harvested plant such as carrots' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+
+              plant_type: "Carrot",
+              name: "Sugarsnax"
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("direct")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              one_week_in_days = 7
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = expected_harvest_start + one_weeks_in_days
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:one_week)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
+          end
+
+          it 'establishes the plants harvest period and harvest dates for a one-time harvested plant such as a head of lettuce' do
+            post '/api/v1/garden_plants', params: {
+              plant_id: plant1_object.id,
+              start_from_seed: true,
+              seed_sew_type: :direct,
+
+              plant_type: "Romaine Lettuce",
+              name: "Coastal Star"
+              }
+
+              result = JSON.parse(response.body, symbolize_names: true)
+
+              expect(result[:data][:attributes][:planting_status]).to eq("not_started")
+              expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:seed_sew_type]).to eq("direct")
+              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+
+              expect(result[:data][:attributes]).to have_key(:harvest_period)
+              expect(result[:data][:attributes]).to have_key(:harvest_start)
+              expect(result[:data][:attributes]).to have_key(:harvest_finish)
+
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_finish = expected_harvest_start
+
+              expect(result[:data][:attributes][:harvest_period]).to eq(:one_time)
+              expect(result[:data][:attributes][:harvest_start]).to eq(expected_harvest_start)
+              expect(result[:data][:attributes][:harvest_finish]).to eq(expected_harvest_finish)
           end
         end
       end
