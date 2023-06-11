@@ -37,7 +37,42 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       days_relative_to_frost_date: 0,
       direct_seed_recommended: true
     )
-
+    basil_seed = SeedDefaultData.create(
+      plant_type: "Basil",
+      days_to_maturity: 40,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    broccoli_seed = SeedDefaultData.create(
+      plant_type: "Sprouting Broccoli",
+      days_to_maturity: 40,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    cucumber_seed = SeedDefaultData.create(
+      plant_type: "Cucumber",
+      days_to_maturity: 35,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    carrot_seed = SeedDefaultData.create(
+      plant_type: "Carrot",
+      days_to_maturity: 55,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    romaine_lettuce_seed = SeedDefaultData.create(
+      plant_type: "Romaine Lettuce",
+      days_to_maturity: 32,
+      seedling_days_to_transplant: 0,
+      days_relative_to_frost_date: 0,
+      direct_seed_recommended: true
+    )
+    
     post '/api/v1/users', params: body
   end
 
@@ -244,6 +279,133 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
     end
 
+    it 'will assign a season-long harvest period to a plant such as a tomato' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
+      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:harvest_period]).to eq("season_long")
+    end
+
+    it 'will assign a season-long harvest period to a plant such as an Eggplant' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Eggplant",
+        name: "Rosa Bianca",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:plant_type]).to eq("Eggplant")
+      expect(result[:data][:attributes][:name]).to eq("Rosa Bianca")
+      expect(result[:data][:attributes][:harvest_period]).to eq("season_long")
+    end
+
+    it 'will assign a four-week harvest period to a plant such as sprouting broccoli' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Sprouting Broccoli",
+        name: "Di Cicco",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Sprouting Broccoli")
+      expect(result[:data][:attributes][:name]).to eq("Di Cicco")
+      expect(result[:data][:attributes][:harvest_period]).to eq("four_week")
+    end
+
+    it 'will assign a three-week harvest period to a plant such as a cucumber' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Cucumber",
+        name: "Corinto",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Cucumber")
+      expect(result[:data][:attributes][:name]).to eq("Corinto")
+      expect(result[:data][:attributes][:harvest_period]).to eq("three_week")
+    end
+
+    it 'will assign a two-week harvest period to a plant such as a cucumber' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Cucumber",
+        name: "Corinto",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Cucumber")
+      expect(result[:data][:attributes][:name]).to eq("Corinto")
+      expect(result[:data][:attributes][:harvest_period]).to eq("two_week")
+    end
+
+    it 'will assign a one-week harvest period to a plant such as a carrot' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Carrot",
+        name: "Sugarsnax",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Carrot")
+      expect(result[:data][:attributes][:name]).to eq("Sugarsnax")
+      expect(result[:data][:attributes][:harvest_period]).to eq("one_week")
+    end
+
+    it 'will assign a one-time harvest period to a plant such as a head of lettuce' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Romaine Lettuce",
+        name: "Coastal Star",
+      }
+      post '/api/v1/plants', params: plant
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(result).to be_a Hash
+      expect(result[:data][:attributes][:name]).to eq("Romaine Lettuce")
+      expect(result[:data][:attributes][:name]).to eq("Coastal Star")
+      expect(result[:data][:attributes][:harvest_period]).to eq("one_time")
+    end
+
+    # This scenario should never happen.
     it 'will return an error message if the plant could not be created due to missing information' do
       ActiveRecord::Base.skip_callbacks = true
 
