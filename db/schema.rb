@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_07_050417) do
+ActiveRecord::Schema.define(version: 2023_02_07_050306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,9 +48,7 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
 
   create_table "harvest_guides", force: :cascade do |t|
     t.string "plant_type"
-    t.integer "when"
-    t.string "how"
-    t.string "harvest_time"
+    t.string "harvest_period"
     t.bigint "plant_coach_guide_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -87,28 +85,12 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
     t.index ["seed_guide_id"], name: "index_seed_coachings_on_seed_guide_id"
   end
 
-  create_table "seed_default_data", force: :cascade do |t|
-    t.string "plant_type"
-    t.integer "days_to_maturity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "days_relative_to_frost_date"
-    t.integer "seedling_days_to_transplant"
-    t.boolean "direct_seed_recommended", null: false
-  end
-
   create_table "seed_guides", force: :cascade do |t|
     t.string "plant_type"
-    t.integer "germination_temp"
-    t.string "description"
-    t.string "sewing_depth"
-    t.string "when_ready_for_transplant"
-    t.boolean "needs_fertilization"
-    t.string "fertilization_frequency"
     t.boolean "direct_seed_recommended"
     t.boolean "recommended_transplant_date"
     t.boolean "recommended_seed_start_date"
-    t.boolean "needs_potting_up"
+    t.integer "seedling_days_to_transplant"
     t.bigint "plant_coach_guide_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,12 +110,8 @@ ActiveRecord::Schema.define(version: 2023_02_07_050417) do
 
   create_table "transplant_guides", force: :cascade do |t|
     t.string "plant_type"
-    t.string "growth_habit"
-    t.string "spacing"
-    t.string "depth"
-    t.string "recommended_tools"
-    t.string "sun_requirements"
-    t.string "description"
+    t.integer "days_to_maturity"
+    t.integer "days_relative_to_frost_date"
     t.bigint "plant_coach_guide_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

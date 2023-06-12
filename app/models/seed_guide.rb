@@ -1,12 +1,8 @@
 class SeedGuide < ApplicationRecord
-  validates_presence_of :description,
-                        :sewing_depth,
-                        :when_ready_for_transplant,
-                        :plant_type,
-                        :fertilization_frequency,
-                        :needs_potting_up
-  validates :germination_temp, presence: true
-  validates :needs_fertilization, inclusion: [true, false]
+  validates_presence_of :recommended_transplant_date,
+                        :recommended_seed_start_date,
+                        :seedling_days_to_transplant
+                        
   validates :direct_seed_recommended, inclusion: [true, false]
 
   has_many :seed_coachings
