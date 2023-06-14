@@ -116,48 +116,6 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       plant_type: "Romaine Lettuce",
       harvest_period: "one_time"
     )
-    basil_seed = SeedDefaultData.create(
-      plant_type: "Basil",
-      days_to_maturity: 40,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
-    broccoli_seed = SeedDefaultData.create(
-      plant_type: "Sprouting Broccoli",
-      days_to_maturity: 40,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
-    cucumber_seed = SeedDefaultData.create(
-      plant_type: "Cucumber",
-      days_to_maturity: 35,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
-    cilantro_seed = SeedDefaultData.create(
-      plant_type: "Cilantro",
-      days_to_maturity: 37,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
-    carrot_seed = SeedDefaultData.create(
-      plant_type: "Carrot",
-      days_to_maturity: 55,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
-    romaine_lettuce_seed = SeedDefaultData.create(
-      plant_type: "Romaine Lettuce",
-      days_to_maturity: 32,
-      seedling_days_to_transplant: 0,
-      days_relative_to_frost_date: 0,
-      direct_seed_recommended: true
-    )
     
     post '/api/v1/users', params: body
   end

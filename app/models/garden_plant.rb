@@ -42,7 +42,7 @@ class GardenPlant < ApplicationRecord
   before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
 
   # A GardenPlant requires fields that must be filled in and calculated by
-  # SeedDefaultData.  This triggers the process after #create is called.
+  # the data in the guides.  This triggers the process after #create is called.
   after_initialize :seed_sew_type_not_applicable, if: :start_from_seed_false
   after_initialize :generate_key_plant_dates, unless: :skip_callbacks
   after_initialize :add_seed_recommendation, unless: :skip_callbacks
@@ -58,7 +58,7 @@ class GardenPlant < ApplicationRecord
 
   def generate_key_plant_dates
     user = User.find_by(id: self.user_id)
-
+binding.pry;
     default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
