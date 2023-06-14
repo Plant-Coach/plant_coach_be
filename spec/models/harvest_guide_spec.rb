@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe HarvestGuide, type: :model do
   describe 'validations' do
-    it { should validate_presence_of(:when) }
-    it { should validate_presence_of(:how) }
-    it { should validate_presence_of(:harvest_time) }
+    it { should validate_presence_of(:harvest_period) }
   end
   
   describe 'relationships' do
