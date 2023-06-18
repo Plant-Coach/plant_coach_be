@@ -16,6 +16,10 @@ class Plant < ApplicationRecord
 
   after_initialize :set_defaults, unless: :skip_callbacks
 
+  def get_harvest_data
+    HarvestGuide.find_by(plant_type: self.plant_type)
+  end
+
   private
 
   # A user is not expected to know all of the details about a plant.  This fills
