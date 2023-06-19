@@ -17,7 +17,8 @@ class GardenPlantSerializer
               :seedling_days_to_transplant,
               :actual_transplant_date,
               :harvest_start,
-              :harvest_finish
+              :harvest_finish,
+              :harvest_period
 
   def self.error(message)
     {

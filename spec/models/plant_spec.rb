@@ -196,7 +196,7 @@ RSpec.describe Plant, type: :model do
 
     it 'can identify harvest periods for season long plants' do
 
-      tomato_plant = user.plants.create!(
+      tomato_plant = user.plants.create(
         plant_type: "Tomato",
         name: "Cherokee Purple"
       )
@@ -209,7 +209,7 @@ RSpec.describe Plant, type: :model do
     end
 
     it 'can identify harvest periods for four-week-harvested plants' do
-      romaine_plant = user.plants.create!(
+      romaine_plant = user.plants.create(
         plant_type: "Sprouting Broccoli",
         name: "Di Cicco"
       )
@@ -222,7 +222,7 @@ RSpec.describe Plant, type: :model do
     end
 
     it 'can identify harvest periods for three-week-harvested plants' do
-      romaine_plant = user.plants.create!(
+      romaine_plant = user.plants.create(
         plant_type: "Basil",
         name: "Thai Towers"
       )
@@ -235,7 +235,7 @@ RSpec.describe Plant, type: :model do
     end
 
     it 'can identify harvest periods for two-week-harvested plants' do
-      romaine_plant = user.plants.create!(
+      romaine_plant = user.plants.create(
         plant_type: "Cilantro",
         name: "Santo"
       )
@@ -248,7 +248,7 @@ RSpec.describe Plant, type: :model do
     end
 
     it 'can identify harvest periods for one-time-harvested plants' do
-      romaine_plant = user.plants.create!(
+      romaine_plant = user.plants.create(
         plant_type: "Romaine Lettuce",
         name: "Chalupa"
       )

@@ -51,6 +51,34 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       recommended_transplant_date: true,
       recommended_seed_start_date: true
       )
+      sprouting_broccoli_seed = SeedGuide.create(
+      plant_type: "Sprouting Broccoli",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      recommended_transplant_date: true,
+      recommended_seed_start_date: true
+    )
+    basil_seed = SeedGuide.create(
+      plant_type: "Basil",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      recommended_transplant_date: true,
+      recommended_seed_start_date: true
+    )
+    cilantro_seed = SeedGuide.create(
+      plant_type: "Cilantro",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      recommended_transplant_date: true,
+      recommended_seed_start_date: true
+    )
+    carrot_seed = SeedGuide.create(
+      plant_type: "Carrot",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      recommended_transplant_date: true,
+      recommended_seed_start_date: true
+    )
 
     tomato_transplant = TransplantGuide.create(
       plant_type: "Tomato",
@@ -87,6 +115,26 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       days_to_maturity: 45,
       days_relative_to_frost_date: 14
     )
+    sprouting_broccoli_transplant = TransplantGuide.create(
+      plant_type: "Sprouting Broccoli",
+      days_to_maturity: 45,
+      days_relative_to_frost_date: -30
+    )
+    basil_transplant = TransplantGuide.create(
+      plant_type: "Basil",
+      days_to_maturity: 30,
+      days_relative_to_frost_date: 0
+    )
+    cilantro_transplant = TransplantGuide.create(
+      plant_type: "Cilantro",
+      days_to_maturity: 30,
+      days_relative_to_frost_date: 0
+    )
+    carrot_transplant = TransplantGuide.create(
+      plant_type: "Carrot",
+      days_to_maturity: 60,
+      days_relative_to_frost_date: -30
+    )
 
     tomato_harvest = HarvestGuide.create(
       plant_type: "Tomato",
@@ -100,10 +148,6 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       plant_type: "Eggplant",
       harvest_period: "season_long"
     )
-    romaine_harvest = HarvestGuide.create(
-      plant_type: "Romaine Lettuce",
-      harvest_period: "season_long"
-    )
     green_bean_harvest = HarvestGuide.create(
       plant_type: "Green Bean",
       harvest_period: "season_long"
@@ -115,6 +159,22 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     radish_harvest = HarvestGuide.create(
       plant_type: "Romaine Lettuce",
       harvest_period: "one_time"
+    )
+    sprouting_broccoli_harvest = HarvestGuide.create(
+      plant_type: "Sprouting Broccoli",
+      harvest_period: "four_week"
+    )
+    basil_harvest = HarvestGuide.create(
+      plant_type: "Basil",
+      harvest_period: "three_week"
+    )
+    cilantro_harvest = HarvestGuide.create(
+      plant_type: "Cilantro",
+      harvest_period: "two_week"
+    )
+    carrot_harvest = HarvestGuide.create(
+      plant_type: "Carrot",
+      harvest_period: "one_week"
     )
     
     post '/api/v1/users', params: body
@@ -372,7 +432,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Sprouting Broccoli")
+      expect(result[:data][:attributes][:plant_type]).to eq("Sprouting Broccoli")
       expect(result[:data][:attributes][:name]).to eq("Di Cicco")
       expect(result[:data][:attributes][:harvest_period]).to eq("four_week")
     end
@@ -381,8 +441,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Cucumber",
-        name: "Corinto",
+        plant_type: "Basil",
+        name: "Thai Towers",
       }
       post '/api/v1/plants', params: plant
       result = JSON.parse(response.body, symbolize_names: true)
@@ -390,8 +450,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Cucumber")
-      expect(result[:data][:attributes][:name]).to eq("Corinto")
+      expect(result[:data][:attributes][:plant_type]).to eq("Basil")
+      expect(result[:data][:attributes][:name]).to eq("Thai Towers")
       expect(result[:data][:attributes][:harvest_period]).to eq("three_week")
     end
 
@@ -408,7 +468,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Cilantro")
+      expect(result[:data][:attributes][:plant_type]).to eq("Cilantro")
       expect(result[:data][:attributes][:name]).to eq("CantThinkOfAName")
       expect(result[:data][:attributes][:harvest_period]).to eq("two_week")
     end
@@ -426,7 +486,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Carrot")
+      expect(result[:data][:attributes][:plant_type]).to eq("Carrot")
       expect(result[:data][:attributes][:name]).to eq("Sugarsnax")
       expect(result[:data][:attributes][:harvest_period]).to eq("one_week")
     end
@@ -444,7 +504,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Romaine Lettuce")
+      expect(result[:data][:attributes][:plant_type]).to eq("Romaine Lettuce")
       expect(result[:data][:attributes][:name]).to eq("Coastal Star")
       expect(result[:data][:attributes][:harvest_period]).to eq("one_time")
     end

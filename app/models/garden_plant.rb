@@ -37,6 +37,7 @@ class GardenPlant < ApplicationRecord
   enum planting_status: [:not_started, :started_indoors,
     :direct_sewn_outside, :transplanted_outside]
   enum seed_sew_type: [:not_specified, :not_applicable, :direct, :indirect]
+  enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
   before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
@@ -58,13 +59,30 @@ class GardenPlant < ApplicationRecord
 
   def generate_key_plant_dates
     user = User.find_by(id: self.user_id)
-binding.pry;
+
     default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
     self.harvest_start = self.recommended_transplant_date + self.days_to_maturity
-    self.harvest_finish = user.fall_frost_dates.to_date
+
+    harvest_period = HarvestGuide.find_by(plant_type: self.plant_type).harvest_period
+    self.harvest_period = harvest_period
+
+    case harvest_period
+    when "season_long"
+      self.harvest_finish = user.fall_frost_dates.to_date
+    when "four_week"
+      self.harvest_finish = self.harvest_start + 28
+    when "three_week"
+      self.harvest_finish = self.harvest_start + 21
+    when "two_week"
+      self.harvest_finish = self.harvest_start + 14
+    when "one_week"
+      self.harvest_finish = self.harvest_start + 7
+    when "one_time"
+      self.harvest_finish = self.harvest_start
+    end
   end
 
   def add_seed_recommendation

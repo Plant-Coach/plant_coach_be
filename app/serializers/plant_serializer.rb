@@ -6,7 +6,8 @@ class PlantSerializer
               :days_relative_to_frost_date,
               :days_to_maturity,
               :hybrid_status,
-              :organic
+              :organic,
+              :harvest_period
 
 
   def self.error(message)
