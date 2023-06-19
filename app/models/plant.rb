@@ -13,8 +13,13 @@ class Plant < ApplicationRecord
   belongs_to :user
 
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
+  enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
 
   after_initialize :set_defaults, unless: :skip_callbacks
+
+  def get_harvest_data
+    HarvestGuide.find_by(plant_type: self.plant_type)
+  end
 
   private
 
@@ -24,5 +29,6 @@ class Plant < ApplicationRecord
     plant_defaults = TransplantGuide.find_by(plant_type: plant_type)
     self.days_to_maturity = plant_defaults.days_to_maturity if days_to_maturity.nil?
     self.days_relative_to_frost_date = plant_defaults.days_relative_to_frost_date if days_relative_to_frost_date.nil?
+    self.harvest_period = HarvestGuide.find_by(plant_type: plant_type).harvest_period
   end
 end

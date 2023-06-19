@@ -61,7 +61,11 @@ Please visit the main README [here](https://github.com/Plant-Coach) on the proje
 - [ ] with a button that says `I want to plant this`.
 
 ---
-**
+**Choosing a plant to add to the database**
+- [ ] As an authenticated user
+- [ ] Who already has plants stored in my personal database
+- [ ] I can decide to plant something
+- [ ] And I see a harvest date range produced.
 
 ---
 **Pre-purchased plant - Already Planted**

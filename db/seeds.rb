@@ -112,7 +112,7 @@ eggplant_harvest = HarvestGuide.create(
 )
 romaine_harvest = HarvestGuide.create(
   plant_type: "Romaine Lettuce",
-  harvest_period: "season_long"
+  harvest_period: "one_time"
 )
 green_bean_harvest = HarvestGuide.create(
   plant_type: "Green Bean",
@@ -120,12 +120,21 @@ green_bean_harvest = HarvestGuide.create(
 )
 radish_harvest = HarvestGuide.create(
   plant_type: "Radish",
-  harvest_period: "season_long"
+  harvest_period: "one_week"
 )
-radish_harvest = HarvestGuide.create(
-  plant_type: "Romaine Lettuce",
-  harvest_period: "one_time"
+basil_harvest = HarvestGuide.create(
+  plant_type: "Basil",
+  harvest_period: "three_week"
 )
+broccoli_harvest = HarvestGuide.create(
+  plant_type: "Sprouting Broccoli",
+  harvest_period: "four_week"
+)
+cilantro_harvest = HarvestGuide.create(
+  plant_type: "Cilantro",
+  harvest_period: "two_week"
+)
+
 
 user = User.create(
   name: 'Joel Grant',
