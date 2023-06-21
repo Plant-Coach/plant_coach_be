@@ -6,8 +6,8 @@ FactoryBot.define do
     email { "joel@plantcoach.com" }
     zip_code { "90210" }
     password { Faker::Alphanumeric.alpha(number: 10) }
-    fall_frost_dates { Faker::Date.forward(days: 50) }
-    spring_frost_dates { Faker::Date.forward(days: 120)}
+    fall_frost_date { Faker::Date.forward(days: 50) }
+    spring_frost_date { Faker::Date.forward(days: 120)}
   end
 
   factory :garden_plant do

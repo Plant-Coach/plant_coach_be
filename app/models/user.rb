@@ -4,8 +4,8 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
                     uniqueness: true,
                     presence: true
-  validates :spring_frost_dates, presence: true, on: :update
-  validates :fall_frost_dates, presence: true, on: :update
+  validates :spring_frost_date, presence: true, on: :update
+  validates :fall_frost_date, presence: true, on: :update
   has_secure_password
 
   validates_associated :plants
@@ -25,8 +25,8 @@ class User < ApplicationRecord
 
   def establish_frost_dates
     frost_dates = FrostDateFacade.get_frost_dates(self.zip_code)
-    self.spring_frost_dates = frost_dates.spring_frost
-    self.fall_frost_dates = frost_dates.fall_frost
+    self.spring_frost_date = frost_dates.spring_frost
+    self.fall_frost_date = frost_dates.fall_frost
   end
 
   def started_indoor_seeds

@@ -61,8 +61,8 @@ class GardenPlant < ApplicationRecord
     user = User.find_by(id: self.user_id)
 
     default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
-    self.recommended_transplant_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date
-    self.recommended_seed_sewing_date = user.spring_frost_dates.to_date + self.days_relative_to_frost_date - default_seed_data
+    self.recommended_transplant_date = user.spring_frost_date.to_date + self.days_relative_to_frost_date
+    self.recommended_seed_sewing_date = user.spring_frost_date.to_date + self.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
     self.harvest_start = self.recommended_transplant_date + self.days_to_maturity
 
@@ -71,7 +71,7 @@ class GardenPlant < ApplicationRecord
 
     case harvest_period
     when "season_long"
-      self.harvest_finish = user.fall_frost_dates.to_date
+      self.harvest_finish = user.fall_frost_date.to_date
     when "four_week"
       self.harvest_finish = self.harvest_start + 28
     when "three_week"
