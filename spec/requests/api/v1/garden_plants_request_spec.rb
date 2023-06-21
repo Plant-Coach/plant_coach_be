@@ -300,7 +300,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
 
             harvest_start = transplant_date + days_to_maturity
-            harvest_finish = user.fall_frost_dates.to_date
+            harvest_finish = user.fall_frost_date.to_date
 
             expect(result[:data][:attributes][:harvest_start].to_date).to eq(harvest_start)
             expect(result[:data][:attributes][:harvest_finish].to_date).to eq(harvest_finish)
@@ -459,7 +459,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes]).to have_key(:harvest_finish)
 
               expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
-              expected_harvest_finish = user.fall_frost_dates
+              expected_harvest_finish = user.fall_frost_date
 
               expect(result[:data][:attributes][:harvest_period]).to eq("season_long")
               expect(result[:data][:attributes][:harvest_start].to_date).to eq(expected_harvest_start)

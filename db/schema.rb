@@ -129,8 +129,8 @@ ActiveRecord::Schema.define(version: 2023_06_19_214123) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "zip_code"
-    t.string "spring_frost_dates"
-    t.string "fall_frost_dates"
+    t.string "spring_frost_date"
+    t.string "fall_frost_date"
   end
 
   add_foreign_key "garden_plants", "users"

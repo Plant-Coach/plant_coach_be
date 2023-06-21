@@ -135,8 +135,8 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes][:zip_code]).to eq("99501")
       expect(result[:data][:attributes][:name]).to eq("Joel Grant")
       expect(result[:data][:attributes][:email]).to eq("joel@plantcoach.com")
-      expect(result[:data][:attributes][:spring_frost_dates]).to_not eq(user_response[:user][:data][:attributes][:spring_frost_dates])
-      expect(result[:data][:attributes][:fall_frost_dates]).to_not eq(user_response[:user][:data][:attributes][:fall_frost_dates])
+      expect(result[:data][:attributes][:spring_frost_date]).to_not eq(user_response[:user][:data][:attributes][:spring_frost_date])
+      expect(result[:data][:attributes][:fall_frost_date]).to_not eq(user_response[:user][:data][:attributes][:fall_frost_date])
     end
   end
 
