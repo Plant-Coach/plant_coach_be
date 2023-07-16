@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Thu, 09 Mar 2023 04:42:10 GMT
+      - Sun, 16 Jul 2023 20:54:11 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 6bd44a53-9789-4f37-b38f-b7eb38e09e47
+      - ac31ec62-8ec2-423d-8ea1-451fca1b72c5
       X-Runtime:
-      - '0.368149'
+      - '0.394904'
       Transfer-Encoding:
       - chunked
       Via:
@@ -42,7 +42,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Thu, 09 Mar 2023 04:42:10 GMT
+  recorded_at: Sun, 16 Jul 2023 20:54:12 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
@@ -64,7 +64,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Thu, 09 Mar 2023 04:42:11 GMT
+      - Sun, 16 Jul 2023 21:03:46 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -74,9 +74,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - dad6fdf6-480f-4a1c-a5fd-2bb6695bd7ca
+      - e8c93172-b166-4c90-adfa-738d4f27d2a9
       X-Runtime:
-      - '0.399647'
+      - '0.438562'
       Transfer-Encoding:
       - chunked
       Via:
@@ -85,7 +85,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Thu, 09 Mar 2023 04:42:11 GMT
+  recorded_at: Sun, 16 Jul 2023 21:03:47 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
@@ -107,7 +107,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Thu, 09 Mar 2023 04:42:11 GMT
+      - Sun, 16 Jul 2023 21:03:48 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -117,9 +117,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 7cabe453-8534-4910-9ed6-6e41569054f6
+      - 0a2fd8e6-5f98-4e41-80c3-c5b2768e465b
       X-Runtime:
-      - '0.381329'
+      - '0.428231'
       Transfer-Encoding:
       - chunked
       Via:
@@ -128,5 +128,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Thu, 09 Mar 2023 04:42:12 GMT
+  recorded_at: Sun, 16 Jul 2023 21:03:48 GMT
 recorded_with: VCR 6.1.0
