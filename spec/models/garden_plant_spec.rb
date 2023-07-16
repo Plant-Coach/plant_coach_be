@@ -5,7 +5,7 @@ RSpec.describe GardenPlant, type: :model do
     ActiveRecord::Base.skip_callbacks = true
 
     subject { FactoryBot.build(:garden_plant) }
-    it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
+    it { should validate_uniqueness_of(:name).scoped_to(:plant_id) }
     it { should validate_presence_of(:plant_type) }
     it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }
@@ -21,7 +21,7 @@ RSpec.describe GardenPlant, type: :model do
   end
 
   describe 'relationships' do
-    it { should belong_to(:user) }
+    it { should belong_to(:plant) }
     it { should have_many(:transplant_coachings) }
     it { should have_many(:transplant_guides).through(:transplant_coachings) }
     it { should have_many(:seed_coachings) }

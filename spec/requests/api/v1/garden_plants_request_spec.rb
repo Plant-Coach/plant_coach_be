@@ -688,7 +688,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         hybrid_status: 1,
         organic: false
       )
-      user.garden_plants.create!(
+      plant1_object.garden_plants.create!(
         {
         plant_type: "Tomato",
         name: "Sungold",
@@ -701,7 +701,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         start_from_seed: true
         }
       )
-      user.garden_plants.create!(
+      plant2_object.garden_plants.create!(
         {
         plant_type: "Pepper",
         name: "Jalafuego",
@@ -1058,7 +1058,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   describe 'DELETE /garden_plants' do
     it 'removes the plant from the users list of plants' do
-      garden_plant = user.garden_plants.create!(
+      garden_plant = plant1_object.garden_plants.create!(
         {
         plant_type: "Tomato",
         name: "Sungold",
