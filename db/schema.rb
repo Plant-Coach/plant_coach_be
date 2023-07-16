@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_19_214123) do
+ActiveRecord::Schema.define(version: 2023_07_16_210031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2023_06_19_214123) do
     t.integer "hybrid_status", default: 0, null: false
     t.integer "days_relative_to_frost_date"
     t.string "plant_type"
-    t.bigint "user_id"
     t.boolean "organic", default: false, null: false
     t.integer "seed_sew_type", default: 0, null: false
     t.boolean "direct_seed_recommended", null: false
@@ -37,7 +36,8 @@ ActiveRecord::Schema.define(version: 2023_06_19_214123) do
     t.date "harvest_start"
     t.date "harvest_finish"
     t.integer "harvest_period", default: 0, null: false
-    t.index ["user_id"], name: "index_garden_plants_on_user_id"
+    t.bigint "plant_id"
+    t.index ["plant_id"], name: "index_garden_plants_on_plant_id"
   end
 
   create_table "harvest_coachings", force: :cascade do |t|
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 2023_06_19_214123) do
     t.string "fall_frost_date"
   end
 
-  add_foreign_key "garden_plants", "users"
+  add_foreign_key "garden_plants", "plants"
   add_foreign_key "harvest_coachings", "garden_plants"
   add_foreign_key "harvest_coachings", "harvest_guides"
   add_foreign_key "harvest_guides", "plant_coach_guides"

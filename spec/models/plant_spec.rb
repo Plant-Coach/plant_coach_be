@@ -13,6 +13,7 @@ RSpec.describe Plant, type: :model do
 
   describe 'relationships' do
     it { should belong_to(:user) }
+    it { should have_many(:garden_plants) }
   end
 
   describe '#get_harvest_data', :vcr do

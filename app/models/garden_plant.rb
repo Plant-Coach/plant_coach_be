@@ -12,7 +12,7 @@ class GardenPlant < ApplicationRecord
 
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
-  validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :name, presence: true, uniqueness: { scope: :plant_id }
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
@@ -25,7 +25,7 @@ class GardenPlant < ApplicationRecord
     }
   
 
-  belongs_to :user
+  belongs_to :plant
   has_many :transplant_coachings
   has_many :transplant_guides, through: :transplant_coachings
   has_many :seed_coachings
@@ -58,7 +58,7 @@ class GardenPlant < ApplicationRecord
   end
 
   def generate_key_plant_dates
-    user = User.find_by(id: self.user_id)
+    user = self.plant.user
 
     default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_date.to_date + self.days_relative_to_frost_date
