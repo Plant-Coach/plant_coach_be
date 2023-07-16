@@ -11,6 +11,7 @@ class Plant < ApplicationRecord
   validates :organic, inclusion: { in: [true, false] }
 
   belongs_to :user
+  has_many :garden_plants
 
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]

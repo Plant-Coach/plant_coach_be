@@ -9,10 +9,9 @@ class User < ApplicationRecord
   has_secure_password
 
   validates_associated :plants
-  validates_associated :garden_plants
 
   has_many :plants
-  has_many :garden_plants
+  has_many :garden_plants, through: :plants
 
   before_create :establish_frost_dates
   before_update :establish_frost_dates, if: :zip_code_changed?

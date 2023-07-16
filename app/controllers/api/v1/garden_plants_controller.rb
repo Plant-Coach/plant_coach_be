@@ -11,7 +11,7 @@ class Api::V1::GardenPlantsController < ApplicationController
       render json: GardenPlantSerializer.error(
         "There was a problem finding a plant to copy!"), status: :bad_request
       else
-        new_garden_plant = @user.garden_plants.create(garden_plant_params)
+        new_garden_plant = plant_result.garden_plants.create(garden_plant_params)
       render json: GardenPlantSerializer.new(new_garden_plant)
     end
   end
@@ -19,7 +19,7 @@ class Api::V1::GardenPlantsController < ApplicationController
   def update
     garden_plant = @user.garden_plants.find_by(id: params[:id])
     result = garden_plant.update(garden_plant_params)
-    # binding.pry;
+
     if garden_plant.valid?
       render json: GardenPlantSerializer.new(garden_plant)
     elsif !garden_plant.errors[:actual_transplant_date].empty?
