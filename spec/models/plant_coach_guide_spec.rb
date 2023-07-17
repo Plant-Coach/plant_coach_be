@@ -16,9 +16,7 @@ RSpec.describe PlantCoachGuide, type: :model do
       SeedGuide.create(
         plant_type: "Tomato",
         seedling_days_to_transplant: 49,
-        direct_seed_recommended: false,
-        recommended_transplant_date: true,
-        recommended_seed_start_date: true
+        direct_seed_recommended: false
       )
       TransplantGuide.create(
         plant_type: "Tomato",
