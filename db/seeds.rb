@@ -15,52 +15,38 @@ HarvestGuide.destroy_all
 tomato_seed = SeedGuide.create(
   plant_type: "Tomato",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: false
 )
 pepper_seed = SeedGuide.create(
   plant_type: "Pepper",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: false
 )
 eggplant_seed = SeedGuide.create(
   plant_type: "Eggplant",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: false
 )
 romaine_seed = SeedGuide.create(
   plant_type: "Romaine Lettuce",
   seedling_days_to_transplant: 14,
-  direct_seed_recommended: true,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: true
 )
 green_bean_seed = SeedGuide.create(
   plant_type: "Green Bean",
   seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: true
 )
 radish_seed = SeedGuide.create(
   plant_type: "Radish",
   seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  recommended_transplant_date: true,
-  recommended_seed_start_date: true
+  direct_seed_recommended: true
 )
 romaine_seed = SeedGuide.create(
-      plant_type: "Romaine Lettuce",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      recommended_transplant_date: true,
-      recommended_seed_start_date: true
-    )
+  plant_type: "Romaine Lettuce",
+  seedling_days_to_transplant: 0,
+  direct_seed_recommended: true
+)
 
 tomato_transplant = TransplantGuide.create(
   plant_type: "Tomato",
