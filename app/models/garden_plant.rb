@@ -7,9 +7,6 @@ class GardenPlant < ApplicationRecord
                         :planting_status,
                         :seed_sew_type
 
-  # Records must be unique according to name, but only unique for those that
-  # belong to each user (aka "user_id").
-  # validates :name, presence: true, uniqueness: { scope: :plant_id }
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
