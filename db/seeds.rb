@@ -151,11 +151,11 @@ plant8 = user.plants.create(name: "Genovese", plant_type: "Basil", days_relative
 user2_plant1 = user2.plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
 user2_plant2 = user2.plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
 
-plant1.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
-plant2.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
-plant3.garden_plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
-plant4.garden_plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
-plant5.garden_plants.create(name: "Provider", plant_type: "Green Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+plant1.garden_plants.create(plant_type: "Tomato", planting_status: "not_started", start_from_seed: true)
+plant2.garden_plants.create(plant_type: "Eggplant", planting_status: "not_started", start_from_seed: true)
+plant3.garden_plants.create(plant_type: "Pepper", planting_status: "not_started", start_from_seed: true)
+plant4.garden_plants.create(plant_type: "Radish", planting_status: "not_started", start_from_seed: true)
+plant5.garden_plants.create(plant_type: "Green Bean", planting_status: "not_started", start_from_seed: true)
 
-user2_plant1.garden_plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
-user2_plant2.garden_plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1, planting_status: "not_started", start_from_seed: true)
+user2_plant1.garden_plants.create(plant_type: "Tomato", planting_status: "not_started", start_from_seed: true)
+user2_plant2.garden_plants.create(plant_type: "Eggplant", planting_status: "not_started", start_from_seed: true)
