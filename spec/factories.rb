@@ -15,12 +15,7 @@ FactoryBot.define do
       user { build(:user) }
     end
 
-    name { Faker::Restaurant.name }
-    days_to_maturity { Faker::Number.number(digits: 2) }
-    hybrid_status { :unknown }
-    days_relative_to_frost_date { Faker::Number.number(digits: 2) }
     plant_type { Faker::Food.unique.vegetables }
-    organic { Faker::Boolean.boolean(true_ratio: 0.5) }
     recommended_transplant_date { Faker::Date.forward(days: 50) }
     planting_status { "not_started" }
     start_from_seed { Faker::Boolean.boolean(true_ratio: 0.5) }

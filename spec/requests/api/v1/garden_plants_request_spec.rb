@@ -221,7 +221,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     plant_type: "Carrot",
     name: "SugarSnax",
     days_relative_to_frost_date: -30,
-    days_to_maturity: 65
+    days_to_maturity: 60
   ) }
 
   let(:plant7_object) { user.plants.create!(
@@ -243,10 +243,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               start_from_seed: true,
               seed_sew_type: :direct,
               actual_seed_sewing_date: Date.today,
-              plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
+              plant_type: "Tomato"
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -262,10 +259,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               start_from_seed: true,
               seed_sew_type: :direct,
               actual_seed_sewing_date: Date.today,
-              plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
+              plant_type: "Tomato"
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -273,7 +267,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(response).to be_successful
 
             transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
-            days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
+            days_to_maturity = plant1_object.days_to_maturity
 
             harvest_start = transplant_date + days_to_maturity
             harvest_finish = user.fall_frost_date.to_date
@@ -288,10 +282,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               start_from_seed: true,
               seed_sew_type: :direct,
               actual_seed_sewing_date: Date.today,
-              plant_type: "Basil",
-              name: "Thai Towers",
-              days_relative_to_frost_date: 0,
-              days_to_maturity: 40
+              plant_type: "Basil"
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -299,11 +290,11 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(response).to be_successful
 
             transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
-            days_to_maturity = result[:data][:attributes][:days_to_maturity].to_i
+            days_to_maturity = plant3_object.days_to_maturity
 
             harvest_start = transplant_date + days_to_maturity
             harvest_finish = harvest_start + 21
-# binding.pry;
+
             expect(result[:data][:attributes][:harvest_start].to_date).to eq(harvest_start)
             expect(result[:data][:attributes][:harvest_finish].to_date).to eq(harvest_finish)
           end
@@ -316,9 +307,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               start_from_seed: true,
               seed_sew_type: :direct,
               plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -341,10 +329,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               seed_sew_type: :indirect,
               actual_seed_sewing_date: Date.today,
 
-              plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
+              plant_type: "Tomato"
               }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -358,17 +343,12 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(result).to have_key(:data)
 
             expect(result[:data]).to be_a Hash
-            expect(result[:data][:attributes][:name]).to eq(new_plant.name)
+
             
             expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
 
-            expect(result[:data][:attributes]).to have_key(:name)
             expect(result[:data][:attributes]).to have_key(:plant_type)
-            expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
             expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
-            expect(result[:data][:attributes]).to have_key(:days_to_maturity)
-            expect(result[:data][:attributes]).to have_key(:hybrid_status)
-            expect(result[:data][:attributes]).to have_key(:organic)
             expect(result[:data][:attributes]).to have_key(:planting_status)
             expect(result[:data][:attributes]).to have_key(:start_from_seed)
             expect(result[:data][:attributes]).to have_key(:direct_seed_recommended)
@@ -396,11 +376,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant1_object.id,
               start_from_seed: true,
               seed_sew_type: :indirect,
-
-              plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
+              plant_type: "Tomato"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -416,11 +392,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant1_object.id,
               start_from_seed: true,
               seed_sew_type: :indirect,
-
-              plant_type: "Tomato",
-              name: "Sungold",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 54
+              plant_type: "Tomato"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -447,11 +419,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant4_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-
-              plant_type: "Sprouting Broccoli",
-              name: "Di Cicco",
-              days_relative_to_frost_date: -21,
-              days_to_maturity: 45
+              plant_type: "Sprouting Broccoli"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -479,11 +447,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant3_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-
-              plant_type: "Basil",
-              name: "Thai Towers",
-              days_relative_to_frost_date: 0,
-              days_to_maturity: 30
+              plant_type: "Basil"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -498,7 +462,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes]).to have_key(:harvest_finish)
 
               three_weeks_in_days = 3 * 7
-              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 30
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + plant3_object.days_to_maturity
               expected_harvest_finish = expected_harvest_start + three_weeks_in_days
 
               expect(result[:data][:attributes][:harvest_period]).to eq("three_week")
@@ -511,11 +475,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant8_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-
-              plant_type: "Cilantro",
-              name: "Santo",
-              days_relative_to_frost_date: 0,
-              days_to_maturity: 30
+              plant_type: "Cilantro"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -530,7 +490,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes]).to have_key(:harvest_finish)
 
               two_weeks_in_days = 2 * 7
-              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 30
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + plant8_object.days_to_maturity
               expected_harvest_finish = expected_harvest_start + two_weeks_in_days
 
               expect(result[:data][:attributes][:harvest_period]).to eq("two_week")
@@ -543,11 +503,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant6_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-
-              plant_type: "Carrot",
-              name: "Sugarsnax",
-              days_relative_to_frost_date: -30,
-              days_to_maturity: 54
+              plant_type: "Carrot"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -562,7 +518,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes]).to have_key(:harvest_finish)
 
               one_week_in_days = 7
-              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 54
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + plant6_object.days_to_maturity
               expected_harvest_finish = expected_harvest_start + one_week_in_days
 
               expect(result[:data][:attributes][:harvest_period]).to eq("one_week")
@@ -575,11 +531,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant7_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-
-              plant_type: "Romaine Lettuce",
-              name: "Coastal Star",
-              days_relative_to_frost_date: -30,
-              days_to_maturity: 30
+              plant_type: "Romaine Lettuce"
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -593,7 +545,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               expect(result[:data][:attributes]).to have_key(:harvest_start)
               expect(result[:data][:attributes]).to have_key(:harvest_finish)
 
-              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + 30
+              expected_harvest_start = result[:data][:attributes][:recommended_transplant_date].to_date + plant7_object.days_to_maturity
               expected_harvest_finish = expected_harvest_start
 
               expect(result[:data][:attributes][:harvest_period]).to eq("one_time")
@@ -613,16 +565,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             actual_transplant_date: Date.today,
             # and this...should be enough to indicate the plant is transplanted outside.
             start_from_seed: false,
-            plant_type: "Pepper",
-            name: "Jalafuego",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 55
+            plant_type: "Pepper"
           }
           
           result = JSON.parse(response.body, symbolize_names: true)
 
           expect(result[:data][:attributes][:planting_status]).to eq("transplanted_outside")
-          expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+
           expect(result[:data][:attributes][:start_from_seed]).to eq(false)
           expect(result[:data][:attributes][:seed_sew_type]).to eq("not_applicable")
           expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
@@ -656,7 +605,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
   describe 'GET /garden_plants' do
     it 'retrieves an array of the plants that belong to the user' do
-      unused_plant = user.plants.create(
+      unused_plant = user.plants.create!(
         plant_type: "Something else",
         name: "A plant you shouldn't see",
         days_relative_to_frost_date: 14,
@@ -667,11 +616,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       plant1_object.garden_plants.create!(
         {
         plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: 1,
-        organic: false,
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true
@@ -680,11 +624,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       plant2_object.garden_plants.create!(
         {
         plant_type: "Pepper",
-        name: "Jalafuego",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 65,
-        hybrid_status: 1,
-        organic: false,
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true
@@ -702,10 +641,13 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
       result[:data].each do |plant|
         expect(plant[:attributes][:plant_type]).to be_a String
-        expect(plant[:attributes][:name]).to be_a String
-        expect(plant[:attributes][:days_relative_to_frost_date]).to be_an Integer
-        expect(plant[:attributes][:days_to_maturity]).to be_an Integer
-        expect(plant[:attributes][:hybrid_status]).to eq("f1").or eq("open_pollinated")
+        expect(plant[:attributes][:recommended_transplant_date]).to be_a String
+        expect(plant[:attributes][:seed_sew_type]).to be_a String
+        expect(plant[:attributes][:recommended_seed_sewing_date]).to be_a String
+        expect(plant[:attributes][:seedling_days_to_transplant]).to be_a Integer
+        expect(plant[:attributes][:harvest_start]).to be_a String
+        expect(plant[:attributes][:harvest_finish]).to be_a String
+        expect(plant[:attributes][:harvest_period]).to be_a String
       end
     end
   end
@@ -717,11 +659,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -745,11 +682,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -772,11 +704,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: Date.yesterday,
             seed_sew_type: :indirect,
@@ -800,11 +727,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -827,11 +749,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -852,11 +769,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Tomato",
-            name: "Sungold",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 54,
-            hybrid_status: :open_pollinated,
-            organic: false,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -881,10 +793,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Radish",
-            name: "French Breakfast",
-            days_relative_to_frost_date: -45,
-            days_to_maturity: 30,
-            hybrid_status: :unknown,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :direct,
@@ -909,10 +817,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             plant_type: "Radish",
-            name: "French Breakfast",
-            days_relative_to_frost_date: -45,
-            days_to_maturity: 30,
-            hybrid_status: :unknown,
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :direct,
@@ -935,11 +839,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
         plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :open_pollinated,
-        organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: nil,
         seed_sew_type: :indirect,
@@ -957,15 +856,9 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result).to have_key(:data)
 
       expect(result[:data]).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq(garden_plant.name)
 
-      expect(result[:data][:attributes]).to have_key(:name)
       expect(result[:data][:attributes]).to have_key(:plant_type)
-      expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
       expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
-      expect(result[:data][:attributes]).to have_key(:days_to_maturity)
-      expect(result[:data][:attributes]).to have_key(:hybrid_status)
-      expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("not_started")
 
@@ -989,11 +882,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
         plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: :open_pollinated,
-        organic: false,
         start_from_seed: true,
         actual_seed_sewing_date: Date.today,
         seed_sew_type: :indirect,
@@ -1011,15 +899,9 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result).to have_key(:data)
 
       expect(result[:data]).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq(garden_plant.name)
 
-      expect(result[:data][:attributes]).to have_key(:name)
       expect(result[:data][:attributes]).to have_key(:plant_type)
-      expect(result[:data][:attributes]).to have_key(:days_relative_to_frost_date)
       expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
-      expect(result[:data][:attributes]).to have_key(:days_to_maturity)
-      expect(result[:data][:attributes]).to have_key(:hybrid_status)
-      expect(result[:data][:attributes]).to have_key(:organic)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
 
@@ -1037,11 +919,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       garden_plant = plant1_object.garden_plants.create!(
         {
         plant_type: "Tomato",
-        name: "Sungold",
-        days_relative_to_frost_date: 14,
-        days_to_maturity: 54,
-        hybrid_status: 1,
-        organic: false,
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true
