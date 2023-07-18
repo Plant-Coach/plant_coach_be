@@ -43,12 +43,8 @@ private
 def garden_plant_params
   params.permit(
     :actual_seed_sewing_date,
-    :name,
-    :days_to_maturity,
     :actual_transplant_date,
     :plant_type, # Used for create.
-    :hybrid_status, # Used for create.
-    :days_relative_to_frost_date, # Used for create.
     :seed_sew_type, # Used for create.
     :planting_status, # Used for create.
     # :plant_id, # Used for create.

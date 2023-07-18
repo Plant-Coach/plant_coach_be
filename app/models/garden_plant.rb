@@ -1,18 +1,15 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
   validates_presence_of :plant_type,
-                        :days_to_maturity,
-                        :days_relative_to_frost_date,
                         :recommended_transplant_date,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :planting_status,
-                        :hybrid_status,
                         :seed_sew_type
 
   # Records must be unique according to name, but only unique for those that
   # belong to each user (aka "user_id").
-  validates :name, presence: true, uniqueness: { scope: :plant_id }
+  # validates :name, presence: true, uniqueness: { scope: :plant_id }
   validates :direct_seed_recommended, inclusion: [true, false]
   validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
@@ -61,10 +58,10 @@ class GardenPlant < ApplicationRecord
     user = self.plant.user
 
     default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
-    self.recommended_transplant_date = user.spring_frost_date.to_date + self.days_relative_to_frost_date
-    self.recommended_seed_sewing_date = user.spring_frost_date.to_date + self.days_relative_to_frost_date - default_seed_data
+    self.recommended_transplant_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date
+    self.recommended_seed_sewing_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
-    self.harvest_start = self.recommended_transplant_date + self.days_to_maturity
+    self.harvest_start = self.recommended_transplant_date + plant.days_to_maturity
 
     harvest_period = HarvestGuide.find_by(plant_type: self.plant_type).harvest_period
     self.harvest_period = harvest_period
