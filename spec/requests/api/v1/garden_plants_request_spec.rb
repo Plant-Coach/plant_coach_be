@@ -242,8 +242,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant1_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-              actual_seed_sewing_date: Date.today,
-              plant_type: "Tomato"
+              actual_seed_sewing_date: Date.today
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -258,8 +257,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant1_object.id,
               start_from_seed: true,
               seed_sew_type: :direct,
-              actual_seed_sewing_date: Date.today,
-              plant_type: "Tomato"
+              actual_seed_sewing_date: Date.today
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -305,8 +303,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Tomato",
+              seed_sew_type: :direct
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -327,9 +324,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
               plant_id: plant1_object.id,
               start_from_seed: true,
               seed_sew_type: :indirect,
-              actual_seed_sewing_date: Date.today,
-
-              plant_type: "Tomato"
+              actual_seed_sewing_date: Date.today
               }
 
             result = JSON.parse(response.body, symbolize_names: true)
@@ -347,7 +342,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             
             expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
 
-            expect(result[:data][:attributes]).to have_key(:plant_type)
             expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
             expect(result[:data][:attributes]).to have_key(:planting_status)
             expect(result[:data][:attributes]).to have_key(:start_from_seed)
@@ -375,8 +369,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               start_from_seed: true,
-              seed_sew_type: :indirect,
-              plant_type: "Tomato"
+              seed_sew_type: :indirect
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -391,8 +384,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               start_from_seed: true,
-              seed_sew_type: :indirect,
-              plant_type: "Tomato"
+              seed_sew_type: :indirect
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -418,8 +410,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant4_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Sprouting Broccoli"
+              seed_sew_type: :direct
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -446,8 +437,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant3_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Basil"
+              seed_sew_type: :direct
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -474,8 +464,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant8_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Cilantro"
+              seed_sew_type: :direct
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -502,8 +491,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant6_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Carrot"
+              seed_sew_type: :direct
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -530,8 +518,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             post '/api/v1/garden_plants', params: {
               plant_id: plant7_object.id,
               start_from_seed: true,
-              seed_sew_type: :direct,
-              plant_type: "Romaine Lettuce"
+              seed_sew_type: :direct
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
@@ -564,8 +551,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             # This...
             actual_transplant_date: Date.today,
             # and this...should be enough to indicate the plant is transplanted outside.
-            start_from_seed: false,
-            plant_type: "Pepper"
+            start_from_seed: false
           }
           
           result = JSON.parse(response.body, symbolize_names: true)
@@ -584,11 +570,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'creates a garden plant that is scheduled with a planting in the future' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant2_object.id,
-            start_from_seed: false,
-            plant_type: "Pepper",
-            name: "Jalafuego",
-            days_relative_to_frost_date: 14,
-            days_to_maturity: 55
+            start_from_seed: false
           }
           
           result = JSON.parse(response.body, symbolize_names: true)
@@ -615,7 +597,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       )
       plant1_object.garden_plants.create!(
         {
-        plant_type: "Tomato",
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true
@@ -623,7 +604,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       )
       plant2_object.garden_plants.create!(
         {
-        plant_type: "Pepper",
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true
@@ -640,7 +620,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result[:data].count).to eq(2)
 
       result[:data].each do |plant|
-        expect(plant[:attributes][:plant_type]).to be_a String
         expect(plant[:attributes][:recommended_transplant_date]).to be_a String
         expect(plant[:attributes][:seed_sew_type]).to be_a String
         expect(plant[:attributes][:recommended_seed_sewing_date]).to be_a String
@@ -658,7 +637,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'returns will update the planting status and the seed-sewing date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -681,7 +659,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'returns a meaningful error response if the frontend doesnt provide...' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -703,7 +680,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'will update the planting status and the actual transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: Date.yesterday,
             seed_sew_type: :indirect,
@@ -726,7 +702,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'returns a meaningful error response if the frontend doesnt provide...' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -748,7 +723,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'will return a meaningful error response if the frontend doesnt provide an actual transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -768,7 +742,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'will only update the object when an actual_transplant_date is passed' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Tomato",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :indirect,
@@ -792,7 +765,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'will update the status and transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Radish",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :direct,
@@ -816,7 +788,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         it 'will return an error if the necessary information was not provided' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
-            plant_type: "Radish",
             start_from_seed: true,
             actual_seed_sewing_date: nil,
             seed_sew_type: :direct,
@@ -838,7 +809,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'allows the user to add an actual planting date to an existing garden_plant' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
-        plant_type: "Tomato",
         start_from_seed: true,
         actual_seed_sewing_date: nil,
         seed_sew_type: :indirect,
@@ -857,7 +827,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
       expect(result[:data]).to be_a Hash
 
-      expect(result[:data][:attributes]).to have_key(:plant_type)
       expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("not_started")
@@ -881,7 +850,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'will add a transplant date to the garden_plant object when giving a plant a transplant date' do
       post '/api/v1/garden_plants', params: {
         plant_id: plant1_object.id,
-        plant_type: "Tomato",
         start_from_seed: true,
         actual_seed_sewing_date: Date.today,
         seed_sew_type: :indirect,
@@ -900,7 +868,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
       expect(result[:data]).to be_a Hash
 
-      expect(result[:data][:attributes]).to have_key(:plant_type)
       expect(result[:data][:attributes]).to have_key(:recommended_transplant_date)
       expect(result[:data][:attributes]).to have_key(:planting_status)
       expect(result[:data][:attributes][:planting_status]).to eq("started_indoors")
@@ -918,7 +885,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     it 'removes the plant from the users list of plants' do
       garden_plant = plant1_object.garden_plants.create!(
         {
-        plant_type: "Tomato",
         seed_sew_type: :indirect,
         planting_status: "not_started",
         start_from_seed: true

@@ -1,7 +1,6 @@
 class GardenPlantSerializer
   include JSONAPI::Serializer
   attributes  :id,
-              :plant_type,
               :recommended_transplant_date,
               :planting_status,
               :start_from_seed,
