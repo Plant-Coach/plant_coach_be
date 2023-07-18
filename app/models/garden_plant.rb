@@ -19,12 +19,6 @@ class GardenPlant < ApplicationRecord
   
 
   belongs_to :plant
-  has_many :transplant_coachings
-  has_many :transplant_guides, through: :transplant_coachings
-  has_many :seed_coachings
-  has_many :seed_guides, through: :seed_coachings
-  has_many :harvest_coachings
-  has_many :harvest_guides, through: :harvest_coachings
 
   enum hybrid_status: [:unknown, :open_pollinated, :f1]
   enum planting_status: [:not_started, :started_indoors,
