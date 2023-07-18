@@ -1,7 +1,6 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
-  validates_presence_of :plant_type,
-                        :recommended_transplant_date,
+  validates_presence_of :recommended_transplant_date,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
                         :planting_status,
@@ -54,13 +53,13 @@ class GardenPlant < ApplicationRecord
   def generate_key_plant_dates
     user = self.plant.user
 
-    default_seed_data = SeedGuide.find_by(plant_type: self.plant_type).seedling_days_to_transplant
+    default_seed_data = SeedGuide.find_by(plant_type: plant.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
     self.harvest_start = self.recommended_transplant_date + plant.days_to_maturity
 
-    harvest_period = HarvestGuide.find_by(plant_type: self.plant_type).harvest_period
+    harvest_period = HarvestGuide.find_by(plant_type: plant.plant_type).harvest_period
     self.harvest_period = harvest_period
 
     case harvest_period
@@ -80,7 +79,7 @@ class GardenPlant < ApplicationRecord
   end
 
   def add_seed_recommendation
-    default_seed_data = SeedGuide.find_by(plant_type: self.plant_type)
+    default_seed_data = SeedGuide.find_by(plant_type: plant.plant_type)
     self.direct_seed_recommended = default_seed_data.direct_seed_recommended
   end
 

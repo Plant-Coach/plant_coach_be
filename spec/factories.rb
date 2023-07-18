@@ -14,8 +14,7 @@ FactoryBot.define do
     transient do
       user { build(:user) }
     end
-
-    plant_type { Faker::Food.unique.vegetables }
+    
     recommended_transplant_date { Faker::Date.forward(days: 50) }
     planting_status { "not_started" }
     start_from_seed { Faker::Boolean.boolean(true_ratio: 0.5) }
