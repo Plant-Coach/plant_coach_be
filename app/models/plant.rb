@@ -18,18 +18,14 @@ class Plant < ApplicationRecord
 
   after_initialize :set_defaults, unless: :skip_callbacks
 
-  def get_harvest_data
-    HarvestGuide.find_by(plant_type: self.plant_type)
-  end
-
   private
 
   # A user is not expected to know all of the details about a plant.  This fills
   # in some of the blanks with default data.
   def set_defaults
-    plant_defaults = TransplantGuide.find_by(plant_type: plant_type)
+    plant_defaults = user.plant_guides.find_by(plant_type: self.plant_type)
     self.days_to_maturity = plant_defaults.days_to_maturity if days_to_maturity.nil?
     self.days_relative_to_frost_date = plant_defaults.days_relative_to_frost_date if days_relative_to_frost_date.nil?
-    self.harvest_period = HarvestGuide.find_by(plant_type: plant_type).harvest_period
+    self.harvest_period = user.plant_guides.find_by(plant_type: plant_type).harvest_period
   end
 end

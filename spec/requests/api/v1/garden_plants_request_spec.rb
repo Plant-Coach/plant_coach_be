@@ -3,188 +3,131 @@ require 'rails_helper'
 RSpec.describe 'Garden Plants API Endpoint', :vcr do
   before(:each) do
     ActiveRecord::Base.skip_callbacks = false
-    @tomato_seed = SeedGuide.create(
-      plant_type: "Tomato",
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false
-    )
-    test_seed = SeedGuide.create(
-      plant_type: "Something else",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    pepper_seed = SeedGuide.create(
-      plant_type: "Pepper",
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false
-    )
-    eggplant_seed = SeedGuide.create(
-      plant_type: "Eggplant",
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false
-    )
-    romaine_seed = SeedGuide.create(
-      plant_type: "Romaine Lettuce",
-      seedling_days_to_transplant: 14,
-      direct_seed_recommended: true
-    )
-    green_bean_seed = SeedGuide.create(
-      plant_type: "Green Bean",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    radish_seed = SeedGuide.create(
-      plant_type: "Radish",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    romaine_seed = SeedGuide.create(
-      plant_type: "Romaine Lettuce",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    carrot_seed = SeedGuide.create(
-      plant_type: "Carrot",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    sprouting_broccoli_seed = SeedGuide.create(
-      plant_type: "Sprouting Broccoli",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    basil_seed = SeedGuide.create(
-      plant_type: "Basil",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
-    )
-    cilantro_seed = SeedGuide.create(
-      plant_type: "Cilantro",
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true
+
+    @user = User.create(
+      name: 'Joel Grant',
+      email: 'joel@plantcoach.com',
+      zip_code: '80121',
+      password: '12345',
+      password_confirmation: '12345'
     )
 
-    tomato_transplant = TransplantGuide.create(
-      plant_type: "Tomato",
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14
-    )
-    test_transplant = TransplantGuide.create(
+    test_plant_guide = @user.plant_guides.create(
       plant_type: "Something else",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "one_time"
     )
-    pepper_transplant = TransplantGuide.create(
+
+    tomato_guide = @user.plant_guides.create(
+      plant_type: "Tomato",
+      seedling_days_to_transplant: 49,
+      direct_seed_recommended: false,
+      days_to_maturity: 45,
+      days_relative_to_frost_date: 14,
+      harvest_period: "season_long"
+    )
+  
+    pepper_guide = @user.plant_guides.create(
       plant_type: "Pepper",
+      seedling_days_to_transplant: 49,
+      direct_seed_recommended: false,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "season_long"
     )
-    eggplant_transplant = TransplantGuide.create(
+    eggplant_guide = @user.plant_guides.create(
       plant_type: "Eggplant",
+      seedling_days_to_transplant: 49,
+      direct_seed_recommended: false,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "season_long"
     )
-    romaine_transplant = TransplantGuide.create(
+    romaine_guide = @user.plant_guides.create(
       plant_type: "Romaine Lettuce",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "one_time"
     )
-    green_bean_transplant =TransplantGuide.create(
+    green_bean_guide = @user.plant_guides.create(
       plant_type: "Green Bean",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "season_long"
     )
-    radish_transplant = TransplantGuide.create(
+    radish_guide = @user.plant_guides.create(
       plant_type: "Radish",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
       days_to_maturity: 45,
-      days_relative_to_frost_date: 14
+      days_relative_to_frost_date: 14,
+      harvest_period: "one_time"
     )
-    romaine_transplant = TransplantGuide.create(
-      plant_type: "Romaine Lettuce",
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14
-    )
-    carrot_transplant = TransplantGuide.create(
+    carrot_guide = @user.plant_guides.create(
       plant_type: "Carrot",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
       days_to_maturity: 60,
-      days_relative_to_frost_date: -30
-    )
-    sprouting_broccoli_transplant = TransplantGuide.create(
-      plant_type: "Sprouting Broccoli",
-      days_to_maturity: 45,
-      days_relative_to_frost_date: -30
-    )
-    basil_transplant = TransplantGuide.create(
-      plant_type: "Basil",
-      days_to_maturity: 30,
-      days_relative_to_frost_date: 0
-    )
-    cilantro_transplant = TransplantGuide.create(
-      plant_type: "Cilantro",
-      days_to_maturity: 30,
-      days_relative_to_frost_date: 0
-    )
-
-    tomato_harvest = HarvestGuide.create(
-      plant_type: "Tomato",
-      harvest_period: "season_long"
-    )
-    test_harvest = HarvestGuide.create(
-      plant_type: "Something else",
-      harvest_period: "one_time"
-    )
-    pepper_harvest = HarvestGuide.create(
-      plant_type: "Pepper",
-      harvest_period: "season_long"
-    )
-    eggplant_harvest = HarvestGuide.create(
-      plant_type: "Eggplant",
-      harvest_period: "season_long"
-    )
-    green_bean_harvest = HarvestGuide.create(
-      plant_type: "Green Bean",
-      harvest_period: "season_long"
-    )
-    radish_harvest = HarvestGuide.create(
-      plant_type: "Radish",
-      harvest_period: "season_long"
-    )
-    radish_harvest = HarvestGuide.create(
-      plant_type: "Romaine Lettuce",
-      harvest_period: "one_time"
-    )
-    carrot_harvest = HarvestGuide.create(
-      plant_type: "Carrot",
+      days_relative_to_frost_date: -30,
       harvest_period: "one_week"
     )
-    sprouting_broccoli_harvest = HarvestGuide.create(
+    sprouting_broccoli_guide = @user.plant_guides.create(
       plant_type: "Sprouting Broccoli",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      days_to_maturity: 45,
+      days_relative_to_frost_date: -30,
       harvest_period: "four_week"
     )
-    basil_harvest = HarvestGuide.create(
+    basil_guide = @user.plant_guides.create(
       plant_type: "Basil",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      days_to_maturity: 30,
+      days_relative_to_frost_date: 0,
       harvest_period: "three_week"
     )
-    cilantro_harvest = HarvestGuide.create(
+    cilantro_guide = @user.plant_guides.create(
       plant_type: "Cilantro",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: true,
+      days_to_maturity: 30,
+      days_relative_to_frost_date: 0,
       harvest_period: "two_week"
     )
 
-    post '/api/v1/users', params: body
-  end
 
-  let(:body) {{
+    body = {
     name: 'Joel Grant',
     email: 'joel@plantcoach.com',
     zip_code: '80121',
     password: '12345',
     password_confirmation: '12345'
-  }}
+  }
 
-  let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
-  let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
+    # post '/api/v1/users', params: body
+    # binding.pry;
+  end
 
-  let(:plant1_object) { user.plants.create!(
+  # let(:body) {{
+  #   name: 'Joel Grant',
+  #   email: 'joel@plantcoach.com',
+  #   zip_code: '80121',
+  #   password: '12345',
+  #   password_confirmation: '12345'
+  # }}
+# binding.pry;
+  # let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
+  # let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
+
+  let(:plant1_object) { @user.plants.create!(
     plant_type: "Tomato",
     name: "Sungold",
     days_relative_to_frost_date: 14,
@@ -193,7 +136,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     organic: false
   ) }
 
-  let(:plant2_object) { user.plants.create!(
+  let(:plant2_object) { @user.plants.create!(
     plant_type: "Pepper",
     name: "Jalafuego",
     days_relative_to_frost_date: 14,
@@ -202,33 +145,33 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
     organic: false
   ) }
 
-  let(:plant3_object) { user.plants.create!(
+  let(:plant3_object) { @user.plants.create!(
     plant_type: "Basil",
     name: "Thai Towers"
   ) }
 
-  let(:plant4_object) { user.plants.create!(
+  let(:plant4_object) { @user.plants.create!(
     plant_type: "Sprouting Broccoli",
     name: "Di Cicco"
   ) }
 
-  let(:plant5_object) { user.plants.create!(
+  let(:plant5_object) { @user.plants.create!(
     plant_type: "Cucumber",
     name: "Corinto"
   ) }
 
-  let(:plant6_object) { user.plants.create!(
+  let(:plant6_object) { @user.plants.create!(
     plant_type: "Carrot",
     name: "SugarSnax",
     days_relative_to_frost_date: -30,
     days_to_maturity: 60
   ) }
 
-  let(:plant7_object) { user.plants.create!(
+  let(:plant7_object) { @user.plants.create!(
     plant_type: "Romaine Lettuce",
     name: "Coastal Star"
   ) }
-  let(:plant8_object) { user.plants.create!(
+  let(:plant8_object) { @user.plants.create!(
     plant_type: "Cilantro",
     name: "Santo"
   ) }
@@ -246,7 +189,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             }
 
             result = JSON.parse(response.body, symbolize_names: true)
-
+            binding.pry;
             expect(response).to be_successful
 
             expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
