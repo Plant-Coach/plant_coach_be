@@ -3,10 +3,10 @@
 class Plant < ApplicationRecord
   # Plant records must be unique according to name, but only unique for those that
   # belong to each user, based on user_id.
-  validates :name, presence: true, uniqueness: { scope: :user_id }, null: false
-  validates :plant_type, presence: true, null: false
-  validates :days_to_maturity, presence: true, null: false
-  validates :hybrid_status, presence: true, null: false
+  validates :name, presence: true, uniqueness: { scope: :user_id } #, null: false
+  validates :plant_type, presence: true #, null: false
+  validates :days_to_maturity, presence: true #, null: false
+  validates :hybrid_status, presence: true #, null: false
   validates :days_relative_to_frost_date, presence: true
   validates :organic, inclusion: { in: [true, false] }
 
