@@ -27,7 +27,7 @@ class GardenPlant < ApplicationRecord
   enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
-  before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
+  after_initialize :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
 
   # A GardenPlant requires fields that must be filled in and calculated by
   # the data in the guides.  This triggers the process after #create is called.
@@ -47,13 +47,13 @@ class GardenPlant < ApplicationRecord
   def generate_key_plant_dates
     user = self.plant.user
 
-    default_seed_data = SeedGuide.find_by(plant_type: plant.plant_type).seedling_days_to_transplant
+    default_seed_data = user.plant_guides.find_by(plant_type: plant.plant_type).seedling_days_to_transplant
     self.recommended_transplant_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date
     self.recommended_seed_sewing_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date - default_seed_data
     self.seedling_days_to_transplant = default_seed_data
     self.harvest_start = self.recommended_transplant_date + plant.days_to_maturity
 
-    harvest_period = HarvestGuide.find_by(plant_type: plant.plant_type).harvest_period
+    harvest_period = user.plant_guides.find_by(plant_type: plant.plant_type).harvest_period
     self.harvest_period = harvest_period
 
     case harvest_period
@@ -73,7 +73,7 @@ class GardenPlant < ApplicationRecord
   end
 
   def add_seed_recommendation
-    default_seed_data = SeedGuide.find_by(plant_type: plant.plant_type)
+    default_seed_data = self.plant.user.plant_guides.find_by(plant_type: plant.plant_type)
     self.direct_seed_recommended = default_seed_data.direct_seed_recommended
   end
 

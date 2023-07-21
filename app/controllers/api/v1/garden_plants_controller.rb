@@ -6,12 +6,12 @@ class Api::V1::GardenPlantsController < ApplicationController
   end
 
   def create
-    plant_result = Plant.find_by_id(params[:plant_id])
-    if plant_result.nil?
+    plant = @user.plants.find_by(id: params[:plant_id])
+    if plant.nil?
       render json: GardenPlantSerializer.error(
         "There was a problem finding a plant to copy!"), status: :bad_request
       else
-        new_garden_plant = plant_result.garden_plants.create(garden_plant_params)
+        new_garden_plant = plant.garden_plants.create(garden_plant_params)
       render json: GardenPlantSerializer.new(new_garden_plant)
     end
   end
