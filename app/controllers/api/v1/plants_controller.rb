@@ -15,7 +15,7 @@ class Api::V1::PlantsController < ApplicationController
   end
 
   def update
-    plant = Plant.find(params[:id])
+    plant = @user.plants.find_by(id: params[:id])
     updated_plant = plant.update(plant_params)
     render json: PlantSerializer.new(plant), status: :ok
   end
@@ -37,7 +37,8 @@ class Api::V1::PlantsController < ApplicationController
       :name,
       :days_relative_to_frost_date,
       :days_to_maturity,
-      :hybrid_status
+      :hybrid_status,
+      :harvest_period
     )
   end
 end
