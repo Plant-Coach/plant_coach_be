@@ -12,40 +12,68 @@ SeedGuide.destroy_all
 TransplantGuide.destroy_all
 HarvestGuide.destroy_all
 
-tomato_seed = SeedGuide.create(
+tomato = PlantGuide.create(
   plant_type: "Tomato",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false
+  direct_seed_recommended: false,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-pepper_seed = SeedGuide.create(
+pepper = PlantGuide.create(
   plant_type: "Pepper",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false
+  direct_seed_recommended: false,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-eggplant_seed = SeedGuide.create(
+eggplant = PlantGuide.create(
   plant_type: "Eggplant",
   seedling_days_to_transplant: 49,
-  direct_seed_recommended: false
+  direct_seed_recommended: false,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-romaine_seed = SeedGuide.create(
+romaine = PlantGuide.create(
   plant_type: "Romaine Lettuce",
   seedling_days_to_transplant: 14,
-  direct_seed_recommended: true
+  direct_seed_recommended: true,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-green_bean_seed = SeedGuide.create(
+green_bean = PlantGuide.create(
   plant_type: "Green Bean",
   seedling_days_to_transplant: 0,
-  direct_seed_recommended: true
+  direct_seed_recommended: true,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-radish_seed = SeedGuide.create(
+radish = PlantGuide.create(
   plant_type: "Radish",
   seedling_days_to_transplant: 0,
-  direct_seed_recommended: true
+  direct_seed_recommended: true,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
-romaine_seed = SeedGuide.create(
+romaine = PlantGuide.create(
   plant_type: "Romaine Lettuce",
   seedling_days_to_transplant: 0,
-  direct_seed_recommended: true
+  direct_seed_recommended: true,
+  seedling_days_to_transplant:,
+  days_to_maturity:,
+  days_relative_to_frost_date:,
+  harvest_period:
 )
 
 tomato_transplant = TransplantGuide.create(

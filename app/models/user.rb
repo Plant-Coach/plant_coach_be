@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates_associated :plants
 
   has_many :plants
+  has_many :plant_guides
   has_many :garden_plants, through: :plants
 
   before_create :establish_frost_dates
