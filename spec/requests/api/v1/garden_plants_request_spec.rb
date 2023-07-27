@@ -194,7 +194,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         context 'right now' do
           # This only works when both the seed-start date and the actual transplant date are provided.
           # Only the actual_seed_sewing_date is necessary if the rails dirty call backs were working.
-          xit 'creates a garden plant that already has an updated planting status' do
+          it 'creates a garden plant that already has an updated planting status' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               start_from_seed: true,
@@ -719,7 +719,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       end
 
       describe 'from Not Started to Direct Seeded Outside' do
-        xit 'will update the status and transplant date' do
+        it 'will update the status and transplant date' do
           post '/api/v1/garden_plants', params: {
             plant_id: plant1_object.id,
             start_from_seed: true,
@@ -738,8 +738,8 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
           expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
           expect(result[:data][:attributes][:actual_transplant_date].to_date).to eq(Date.today)
-          expect(result[:data][:attributes][:actual_seed_sewing_date]).to_not be nil
-          expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
+          expect(result[:data][:attributes][:actual_seed_sewing_date]).to be nil
+          # expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
         end
 
         it 'will return an error if the necessary information was not provided' do

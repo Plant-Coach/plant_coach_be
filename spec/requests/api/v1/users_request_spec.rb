@@ -122,7 +122,7 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:error]).to eq("User not found!!")
     end
 
-    xit 'will update the frost dates to the users new zip code' do
+    it 'will update the frost dates to the users new zip code' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful

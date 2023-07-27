@@ -1,5 +1,7 @@
 # GardenPlants are objects that the user has decided to plant.
 class GardenPlant < ApplicationRecord
+  include ActiveModel::Dirty
+
   validates_presence_of :recommended_transplant_date,
                         :recommended_seed_sewing_date,
                         :seedling_days_to_transplant,
@@ -16,7 +18,7 @@ class GardenPlant < ApplicationRecord
     message: "You must specify a seed-sewing date!" }, unless: -> {
       ["started_indoors"].exclude?(planting_status)
     }
-  
+    
 
   belongs_to :plant
 
@@ -27,7 +29,7 @@ class GardenPlant < ApplicationRecord
   enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
-  after_initialize :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
+  # before_save :update_direct_seed_dates, if: :status_changed_from_not_started_to_direct_sewn
 
   # A GardenPlant requires fields that must be filled in and calculated by
   # the data in the guides.  This triggers the process after #create is called.
@@ -102,9 +104,9 @@ class GardenPlant < ApplicationRecord
     self.recommended_seed_sewing_date = self.recommended_transplant_date
   end
 
-  def update_direct_seed_dates
-    self.actual_seed_sewing_date = self.actual_transplant_date
-  end
+  # def update_direct_seed_dates
+  #   self.actual_seed_sewing_date = self.actual_transplant_date
+  # end
   
 private
   def immediate_transplant
@@ -131,7 +133,7 @@ private
     self.seed_sew_type == "direct" && actual_seed_sewing_date.nil?
   end
 
-  def status_changed_from_not_started_to_direct_sewn
-    planting_status_changed?(from: "not_started", to: "direct_sewn_outside")
-  end
+  # def status_changed_from_not_started_to_direct_sewn
+  #   planting_status_changed?(from: "not_started", to: "direct_sewn_outside")
+  # end
 end
