@@ -582,7 +582,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: "started_indoors",
@@ -603,7 +603,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: :not_started
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: :started_indoors
@@ -623,7 +623,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: :started_indoors
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: :transplanted_outside,
@@ -644,7 +644,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: :transplanted_outside
@@ -664,7 +664,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: "transplanted_outside"
@@ -682,7 +682,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: "transplanted_outside", 
@@ -704,7 +704,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: "direct_sewn_outside", 
@@ -726,7 +726,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             planting_status: "not_started"
           }
 
-          new_garden_plant = GardenPlant.last
+          new_garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
           patch "/api/v1/garden_plants/#{new_garden_plant.id}", params: {
             planting_status: "direct_sewn_outside"
@@ -747,7 +747,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       }
 
       result = JSON.parse(response.body, symbolize_names: true)
-      garden_plant = GardenPlant.last
+      garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
       expect(response).to be_successful
 
@@ -786,7 +786,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         }
 
       result = JSON.parse(response.body, symbolize_names: true)
-      garden_plant = GardenPlant.last
+      garden_plant = @user.plants.find_by_id(plant1_object.id).garden_plants.first
 
       expect(response).to be_successful
 
