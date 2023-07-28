@@ -417,7 +417,7 @@ Move Plant backwards/accidental status update
 - `Name: <string>`
 - `Chose to start from seed?: <boolean>`
 - `Direct Seed Recommended: <boolean>`
-- `seed_sew_type: <boolean>`Days to Maturity: <integer>`
+- `plant_start_method: <boolean>`Days to Maturity: <integer>`
 - `Hybrid Status: <integer>`
 - `Days to transplant before/after frost date: <integer>`
 - `Organic: <boolean>`
