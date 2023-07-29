@@ -7,7 +7,6 @@ class GardenPlant < ApplicationRecord
                         :plant_start_method
 
   validates :direct_seed_recommended, inclusion: [true, false]
-  # validates :start_from_seed, inclusion: [true, false]
   validates :actual_transplant_date, presence: {
     message: "You must specify a transplant date!" }, unless: -> { 
       ["transplanted_outside"].exclude?(planting_status)
@@ -24,7 +23,6 @@ class GardenPlant < ApplicationRecord
     message: "A recommended seed-sewing date is required for indirect and direct sewing!" }, unless: -> {
       ["indirect_sew, direct_sew"].exclude?(plant_start_method)
   }
-    
 
   belongs_to :plant
 
