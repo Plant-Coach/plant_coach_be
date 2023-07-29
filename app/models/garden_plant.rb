@@ -2,9 +2,7 @@
 class GardenPlant < ApplicationRecord
   # include ActiveModel::Dirty
 
-  validates_presence_of :recommended_transplant_date,
-                        :recommended_seed_sewing_date,
-                        :seedling_days_to_transplant,
+  validates_presence_of :seedling_days_to_transplant,
                         :planting_status,
                         :plant_start_method
 
@@ -18,6 +16,14 @@ class GardenPlant < ApplicationRecord
     message: "You must specify a seed-sewing date!" }, unless: -> {
       ["started_indoors", "direct_sewn_outside"].exclude?(planting_status)
     }
+  validates :recommended_transplant_date, presence: {
+    message: "A recommended transplant date is not being generated but should be since plant_start_method is not direct_sew!" }, unless: -> {
+      ["indirect_sew", "direct_transplant"].exclude?(plant_start_method)
+  }
+  validates :recommended_seed_sewing_date, presence: {
+    message: "A recommended seed-sewing date is required for indirect and direct sewing!" }, unless: -> {
+      ["indirect_sew, direct_sew"].exclude?(plant_start_method)
+  }
     
 
   belongs_to :plant
