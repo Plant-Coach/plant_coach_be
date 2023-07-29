@@ -161,9 +161,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "started_indoors"
         }
 
@@ -175,8 +174,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           days_to_maturity: 65,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -189,8 +187,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           days_to_maturity: 70,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -204,7 +201,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
 
@@ -218,9 +214,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "started_indoors"
         }
 
@@ -232,8 +227,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           days_to_maturity: 65,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -246,8 +240,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
           days_to_maturity: 70,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: Date.yesterday,
           planting_status: "started_indoors"
           }
@@ -260,8 +253,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 30,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
         }
@@ -275,13 +267,11 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:plant_type]).to_not eq("Romaine Lettuce")
         expect(plant[:attributes][:direct_seed_recommended]).to_not be true
         expect(plant[:attributes][:planting_status]).to_not eq("not started")
-        expect(plant[:attributes][:start_from_seed]).to_not be false
 
 
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
 
@@ -295,9 +285,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "started_indoors"
       }
 
@@ -309,8 +298,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 65,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -324,8 +312,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 70,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: nil,
         planting_status: "not_started"
       }
@@ -338,8 +325,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 30,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :direct,
+        plant_start_method: :direct_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
       }
@@ -355,7 +341,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
 
@@ -369,9 +354,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "started_indoors"
       }
 
@@ -383,8 +367,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 65,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -397,8 +380,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 70,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -421,7 +403,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
 
@@ -435,9 +416,8 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: Date.yesterday,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "started_indoors"
       }
 
@@ -449,8 +429,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 65,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
       }
@@ -463,8 +442,7 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         days_to_maturity: 30,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :direct,
+        plant_start_method: :direct_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "direct_sewn_outside"
       }
@@ -483,7 +461,6 @@ RSpec.describe 'StartedIndoorSeeds API Endpoints', :vcr do
         expect(plant[:attributes][:actual_transplant_date]).to be nil
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "started_indoors"
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
   end

@@ -155,9 +155,8 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         days_to_maturity: 54,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
         actual_seed_sewing_date: nil,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         planting_status: "not_started"
         }
 
@@ -169,8 +168,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           days_to_maturity: 65,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
           }
@@ -183,8 +181,7 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           days_to_maturity: 70,
           hybrid_status: :open_pollinated,
           organic: false,
-          start_from_seed: true,
-          seed_sew_type: :indirect,
+          plant_start_method: :indirect_sew,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
           }
@@ -199,7 +196,6 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         expect(plant[:attributes][:direct_seed_recommended]).to eq(false)
         expect(plant[:attributes][:planting_status]).to eq "not_started"
         expect(plant[:attributes][:actual_seed_actual_seed_sewing_date]).to be nil
-        expect(plant[:attributes][:start_from_seed]).to be true
       end
     end
   end

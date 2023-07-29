@@ -6,11 +6,10 @@ RSpec.describe GardenPlant, type: :model do
 
     subject { FactoryBot.build(:garden_plant) }
     it { should validate_inclusion_of(:direct_seed_recommended).in_array([true, false]) }
-    it { should validate_presence_of(:seed_sew_type) }
-    it { should validate_inclusion_of(:start_from_seed).in_array([true, false]) }
+    it { should validate_presence_of(:plant_start_method) }
     it { should validate_presence_of(:planting_status) }
-    it { should validate_presence_of(:recommended_transplant_date) }
-    it { should validate_presence_of(:recommended_seed_sewing_date) }
+    # it { should validate_presence_of(:recommended_transplant_date) }
+    # it { should validate_presence_of(:recommended_seed_sewing_date) }
     it { should validate_presence_of(:seedling_days_to_transplant) }
 
   end

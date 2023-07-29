@@ -153,8 +153,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         days_to_maturity: 60,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         }
@@ -167,8 +166,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         days_to_maturity: 65,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         }
@@ -181,8 +179,7 @@ RSpec.describe 'Plants In The Garden API Endpoint', :vcr do
         days_to_maturity: 70,
         hybrid_status: :open_pollinated,
         organic: false,
-        start_from_seed: true,
-        seed_sew_type: :indirect,
+        plant_start_method: :indirect_sew,
         actual_seed_sewing_date: Date.yesterday,
         planting_status: "started_indoors"
         }

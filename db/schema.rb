@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_21_052941) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_28_151453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "garden_plants", force: :cascade do |t|
-    t.integer "seed_sew_type", default: 0, null: false
+    t.integer "plant_start_method", default: 0, null: false
     t.boolean "direct_seed_recommended", null: false
     t.date "actual_transplant_date"
     t.integer "seedling_days_to_transplant"
     t.date "actual_seed_sewing_date"
     t.date "recommended_seed_sewing_date"
-    t.boolean "start_from_seed", default: false, null: false
     t.integer "planting_status", default: 0, null: false
     t.date "recommended_transplant_date"
     t.datetime "created_at", precision: nil, null: false

@@ -44,9 +44,7 @@ def garden_plant_params
   params.permit(
     :actual_seed_sewing_date,
     :actual_transplant_date,
-    :seed_sew_type, # Used for create.
-    :planting_status, # Used for create.
-    # :plant_id, # Used for create.
-    :start_from_seed # Used for create.
+    :plant_start_method, # Used for create.
+    :planting_status
   )
 end
