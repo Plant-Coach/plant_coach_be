@@ -11,11 +11,11 @@ class GardenPlant < ApplicationRecord
   validates :actual_transplant_date, presence: {
     message: "You must specify a transplant date!" }, unless: -> { 
       ["transplanted_outside"].exclude?(planting_status)
-    }
+  }
   validates :actual_seed_sewing_date, presence: {
     message: "You must specify a seed-sewing date!" }, unless: -> {
       ["started_indoors", "direct_sewn_outside"].exclude?(planting_status)
-    }
+  }
   validates :recommended_transplant_date, presence: {
     message: "A recommended transplant date is not being generated but should be since plant_start_method is not direct_sew!" }, unless: -> {
       ["indirect_sew", "direct_transplant"].exclude?(plant_start_method)
@@ -44,17 +44,20 @@ class GardenPlant < ApplicationRecord
   after_initialize :set_direct_future_sew_seed, if: :direct_future_sew
 
   def update_planting_dates
-    self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant
+    self.recommended_transplant_date = actual_seed_sewing_date + seedling_days_to_transplant if self.plant_start_method != "direct_sew"
   end
 
   def generate_key_plant_dates
     user = self.plant.user
 
     default_seed_data = user.plant_guides.find_by(plant_type: plant.plant_type).seedling_days_to_transplant
-    self.recommended_transplant_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date
+    if self.plant_start_method == "indirect_sew" || self.plant_start_method == "direct_transplant"
+      self.recommended_transplant_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date
+    end
     self.recommended_seed_sewing_date = user.spring_frost_date.to_date + plant.days_relative_to_frost_date - default_seed_data
+
     self.seedling_days_to_transplant = default_seed_data
-    self.harvest_start = self.recommended_transplant_date + plant.days_to_maturity
+    self.harvest_start = user.spring_frost_date.to_date + plant.days_relative_to_frost_date + plant.days_to_maturity
 
     harvest_period = user.plant_guides.find_by(plant_type: plant.plant_type).harvest_period
     self.harvest_period = harvest_period
@@ -85,7 +88,7 @@ class GardenPlant < ApplicationRecord
   end
 
   def set_direct_future_sew_seed
-    self.recommended_seed_sewing_date = self.recommended_transplant_date
+    self.recommended_seed_sewing_date = self.plant.user.spring_frost_date.to_date + plant.days_relative_to_frost_date
   end
   
 private

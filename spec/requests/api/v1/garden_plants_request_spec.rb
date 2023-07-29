@@ -194,7 +194,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
         context 'right now' do
           # This only works when both the seed-start date and the actual transplant date are provided.
           # Only the actual_seed_sewing_date is necessary if the rails dirty call backs were working.
-          it 'creates a garden plant that already has an updated planting status' do
+          it 'creates a garden plant that has an updated planting status' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               plant_start_method: :direct_sew,
@@ -207,9 +207,11 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(response).to be_successful
 
             expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
+            expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
+            expect(result[:data][:attributes][:recommended_transplant_date]).to be nil
           end
 
-          it 'provides an expected date range that the plant will be in a period of harvest' do
+          it 'provides an expected date range that the plant will have for a period of harvest' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant1_object.id,
               plant_start_method: :direct_sew,
@@ -221,7 +223,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
             expect(response).to be_successful
 
-            transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
+            transplant_date = @user.spring_frost_date.to_date + plant1_object.days_relative_to_frost_date
             days_to_maturity = plant1_object.days_to_maturity
 
             harvest_start = transplant_date + days_to_maturity
@@ -243,7 +245,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
 
             expect(response).to be_successful
 
-            transplant_date = result[:data][:attributes][:recommended_transplant_date].to_date
+            transplant_date = @user.spring_frost_date.to_date + plant3_object.days_relative_to_frost_date
             days_to_maturity = plant3_object.days_to_maturity
 
             harvest_start = transplant_date + days_to_maturity
@@ -266,8 +268,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(response).to be_successful
 
             expect(result[:data][:attributes][:planting_status]).to eq("not_started")
-            expect(result[:data][:attributes][:recommended_transplant_date]).to_not be nil
-            expect(result[:data][:attributes][:recommended_seed_sewing_date]).to eq(result[:data][:attributes][:recommended_transplant_date])
+            expect(result[:data][:attributes][:recommended_seed_sewing_date]).to_not be nil
           end
         end
       end
@@ -360,15 +361,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           it 'establishes the plants harvest period and harvest dates for a four-week long harvested plant such as sprouting broccoli' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant4_object.id,
-              plant_start_method: :direct_sew
+              plant_start_method: :indirect_sew
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
 
               expect(result[:data][:attributes][:planting_status]).to eq("not_started")
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-              expect(result[:data][:attributes][:plant_start_method]).to eq("direct_sew")
-              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:plant_start_method]).to eq("indirect_sew")
 
               expect(result[:data][:attributes]).to have_key(:harvest_period)
               expect(result[:data][:attributes]).to have_key(:harvest_start)
@@ -386,15 +386,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           it 'establishes the plants harvest period and harvest dates for a three-week long harvested plant such as a cucumber' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant3_object.id,
-              plant_start_method: :direct_sew
+              plant_start_method: :indirect_sew
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
 
               expect(result[:data][:attributes][:planting_status]).to eq("not_started")
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-              expect(result[:data][:attributes][:plant_start_method]).to eq("direct_sew")
-              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:plant_start_method]).to eq("indirect_sew")
 
               expect(result[:data][:attributes]).to have_key(:harvest_period)
               expect(result[:data][:attributes]).to have_key(:harvest_start)
@@ -412,15 +411,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           it 'establishes the plants harvest period and harvest dates for a two-week long harvested plant such as cilantro' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant8_object.id,
-              plant_start_method: :direct_sew
+              plant_start_method: :indirect_sew
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
 
               expect(result[:data][:attributes][:planting_status]).to eq("not_started")
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-              expect(result[:data][:attributes][:plant_start_method]).to eq("direct_sew")
-              expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
+              expect(result[:data][:attributes][:plant_start_method]).to eq("indirect_sew")
 
               expect(result[:data][:attributes]).to have_key(:harvest_period)
               expect(result[:data][:attributes]).to have_key(:harvest_start)
@@ -438,14 +436,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           it 'establishes the plants harvest period and harvest dates for a 1-week long harvested plant such as carrots' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant6_object.id,
-              plant_start_method: :direct_sew
+              plant_start_method: :indirect_sew
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
 
               expect(result[:data][:attributes][:planting_status]).to eq("not_started")
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-              expect(result[:data][:attributes][:plant_start_method]).to eq("direct_sew")
+              expect(result[:data][:attributes][:plant_start_method]).to eq("indirect_sew")
               expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
 
               expect(result[:data][:attributes]).to have_key(:harvest_period)
@@ -464,14 +462,14 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           it 'establishes the plants harvest period and harvest dates for a one-time harvested plant such as a head of lettuce' do
             post '/api/v1/garden_plants', params: {
               plant_id: plant7_object.id,
-              plant_start_method: :direct_sew
+              plant_start_method: :indirect_sew
               }
 
               result = JSON.parse(response.body, symbolize_names: true)
 
               expect(result[:data][:attributes][:planting_status]).to eq("not_started")
               expect(result[:data][:attributes][:recommended_seed_sewing_date].to_date).to be_a Date
-              expect(result[:data][:attributes][:plant_start_method]).to eq("direct_sew")
+              expect(result[:data][:attributes][:plant_start_method]).to eq("indirect_sew")
               expect(result[:data][:attributes][:recommended_transplant_date].to_date).to be_a Date
 
               expect(result[:data][:attributes]).to have_key(:harvest_period)
