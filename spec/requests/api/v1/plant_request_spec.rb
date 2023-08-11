@@ -463,6 +463,33 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(result).to have_key(:error)
       expect(result[:error]).to eq("The plant could not be saved!")
     end
+
+    context 'creating two plants with the same name' do
+      context 'with the same user' do
+        context 'with different plant types'
+          it 'is successful' do
+            # To do
+          end
+
+        context 'with the same plant types' do
+          it 'is unsuccessful' do
+            # To do
+          end
+
+          it 'returns an informative response' do
+            # To do
+          end
+        end
+      end
+
+      context 'with different users' do
+        context 'with the same plant types' do
+          it 'is successful' do
+            # To do
+          end
+        end
+      end
+    end
   end
 
   describe 'PATCH /plants' do
