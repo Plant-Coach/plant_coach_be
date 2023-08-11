@@ -7,12 +7,19 @@ class PlantSerializer
               :days_to_maturity,
               :hybrid_status,
               :organic,
-              :harvest_period
+              :harvest_period,
+              :user_id
 
-
-  def self.error(message)
+  def self.error(errors)
     {
-      "error": message
+    "error": errors.each do |error_message|
+    end
+    }
+  end
+
+  def self.delete_error(error_message)
+    {
+      "error": error_message
     }
   end
 end

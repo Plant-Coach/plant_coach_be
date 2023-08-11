@@ -10,7 +10,7 @@ class Api::V1::PlantsController < ApplicationController
     if plant.save
       render json: PlantSerializer.new(plant), status: :created
     else
-      render json: PlantSerializer.error("The plant could not be saved!"), status: :forbidden
+      render json: PlantSerializer.error(plant.errors.full_messages), status: :forbidden
     end
   end
 
@@ -26,7 +26,7 @@ class Api::V1::PlantsController < ApplicationController
       deleted_plant = plant.destroy
       render json: PlantSerializer.new(deleted_plant), status: :ok
     else
-      render json: PlantSerializer.error("Something happened!"), status: :bad_request
+      render json: PlantSerializer.delete_error("Something happened!"), status: :bad_request
     end
   end
 

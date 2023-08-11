@@ -14,6 +14,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
   user_response = JSON.parse(response.body, symbolize_names: true)
   @user = User.find_by_id(user_response[:user][:data][:id])
 
+
     test_plant_guide = @user.plant_guides.create(
       plant_type: "Something else",
       seedling_days_to_transplant: 0,
@@ -477,7 +478,10 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result).to have_key(:error)
-      expect(result[:error]).to eq("The plant could not be saved!")
+
+      expect(result[:error]).to include("'Plant Type' can not be blank!")
+      expect(result[:error]).to include("'Days to Maturity' can not be blank!")
+      expect(result[:error]).to include("'Days to Maturity' can not be blank!")
     end
 
     context 'creating two plants with the same name' do
@@ -528,11 +532,45 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
         context 'with the same plant types' do
           it 'is unsuccessful' do
-            # To do
+            nova_tomato_params = {
+              plant_type: "Tomato",
+              name: "Nova",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 48,
+              hybrid_status: :f1
+            }
+
+            post '/api/v1/plants', params: nova_tomato_params
+            tomato_result = JSON.parse(response.body, symbolize_names: true)
+
+            # Try to create the same plant a second time
+            post '/api/v1/plants', params: nova_tomato_params
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_forbidden
           end
 
           it 'returns an informative response' do
-            # To do
+            nova_tomato_params = {
+              plant_type: "Tomato",
+              name: "Nova",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 48,
+              hybrid_status: :f1
+            }
+
+            post '/api/v1/plants', params: nova_tomato_params
+            tomato_result = JSON.parse(response.body, symbolize_names: true)
+
+            # Try to create the same plant a second time
+            post '/api/v1/plants', params: nova_tomato_params
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_forbidden
+
+            expect(result[:error][0]).to eq("A #{nova_tomato_params[:plant_type]} plant named #{nova_tomato_params[:name]} already exists for #{@user.name}!")
           end
         end
       end
@@ -540,7 +578,81 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       context 'with different users' do
         context 'with the same plant types' do
           it 'is successful' do
-            # To do
+            nova_tomato_params = {
+              plant_type: "Tomato",
+              name: "Nova",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 48,
+              hybrid_status: :f1
+            }
+
+            post '/api/v1/plants', params: nova_tomato_params
+
+            expect(response).to be_successful
+
+            result = JSON.parse(response.body, symbolize_names: true)
+            
+            # Introduce a 2nd user and same plant.
+            user2_params = {
+              name: 'Joel Grant2',
+              email: 'joel2@plantcoach.com',
+              zip_code: '80121',
+              password: '12345',
+              password_confirmation: '12345'
+            }
+            post '/api/v1/users', params: user2_params
+
+            user2_response = JSON.parse(response.body, symbolize_names: true)
+            user2 = User.find_by_id(user_response[:user][:data][:id])
+
+            user2.plant_guides.create!(
+              plant_type: "Tomato",
+              seedling_days_to_transplant: 49,
+              direct_seed_recommended: false,
+              days_to_maturity: 55,
+              days_relative_to_frost_date: 14,
+              harvest_period: "season_long"
+            )
+            
+            post '/api/v1/plants', params: nova_tomato_params
+
+            result2 = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_successful
+
+            expect(result2[:data][:attributes][:user_id]).to eq(user2.id)
+            expect(result2[:data][:attributes][:id]).to_not be nil
+
+            # Introduce a 3rd user and same plant.
+            user3_params = {
+              name: 'Joel Grant3',
+              email: 'joel3@plantcoach.com',
+              zip_code: '80121',
+              password: '12345',
+              password_confirmation: '12345'
+            }
+            post '/api/v1/users', params: user3_params
+
+            user3_response = JSON.parse(response.body, symbolize_names: true)
+            user3 = User.find_by_id(user3_response[:user][:data][:id])
+
+            user3.plant_guides.create!(
+              plant_type: "Tomato",
+              seedling_days_to_transplant: 49,
+              direct_seed_recommended: false,
+              days_to_maturity: 55,
+              days_relative_to_frost_date: 14,
+              harvest_period: "season_long"
+            )
+
+            post '/api/v1/plants', params: nova_tomato_params
+
+            expect(response).to be_successful
+            
+            result3 = JSON.parse(response.body, symbolize_names: true)
+
+            expect(result3[:data][:attributes][:user_id]).to eq(user3.id)
+            expect(result3[:data][:attributes][:id]).to_not be nil
           end
         end
       end
