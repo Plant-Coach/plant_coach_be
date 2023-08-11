@@ -64,7 +64,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sat, 29 Jul 2023 00:27:57 GMT
+      - Wed, 02 Aug 2023 03:14:11 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -74,9 +74,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 01b44829-545c-47d4-bfe1-a221bc6a96c4
+      - 77e8b8d2-eac1-42a1-abf9-70048b69c6c2
       X-Runtime:
-      - '0.389515'
+      - '0.562775'
       Transfer-Encoding:
       - chunked
       Via:
@@ -85,7 +85,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sat, 29 Jul 2023 00:27:58 GMT
+  recorded_at: Wed, 02 Aug 2023 03:14:12 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
@@ -107,7 +107,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sat, 29 Jul 2023 00:37:58 GMT
+      - Wed, 02 Aug 2023 03:15:07 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -117,9 +117,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - ba716524-88e9-4248-8c86-45620c527b18
+      - f1b903b6-7d60-40c4-9713-1f18ac179a68
       X-Runtime:
-      - '0.515680'
+      - '0.415621'
       Transfer-Encoding:
       - chunked
       Via:
@@ -128,7 +128,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sat, 29 Jul 2023 00:37:58 GMT
+  recorded_at: Wed, 02 Aug 2023 03:15:08 GMT
 - request:
     method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=99501
@@ -150,7 +150,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sat, 29 Jul 2023 00:37:58 GMT
+      - Wed, 02 Aug 2023 03:15:09 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -160,9 +160,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - a601daa1-387a-40f4-8d11-e4401a5c0ed3
+      - 10a4076f-2aaa-4f6a-8596-d6d17ecd8611
       X-Runtime:
-      - '0.492225'
+      - '0.544896'
       Transfer-Encoding:
       - chunked
       Via:
@@ -170,5 +170,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"99501","location_name":"Anchorage","lat":61.2116,"lon":-149.8761,"spring_frost":"0510","fall_frost":"0921"}}}'
-  recorded_at: Sat, 29 Jul 2023 00:37:59 GMT
+  recorded_at: Wed, 02 Aug 2023 03:15:09 GMT
 recorded_with: VCR 6.2.0
