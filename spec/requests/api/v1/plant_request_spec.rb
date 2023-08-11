@@ -104,6 +104,14 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       days_relative_to_frost_date: 0,
       harvest_period: "two_week"
     )
+    raspberry_guide = @user.plant_guides.create(
+      plant_type: "Raspberry",
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: false,
+      days_to_maturity: 100,
+      days_relative_to_frost_date: 0,
+      harvest_period: "season_long"
+    )
   end
 
   let(:body) {{
@@ -149,6 +157,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     days_to_maturity: 45,
     hybrid_status: :f1
   } }
+  
 
   let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
   let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
@@ -176,6 +185,13 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     days_to_maturity: 21,
     hybrid_status: :f1
   ) }
+  # let(:plant4_object) { last_user.plants.create!(
+  #   plant_type: "Tomato",
+  #   name: "Nova",
+  #   days_relative_to_frost_date: 14,
+  #   days_to_maturity: 48,
+  #   hybrid_status: :f1
+  # ) }
 
   describe 'GET /plants' do
     it 'retrieves all the plants that have been added to the application by that user' do
@@ -468,7 +484,46 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       context 'with the same user' do
         context 'with different plant types'
           it 'is successful' do
-            # To do
+            nova_tomato_params = {
+              plant_type: "Tomato",
+              name: "Nova",
+              days_relative_to_frost_date: 14,
+              days_to_maturity: 48,
+              hybrid_status: :f1
+            }
+
+            post '/api/v1/plants', params: nova_tomato_params
+            tomato_result = JSON.parse(response.body, symbolize_names: true)
+
+            nova_raspberry_params = {
+              plant_type: "Raspberry",
+              name: "Nova",
+              days_relative_to_frost_date: 0,
+              days_to_maturity: 100,
+              hybrid_status: :f1
+            }
+
+            post '/api/v1/plants', params: nova_raspberry_params
+
+            result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(response).to be_successful
+
+            expect(result[:data][:id]).to_not be nil
+            expect(result[:data][:attributes][:name]).to eq(nova_raspberry_params[:name])
+            expect(result[:data][:attributes][:plant_type]).to eq(nova_raspberry_params[:plant_type])
+            
+            get '/api/v1/plants'
+            
+            users_plants_result = JSON.parse(response.body, symbolize_names: true)
+
+            expect(users_plants_result[:data][0][:attributes][:id]).to be_an Integer
+            expect(users_plants_result[:data][0][:attributes][:name]).to eq("Nova")
+            expect(users_plants_result[:data][0][:attributes][:plant_type]).to eq("Tomato")
+
+            expect(users_plants_result[:data][1][:attributes][:id]).to be_an Integer
+            expect(users_plants_result[:data][1][:attributes][:name]).to eq("Nova")
+            expect(users_plants_result[:data][1][:attributes][:plant_type]).to eq("Raspberry")
           end
 
         context 'with the same plant types' do
