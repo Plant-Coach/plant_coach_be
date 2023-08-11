@@ -3,7 +3,11 @@
 class Plant < ApplicationRecord
   # Plant records must be unique according to name, but only unique for those that
   # belong to each user, based on user_id.
-  validates :name, presence: true, uniqueness: { scope: :user_id } #, null: false
+
+  # Plant names should be unique, per plant type, per user.
+  # ie... A user can only have two plants with the same name, if the plant types are different.
+  # ie... If a plant of the same plant type does not already have the same name, a new one can be created.
+  validates :name, presence: true, uniqueness: { scope: :plant_type } #, null: false
   validates :plant_type, presence: true #, null: false
   validates :days_to_maturity, presence: true #, null: false
   validates :hybrid_status, presence: true #, null: false
