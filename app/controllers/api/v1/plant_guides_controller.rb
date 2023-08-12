@@ -5,19 +5,29 @@ class Api::V1::PlantGuidesController < ApplicationController
 
   def create
     new_plant_guide = @user.plant_guides.create(plant_guide_params)
-    if new_plant_guide
+    if new_plant_guide.valid?
       render json: PlantGuideSerializer.new(new_plant_guide), status: :created
+    else
+      render json: PlantGuideSerializer.errors(new_plant_guide.errors.full_messages), staus: :bad_request
     end
   end
 
   def update
-    plant_guide = @user.plant_guides.find_by_id(params[:id])
-    if plant_guide
-      plant_guide.update(plant_guide_params)
-      render json: PlantGuideSerializer.new(plant_guide), status: :ok
+    begin
+      plant_guide = @user.plant_guides.find_by_id(params[:id])
+      plant_guide.update!(plant_guide_params)
+    rescue ActiveRecord::RecordInvalid
+      render json: PlantGuideSerializer.errors(plant_guide.errors.full_messages), status: :bad_request
     else
-      render status: :bad_request
+      render json: PlantGuideSerializer.new(plant_guide), status: :ok
     end
+
+    # if plant_guide.valid?
+    #   plant_guide.update(plant_guide_params)
+    #   render json: PlantGuideSerializer.new(plant_guide), status: :ok
+    # else
+    #   render status: :bad_request
+    # end
   end
 
   def destroy

@@ -145,6 +145,129 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
 
       expect(result[:data][:attributes][:plant_type]).to eq("Watermelon")
     end
+
+    it 'returns an informative error if the Plant Type is missing' do
+      plant_params_with_missing_data = {
+        plant_type: "",
+        direct_seed_recommended: false,
+        seedling_days_to_transplant: 60,
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("A Plant Type must be provided.")
+    end
+    
+    # This feature currently has a bug.
+    xit 'returns an informative error if Direct Seed Recommended is missing' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: nil,
+        seedling_days_to_transplant: 60,
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("A direct seed recommendation must be provided.")
+    end
+
+    it 'returns an informative error if Seedling Days to Transplant is missing, only if direct seed recommended = false' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: false,
+
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("A seedling days to transplant must be provided if direct seed recommended is false")
+    end
+
+    it 'will not return an error for Seedling Days to Transplant being empty, if direct seed recommended is set to true' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: true,
+        # seedling_days_to_transplant: 60,
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:data][:attributes][:plant_type]).to eq("Watermelon")
+      expect(result[:data][:attributes]).to have_key(:id)
+      expect(result[:data][:attributes][:id]).to be_an Integer
+    end
+
+    it 'returns an informative error if Days to Maturity is missing' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: false,
+        seedling_days_to_transplant: 60,
+        # days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("Days to Maturity can not be blank.")
+    end
+
+    it 'returns an informative error if Days Relative to Frost Date is missing' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: false,
+        seedling_days_to_transplant: 60,
+        days_to_maturity: 30,
+        # days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("Days Relative to Frost Date must not be blank.")
+    end
+
+    it 'returns an informative error if Harvest Period is not provided' do
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: false,
+        seedling_days_to_transplant: 60,
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14
+        # harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("Harvest Period must not be blank.")
+    end
+
   end
 
   describe 'PATCH /plant_guides' do
@@ -156,6 +279,16 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data][:attributes][:days_to_maturity]).to eq(55)
+    end
+
+    it 'returns an informative error response when any values are missing during an update' do
+      patch "/api/v1/plant_guides/#{@tomato_guide.id}", params: { harvest_period: "" }
+
+      expect(response).to_not be_successful
+
+      result = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(result[:errors]).to include("Harvest Period must not be blank.")
     end
   end
 
