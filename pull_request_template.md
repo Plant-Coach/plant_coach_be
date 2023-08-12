@@ -28,3 +28,5 @@
 
 ### SimpleCov test coverage:
 -
+
+Skipped Tests: **<#>**
