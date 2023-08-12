@@ -554,7 +554,6 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result).to be_a Hash
       expect(result[:data]).to be_an Array
 
-      # This makes sure the 'unused_plant' variable above is intentionally excluded
       expect(result[:data].count).to eq(2)
 
       result[:data].each do |plant|
