@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
-  # This is currently being used similarly to a show action.
+  # This is being used similarly to a show action.
   def index
     if @user
       render json: UserSerializer.new(@user), status: :ok
@@ -14,22 +14,22 @@ class Api::V1::UsersController < ApplicationController
       token = encode_token(user_id: user.id)
       session[:token] = { value: token, http_only: true }
       render json: { user: UserSerializer.new(user) }, status: :created
-    elsif user_already_exists
-      render json: UserSerializer.error("This user already exists!!"), status: :not_acceptable
-    elsif email_formatted_incorrectly(user)
-      render json: UserSerializer.error("#{params[:email]} is not a valid email address!!"), status: :not_acceptable
     elsif passwords_dont_match
       render json: UserSerializer.error("Your passwords must match!"), status: :not_acceptable
+    else
+      render json: UserSerializer.error(user.errors.full_messages.first), status: :not_acceptable
     end
   end
 
   def update
-    user = User.find_by(id: params[:id])
-    if !user.nil?
-      user.update(user_params)
-      render json: UserSerializer.new(user), status: :ok
+    @user.update(user_params)
+    if @user.valid?
+      render json: UserSerializer.new(@user), status: :ok
     else
-      render json: UserSerializer.error("User not found!!"), status: :bad_request
+      valid_user_record = User.find_by_id(@user.id)
+      failed_update_errors = @user.errors.full_messages.first
+      
+      render json: UserSerializer.changes_not_saved(failed_update_errors, valid_user_record), status: :bad_request
     end
   end
 
