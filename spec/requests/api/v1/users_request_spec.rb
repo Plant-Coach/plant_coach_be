@@ -165,7 +165,7 @@ RSpec.describe 'Users API', :vcr do
 
       patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: updated_user_params_with_missing_name
       result = JSON.parse(response.body, symbolize_names: true)
-      binding.pry;
+
       expect(result[:error]).to eq("The user's name must not be blank!")
       expect(result[:user][:name]).to eq("Joel Grant")
     end
