@@ -12,10 +12,10 @@ class Plant < ApplicationRecord
     message: ->(object, data) do
       "A #{object.plant_type} plant named #{object.name} already exists for #{object.user.name}!"
     end
-  } #, null: false
-  validates :plant_type, presence: { message: "'Plant Type' can not be blank!" } #, null: false
-  validates :days_to_maturity, presence: { message: "'Days to Maturity' can not be blank!" } #, null: false
-  validates :hybrid_status, presence: true #, null: false
+  }
+  validates :plant_type, presence: { message: "'Plant Type' can not be blank!" }
+  validates :days_to_maturity, presence: { message: "'Days to Maturity' can not be blank!" }
+  validates :hybrid_status, presence: true
   validates :days_relative_to_frost_date, presence: { message: "'Days Relative to Frost Date' can not be blank!" }
   validates :organic, inclusion: { in: [true, false] }
 
