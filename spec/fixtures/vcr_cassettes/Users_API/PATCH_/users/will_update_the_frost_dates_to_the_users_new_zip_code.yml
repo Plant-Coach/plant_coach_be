@@ -64,49 +64,6 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Fri, 11 Aug 2023 22:53:49 GMT
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      Etag:
-      - W/"43098a6258e79296c49fb455c2cd482f"
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Request-Id:
-      - e4862e79-97b2-4cf0-8f0e-6ccd1a1d49f3
-      X-Runtime:
-      - '0.421332'
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
-    body:
-      encoding: UTF-8
-      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
-        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Fri, 11 Aug 2023 22:53:49 GMT
-- request:
-    method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Faraday v2.7.10
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Cowboy
-      Date:
       - Fri, 11 Aug 2023 23:36:37 GMT
       Connection:
       - keep-alive
@@ -131,6 +88,49 @@ http_interactions:
   recorded_at: Fri, 11 Aug 2023 23:36:37 GMT
 - request:
     method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Sat, 12 Aug 2023 00:04:50 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"43098a6258e79296c49fb455c2cd482f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - babce146-282b-4c04-8454-204a64bf65f8
+      X-Runtime:
+      - '0.500234'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
+        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Sat, 12 Aug 2023 00:04:51 GMT
+- request:
+    method: get
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=99501
     body:
       encoding: US-ASCII
@@ -150,7 +150,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Fri, 11 Aug 2023 23:36:38 GMT
+      - Sat, 12 Aug 2023 00:04:51 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -160,9 +160,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 696b8fc9-009a-4d42-a9a4-cc515fb76428
+      - 597d685b-ec29-4a82-ad43-24750cf91cc0
       X-Runtime:
-      - '0.538414'
+      - '0.481493'
       Transfer-Encoding:
       - chunked
       Via:
@@ -170,5 +170,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"99501","location_name":"Anchorage","lat":61.2116,"lon":-149.8761,"spring_frost":"0510","fall_frost":"0921"}}}'
-  recorded_at: Fri, 11 Aug 2023 23:36:38 GMT
+  recorded_at: Sat, 12 Aug 2023 00:04:52 GMT
 recorded_with: VCR 6.2.0
