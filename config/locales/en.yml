@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  
+  # Adding these two lines allows for the custom validations to show correctly (ie, they remove the attribute name showing up at the front of the message)
+  errors:
+    format: "%{message}"
+  # hello: "Hello world"
