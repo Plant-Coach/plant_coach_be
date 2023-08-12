@@ -19,9 +19,9 @@ user = User.create(
   password_confirmation: '12345'
 )
 user2 = User.create(
-  name: 'Joao Athonille',
-  email: 'joao@athonille.com',
-  zip_code: '80112',
+  name: 'Joel Grant2',
+  email: 'joel2@plantcoach.com',
+  zip_code: '80121',
   password: '12345',
   password_confirmation: '12345'
 )
@@ -85,7 +85,7 @@ basil_guide = user.plant_guides.create(
   harvest_period: "three_week"
 )
 
-user2_tomato_guide = user2.plant_guides.create(
+user2.plant_guides.create(
   plant_type: "Tomato",
   seedling_days_to_transplant: 49,
   direct_seed_recommended: false,
@@ -93,13 +93,53 @@ user2_tomato_guide = user2.plant_guides.create(
   days_relative_to_frost_date: 14,
   harvest_period: "season_long"
 )
-user2_eggplant_guide = user2.plant_guides.create(
+user2.plant_guides.create(
+  plant_type: "Pepper",
+  seedling_days_to_transplant: 49,
+  direct_seed_recommended: false,
+  days_to_maturity: 45,
+  days_relative_to_frost_date: 14,
+  harvest_period: "season_long"
+)
+user2.plant_guides.create(
   plant_type: "Eggplant",
   seedling_days_to_transplant: 49,
   direct_seed_recommended: false,
   days_to_maturity: 45,
   days_relative_to_frost_date: 14,
   harvest_period: "season_long"
+)
+user2.plant_guides.create(
+  plant_type: "Romaine Lettuce",
+  seedling_days_to_transplant: 0,
+  direct_seed_recommended: true,
+  days_to_maturity: 45,
+  days_relative_to_frost_date: 14,
+  harvest_period: "one_time"
+)
+user2.plant_guides.create(
+  plant_type: "Green Bean",
+  seedling_days_to_transplant: 0,
+  direct_seed_recommended: true,
+  days_to_maturity: 45,
+  days_relative_to_frost_date: 14,
+  harvest_period: "season_long"
+)
+user2.plant_guides.create(
+  plant_type: "Radish",
+  seedling_days_to_transplant: 0,
+  direct_seed_recommended: true,
+  days_to_maturity: 45,
+  days_relative_to_frost_date: 14,
+  harvest_period: "one_time"
+)
+user2.plant_guides.create(
+  plant_type: "Basil",
+  seedling_days_to_transplant: 0,
+  direct_seed_recommended: true,
+  days_to_maturity: 30,
+  days_relative_to_frost_date: 0,
+  harvest_period: "three_week"
 )
 
 
@@ -116,7 +156,11 @@ plant8 = user.plants.create(name: "Genovese", plant_type: "Basil", days_relative
 
 user2_plant1 = user2.plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
 user2_plant2 = user2.plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
-binding.pry;
+user2_plant3 = user2.plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1)
+user2_plant4 = user2.plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1)
+user2_plant5 = user2.plants.create(name: "Provider", plant_type: "Green Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1)
+user2_plant6 = user2.plants.create(name: "San Marzano II", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 68, hybrid_status: 1)
+
 plant1.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
 plant2.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
 plant3.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
@@ -125,3 +169,7 @@ plant5.garden_plants.create(planting_status: "not_started", plant_start_method: 
 
 user2_plant1.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
 user2_plant2.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
+user2_plant3.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
+user2_plant4.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
+user2_plant5.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
+user2_plant6.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew)
