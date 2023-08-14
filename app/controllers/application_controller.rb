@@ -5,23 +5,6 @@ class ApplicationController < ActionController::API
     params[:password] != params[:password_confirmation]
   end
 
-  def user_already_exists
-    result = User.find_by(email: params[:email])
-    if result.nil?
-      false
-    else
-      true
-    end
-  end
-
-  def email_formatted_incorrectly(user)
-    if user.errors.messages[:email].empty?
-      false 
-    elsif user.errors[:email].include?("is invalid")
-      true
-    end
-  end
-
   def encode_token(payload)
     JWT.encode(payload, 'secret')
   end

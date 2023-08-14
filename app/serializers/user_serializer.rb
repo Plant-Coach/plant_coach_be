@@ -7,4 +7,11 @@ class UserSerializer
       "error": error_message
     }
   end
+
+  def self.changes_not_saved(error, user)
+    {
+      "error": error,
+      "user": user
+    }
+  end
 end

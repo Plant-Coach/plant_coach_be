@@ -45,15 +45,15 @@ RSpec.describe 'Users API', :vcr do
       expect(user_response[:user][:data][:attributes][:zip_code]).to be_a String
     end
 
-    it 'will create an HTTPOnly Cookie with a JWT inside for secure API calls' do
+    it 'creates an HTTPOnly Cookie with a JWT inside for secure API calls' do
       expect(response.headers["Set-Cookie"]).to_not be nil
     end 
 
-    it 'will use Rails Sessions to store and create the session cookie' do
+    it 'uses Rails Sessions to store and create the session cookie' do
       expect(session[:token]).to_not be nil
     end 
 
-    it 'will not allow duplicate users to be created' do
+    it "does not allow duplicate users to be created" do
       # A second attempt to create the same user should be unsuccessful.
       post '/api/v1/users', params: body
       expected_error = JSON.parse(response.body, symbolize_names: true)
@@ -61,7 +61,7 @@ RSpec.describe 'Users API', :vcr do
       expect(expected_error[:error]).to eq("This user already exists!!")
     end
 
-    it 'will not allow a user to register with unmatching passwords' do
+    it 'does not allow a user to register with mismatching passwords' do
       body_with_password_mismatch = {
         name: 'Joel Grant',
         email: 'joel@mismatch.com',
@@ -77,24 +77,37 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:error]).to eq("Your passwords must match!")
     end
 
-    it 'doesnt allow anything other than an email address for a new user' do
-      body_with_incorrectly_formatted_email = {
+    it 'requires that a properly formatted email address be used for registration' do
+      user_params_with_incorrectly_formatted_email = {
         name: 'Joel Grant',
         email: 'joe.com',
         zip_code: '12345',
         password: '12345',
         password_confirmation: '12345'
       }
-      post '/api/v1/users', params: body_with_incorrectly_formatted_email
+      post '/api/v1/users', params: user_params_with_incorrectly_formatted_email
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:error])
-      .to eq("#{body_with_incorrectly_formatted_email[:email]} is not a valid email address!!")
+      .to eq("#{user_params_with_incorrectly_formatted_email[:email]} is not a valid email address!!")
+    end
+
+    it 'requires the users name' do
+      user_params_with_missing_name = {
+        email: 'joel@plants.com',
+        zip_code: '80121',
+        password: '12345',
+        password_confirmation: '12345'
+      }
+      post '/api/v1/users', params: user_params_with_missing_name
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to eq("The user's name must not be blank!")
     end
   end
 
   describe 'PATCH /users' do
-    it 'allows a user and its attributes to be edited' do
+    it 'allows a User and their attributes to be edited' do
       user_response = JSON.parse(response.body, symbolize_names: true)
       
       expect(response).to be_successful
@@ -109,7 +122,9 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes][:email]).to eq("joel@plantcoach.com")
     end
 
-    it 'will return an error in JSON if the user doesnt exist' do
+    # Test skipped as this scenario is not actually possible after a recent refactor because 
+    # the app does not rely on the User's ID to come from the params, but is already in the cookie.
+    xit 'will return an error if the user doesnt exist' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
@@ -137,6 +152,22 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes][:email]).to eq("joel@plantcoach.com")
       expect(result[:data][:attributes][:spring_frost_date]).to_not eq(user_response[:user][:data][:attributes][:spring_frost_date])
       expect(result[:data][:attributes][:fall_frost_date]).to_not eq(user_response[:user][:data][:attributes][:fall_frost_date])
+    end
+
+    it 'will not allow a user to save an empty attribute' do
+      user_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+
+      updated_user_params_with_missing_name = {
+        name: ""
+      }
+
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: updated_user_params_with_missing_name
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to eq("The user's name must not be blank!")
+      expect(result[:user][:name]).to eq("Joel Grant")
     end
   end
 
@@ -176,7 +207,7 @@ RSpec.describe 'Users API', :vcr do
   end
 
   describe 'DELETE /users' do
-    it 'deletes the users account and associations' do
+    it 'deletes the users account' do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful

@@ -1,11 +1,14 @@
 class User < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: { message: "The user's name must not be blank!" }
   validates :password_digest, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
-                    uniqueness: true,
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: ->(object, data) do
+    "#{object.email} is not a valid email address!!" 
+  end
+  },
                     presence: true
-  validates :spring_frost_date, presence: true, on: :update
-  validates :fall_frost_date, presence: true, on: :update
+  validates :email, uniqueness: { message: "This user already exists!!" }
+  validates :spring_frost_date, presence: { message: "The spring frost date is not being provided and causing failure." }, on: :update
+  validates :fall_frost_date, presence: { message: "The fall frost date is not being provided and causing failure." }, on: :update
   has_secure_password
 
   validates_associated :plants
