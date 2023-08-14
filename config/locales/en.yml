@@ -35,3 +35,4 @@ en:
   errors:
     format: "%{message}"
   # hello: "Hello world"
+
