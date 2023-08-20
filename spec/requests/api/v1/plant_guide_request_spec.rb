@@ -11,8 +11,8 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
     }
     post '/api/v1/users', params: body
 
-    user_response = JSON.parse(response.body, symbolize_names: true)
-    @user = User.find_by_id(user_response[:user][:data][:id])
+    @user_response = JSON.parse(response.body, symbolize_names: true)
+    @user = User.find_by_id(@user_response[:user][:data][:id])
 
     @tomato_guide = @user.plant_guides.create(
       plant_type: "Tomato",
@@ -107,7 +107,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
 
   describe 'GET /plant_guides' do
     it 'gets a list of all of the plant guides that belong to that user' do
-      get '/api/v1/plant_guides'
+      get '/api/v1/plant_guides', headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
       result = JSON.parse(response.body, symbolize_names:true)
 
       expect(response).to be_successful
@@ -139,7 +141,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params
+      post '/api/v1/plant_guides', params: plant_params, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -156,7 +160,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -174,7 +180,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -191,7 +199,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -208,7 +218,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -227,7 +239,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -244,7 +258,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -261,7 +277,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
         # harvest_period: :one_time
       }
 
-      post '/api/v1/plant_guides', params: plant_params_with_missing_data
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
@@ -272,7 +290,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
 
   describe 'PATCH /plant_guides' do
     it 'modifies an existing plant guide that only belongs to that user' do
-      patch "/api/v1/plant_guides/#{@tomato_guide.id}", params: { days_to_maturity: 55 }
+      patch "/api/v1/plant_guides/#{@tomato_guide.id}", params: { days_to_maturity: 55 }, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       expect(response).to be_successful
 
@@ -282,7 +302,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
     end
 
     it 'returns an informative error response when any values are missing during an update' do
-      patch "/api/v1/plant_guides/#{@tomato_guide.id}", params: { harvest_period: "" }
+      patch "/api/v1/plant_guides/#{@tomato_guide.id}", params: { harvest_period: "" }, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       expect(response).to_not be_successful
 
@@ -294,7 +316,9 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
 
   describe 'DELETE /plant_guides' do
     it "removes a plant guide from only that user's list of plant guides" do
-      delete "/api/v1/plant_guides/#{@raspberry_guide.id}"
+      delete "/api/v1/plant_guides/#{@raspberry_guide.id}", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
 
       expect(response).to be_successful
 

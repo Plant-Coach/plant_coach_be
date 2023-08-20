@@ -12,8 +12,7 @@ class Api::V1::UsersController < ApplicationController
     user = User.create(user_params)
     if user.valid?
       token = encode_token(user_id: user.id)
-      session[:token] = { value: token, http_only: true }
-      render json: { user: UserSerializer.new(user) }, status: :created
+      render json: { user: UserSerializer.new(user), jwt: token }, status: :created
     elsif passwords_dont_match
       render json: UserSerializer.error("Your passwords must match!"), status: :not_acceptable
     else

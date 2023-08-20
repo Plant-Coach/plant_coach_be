@@ -13,8 +13,8 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
   }
   post '/api/v1/users', params: body
 
-  user_response = JSON.parse(response.body, symbolize_names: true)
-  @user = User.find_by_id(user_response[:user][:data][:id])
+  @user_response = JSON.parse(response.body, symbolize_names: true)
+  @user = User.find_by_id(@user_response[:user][:data][:id])
 
     test_plant_guide = @user.plant_guides.create(
       plant_type: "Something else",
@@ -158,6 +158,8 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
         actual_seed_sewing_date: nil,
         plant_start_method: :indirect_sew,
         planting_status: "not_started"
+        }, headers: {
+          Authorization: "Bearer #{@user_response[:jwt]}"
         }
 
         post '/api/v1/garden_plants', params: {
@@ -171,6 +173,8 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           plant_start_method: :indirect_sew,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
+          }, headers: {
+            Authorization: "Bearer #{@user_response[:jwt]}"
           }
 
         post '/api/v1/garden_plants', params: {
@@ -184,9 +188,13 @@ RSpec.describe 'Plants Waiting To Be Started API Endpoint', :vcr do
           plant_start_method: :indirect_sew,
           actual_seed_sewing_date: nil,
           planting_status: "not_started"
+          }, headers: {
+            Authorization: "Bearer #{@user_response[:jwt]}"
           }
 
-      get '/api/v1/plants_waiting_to_be_started'
+      get '/api/v1/plants_waiting_to_be_started', headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data].count).to eq(3)
