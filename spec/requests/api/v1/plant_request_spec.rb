@@ -741,6 +741,32 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
       expect(result[:data][:attributes][:id]).to eq(plant_id)
     end
+
+    it 'returns an error response when the ID is wrong' do
+      ActiveRecord::Base.skip_callbacks = false
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sakura",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      expect(response).to be_successful
+
+      plant_result = JSON.parse(response.body, symbolize_names: true)
+      non_existent_id = 203948
+
+      get "/api/v1/plants/#{non_existent_id}", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to eq("The plant can not be found!")
+    end
   end
 
   describe 'PATCH /plants' do
