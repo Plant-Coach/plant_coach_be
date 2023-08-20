@@ -45,13 +45,9 @@ RSpec.describe 'Users API', :vcr do
       expect(user_response[:user][:data][:attributes][:zip_code]).to be_a String
     end
 
-    it 'creates an HTTPOnly Cookie with a JWT inside for secure API calls' do
-      expect(response.headers["Set-Cookie"]).to_not be nil
-    end 
-
-    it 'uses Rails Sessions to store and create the session cookie' do
-      expect(session[:token]).to_not be nil
-    end 
+    it 'will create a JWT for secure API calls' do
+      user_response = JSON.parse(response.body, symbolize_names: true)
+    end
 
     it "does not allow duplicate users to be created" do
       # A second attempt to create the same user should be unsuccessful.
@@ -114,7 +110,10 @@ RSpec.describe 'Users API', :vcr do
       
       new_zip_code =  { zip_code: 80111 }
       
-      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data][:attributes][:zip_code]).to eq("80111")
@@ -144,7 +143,9 @@ RSpec.describe 'Users API', :vcr do
       
       new_zip_code =  { zip_code: 99501 }
       
-      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: new_zip_code, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:data][:attributes][:zip_code]).to eq("99501")
@@ -163,7 +164,9 @@ RSpec.describe 'Users API', :vcr do
         name: ""
       }
 
-      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: updated_user_params_with_missing_name
+      patch "/api/v1/users/#{user_response[:user][:data][:id]}", params: updated_user_params_with_missing_name, headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:error]).to eq("The user's name must not be blank!")
@@ -176,7 +179,9 @@ RSpec.describe 'Users API', :vcr do
       user_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      get '/api/v1/users'
+      get '/api/v1/users', headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
       
       result = JSON.parse(response.body, symbolize_names: true)
       last_user = User.last
@@ -191,12 +196,10 @@ RSpec.describe 'Users API', :vcr do
       expect(result[:data][:attributes]).to have_key(:zip_code)
     end
     
-    it 'will not return anything if a Cookie is not provided' do
+    it 'will not return anything if a JWT is not provided' do
       user_response = JSON.parse(response.body, symbolize_names: true)
       
       expect(response).to be_successful
-
-      cookies["_session_id"] = ""
 
       get '/api/v1/users'
       result = JSON.parse(response.body, symbolize_names: true)
@@ -212,11 +215,15 @@ RSpec.describe 'Users API', :vcr do
 
       expect(response).to be_successful
 
-      get '/api/v1/users'
+      get '/api/v1/users', headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete "/api/v1/users/#{result[:data][:id]}"
+      delete "/api/v1/users/#{result[:data][:id]}", headers: {
+        Authorization: "Bearer #{user_response[:jwt]}"
+      }
 
       expect(response.status).to be 204
     end

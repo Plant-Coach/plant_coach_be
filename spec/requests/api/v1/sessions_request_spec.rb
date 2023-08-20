@@ -38,7 +38,7 @@ RSpec.describe 'User Sessions', :vcr do
       expect(response.status).to eq(201)
     end
 
-    it 'creates a Cookie to maintain a user session and for user requests' do
+    it 'creates a JWT to maintain a user session and for user requests' do
       expect(response).to be_successful
 
       login_params = { email: 'joel@plantcoach.com', password: '12345' }
@@ -46,17 +46,7 @@ RSpec.describe 'User Sessions', :vcr do
 
       result = JSON.parse(response.body, symbolize_names: true)
       
-      expect(request.cookies).to have_key("_session_id")
-    end
-
-    it 'creates only uses an HTTPOnly cookie' do
-      expect(response).to be_successful
-
-      login_params = { email: 'joel@plantcoach.com', password: '12345' }
-      post '/api/v1/sessions', params: login_params
-      result = JSON.parse(response.body, symbolize_names: true)
-
-      expect(session.to_hash["token"][:http_only]).to be true
+      expect(result[:jwt]).to_not be nil
     end
 
     it 'returns an error if the password is bad' do
@@ -90,7 +80,9 @@ RSpec.describe 'User Sessions', :vcr do
       post '/api/v1/sessions', params: login_params
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete "/api/v1/sessions/#{result[:user][:data][:id]}"
+      delete "/api/v1/sessions/#{result[:user][:data][:id]}", headers: {
+        Authorization: "Bearer #{result[:jwt]}"
+      }
 
       expect(response.status).to eq(204)
     end
@@ -100,17 +92,21 @@ RSpec.describe 'User Sessions', :vcr do
       post '/api/v1/sessions', params: login_params
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete "/api/v1/sessions/#{result[:user][:data][:id]}"
+      delete "/api/v1/sessions/#{result[:user][:data][:id]}", headers: {
+        Authorization: "Bearer #{result[:jwt]}"
+      }
 
       expect(response.status).to eq(204)
 
       post '/api/v1/plants', params: plant_params
+      
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(401)
       expect(result[:message]).to eq("Please log in")
 
       get '/api/v1/plants'
+
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(401)
