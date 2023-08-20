@@ -13,6 +13,9 @@ class GardenPlantSerializer
               :harvest_finish,
               :harvest_period,
               :plant_id
+  attributes  :plant do |plant_data|
+    plant_data.plant
+  end
 
   def self.error(message)
     {
