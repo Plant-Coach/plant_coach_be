@@ -211,6 +211,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
             expect(result[:data][:attributes][:planting_status]).to eq("direct_sewn_outside")
             expect(result[:data][:attributes][:actual_seed_sewing_date].to_date).to eq(Date.today)
             expect(result[:data][:attributes][:recommended_transplant_date]).to be nil
+            expect(result[:data][:attributes][:plant_id]).to_not be nil
           end
 
           it 'provides an expected date range that the plant will have for a period of harvest' do
