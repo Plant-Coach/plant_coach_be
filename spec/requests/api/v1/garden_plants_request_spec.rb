@@ -592,6 +592,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
       expect(result[:data]).to be_an Array
 
       expect(result[:data].count).to eq(2)
+      
       result[:data].each do |plant|
         expect(plant[:attributes][:plant][:name]).to be_a String
         expect(plant[:attributes][:plant][:plant_type]).to be_a String
