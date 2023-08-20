@@ -715,17 +715,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
   describe 'GET /plants/plant_id' do
     it 'returns the unique plant record that belongs to the user' do
-
+      ActiveRecord::Base.skip_callbacks = false
       expect(response).to be_successful
 
       plant = {
         plant_type: "Tomato",
-        name: "Sungold",
+        name: "Sakura",
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
-      
+
       expect(response).to be_successful
 
       plant_result = JSON.parse(response.body, symbolize_names: true)
@@ -737,7 +737,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:name]).to eq("Sakura")
       expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
       expect(result[:data][:attributes][:id]).to eq(plant_id)
     end
