@@ -219,8 +219,6 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       post '/api/v1/plants', params: plant4_params, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
-      # Capture cookie data in order to reuse later.
-      # cookie_1 = response.cookies["_session_id"]
 
       post '/api/v1/users', params: other_user
 
@@ -340,8 +338,6 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     end
 
     it 'will replace information with default data that the user does not provide' do
-      ActiveRecord::Base.skip_callbacks = false
-
       expect(response).to be_successful
 
       plant = {
@@ -714,6 +710,62 @@ RSpec.describe 'Plant API Endpoints', :vcr do
           end
         end
       end
+    end
+  end
+
+  describe 'GET /plants/plant_id' do
+    it 'returns the unique plant record that belongs to the user' do
+      ActiveRecord::Base.skip_callbacks = false
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sakura",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      expect(response).to be_successful
+
+      plant_result = JSON.parse(response.body, symbolize_names: true)
+      plant_id = plant_result[:data][:attributes][:id]
+
+      get "/api/v1/plants/#{plant_id}", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:data][:attributes][:name]).to eq("Sakura")
+      expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
+      expect(result[:data][:attributes][:id]).to eq(plant_id)
+    end
+
+    it 'returns an error response when the ID is wrong' do
+      ActiveRecord::Base.skip_callbacks = false
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sakura",
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      expect(response).to be_successful
+
+      plant_result = JSON.parse(response.body, symbolize_names: true)
+      non_existent_id = 203948
+
+      get "/api/v1/plants/#{non_existent_id}", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to eq("The plant can not be found!")
     end
   end
 
