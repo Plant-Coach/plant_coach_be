@@ -14,6 +14,15 @@ class Api::V1::PlantsController < ApplicationController
     end
   end
 
+  def show
+    users_plant = @user.plants.find_by_id(params[:id])
+    if users_plant
+      render json: PlantSerializer.new(users_plant), status: :ok
+    else
+      render json: PlantSerializer.single_error("The plant can not be found!"), status: :bad_request
+    end
+  end
+
   def update
     plant = @user.plants.find_by(id: params[:id])
     updated_plant = plant.update(plant_params)
@@ -26,7 +35,7 @@ class Api::V1::PlantsController < ApplicationController
       deleted_plant = plant.destroy
       render json: PlantSerializer.new(deleted_plant), status: :ok
     else
-      render json: PlantSerializer.delete_error("Something happened!"), status: :bad_request
+      render json: PlantSerializer.single_error("Something happened!"), status: :bad_request
     end
   end
 

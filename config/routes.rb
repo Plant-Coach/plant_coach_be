@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :garden_plants, only: [:index, :create, :update, :destroy]
       resources :sessions, only: [:create, :destroy]
       resources :forecast, only: [:index]
-      resources :plants, only: [:index, :create, :update, :destroy]
+      resources :plants, only: [:index, :create, :show, :update, :destroy]
       resources :frost_dates, only: [:index]
       resources :alert_check, only: [:create]
       resources :garden_reminder, only: [:create]

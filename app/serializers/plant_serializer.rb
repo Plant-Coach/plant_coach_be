@@ -17,7 +17,7 @@ class PlantSerializer
     }
   end
 
-  def self.delete_error(error_message)
+  def self.single_error(error_message)
     {
       "error": error_message
     }
