@@ -47,7 +47,8 @@ class Api::V1::PlantsController < ApplicationController
       :days_relative_to_frost_date,
       :days_to_maturity,
       :hybrid_status,
-      :harvest_period
+      :harvest_period,
+      :organic
     )
   end
 end
