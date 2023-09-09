@@ -5,8 +5,8 @@ class Plant < ApplicationRecord
   # belong to each user, based on user_id.
 
   # Plant names should be unique, per plant type, per user.
-  # ie... A user can only have two plants with the same name, if the plant types are different.
-  # ie... If a plant of the same plant type does not already have the same name, a new one can be created.
+  # ex... A user can have two plants with the same name, only as long as the plant types are different.
+  # ie... A user can not have two plants with the same name and the same plant_type.
   validates :name, presence: true, uniqueness: { 
     scope: [:plant_type, :user_id],
     message: ->(object, data) do
