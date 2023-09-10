@@ -14,9 +14,24 @@ class Plant < ApplicationRecord
     end
   }
   validates :plant_type, presence: { message: "'Plant Type' can not be blank!" }
-  validates :days_to_maturity, presence: { message: "'Days to Maturity' can not be blank!" }
+  validates :days_to_maturity, 
+    presence: {
+      message: "'Days to Maturity' can not be blank!"
+      },
+      numericality: {
+        only_integer: true,
+        greater_than: 0,
+        message: "Days to Maturity must be an integer, greater than 0!"
+      }
   validates :hybrid_status, presence: true
-  validates :days_relative_to_frost_date, presence: { message: "'Days Relative to Frost Date' can not be blank!" }
+  validates :days_relative_to_frost_date, 
+    presence: {
+      message: "'Days Relative to Frost Date' can not be blank!" 
+    },
+    numericality: {
+      only_integer: true,
+      message: "Days Relative to Frost Date must be a whole number, and can be postive or negative!" 
+    }
   validates :organic, inclusion: { in: [true, false] }
 
   belongs_to :user

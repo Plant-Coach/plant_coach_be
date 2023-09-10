@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Plant, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:name) }
-    # binding.pry;
     # it { should validate_uniqueness_of(:name).scoped_to(:plant_type).with_message("A '/\w/' plant named '/\w/' already exists for '/\w/'!") }
     # it { should validate_presence_of(:days_to_maturity) }
     it { should validate_presence_of(:hybrid_status) }

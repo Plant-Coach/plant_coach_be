@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Sun, 10 Sep 2023 00:34:57 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"43098a6258e79296c49fb455c2cd482f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 4a190476-99d5-4aad-b57c-c68d4be02b2d
+      X-Runtime:
+      - '0.485284'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
+        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Sun, 10 Sep 2023 00:34:57 GMT
+recorded_with: VCR 6.2.0
