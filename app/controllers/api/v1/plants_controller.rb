@@ -10,7 +10,7 @@ class Api::V1::PlantsController < ApplicationController
     if plant.save
       render json: PlantSerializer.new(plant), status: :created
     else
-      render json: PlantSerializer.error(plant.errors.full_messages), status: :forbidden
+      render json: PlantSerializer.errors(plant.errors.full_messages), status: :forbidden
     end
   end
 
