@@ -10,9 +10,9 @@ class PlantSerializer
               :harvest_period,
               :user_id
 
-  def self.error(errors)
+  def self.errors(errors)
     {
-    "error": errors.each do |error_message|
+    "errors": errors.each do |error_message|
     end
     }
   end

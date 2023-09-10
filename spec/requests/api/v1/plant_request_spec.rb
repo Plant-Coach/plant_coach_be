@@ -371,10 +371,10 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
       result = JSON.parse(response.body, symbolize_names: true)
       
-      expect(result[:error]).to be_an Array
-      expect(result[:error].count).to eq(2)
-      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
-      expect(result[:error][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+      expect(result[:errors]).to be_an Array
+      expect(result[:errors].count).to eq(2)
+      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:errors][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
     end
 
     it 'will only allow whole integers to be used and will return a specific response message if it receives a fraction or decimal' do
@@ -392,10 +392,10 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:error]).to be_an Array
-      expect(result[:error].count).to eq(2)
-      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
-      expect(result[:error][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+      expect(result[:errors]).to be_an Array
+      expect(result[:errors].count).to eq(2)
+      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:errors][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
     end
 
     it 'specifically only accepts positive numbers for the days to maturity field' do
@@ -413,9 +413,9 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
       result = JSON.parse(response.body, symbolize_names: true)
       
-      expect(result[:error]).to be_an Array
-      expect(result[:error].count).to eq(1)
-      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:errors]).to be_an Array
+      expect(result[:errors].count).to eq(1)
+      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
     end
 
     it 'allows positive and negative values for days relative to frost date' do
@@ -592,11 +592,11 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result).to have_key(:error)
+      expect(result).to have_key(:errors)
 
-      expect(result[:error]).to include("'Plant Type' can not be blank!")
-      expect(result[:error]).to include("'Days to Maturity' can not be blank!")
-      expect(result[:error]).to include("'Days to Maturity' can not be blank!")
+      expect(result[:errors]).to include("'Plant Type' can not be blank!")
+      expect(result[:errors]).to include("'Days to Maturity' can not be blank!")
+      expect(result[:errors]).to include("'Days to Maturity' can not be blank!")
     end
 
     context 'creating two plants with the same name' do
@@ -699,7 +699,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
             expect(response).to be_forbidden
 
-            expect(result[:error][0]).to eq("A #{nova_tomato_params[:plant_type]} plant named #{nova_tomato_params[:name]} already exists for #{@user.name}!")
+            expect(result[:errors][0]).to eq("A #{nova_tomato_params[:plant_type]} plant named #{nova_tomato_params[:name]} already exists for #{@user.name}!")
           end
         end
       end
