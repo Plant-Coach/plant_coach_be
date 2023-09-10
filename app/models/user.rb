@@ -14,9 +14,10 @@ class User < ApplicationRecord
   validates_associated :plants
 
   has_many :plants
-  has_many :plant_guides
+  has_many :plant_guides, dependent: :destroy
   has_many :garden_plants, through: :plants
 
+  after_create :load_default_plant_guides
   before_create :establish_frost_dates
   before_update :establish_frost_dates, if: :zip_code_changed?
 
@@ -24,6 +25,19 @@ class User < ApplicationRecord
   # ids also need to be returned.
   def self.all_zip_codes
     all.select(:id, :zip_code)
+  end
+
+  def load_default_plant_guides
+    PlantGuideMaster.all.each do |plant_guide| 
+      self.plant_guides.create(
+        plant_type: plant_guide.plant_type,
+        seedling_days_to_transplant: plant_guide.seedling_days_to_transplant,
+        days_to_maturity: plant_guide.days_to_maturity,
+        days_relative_to_frost_date: plant_guide.days_relative_to_frost_date,
+        harvest_period: plant_guide.harvest_period,
+        direct_seed_recommended: plant_guide.direct_seed_recommended
+      )
+    end
   end
 
   def establish_frost_dates

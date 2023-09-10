@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_151453) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_10_221426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_151453) do
     t.integer "harvest_period", default: 0, null: false
     t.bigint "plant_id"
     t.index ["plant_id"], name: "index_garden_plants_on_plant_id"
+  end
+
+  create_table "plant_guide_masters", force: :cascade do |t|
+    t.string "plant_type"
+    t.boolean "direct_seed_recommended"
+    t.integer "seedling_days_to_transplant"
+    t.integer "days_to_maturity"
+    t.integer "days_relative_to_frost_date"
+    t.string "harvest_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "plant_guides", force: :cascade do |t|

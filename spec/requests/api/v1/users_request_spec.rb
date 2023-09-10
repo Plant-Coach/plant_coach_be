@@ -1,4 +1,8 @@
 require 'rails_helper'
+require 'rake'
+
+
+
 
 RSpec.describe 'Users API', :vcr do
 
@@ -11,6 +15,7 @@ RSpec.describe 'Users API', :vcr do
   }}
 
   before(:each) do
+    PlantGuideMaster.create!(plant_type: 'Tomato', seedling_days_to_transplant: 56, days_to_maturity: 65, days_relative_to_frost_date: 14, harvest_period: "season_long", direct_seed_recommended: false)
     post '/api/v1/users', params: body
   end
 
@@ -99,6 +104,10 @@ RSpec.describe 'Users API', :vcr do
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(result[:error]).to eq("The user's name must not be blank!")
+    end
+
+    it 'givest the user some pre-loaded plant guides to get them started' do
+      expect(User.last.plant_guides.count).to eq(1)
     end
   end
 
