@@ -5,8 +5,8 @@ class Plant < ApplicationRecord
   # belong to each user, based on user_id.
 
   # Plant names should be unique, per plant type, per user.
-  # ie... A user can only have two plants with the same name, if the plant types are different.
-  # ie... If a plant of the same plant type does not already have the same name, a new one can be created.
+  # ex... A user can have two plants with the same name, only as long as the plant types are different.
+  # ie... A user can not have two plants with the same name and the same plant_type.
   validates :name, presence: true, uniqueness: { 
     scope: [:plant_type, :user_id],
     message: ->(object, data) do
@@ -14,9 +14,24 @@ class Plant < ApplicationRecord
     end
   }
   validates :plant_type, presence: { message: "'Plant Type' can not be blank!" }
-  validates :days_to_maturity, presence: { message: "'Days to Maturity' can not be blank!" }
+  validates :days_to_maturity, 
+    presence: {
+      message: "'Days to Maturity' can not be blank!"
+      },
+      numericality: {
+        only_integer: true,
+        greater_than: 0,
+        message: "Days to Maturity must be an integer, greater than 0!"
+      }
   validates :hybrid_status, presence: true
-  validates :days_relative_to_frost_date, presence: { message: "'Days Relative to Frost Date' can not be blank!" }
+  validates :days_relative_to_frost_date, 
+    presence: {
+      message: "'Days Relative to Frost Date' can not be blank!" 
+    },
+    numericality: {
+      only_integer: true,
+      message: "Days Relative to Frost Date must be a whole number, and can be postive or negative!" 
+    }
   validates :organic, inclusion: { in: [true, false] }
 
   belongs_to :user

@@ -356,6 +356,87 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
     end
 
+    it 'only accepts number values for days_to_maturity and day_relative_to_frost_date and returns an informative error message' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_to_maturity: "ABCD",
+        days_relative_to_frost_date: "ABCD",
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(result[:error]).to be_an Array
+      expect(result[:error].count).to eq(2)
+      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:error][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+    end
+
+    it 'will only allow whole integers to be used and will return a specific response message if it receives a fraction or decimal' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_to_maturity: 0.5,
+        days_relative_to_frost_date: 1.2,
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:error]).to be_an Array
+      expect(result[:error].count).to eq(2)
+      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:error][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+    end
+
+    it 'specifically only accepts positive numbers for the days to maturity field' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_to_maturity: -40,
+        days_relative_to_frost_date: 5,
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(result[:error]).to be_an Array
+      expect(result[:error].count).to eq(1)
+      expect(result[:error][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+    end
+
+    it 'allows positive and negative values for days relative to frost date' do
+      expect(response).to be_successful
+
+      plant = {
+        plant_type: "Tomato",
+        name: "Sungold",
+        days_to_maturity: 40,
+        days_relative_to_frost_date: -10,
+        hybrid_status: :f1
+      }
+      post '/api/v1/plants', params: plant, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:id]).to be_an Integer
+    end
+
     it 'will assign a season-long harvest period to a plant such as a tomato' do
       expect(response).to be_successful
 
