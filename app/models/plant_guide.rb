@@ -9,6 +9,21 @@ class PlantGuide < ApplicationRecord
   validates :days_to_maturity, presence: { message: "Days to Maturity can not be blank." }
   validates :days_relative_to_frost_date, presence: { message: "Days Relative to Frost Date must not be blank." }
   validates :harvest_period, presence: { message: "Harvest Period must not be blank." }
+  validates :seedling_days_to_transplant, 
+    numericality: {
+      only_integer: true,
+      message: "Seedling Days to Transplant must be a whole number."
+  }
+  validates :days_to_maturity, 
+    numericality: {
+      only_integer: true,
+      message: "Seedling Days to Transplant must be a whole number."
+  }
+  validates :days_relative_to_frost_date, 
+    numericality: {
+      only_integer: true,
+      message: "Seedling Days to Transplant must be a whole number."
+  }
 
   belongs_to :user
 end
