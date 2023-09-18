@@ -286,6 +286,26 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
       expect(result[:errors]).to include("Harvest Period must not be blank.")
     end
 
+    it 'only accepts integer values for seedling_days_to_transplant' do
+    
+    end
+
+    it 'only accepts integer values for days_to_maturity' do
+    
+    end
+
+    it 'only accepts integer values for days_relative_to_frost_date' do
+    
+    end
+
+    it 'can give error feedback about multiple incorrect values' do
+    
+    end
+
+    it 'only allows one plant guide per plant type, per user' do
+    
+    end
+
   end
 
   describe 'PATCH /plant_guides' do
