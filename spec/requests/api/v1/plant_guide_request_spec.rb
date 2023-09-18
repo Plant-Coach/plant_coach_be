@@ -287,7 +287,22 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
     end
 
     it 'only accepts integer values for seedling_days_to_transplant' do
-    
+      plant_params_with_missing_data = {
+        plant_type: "Watermelon",
+        direct_seed_recommended: false,
+        seedling_days_to_transplant: "This should be an Integer",
+        days_to_maturity: 30,
+        days_relative_to_frost_date: 14,
+        harvest_period: :one_time
+      }
+
+      post '/api/v1/plant_guides', params: plant_params_with_missing_data, headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+
+      result = JSON.parse(response.body, symbolize_names: true)
+
+      expect(result[:errors]).to include("Seedling Days to Transplant should be a whole number.")
     end
 
     it 'only accepts integer values for days_to_maturity' do
