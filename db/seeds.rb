@@ -10,10 +10,16 @@ Plant.destroy_all
 PlantGuide.destroy_all
 User.destroy_all
 
-
-user = User.create(
+User.create(
   name: 'Joel Grant',
   email: 'joel@plantcoach.com',
+  zip_code: '80121',
+  password: '12345',
+  password_confirmation: '12345'
+)
+user = User.create(
+  name: 'Joel Test',
+  email: 'joelaccount@plantcoach.com',
   zip_code: '80121',
   password: '12345',
   password_confirmation: '12345'
@@ -27,120 +33,120 @@ user2 = User.create(
 )
 
 
-tomato = user.plant_guides.create(
-  plant_type: "Tomato",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
+# tomato = user.plant_guides.create(
+#   plant_type: "Tomato",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
 
-pepper = user.plant_guides.create(
-  plant_type: "Pepper",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-eggplant = user.plant_guides.create(
-  plant_type: "Eggplant",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-romaine = user.plant_guides.create(
-  plant_type: "Romaine Lettuce",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "one_time"
-)
-green_bean = user.plant_guides.create(
-  plant_type: "Green Bean",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-radish = user.plant_guides.create(
-  plant_type: "Radish",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "one_time"
-)
-basil_guide = user.plant_guides.create(
-  plant_type: "Basil",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 30,
-  days_relative_to_frost_date: 0,
-  harvest_period: "three_week"
-)
+# pepper = user.plant_guides.create(
+#   plant_type: "Pepper",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# eggplant = user.plant_guides.create(
+#   plant_type: "Eggplant",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# romaine = user.plant_guides.create(
+#   plant_type: "Romaine Lettuce",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "one_time"
+# )
+# green_bean = user.plant_guides.create(
+#   plant_type: "Green Bean",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# radish = user.plant_guides.create(
+#   plant_type: "Radish",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "one_time"
+# )
+# basil_guide = user.plant_guides.create(
+#   plant_type: "Basil",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 30,
+#   days_relative_to_frost_date: 0,
+#   harvest_period: "three_week"
+# )
 
-user2.plant_guides.create(
-  plant_type: "Tomato",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-user2.plant_guides.create(
-  plant_type: "Pepper",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-user2.plant_guides.create(
-  plant_type: "Eggplant",
-  seedling_days_to_transplant: 49,
-  direct_seed_recommended: false,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-user2.plant_guides.create(
-  plant_type: "Romaine Lettuce",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "one_time"
-)
-user2.plant_guides.create(
-  plant_type: "Green Bean",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "season_long"
-)
-user2.plant_guides.create(
-  plant_type: "Radish",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 45,
-  days_relative_to_frost_date: 14,
-  harvest_period: "one_time"
-)
-user2.plant_guides.create(
-  plant_type: "Basil",
-  seedling_days_to_transplant: 0,
-  direct_seed_recommended: true,
-  days_to_maturity: 30,
-  days_relative_to_frost_date: 0,
-  harvest_period: "three_week"
-)
+# user2.plant_guides.create(
+#   plant_type: "Tomato",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Pepper",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Eggplant",
+#   seedling_days_to_transplant: 49,
+#   direct_seed_recommended: false,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Romaine Lettuce",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "one_time"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Green Bean",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "season_long"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Radish",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 45,
+#   days_relative_to_frost_date: 14,
+#   harvest_period: "one_time"
+# )
+# user2.plant_guides.create(
+#   plant_type: "Basil",
+#   seedling_days_to_transplant: 0,
+#   direct_seed_recommended: true,
+#   days_to_maturity: 30,
+#   days_relative_to_frost_date: 0,
+#   harvest_period: "three_week"
+# )
 
 
 plant1 = user.plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)

@@ -50,6 +50,7 @@ class Plant < ApplicationRecord
     plant_defaults = user.plant_guides.find_by(plant_type: self.plant_type)
     self.days_to_maturity = plant_defaults.days_to_maturity if days_to_maturity.nil?
     self.days_relative_to_frost_date = plant_defaults.days_relative_to_frost_date if days_relative_to_frost_date.nil?
+
     self.harvest_period = user.plant_guides.find_by(plant_type: plant_type).harvest_period
   end
 end
