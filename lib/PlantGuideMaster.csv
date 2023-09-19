@@ -1,31 +1,31 @@
 plant_type,seedling_days_to_transplant,direct_seed_recommended,days_to_maturity,days_relative_to_frost_date,harvest_period
 Artichoke,56,FALSE,85,0,two_week
 Basil,42,TRUE,74,7,three_week
-Beets,28,TRUE,50,14,one_week
+Beet,28,TRUE,50,14,one_week
 Broccoli,28,FALSE,65,-14,three_week
 Cabbage,28,FALSE,90,-28,one_time
 Cauliflower,28,FALSE,67,-14,one_time
 Celery & Celeriac,70,FALSE,80,7,four_week
-Collards,28,FALSE,55,-28,season_long
+Collard,28,FALSE,55,-28,season_long
 Corn Salad/Mâche,28,FALSE,50,-35,one_week
 Corn,14,TRUE,78,7,three_week
 Cucumber,21,TRUE,48,14,season_long
 Eggplant,56,FALSE,65,21,season_long
 Kale,28,FALSE,65,-28,season_long
 Kohlrabi,28,TRUE,40,-28,two_week
-Leeks,56,FALSE,100,-14,two_week
+Leek,56,FALSE,100,-14,two_week
 Lettuce,28,FALSE,55,-28,one_time
-Melons,21,FALSE,70,14,one_time
+Melon,21,FALSE,70,14,one_time
 Mustard,28,TRUE,45,-28,three_week
 Okra,28,TRUE,60,21,season_long
-Onions,56,FALSE,100,-28,one_time
+Onion,56,FALSE,100,-28,one_time
 Parsley,63,FALSE,75,-21,season_long
 Peas,21,TRUE,64,-56,three_week
-Peppers,56,FALSE,65,14,season_long
-Pumpkins,21,TRUE,100,14,one_time
+Pepper,56,FALSE,65,14,season_long
+Pumpkin,21,TRUE,100,14,one_time
 Spinach,28,FALSE,27,-42,four_week
 Squash,21,TRUE,95,14,one_time
 Swiss Chard,28,TRUE,55,-14,three_week
-Tomatillos,56,FALSE,60,14,season_long
-Tomatoes,42,FALSE,65,14,season_long
+Tomatillo,56,FALSE,60,14,season_long
+Tomato,42,FALSE,65,14,season_long
 Watermelon,21,FALSE,76,14,one_time
