@@ -30,7 +30,7 @@ class Api::V1::PlantsController < ApplicationController
   end
 
   def destroy
-    plant = Plant.find_by(id: params[:id])
+    plant = @user.plants.find_by(id: params[:id])
     if !plant.nil?
       deleted_plant = plant.destroy
       render json: PlantSerializer.new(deleted_plant), status: :ok
