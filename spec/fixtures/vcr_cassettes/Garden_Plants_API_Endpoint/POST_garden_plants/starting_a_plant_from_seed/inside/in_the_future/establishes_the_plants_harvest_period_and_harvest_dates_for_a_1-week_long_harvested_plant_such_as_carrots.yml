@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.7.10
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 11 Jun 2023 16:10:33 GMT
+      - Fri, 27 Oct 2023 03:22:31 GMT
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +31,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 8068da20-ec17-47b6-bb31-8dd69893733f
+      - 93fbca77-5112-4b44-8958-ef8d1f2916c9
       X-Runtime:
-      - '0.402956'
+      - '0.383251'
       Transfer-Encoding:
       - chunked
       Via:
@@ -42,5 +42,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 11 Jun 2023 16:10:33 GMT
-recorded_with: VCR 6.1.0
+  recorded_at: Fri, 27 Oct 2023 03:22:31 GMT
+recorded_with: VCR 6.2.0

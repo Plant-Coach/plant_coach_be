@@ -12,6 +12,15 @@ class Api::V1::PlantGuidesController < ApplicationController
     end
   end
 
+  def show
+    plant_guide = @user.plant_guides.find_by_id(params[:id])
+    if !plant_guide.nil?
+      render json: PlantGuideSerializer.new(plant_guide)
+    else
+      render json: PlantGuideSerializer.error("This plant guide could not be found.")
+    end
+  end
+
   def update
     begin
       plant_guide = @user.plant_guides.find_by_id(params[:id])

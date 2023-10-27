@@ -130,6 +130,30 @@ RSpec.describe '/plant_guides API Endpoint', :vcr do
     end
   end
 
+  describe 'GET /plant_guides/plant_guide_id' do
+    it 'returns a specific plant guide' do
+      get "/api/v1/plant_guides/#{@tomato_guide.id}", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names:true)
+
+      expect(response).to be_successful
+
+      expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
+    end
+
+    it 'returns an error message when the plant guide doesnt exist' do
+      get "/api/v1/plant_guides/12345678910", headers: {
+        Authorization: "Bearer #{@user_response[:jwt]}"
+      }
+      result = JSON.parse(response.body, symbolize_names:true)
+
+      expect(response).to be_successful
+
+      expect(result[:error]).to eq("This plant guide could not be found.")
+    end
+  end
+
   describe 'POST /plant_guides' do
     it 'creates a new plant guide that only belongs to that user' do
       plant_params = {
