@@ -28,4 +28,10 @@ class PlantGuideSerializer
       end
     }
   end 
+
+  def self.error(message)
+    {
+      "error": message
+    }
+  end
 end
