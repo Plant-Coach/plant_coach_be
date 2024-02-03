@@ -8,7 +8,7 @@ http_interactions:
       string: location=80112
     headers:
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.7.10
       Content-Type:
       - application/x-www-form-urlencoded
       Accept-Encoding:
@@ -23,25 +23,31 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 16 Jul 2023 20:54:52 GMT
+      - Fri, 02 Feb 2024 20:57:12 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1706907433&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=Zkug5aGSxxTtWZzXkohR8iDgHXmJ4TFl1CbkV27a9aM%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1706907433&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=Zkug5aGSxxTtWZzXkohR8iDgHXmJ4TFl1CbkV27a9aM%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"f641c65b6f2ab11eabd789bddba4851e"
+      - W/"42aecae1c65805be9660a4c1f5e77233"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - f07599a6-0f59-40a4-a80a-48b8de97fe8e
+      - f1e6cdb3-5dbf-4493-bc9e-d4033505eed7
       X-Runtime:
-      - '0.139582'
+      - '0.212205'
       Transfer-Encoding:
       - chunked
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1689534000,"sunrise":1689507903,"sunset":1689560750,"high":85.91,"low":61.48,"humidity":25,"wind":10.33,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689620400,"sunrise":1689594350,"sunset":1689647114,"high":95.29,"low":64.76,"humidity":11,"wind":13.78,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689706800,"sunrise":1689680797,"sunset":1689733477,"high":93.69,"low":68.61,"humidity":21,"wind":11.79,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689793200,"sunrise":1689767245,"sunset":1689819838,"high":85.37,"low":65.34,"humidity":27,"wind":11.74,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689879600,"sunrise":1689853694,"sunset":1689906198,"high":82.33,"low":60.6,"humidity":42,"wind":23.89,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689966000,"sunrise":1689940143,"sunset":1689992555,"high":84.99,"low":59.05,"humidity":41,"wind":10.36,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690052400,"sunrise":1690026593,"sunset":1690078911,"high":85.87,"low":60.55,"humidity":35,"wind":9.06,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690138800,"sunrise":1690113044,"sunset":1690165265,"high":86.2,"low":60.73,"humidity":29,"wind":9.37,"weather":"Clear"}}]}'
-  recorded_at: Sun, 16 Jul 2023 20:54:52 GMT
-recorded_with: VCR 6.1.0
+      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1706900400,"sunrise":1706882804,"sunset":1706919583,"high":52.05,"low":37.36,"humidity":37,"wind":9.75,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1706986800,"sunrise":1706969148,"sunset":1707006055,"high":39.02,"low":32.76,"humidity":98,"wind":7.76,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707073200,"sunrise":1707055490,"sunset":1707092527,"high":36.54,"low":21.78,"humidity":88,"wind":7.25,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707159600,"sunrise":1707141830,"sunset":1707178999,"high":40.01,"low":25.48,"humidity":80,"wind":8.23,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1707246000,"sunrise":1707228169,"sunset":1707265471,"high":41.18,"low":32.9,"humidity":76,"wind":7.67,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1707332400,"sunrise":1707314507,"sunset":1707351943,"high":49.05,"low":33.33,"humidity":66,"wind":9.64,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1707418800,"sunrise":1707400843,"sunset":1707438414,"high":45.55,"low":32.67,"humidity":45,"wind":6.87,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707505200,"sunrise":1707487177,"sunset":1707524886,"high":41.88,"low":30.83,"humidity":32,"wind":6.64,"weather":"Clouds"}}]}'
+  recorded_at: Fri, 02 Feb 2024 20:57:13 GMT
+recorded_with: VCR 6.2.0

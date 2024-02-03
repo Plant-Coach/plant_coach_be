@@ -21,49 +21,6 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 16 Jul 2023 20:54:09 GMT
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      Etag:
-      - W/"43098a6258e79296c49fb455c2cd482f"
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Request-Id:
-      - 8e0a6ab5-c021-404e-9a56-50c6b85fad6e
-      X-Runtime:
-      - '0.493763'
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
-    body:
-      encoding: UTF-8
-      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
-        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 16 Jul 2023 20:54:09 GMT
-- request:
-    method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Faraday v2.5.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Cowboy
-      Date:
       - Sun, 16 Jul 2023 21:03:45 GMT
       Connection:
       - keep-alive
@@ -87,6 +44,55 @@ http_interactions:
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
   recorded_at: Sun, 16 Jul 2023 21:03:46 GMT
 - request:
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 02 Feb 2024 20:56:03 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1706907363&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=v%2BNtC00HkKDyU3Q3snukSA3ze2nAzg1xECKBglU4Pbs%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1706907363&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=v%2BNtC00HkKDyU3Q3snukSA3ze2nAzg1xECKBglU4Pbs%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"43098a6258e79296c49fb455c2cd482f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - f3473d52-1fce-4a3b-be57-34975c0a5036
+      X-Runtime:
+      - '0.529807'
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
+        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Fri, 02 Feb 2024 20:56:03 GMT
+- request:
     method: post
     uri: https://glacial-fjord-58347.herokuapp.com/api/v1/forecast
     body:
@@ -94,7 +100,7 @@ http_interactions:
       string: location=80121
     headers:
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.7.10
       Content-Type:
       - application/x-www-form-urlencoded
       Accept-Encoding:
@@ -109,25 +115,31 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 16 Jul 2023 21:03:46 GMT
+      - Fri, 02 Feb 2024 20:56:04 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1706907364&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=zlR8dQcW6Zl4N2NC7%2Fkgxue1zyx8GWgtEW%2B8QjdIR0s%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1706907364&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=zlR8dQcW6Zl4N2NC7%2Fkgxue1zyx8GWgtEW%2B8QjdIR0s%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"4f5ee171e7c5480c04275866f439e9dc"
+      - W/"cd935c7c01ad9399c67c1ca064342f27"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 4466b8c1-c61f-4cb9-9792-fc5106c920da
+      - 46f952c0-0a44-4b75-98e7-a7c65394768e
       X-Runtime:
-      - '0.636817'
+      - '0.549003'
       Transfer-Encoding:
       - chunked
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1689534000,"sunrise":1689507911,"sunset":1689560768,"high":87.03,"low":62.94,"humidity":24,"wind":10.51,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689620400,"sunrise":1689594357,"sunset":1689647132,"high":96.75,"low":66.38,"humidity":11,"wind":13.35,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689706800,"sunrise":1689680804,"sunset":1689733495,"high":95.09,"low":70.21,"humidity":19,"wind":11.07,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689793200,"sunrise":1689767252,"sunset":1689819856,"high":86.47,"low":66.92,"humidity":26,"wind":13,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689879600,"sunrise":1689853701,"sunset":1689906215,"high":83.64,"low":62.06,"humidity":42,"wind":22.97,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689966000,"sunrise":1689940151,"sunset":1689992573,"high":86.11,"low":60.4,"humidity":41,"wind":10.29,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690052400,"sunrise":1690026601,"sunset":1690078929,"high":86.95,"low":62.06,"humidity":34,"wind":8.75,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690138800,"sunrise":1690113052,"sunset":1690165283,"high":87.44,"low":62.44,"humidity":28,"wind":9.31,"weather":"Clear"}}]}'
-  recorded_at: Sun, 16 Jul 2023 21:03:47 GMT
-recorded_with: VCR 6.1.0
+      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1706900400,"sunrise":1706882820,"sunset":1706919592,"high":52.56,"low":38.43,"humidity":37,"wind":7.76,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1706986800,"sunrise":1706969164,"sunset":1707006064,"high":40.14,"low":33.35,"humidity":97,"wind":7.61,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707073200,"sunrise":1707055506,"sunset":1707092536,"high":37.45,"low":23.11,"humidity":84,"wind":6.76,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707159600,"sunrise":1707141846,"sunset":1707179008,"high":41,"low":26.11,"humidity":74,"wind":7.09,"weather":"Clear"}},{"id":null,"type":"forecast","attributes":{"date":1707246000,"sunrise":1707228185,"sunset":1707265480,"high":42.1,"low":33.78,"humidity":74,"wind":6.91,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1707332400,"sunrise":1707314523,"sunset":1707351952,"high":50.11,"low":33.66,"humidity":64,"wind":8.63,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1707418800,"sunrise":1707400858,"sunset":1707438424,"high":46.74,"low":33.67,"humidity":43,"wind":6.51,"weather":"Snow"}},{"id":null,"type":"forecast","attributes":{"date":1707505200,"sunrise":1707487193,"sunset":1707524895,"high":43.09,"low":32.27,"humidity":31,"wind":6.17,"weather":"Clouds"}}]}'
+  recorded_at: Fri, 02 Feb 2024 20:56:04 GMT
+recorded_with: VCR 6.2.0
