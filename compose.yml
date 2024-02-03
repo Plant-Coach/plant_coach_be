@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTRGRES_PASSWORD: PLANT_COACH_DATABASE_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
