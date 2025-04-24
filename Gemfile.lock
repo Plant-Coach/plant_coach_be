@@ -76,7 +76,7 @@ GEM
     builder (3.3.0)
     byebug (12.0.0)
     coderay (1.1.3)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.4)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -98,14 +98,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.2-aarch64-linux-gnu)
-    ffi (1.17.2-aarch64-linux-musl)
-    ffi (1.17.2-arm-linux-gnu)
-    ffi (1.17.2-arm-linux-musl)
     ffi (1.17.2-arm64-darwin)
-    ffi (1.17.2-x86_64-darwin)
-    ffi (1.17.2-x86_64-linux-gnu)
-    ffi (1.17.2-x86_64-linux-musl)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
     globalid (1.2.1)
@@ -147,21 +140,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.8-aarch64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-musl)
-      racc (~> 1.4)
     nokogiri (1.18.8-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
     pg (1.5.9)
     pry (0.15.2)
@@ -255,20 +234,14 @@ GEM
     zeitwerk (2.7.2)
 
 PLATFORMS
-  aarch64-linux-gnu
-  aarch64-linux-musl
-  arm-linux-gnu
-  arm-linux-musl
-  arm64-darwin
-  x86_64-darwin
-  x86_64-linux-gnu
-  x86_64-linux-musl
+  arm64-darwin-22
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
   coderay
+  concurrent-ruby (= 1.3.4)
   factory_bot_rails
   faker
   faraday (>= 1.8.0)
@@ -291,7 +264,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.4.3p32
+   ruby 3.2.8p263
 
 BUNDLED WITH
-   2.6.7
+   2.4.19
