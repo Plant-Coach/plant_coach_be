@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.7.10
+      - Faraday v2.13.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -21,11 +21,11 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Fri, 27 Oct 2023 03:22:35 GMT
+      - Thu, 24 Apr 2025 20:18:24 GMT
       Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1698376956&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=en%2FWlkeGgLzXORjpe2NZQNhtIg4m%2Bb24K8ht7UEMkW8%3D"}]}'
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525904&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=1Y%2FKo%2Fbak%2B4T1Z1cg3VEEiCjt%2F1QLaYtXVwk4s%2FQBq0%3D"}]}'
       Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1698376956&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=en%2FWlkeGgLzXORjpe2NZQNhtIg4m%2Bb24K8ht7UEMkW8%3D
+      - heroku-nel=https://nel.heroku.com/reports?ts=1745525904&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=1Y%2FKo%2Fbak%2B4T1Z1cg3VEEiCjt%2F1QLaYtXVwk4s%2FQBq0%3D
       Nel:
       - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
@@ -37,9 +37,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - dac8a34e-132a-4343-b4e7-f742d00ebdfe
+      - 69f1c0d3-c41d-47b9-afb7-51a4fd863d9f
       X-Runtime:
-      - '0.390634'
+      - '0.359366'
       Transfer-Encoding:
       - chunked
       Via:
@@ -48,5 +48,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Fri, 27 Oct 2023 03:22:36 GMT
-recorded_with: VCR 6.2.0
+  recorded_at: Thu, 24 Apr 2025 20:18:25 GMT
+recorded_with: VCR 6.3.1

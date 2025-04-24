@@ -21,49 +21,6 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 16 Jul 2023 20:54:09 GMT
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      Etag:
-      - W/"43098a6258e79296c49fb455c2cd482f"
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Request-Id:
-      - 8e0a6ab5-c021-404e-9a56-50c6b85fad6e
-      X-Runtime:
-      - '0.493763'
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
-    body:
-      encoding: UTF-8
-      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
-        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sun, 16 Jul 2023 20:54:09 GMT
-- request:
-    method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Faraday v2.5.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Cowboy
-      Date:
       - Sun, 16 Jul 2023 21:03:45 GMT
       Connection:
       - keep-alive
@@ -87,16 +44,14 @@ http_interactions:
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
   recorded_at: Sun, 16 Jul 2023 21:03:46 GMT
 - request:
-    method: post
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/forecast
+    method: get
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
     body:
-      encoding: UTF-8
-      string: location=80121
+      encoding: US-ASCII
+      string: ''
     headers:
       User-Agent:
-      - Faraday v2.5.2
-      Content-Type:
-      - application/x-www-form-urlencoded
+      - Faraday v2.13.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -109,25 +64,78 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Sun, 16 Jul 2023 21:03:46 GMT
+      - Thu, 24 Apr 2025 20:17:43 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525863&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=iUfmz0EKGmfK67y2W9dQiN0pEe8cNHfOttS5xEkvbwg%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1745525863&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=iUfmz0EKGmfK67y2W9dQiN0pEe8cNHfOttS5xEkvbwg%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"4f5ee171e7c5480c04275866f439e9dc"
+      - W/"43098a6258e79296c49fb455c2cd482f"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 4466b8c1-c61f-4cb9-9792-fc5106c920da
+      - 78aeb83e-4292-4fd8-968a-41b28802f047
       X-Runtime:
-      - '0.636817'
+      - '0.488172'
       Transfer-Encoding:
       - chunked
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"data":[{"id":null,"type":"forecast","attributes":{"date":1689534000,"sunrise":1689507911,"sunset":1689560768,"high":87.03,"low":62.94,"humidity":24,"wind":10.51,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689620400,"sunrise":1689594357,"sunset":1689647132,"high":96.75,"low":66.38,"humidity":11,"wind":13.35,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689706800,"sunrise":1689680804,"sunset":1689733495,"high":95.09,"low":70.21,"humidity":19,"wind":11.07,"weather":"Clouds"}},{"id":null,"type":"forecast","attributes":{"date":1689793200,"sunrise":1689767252,"sunset":1689819856,"high":86.47,"low":66.92,"humidity":26,"wind":13,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689879600,"sunrise":1689853701,"sunset":1689906215,"high":83.64,"low":62.06,"humidity":42,"wind":22.97,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1689966000,"sunrise":1689940151,"sunset":1689992573,"high":86.11,"low":60.4,"humidity":41,"wind":10.29,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690052400,"sunrise":1690026601,"sunset":1690078929,"high":86.95,"low":62.06,"humidity":34,"wind":8.75,"weather":"Rain"}},{"id":null,"type":"forecast","attributes":{"date":1690138800,"sunrise":1690113052,"sunset":1690165283,"high":87.44,"low":62.44,"humidity":28,"wind":9.31,"weather":"Clear"}}]}'
-  recorded_at: Sun, 16 Jul 2023 21:03:47 GMT
-recorded_with: VCR 6.1.0
+      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
+        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
+  recorded_at: Thu, 24 Apr 2025 20:17:43 GMT
+- request:
+    method: post
+    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/forecast
+    body:
+      encoding: UTF-8
+      string: location=80121
+    headers:
+      User-Agent:
+      - Faraday v2.13.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Thu, 24 Apr 2025 20:17:43 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525864&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=BMEWvI2wsGFsasTXqxZ4oWJ61QH0MAXzqzPJhlzvmHE%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1745525864&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=BMEWvI2wsGFsasTXqxZ4oWJ61QH0MAXzqzPJhlzvmHE%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/html; charset=UTF-8
+      X-Request-Id:
+      - ad45c171-f81e-42e6-bbd8-50fea5294b5e
+      X-Runtime:
+      - '0.041878'
+      Content-Length:
+      - '0'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Thu, 24 Apr 2025 20:17:44 GMT
+recorded_with: VCR 6.3.1
