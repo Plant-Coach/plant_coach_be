@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.7.10
+      - Faraday v2.13.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -21,7 +21,13 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Fri, 11 Aug 2023 20:34:06 GMT
+      - Thu, 24 Apr 2025 20:18:28 GMT
+      Report-To:
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525908&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=PR5DqW3rc3q%2F%2B%2F6T9zum8kf2LV2NxxReIxDFSVz0Aes%3D"}]}'
+      Reporting-Endpoints:
+      - heroku-nel=https://nel.heroku.com/reports?ts=1745525908&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=PR5DqW3rc3q%2F%2B%2F6T9zum8kf2LV2NxxReIxDFSVz0Aes%3D
+      Nel:
+      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
       - keep-alive
       Content-Type:
@@ -31,9 +37,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 7722464f-301c-4df8-860a-45a208b3e019
+      - 843d74c8-afa8-4395-b4cb-9d7d59824029
       X-Runtime:
-      - '0.432371'
+      - '0.357189'
       Transfer-Encoding:
       - chunked
       Via:
@@ -42,5 +48,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Fri, 11 Aug 2023 20:34:07 GMT
-recorded_with: VCR 6.2.0
+  recorded_at: Thu, 24 Apr 2025 20:18:29 GMT
+recorded_with: VCR 6.3.1

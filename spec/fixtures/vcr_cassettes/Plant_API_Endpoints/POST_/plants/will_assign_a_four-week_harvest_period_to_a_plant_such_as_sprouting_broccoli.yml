@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.7.10
+      - Faraday v2.13.0
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -21,11 +21,11 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Fri, 27 Oct 2023 03:22:35 GMT
+      - Thu, 24 Apr 2025 20:18:24 GMT
       Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1698376955&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=zkUSKZ9gekNW4E2E42ZRF%2FfICtuiLBJhIotaSkD4fm8%3D"}]}'
+      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525903&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=Tw1bX%2B8zBk9pAduChxfyXghZrgFk0HQg3f7YERtyb0M%3D"}]}'
       Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1698376955&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=zkUSKZ9gekNW4E2E42ZRF%2FfICtuiLBJhIotaSkD4fm8%3D
+      - heroku-nel=https://nel.heroku.com/reports?ts=1745525903&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=Tw1bX%2B8zBk9pAduChxfyXghZrgFk0HQg3f7YERtyb0M%3D
       Nel:
       - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
       Connection:
@@ -37,9 +37,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 6a4739bb-dfdf-4f11-849c-3d33090f2038
+      - 79133e1f-f170-4be5-8ed5-e6b4703e15fb
       X-Runtime:
-      - '0.390200'
+      - '0.371145'
       Transfer-Encoding:
       - chunked
       Via:
@@ -48,5 +48,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Fri, 27 Oct 2023 03:22:36 GMT
-recorded_with: VCR 6.2.0
+  recorded_at: Thu, 24 Apr 2025 20:18:24 GMT
+recorded_with: VCR 6.3.1
