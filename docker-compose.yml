@@ -1,0 +1,11 @@
+name: plant_coach_be
+
+services:
+  plant_coach_be:
+    image: ruby:3.4.3-slim
+    ports:
+      - "3000:3000"
+  plant_coach_development:
+    image: postgres:14
+    environment:
+      POSTGRES_USER:
