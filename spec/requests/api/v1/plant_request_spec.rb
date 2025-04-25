@@ -3,190 +3,205 @@ require 'rails_helper'
 RSpec.describe 'Plant API Endpoints', :vcr do
   before(:each) do
     body = {
-    name: 'Joel Grant',
-    email: 'joel@plantcoach.com',
-    zip_code: '80121',
-    password: '12345',
-    password_confirmation: '12345'
-  }
-  post '/api/v1/users', params: body
+      name: 'Joel Grant',
+      email: 'joel@plantcoach.com',
+      zip_code: '80121',
+      password: '12345',
+      password_confirmation: '12345'
+    }
+    post '/api/v1/users', params: body
 
-  
-  @user_response = JSON.parse(response.body, symbolize_names: true)
-  @user = User.find_by_id(@user_response[:user][:data][:id])
+    @user_response = JSON.parse(response.body, symbolize_names: true)
+    @user = User.find_by_id(@user_response[:user][:data][:id])
 
-
-    test_plant_guide = @user.plant_guides.create(
-      plant_type: "Something else",
+    @user.plant_guides.create(
+      plant_type: 'Something else',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "one_time"
+      harvest_period: 'one_time'
     )
 
     @tomato_guide = @user.plant_guides.create(
-      plant_type: "Tomato",
+      plant_type: 'Tomato',
       seedling_days_to_transplant: 49,
       direct_seed_recommended: false,
       days_to_maturity: 55,
       days_relative_to_frost_date: 14,
-      harvest_period: "season_long"
+      harvest_period: 'season_long'
     )
-  
-    pepper_guide = @user.plant_guides.create(
-      plant_type: "Pepper",
+
+    @user.plant_guides.create(
+      plant_type: 'Pepper',
       seedling_days_to_transplant: 49,
       direct_seed_recommended: false,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "season_long"
+      harvest_period: 'season_long'
     )
-    eggplant_guide = @user.plant_guides.create(
-      plant_type: "Eggplant",
+    @user.plant_guides.create(
+      plant_type: 'Eggplant',
       seedling_days_to_transplant: 49,
       direct_seed_recommended: false,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "season_long"
+      harvest_period: 'season_long'
     )
-    romaine_guide = @user.plant_guides.create(
-      plant_type: "Romaine Lettuce",
+    @user.plant_guides.create(
+      plant_type: 'Romaine Lettuce',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "one_time"
+      harvest_period: 'one_time'
     )
-    green_bean_guide = @user.plant_guides.create(
-      plant_type: "Green Bean",
+    @user.plant_guides.create(
+      plant_type: 'Green Bean',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "season_long"
+      harvest_period: 'season_long'
     )
-    radish_guide = @user.plant_guides.create(
-      plant_type: "Radish",
+    @user.plant_guides.create(
+      plant_type: 'Radish',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 45,
       days_relative_to_frost_date: 14,
-      harvest_period: "one_time"
+      harvest_period: 'one_time'
     )
-    carrot_guide = @user.plant_guides.create(
-      plant_type: "Carrot",
+    @user.plant_guides.create(
+      plant_type: 'Carrot',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 60,
       days_relative_to_frost_date: -30,
-      harvest_period: "one_week"
+      harvest_period: 'one_week'
     )
-    sprouting_broccoli_guide = @user.plant_guides.create(
-      plant_type: "Sprouting Broccoli",
+    @user.plant_guides.create(
+      plant_type: 'Sprouting Broccoli',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 45,
       days_relative_to_frost_date: -30,
-      harvest_period: "four_week"
+      harvest_period: 'four_week'
     )
-    basil_guide = @user.plant_guides.create(
-      plant_type: "Basil",
+    @user.plant_guides.create(
+      plant_type: 'Basil',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 30,
       days_relative_to_frost_date: 0,
-      harvest_period: "three_week"
+      harvest_period: 'three_week'
     )
-    cilantro_guide = @user.plant_guides.create(
-      plant_type: "Cilantro",
+    @user.plant_guides.create(
+      plant_type: 'Cilantro',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: true,
       days_to_maturity: 30,
       days_relative_to_frost_date: 0,
-      harvest_period: "two_week"
+      harvest_period: 'two_week'
     )
-    raspberry_guide = @user.plant_guides.create(
-      plant_type: "Raspberry",
+    @user.plant_guides.create(
+      plant_type: 'Raspberry',
       seedling_days_to_transplant: 0,
       direct_seed_recommended: false,
       days_to_maturity: 100,
       days_relative_to_frost_date: 0,
-      harvest_period: "season_long"
+      harvest_period: 'season_long'
     )
   end
 
-  let(:body) {{
-    name: 'Joel Grant',
-    email: 'joel@plantcoach.com',
-    zip_code: '80121',
-    password: '12345',
-    password_confirmation: '12345'
-  }}
+  let(:body) do
+    {
+      name: 'Joel Grant',
+      email: 'joel@plantcoach.com',
+      zip_code: '80121',
+      password: '12345',
+      password_confirmation: '12345'
+    }
+  end
 
-  let(:plant1_params) { {
-    plant_type: "Tomato",
-    name: "Sungold",
-    days_relative_to_frost_date: 14,
-    days_to_maturity: 54,
-    hybrid_status: :f1
-  } }
-  let(:plant2_params) { {
-    plant_type: "Pepper",
-    name: "Round of Hungary",
-    days_relative_to_frost_date: 14,
-    days_to_maturity: 60,
-    hybrid_status: :f1
-  } }
-  let(:plant3_params) { {
-    plant_type: "Eggplant",
-    name: "Rosa Bianca",
-    days_relative_to_frost_date: 14,
-    days_to_maturity: 68,
-    hybrid_status: :open_pollinated
-  } }
-  let(:plant4_params) { {
-    plant_type: "Romaine Lettuce",
-    name: "Costal Star",
-    days_relative_to_frost_date: 30,
-    days_to_maturity: 25,
-    hybrid_status: :f1
-  } }
-  let(:plant5_params) { {
-    plant_type: "Green Bean",
-    name: "Provider",
-    days_relative_to_frost_date: -7,
-    days_to_maturity: 45,
-    hybrid_status: :f1
-  } }
-  
+  let(:plant1_params) do
+    {
+      plant_type: 'Tomato',
+      name: 'Sungold',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 54,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant2_params) do
+    {
+      plant_type: 'Pepper',
+      name: 'Round of Hungary',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 60,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant3_params) do
+    {
+      plant_type: 'Eggplant',
+      name: 'Rosa Bianca',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 68,
+      hybrid_status: :open_pollinated
+    }
+  end
+  let(:plant4_params) do
+    {
+      plant_type: 'Romaine Lettuce',
+      name: 'Costal Star',
+      days_relative_to_frost_date: 30,
+      days_to_maturity: 25,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant5_params) do
+    {
+      plant_type: 'Green Bean',
+      name: 'Provider',
+      days_relative_to_frost_date: -7,
+      days_to_maturity: 45,
+      hybrid_status: :f1
+    }
+  end
 
   let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
   let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
 
   let(:last_user) { User.last }
 
-  let(:plant1_object) { last_user.plants.create!(
-    plant_type: "Tomato",
-    name: "Sungold",
-    days_relative_to_frost_date: 14,
-    days_to_maturity: 54,
-    hybrid_status: :f1
-  ) }
-  let(:plant2_object) { last_user.plants.create!(
-    plant_type: "Pepper",
-    name: "Jalafuego",
-    days_relative_to_frost_date: 14,
-    days_to_maturity: 65,
-    hybrid_status: :f1
-  ) }
-  let(:plant3_object) { last_user.plants.create!(
-    plant_type: "Radish",
-    name: "French Breakfast",
-    days_relative_to_frost_date: 30,
-    days_to_maturity: 21,
-    hybrid_status: :f1
-  ) }
+  let(:plant1_object) do
+    last_user.plants.create!(
+      plant_type: 'Tomato',
+      name: 'Sungold',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 54,
+      hybrid_status: :f1
+    )
+  end
+  let(:plant2_object) do
+    last_user.plants.create!(
+      plant_type: 'Pepper',
+      name: 'Jalafuego',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 65,
+      hybrid_status: :f1
+    )
+  end
+  let(:plant3_object) do
+    last_user.plants.create!(
+      plant_type: 'Radish',
+      name: 'French Breakfast',
+      days_relative_to_frost_date: 30,
+      days_to_maturity: 21,
+      hybrid_status: :f1
+    )
+  end
   # let(:plant4_object) { last_user.plants.create!(
   #   plant_type: "Tomato",
   #   name: "Nova",
@@ -197,10 +212,9 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
   describe 'GET /plants' do
     it 'retrieves all the plants that have been added to the application by that user' do
-
       # Created to make sure user's plants don't show up for other users
       other_user = {
-      name: 'Bad User',
+        name: 'Bad User',
         email: 'bad@user.com',
         zip_code: '80121',
         password: '12345',
@@ -226,13 +240,13 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       second_user_response = JSON.parse(response.body, symbolize_names: true)
       second_user = User.find_by_id(user_response[:user][:data][:id])
 
-      green_bean_guide = second_user.plant_guides.create(
-        plant_type: "Green Bean",
+      second_user.plant_guides.create(
+        plant_type: 'Green Bean',
         seedling_days_to_transplant: 0,
         direct_seed_recommended: true,
         days_to_maturity: 45,
         days_relative_to_frost_date: 14,
-        harvest_period: "season_long"
+        harvest_period: 'season_long'
       )
 
       post '/api/v1/plants', params: plant5_params, headers: {
@@ -257,7 +271,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
         expect(plant).to have_key(:type)
         expect(plant[:type]).to be_a String
-        expect(plant[:type]).to eq("plant")
+        expect(plant[:type]).to eq('plant')
 
         expect(plant[:attributes]).to be_a Hash
 
@@ -274,7 +288,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         expect(plant[:attributes][:days_to_maturity]).to be_an Integer
 
         expect(plant[:attributes]).to have_key(:hybrid_status)
-        expect(plant[:attributes][:hybrid_status]).to eq("f1").or eq("open_pollinated")
+        expect(plant[:attributes][:hybrid_status]).to eq('f1').or eq('open_pollinated')
       end
     end
   end
@@ -290,15 +304,15 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       expect(response).to be_successful
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:name]).to eq('Sungold')
     end
 
     it 'will create a plant with unknown as the hybrid status if it is not provided' do
       expect(response).to be_successful
 
       plant_without_hybrid_status = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold',
         days_relative_to_frost_date: 14,
         organic: true,
         days_to_maturity: 54
@@ -312,15 +326,15 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       expect(result).to_not have_key(:error)
       expect(response).to be_successful
-      expect(result[:data][:attributes][:hybrid_status]).to eq("unknown")
+      expect(result[:data][:attributes][:hybrid_status]).to eq('unknown')
     end
 
     it 'will create a new plant even if the organic status is not known' do
       expect(response).to be_successful
 
       plant_with_missing_organic_field = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold',
         days_relative_to_frost_date: 14,
         days_to_maturity: 54,
         hybrid_status: :f1
@@ -341,8 +355,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -351,7 +365,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       expect(response.status).to eq(201)
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:name]).to eq('Sungold')
       expect(result[:data][:attributes][:days_to_maturity]).to eq(55)
       expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
     end
@@ -360,29 +374,29 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
-        days_to_maturity: "ABCD",
-        days_relative_to_frost_date: "ABCD",
+        plant_type: 'Tomato',
+        name: 'Sungold',
+        days_to_maturity: 'ABCD',
+        days_relative_to_frost_date: 'ABCD',
         hybrid_status: :f1
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(result[:errors]).to be_an Array
       expect(result[:errors].count).to eq(2)
-      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
-      expect(result[:errors][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+      expect(result[:errors][0]).to eq('Days to Maturity must be an integer, greater than 0!')
+      expect(result[:errors][1]).to eq('Days Relative to Frost Date must be a whole number, and can be postive or negative!')
     end
 
     it 'will only allow whole integers to be used and will return a specific response message if it receives a fraction or decimal' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold',
         days_to_maturity: 0.5,
         days_relative_to_frost_date: 1.2,
         hybrid_status: :f1
@@ -394,16 +408,16 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       expect(result[:errors]).to be_an Array
       expect(result[:errors].count).to eq(2)
-      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
-      expect(result[:errors][1]).to eq("Days Relative to Frost Date must be a whole number, and can be postive or negative!")
+      expect(result[:errors][0]).to eq('Days to Maturity must be an integer, greater than 0!')
+      expect(result[:errors][1]).to eq('Days Relative to Frost Date must be a whole number, and can be postive or negative!')
     end
 
     it 'specifically only accepts positive numbers for the days to maturity field' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold',
         days_to_maturity: -40,
         days_relative_to_frost_date: 5,
         hybrid_status: :f1
@@ -412,18 +426,18 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
       result = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(result[:errors]).to be_an Array
       expect(result[:errors].count).to eq(1)
-      expect(result[:errors][0]).to eq("Days to Maturity must be an integer, greater than 0!")
+      expect(result[:errors][0]).to eq('Days to Maturity must be an integer, greater than 0!')
     end
 
     it 'allows positive and negative values for days relative to frost date' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold',
         days_to_maturity: 40,
         days_relative_to_frost_date: -10,
         hybrid_status: :f1
@@ -433,7 +447,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:data][:attributes][:name]).to eq("Sungold")
+      expect(result[:data][:attributes][:name]).to eq('Sungold')
       expect(result[:data][:attributes][:id]).to be_an Integer
     end
 
@@ -441,8 +455,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sungold",
+        plant_type: 'Tomato',
+        name: 'Sungold'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -452,17 +466,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
-      expect(result[:data][:attributes][:name]).to eq("Sungold")
-      expect(result[:data][:attributes][:harvest_period]).to eq("season_long")
+      expect(result[:data][:attributes][:plant_type]).to eq('Tomato')
+      expect(result[:data][:attributes][:name]).to eq('Sungold')
+      expect(result[:data][:attributes][:harvest_period]).to eq('season_long')
     end
 
     it 'will assign a season-long harvest period to a plant such as an Eggplant' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Eggplant",
-        name: "Rosa Bianca",
+        plant_type: 'Eggplant',
+        name: 'Rosa Bianca'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -472,17 +486,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Eggplant")
-      expect(result[:data][:attributes][:name]).to eq("Rosa Bianca")
-      expect(result[:data][:attributes][:harvest_period]).to eq("season_long")
+      expect(result[:data][:attributes][:plant_type]).to eq('Eggplant')
+      expect(result[:data][:attributes][:name]).to eq('Rosa Bianca')
+      expect(result[:data][:attributes][:harvest_period]).to eq('season_long')
     end
 
     it 'will assign a four-week harvest period to a plant such as sprouting broccoli' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Sprouting Broccoli",
-        name: "Di Cicco",
+        plant_type: 'Sprouting Broccoli',
+        name: 'Di Cicco'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -492,17 +506,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Sprouting Broccoli")
-      expect(result[:data][:attributes][:name]).to eq("Di Cicco")
-      expect(result[:data][:attributes][:harvest_period]).to eq("four_week")
+      expect(result[:data][:attributes][:plant_type]).to eq('Sprouting Broccoli')
+      expect(result[:data][:attributes][:name]).to eq('Di Cicco')
+      expect(result[:data][:attributes][:harvest_period]).to eq('four_week')
     end
 
     it 'will assign a three-week harvest period to a plant such as a cucumber' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Basil",
-        name: "Thai Towers",
+        plant_type: 'Basil',
+        name: 'Thai Towers'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -512,17 +526,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Basil")
-      expect(result[:data][:attributes][:name]).to eq("Thai Towers")
-      expect(result[:data][:attributes][:harvest_period]).to eq("three_week")
+      expect(result[:data][:attributes][:plant_type]).to eq('Basil')
+      expect(result[:data][:attributes][:name]).to eq('Thai Towers')
+      expect(result[:data][:attributes][:harvest_period]).to eq('three_week')
     end
 
     it 'will assign a two-week harvest period to a plant such as cilantro' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Cilantro",
-        name: "CantThinkOfAName",
+        plant_type: 'Cilantro',
+        name: 'CantThinkOfAName'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -532,17 +546,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Cilantro")
-      expect(result[:data][:attributes][:name]).to eq("CantThinkOfAName")
-      expect(result[:data][:attributes][:harvest_period]).to eq("two_week")
+      expect(result[:data][:attributes][:plant_type]).to eq('Cilantro')
+      expect(result[:data][:attributes][:name]).to eq('CantThinkOfAName')
+      expect(result[:data][:attributes][:harvest_period]).to eq('two_week')
     end
 
     it 'will assign a one-week harvest period to a plant such as a carrot' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Carrot",
-        name: "Sugarsnax",
+        plant_type: 'Carrot',
+        name: 'Sugarsnax'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -552,17 +566,17 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Carrot")
-      expect(result[:data][:attributes][:name]).to eq("Sugarsnax")
-      expect(result[:data][:attributes][:harvest_period]).to eq("one_week")
+      expect(result[:data][:attributes][:plant_type]).to eq('Carrot')
+      expect(result[:data][:attributes][:name]).to eq('Sugarsnax')
+      expect(result[:data][:attributes][:harvest_period]).to eq('one_week')
     end
 
     it 'will assign a one-time harvest period to a plant such as a head of lettuce' do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Romaine Lettuce",
-        name: "Coastal Star",
+        plant_type: 'Romaine Lettuce',
+        name: 'Coastal Star'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -572,9 +586,9 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
 
       expect(result).to be_a Hash
-      expect(result[:data][:attributes][:plant_type]).to eq("Romaine Lettuce")
-      expect(result[:data][:attributes][:name]).to eq("Coastal Star")
-      expect(result[:data][:attributes][:harvest_period]).to eq("one_time")
+      expect(result[:data][:attributes][:plant_type]).to eq('Romaine Lettuce')
+      expect(result[:data][:attributes][:name]).to eq('Coastal Star')
+      expect(result[:data][:attributes][:harvest_period]).to eq('one_time')
     end
 
     # This scenario should never happen.
@@ -584,7 +598,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        name: "Sungold",
+        name: 'Sungold'
       }
 
       post '/api/v1/plants', params: plant, headers: {
@@ -602,60 +616,60 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     context 'creating two plants with the same name' do
       context 'with the same user' do
         context 'with different plant types'
-          it 'is successful' do
-            nova_tomato_params = {
-              plant_type: "Tomato",
-              name: "Nova",
-              days_relative_to_frost_date: 14,
-              days_to_maturity: 48,
-              hybrid_status: :f1
-            }
+        it 'is successful' do
+          nova_tomato_params = {
+            plant_type: 'Tomato',
+            name: 'Nova',
+            days_relative_to_frost_date: 14,
+            days_to_maturity: 48,
+            hybrid_status: :f1
+          }
 
-            post '/api/v1/plants', params: nova_tomato_params, headers: {
-              Authorization: "Bearer #{@user_response[:jwt]}"
-            }
-            tomato_result = JSON.parse(response.body, symbolize_names: true)
+          post '/api/v1/plants', params: nova_tomato_params, headers: {
+            Authorization: "Bearer #{@user_response[:jwt]}"
+          }
+          JSON.parse(response.body, symbolize_names: true)
 
-            nova_raspberry_params = {
-              plant_type: "Raspberry",
-              name: "Nova",
-              days_relative_to_frost_date: 0,
-              days_to_maturity: 100,
-              hybrid_status: :f1
-            }
+          nova_raspberry_params = {
+            plant_type: 'Raspberry',
+            name: 'Nova',
+            days_relative_to_frost_date: 0,
+            days_to_maturity: 100,
+            hybrid_status: :f1
+          }
 
-            post '/api/v1/plants', params: nova_raspberry_params, headers: {
-              Authorization: "Bearer #{@user_response[:jwt]}"
-            }
+          post '/api/v1/plants', params: nova_raspberry_params, headers: {
+            Authorization: "Bearer #{@user_response[:jwt]}"
+          }
 
-            result = JSON.parse(response.body, symbolize_names: true)
+          result = JSON.parse(response.body, symbolize_names: true)
 
-            expect(response).to be_successful
+          expect(response).to be_successful
 
-            expect(result[:data][:id]).to_not be nil
-            expect(result[:data][:attributes][:name]).to eq(nova_raspberry_params[:name])
-            expect(result[:data][:attributes][:plant_type]).to eq(nova_raspberry_params[:plant_type])
-            
-            get '/api/v1/plants', headers: {
-              Authorization: "Bearer #{@user_response[:jwt]}"
-            }
-            
-            users_plants_result = JSON.parse(response.body, symbolize_names: true)
+          expect(result[:data][:id]).to_not be nil
+          expect(result[:data][:attributes][:name]).to eq(nova_raspberry_params[:name])
+          expect(result[:data][:attributes][:plant_type]).to eq(nova_raspberry_params[:plant_type])
 
-            expect(users_plants_result[:data][0][:attributes][:id]).to be_an Integer
-            expect(users_plants_result[:data][0][:attributes][:name]).to eq("Nova")
-            expect(users_plants_result[:data][0][:attributes][:plant_type]).to eq("Tomato")
+          get '/api/v1/plants', headers: {
+            Authorization: "Bearer #{@user_response[:jwt]}"
+          }
 
-            expect(users_plants_result[:data][1][:attributes][:id]).to be_an Integer
-            expect(users_plants_result[:data][1][:attributes][:name]).to eq("Nova")
-            expect(users_plants_result[:data][1][:attributes][:plant_type]).to eq("Raspberry")
-          end
+          users_plants_result = JSON.parse(response.body, symbolize_names: true)
+
+          expect(users_plants_result[:data][0][:attributes][:id]).to be_an Integer
+          expect(users_plants_result[:data][0][:attributes][:name]).to eq('Nova')
+          expect(users_plants_result[:data][0][:attributes][:plant_type]).to eq('Tomato')
+
+          expect(users_plants_result[:data][1][:attributes][:id]).to be_an Integer
+          expect(users_plants_result[:data][1][:attributes][:name]).to eq('Nova')
+          expect(users_plants_result[:data][1][:attributes][:plant_type]).to eq('Raspberry')
+        end
 
         context 'with the same plant types' do
           it 'is unsuccessful' do
             nova_tomato_params = {
-              plant_type: "Tomato",
-              name: "Nova",
+              plant_type: 'Tomato',
+              name: 'Nova',
               days_relative_to_frost_date: 14,
               days_to_maturity: 48,
               hybrid_status: :f1
@@ -664,22 +678,22 @@ RSpec.describe 'Plant API Endpoints', :vcr do
             post '/api/v1/plants', params: nova_tomato_params, headers: {
               Authorization: "Bearer #{@user_response[:jwt]}"
             }
-            tomato_result = JSON.parse(response.body, symbolize_names: true)
+            JSON.parse(response.body, symbolize_names: true)
 
             # Try to create the same plant a second time
             post '/api/v1/plants', params: nova_tomato_params, headers: {
               Authorization: "Bearer #{@user_response[:jwt]}"
             }
 
-            result = JSON.parse(response.body, symbolize_names: true)
+            JSON.parse(response.body, symbolize_names: true)
 
             expect(response).to be_forbidden
           end
 
           it 'returns an informative response' do
             nova_tomato_params = {
-              plant_type: "Tomato",
-              name: "Nova",
+              plant_type: 'Tomato',
+              name: 'Nova',
               days_relative_to_frost_date: 14,
               days_to_maturity: 48,
               hybrid_status: :f1
@@ -688,7 +702,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
             post '/api/v1/plants', params: nova_tomato_params, headers: {
               Authorization: "Bearer #{@user_response[:jwt]}"
             }
-            tomato_result = JSON.parse(response.body, symbolize_names: true)
+            JSON.parse(response.body, symbolize_names: true)
 
             # Try to create the same plant a second time
             post '/api/v1/plants', params: nova_tomato_params, headers: {
@@ -708,8 +722,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
         context 'with the same plant types' do
           it 'is successful' do
             nova_tomato_params = {
-              plant_type: "Tomato",
-              name: "Nova",
+              plant_type: 'Tomato',
+              name: 'Nova',
               days_relative_to_frost_date: 14,
               days_to_maturity: 48,
               hybrid_status: :f1
@@ -721,8 +735,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
             expect(response).to be_successful
 
-            result = JSON.parse(response.body, symbolize_names: true)
-            
+            JSON.parse(response.body, symbolize_names: true)
+
             # Introduce a 2nd user and same plant.
             user2_params = {
               name: 'Joel Grant2',
@@ -737,14 +751,14 @@ RSpec.describe 'Plant API Endpoints', :vcr do
             user2 = User.find_by_id(user_response[:user][:data][:id])
 
             user2.plant_guides.create!(
-              plant_type: "Tomato",
+              plant_type: 'Tomato',
               seedling_days_to_transplant: 49,
               direct_seed_recommended: false,
               days_to_maturity: 55,
               days_relative_to_frost_date: 14,
-              harvest_period: "season_long"
+              harvest_period: 'season_long'
             )
-            
+
             post '/api/v1/plants', params: nova_tomato_params, headers: {
               Authorization: "Bearer #{user2_response[:jwt]}"
             }
@@ -770,12 +784,12 @@ RSpec.describe 'Plant API Endpoints', :vcr do
             user3 = User.find_by_id(user3_response[:user][:data][:id])
 
             user3.plant_guides.create!(
-              plant_type: "Tomato",
+              plant_type: 'Tomato',
               seedling_days_to_transplant: 49,
               direct_seed_recommended: false,
               days_to_maturity: 55,
               days_relative_to_frost_date: 14,
-              harvest_period: "season_long"
+              harvest_period: 'season_long'
             )
 
             post '/api/v1/plants', params: nova_tomato_params, headers: {
@@ -783,7 +797,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
             }
 
             expect(response).to be_successful
-            
+
             result3 = JSON.parse(response.body, symbolize_names: true)
 
             expect(result3[:data][:attributes][:user_id]).to eq(user3.id)
@@ -800,8 +814,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sakura",
+        plant_type: 'Tomato',
+        name: 'Sakura'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -818,8 +832,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:data][:attributes][:name]).to eq("Sakura")
-      expect(result[:data][:attributes][:plant_type]).to eq("Tomato")
+      expect(result[:data][:attributes][:name]).to eq('Sakura')
+      expect(result[:data][:attributes][:plant_type]).to eq('Tomato')
       expect(result[:data][:attributes][:id]).to eq(plant_id)
     end
 
@@ -828,8 +842,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response).to be_successful
 
       plant = {
-        plant_type: "Tomato",
-        name: "Sakura",
+        plant_type: 'Tomato',
+        name: 'Sakura'
       }
       post '/api/v1/plants', params: plant, headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -837,8 +851,8 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       expect(response).to be_successful
 
-      plant_result = JSON.parse(response.body, symbolize_names: true)
-      non_existent_id = 203948
+      JSON.parse(response.body, symbolize_names: true)
+      non_existent_id = 203_948
 
       get "/api/v1/plants/#{non_existent_id}", headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
@@ -846,7 +860,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
 
       result = JSON.parse(response.body, symbolize_names: true)
 
-      expect(result[:error]).to eq("The plant can not be found!")
+      expect(result[:error]).to eq('The plant can not be found!')
     end
   end
 
@@ -871,7 +885,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       delete "/api/v1/plants/#{plant3_object.id}", headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
-      result = JSON.parse(response.body, symbolize_names: true)
+      JSON.parse(response.body, symbolize_names: true)
 
       expect(Plant.find_by(id: plant3_object.id)).to be nil
     end
@@ -879,12 +893,12 @@ RSpec.describe 'Plant API Endpoints', :vcr do
     it 'returns an error if the plant can not be found' do
       expect(response).to be_successful
 
-      delete "/api/v1/plants/999999", headers: {
+      delete '/api/v1/plants/999999', headers: {
         Authorization: "Bearer #{@user_response[:jwt]}"
       }
 
       result = JSON.parse(response.body, symbolize_names: true)
-      expect(result[:error]).to eq("Something happened!")
+      expect(result[:error]).to eq('Something happened!')
     end
   end
 end

@@ -3,9 +3,9 @@ class Api::V1::UsersController < ApplicationController
 
   # This is being used similarly to a show action.
   def index
-    if @user
-      render json: UserSerializer.new(@user), status: :ok
-    end
+    return unless @user
+
+    render json: UserSerializer.new(@user), status: :ok
   end
 
   def create
@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
       token = encode_token(user_id: user.id)
       render json: { user: UserSerializer.new(user), jwt: token }, status: :created
     elsif passwords_dont_match
-      render json: UserSerializer.error("Your passwords must match!"), status: :not_acceptable
+      render json: UserSerializer.error('Your passwords must match!'), status: :not_acceptable
     else
       render json: UserSerializer.error(user.errors.full_messages.first), status: :not_acceptable
     end
@@ -27,7 +27,7 @@ class Api::V1::UsersController < ApplicationController
     else
       valid_user_record = User.find_by_id(@user.id)
       failed_update_errors = @user.errors.full_messages.first
-      
+
       render json: UserSerializer.changes_not_saved(failed_update_errors, valid_user_record), status: :bad_request
     end
   end
@@ -38,6 +38,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.permit(:name, :email, :zip_code, :password, :password_confirmation)
   end

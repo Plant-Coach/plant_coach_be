@@ -17,19 +17,17 @@ class Api::V1::PlantGuidesController < ApplicationController
     if !plant_guide.nil?
       render json: PlantGuideSerializer.new(plant_guide)
     else
-      render json: PlantGuideSerializer.error("This plant guide could not be found.")
+      render json: PlantGuideSerializer.error('This plant guide could not be found.')
     end
   end
 
   def update
-    begin
-      plant_guide = @user.plant_guides.find_by_id(params[:id])
-      plant_guide.update!(plant_guide_params)
-    rescue ActiveRecord::RecordInvalid
-      render json: PlantGuideSerializer.errors(plant_guide.errors.full_messages), status: :bad_request
-    else
-      render json: PlantGuideSerializer.new(plant_guide), status: :ok
-    end
+    plant_guide = @user.plant_guides.find_by_id(params[:id])
+    plant_guide.update!(plant_guide_params)
+  rescue ActiveRecord::RecordInvalid
+    render json: PlantGuideSerializer.errors(plant_guide.errors.full_messages), status: :bad_request
+  else
+    render json: PlantGuideSerializer.new(plant_guide), status: :ok
 
     # if plant_guide.valid?
     #   plant_guide.update(plant_guide_params)
@@ -41,13 +39,14 @@ class Api::V1::PlantGuidesController < ApplicationController
 
   def destroy
     plant_guide = @user.plant_guides.find_by_id(params[:id])
-    if plant_guide
-      plant_guide.destroy
-      render json: PlantGuideSerializer.message("success"), status: :ok
-    end
+    return unless plant_guide
+
+    plant_guide.destroy
+    render json: PlantGuideSerializer.message('success'), status: :ok
   end
 
   private
+
   def plant_guide_params
     params.permit(
       :plant_type,

@@ -18,7 +18,6 @@ class CreateGardenPlant < ActiveRecord::Migration[5.2]
       t.integer :planting_status, null: false, default: 0
       t.date :recommended_transplant_date
 
-
       t.timestamps
     end
   end

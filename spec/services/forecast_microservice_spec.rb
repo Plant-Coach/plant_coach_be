@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ForecastMicroservice, :vcr do
   describe '::get_forecast' do
     xit 'returns the forecast for the zip code provided' do
-      zip_code = "80112"
+      zip_code = '80112'
       data = ForecastMicroservice.forecast(zip_code)
 
       expect(data).to be_a Hash
@@ -15,7 +15,7 @@ RSpec.describe ForecastMicroservice, :vcr do
 
         expect(weather).to have_key(:type)
         expect(weather[:type]).to be_a String
-        expect(weather[:type]).to eq("forecast")
+        expect(weather[:type]).to eq('forecast')
 
         expect(weather).to have_key(:attributes)
         expect(weather[:attributes]).to be_a Hash
