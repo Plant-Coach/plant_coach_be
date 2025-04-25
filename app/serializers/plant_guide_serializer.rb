@@ -27,7 +27,7 @@ class PlantGuideSerializer
       "errors": error_messages.each do |message|
       end
     }
-  end 
+  end
 
   def self.error(message)
     {

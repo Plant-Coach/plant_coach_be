@@ -12,8 +12,8 @@ class PlantSerializer
 
   def self.errors(errors)
     {
-    "errors": errors.each do |error_message|
-    end
+      "errors": errors.each do |error_message|
+      end
     }
   end
 

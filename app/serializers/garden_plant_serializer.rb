@@ -25,7 +25,7 @@ class GardenPlantSerializer
 
   def self.confirm
     {
-      "status": "success"
+      "status": 'success'
     }
   end
 end

@@ -10,79 +10,79 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_25_180927) do
+ActiveRecord::Schema[7.2].define(version: 20_250_425_180_927) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "garden_plants", force: :cascade do |t|
-    t.integer "plant_start_method", default: 0, null: false
-    t.boolean "direct_seed_recommended", null: false
-    t.date "actual_transplant_date"
-    t.integer "seedling_days_to_transplant"
-    t.date "actual_seed_sewing_date"
-    t.date "recommended_seed_sewing_date"
-    t.integer "planting_status", default: 0, null: false
-    t.date "recommended_transplant_date"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.date "harvest_start"
-    t.date "harvest_finish"
-    t.integer "harvest_period", default: 0, null: false
-    t.bigint "plant_id"
-    t.integer "hybrid_status"
-    t.index ["plant_id"], name: "index_garden_plants_on_plant_id"
+  create_table 'garden_plants', force: :cascade do |t|
+    t.integer 'plant_start_method', default: 0, null: false
+    t.boolean 'direct_seed_recommended', null: false
+    t.date 'actual_transplant_date'
+    t.integer 'seedling_days_to_transplant'
+    t.date 'actual_seed_sewing_date'
+    t.date 'recommended_seed_sewing_date'
+    t.integer 'planting_status', default: 0, null: false
+    t.date 'recommended_transplant_date'
+    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'updated_at', precision: nil, null: false
+    t.date 'harvest_start'
+    t.date 'harvest_finish'
+    t.integer 'harvest_period', default: 0, null: false
+    t.bigint 'plant_id'
+    t.integer 'hybrid_status'
+    t.index ['plant_id'], name: 'index_garden_plants_on_plant_id'
   end
 
-  create_table "plant_guide_masters", force: :cascade do |t|
-    t.string "plant_type"
-    t.boolean "direct_seed_recommended"
-    t.integer "seedling_days_to_transplant"
-    t.integer "days_to_maturity"
-    t.integer "days_relative_to_frost_date"
-    t.string "harvest_period"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'plant_guide_masters', force: :cascade do |t|
+    t.string 'plant_type'
+    t.boolean 'direct_seed_recommended'
+    t.integer 'seedling_days_to_transplant'
+    t.integer 'days_to_maturity'
+    t.integer 'days_relative_to_frost_date'
+    t.string 'harvest_period'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "plant_guides", force: :cascade do |t|
-    t.string "plant_type"
-    t.boolean "direct_seed_recommended"
-    t.integer "seedling_days_to_transplant"
-    t.integer "days_to_maturity"
-    t.integer "days_relative_to_frost_date"
-    t.string "harvest_period"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_plant_guides_on_user_id"
+  create_table 'plant_guides', force: :cascade do |t|
+    t.string 'plant_type'
+    t.boolean 'direct_seed_recommended'
+    t.integer 'seedling_days_to_transplant'
+    t.integer 'days_to_maturity'
+    t.integer 'days_relative_to_frost_date'
+    t.string 'harvest_period'
+    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'updated_at', precision: nil, null: false
+    t.bigint 'user_id'
+    t.index ['user_id'], name: 'index_plant_guides_on_user_id'
   end
 
-  create_table "plants", force: :cascade do |t|
-    t.string "plant_type"
-    t.string "name"
-    t.integer "days_to_maturity"
-    t.integer "hybrid_status", default: 0
-    t.boolean "organic", default: false, null: false
-    t.integer "days_relative_to_frost_date"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
-    t.integer "harvest_period", default: 0, null: false
-    t.index ["user_id"], name: "index_plants_on_user_id"
+  create_table 'plants', force: :cascade do |t|
+    t.string 'plant_type'
+    t.string 'name'
+    t.integer 'days_to_maturity'
+    t.integer 'hybrid_status', default: 0
+    t.boolean 'organic', default: false, null: false
+    t.integer 'days_relative_to_frost_date'
+    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'updated_at', precision: nil, null: false
+    t.bigint 'user_id'
+    t.integer 'harvest_period', default: 0, null: false
+    t.index ['user_id'], name: 'index_plants_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "password_digest"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "email"
-    t.string "zip_code"
-    t.string "spring_frost_date"
-    t.string "fall_frost_date"
+  create_table 'users', force: :cascade do |t|
+    t.string 'name'
+    t.string 'password_digest'
+    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'updated_at', precision: nil, null: false
+    t.string 'email'
+    t.string 'zip_code'
+    t.string 'spring_frost_date'
+    t.string 'fall_frost_date'
   end
 
-  add_foreign_key "garden_plants", "plants"
-  add_foreign_key "plant_guides", "users"
-  add_foreign_key "plants", "users"
+  add_foreign_key 'garden_plants', 'plants'
+  add_foreign_key 'plant_guides', 'users'
+  add_foreign_key 'plants', 'users'
 end

@@ -32,7 +32,6 @@ user2 = User.create(
   password_confirmation: '12345'
 )
 
-
 # tomato = user.plant_guides.create(
 #   plant_type: "Tomato",
 #   seedling_days_to_transplant: 49,
@@ -148,34 +147,56 @@ user2 = User.create(
 #   harvest_period: "three_week"
 # )
 
-
-plant1 = user.plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
-plant2 = user.plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
-plant3 = user.plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1)
-plant4 = user.plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1)
-plant5 = user.plants.create(name: "Provider", plant_type: "Green Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1)
-plant6 = user.plants.create(name: "San Marzano II", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 68, hybrid_status: 1)
+plant1 = user.plants.create(name: 'Sungold', plant_type: 'Tomato', days_relative_to_frost_date: 14,
+                            days_to_maturity: 60, hybrid_status: 1)
+plant2 = user.plants.create(name: 'Rosa Bianca', plant_type: 'Eggplant', days_relative_to_frost_date: 14,
+                            days_to_maturity: 70, hybrid_status: 1)
+plant3 = user.plants.create(name: 'Jalafuego', plant_type: 'Pepper', days_relative_to_frost_date: 14,
+                            days_to_maturity: 65, hybrid_status: 1)
+plant4 = user.plants.create(name: 'French Breakfast', plant_type: 'Radish', days_relative_to_frost_date: 28,
+                            days_to_maturity: 21, hybrid_status: 1)
+plant5 = user.plants.create(name: 'Provider', plant_type: 'Green Bean', days_relative_to_frost_date: 7,
+                            days_to_maturity: 45, hybrid_status: 1)
+user.plants.create(name: 'San Marzano II', plant_type: 'Tomato', days_relative_to_frost_date: 14,
+                   days_to_maturity: 68, hybrid_status: 1)
 # plant7 = user.plants.create(name: "Toma Verde", plant_type: "Tomatillo", days_relative_to_frost_date: 14, days_to_maturity: 68, hybrid_status: 1)
-plant8 = user.plants.create(name: "Genovese", plant_type: "Basil", days_relative_to_frost_date: 0, days_to_maturity: 42, hybrid_status: 1)
+user.plants.create(name: 'Genovese', plant_type: 'Basil', days_relative_to_frost_date: 0,
+                   days_to_maturity: 42, hybrid_status: 1)
 # plant9 = user.plants.create(name: "Corinto", plant_type: "Cucumber", days_relative_to_frost_date: 14, days_to_maturity: 49, hybrid_status: 1)
 # plant10 = user.plants.create(name: "Champion", plant_type: "Pumpkin", days_relative_to_frost_date: 21, days_to_maturity: 75, hybrid_status: 1)
 
-user2_plant1 = user2.plants.create(name: "Sungold", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 60, hybrid_status: 1)
-user2_plant2 = user2.plants.create(name: "Rosa Bianca", plant_type: "Eggplant", days_relative_to_frost_date: 14, days_to_maturity: 70, hybrid_status: 1)
-user2_plant3 = user2.plants.create(name: "Jalafuego", plant_type: "Pepper", days_relative_to_frost_date: 14, days_to_maturity: 65, hybrid_status: 1)
-user2_plant4 = user2.plants.create(name: "French Breakfast", plant_type: "Radish", days_relative_to_frost_date: 28, days_to_maturity: 21, hybrid_status: 1)
-user2_plant5 = user2.plants.create(name: "Provider", plant_type: "Green Bean", days_relative_to_frost_date: 7, days_to_maturity: 45, hybrid_status: 1)
-user2_plant6 = user2.plants.create(name: "San Marzano II", plant_type: "Tomato", days_relative_to_frost_date: 14, days_to_maturity: 68, hybrid_status: 1)
+user2_plant1 = user2.plants.create(name: 'Sungold', plant_type: 'Tomato', days_relative_to_frost_date: 14,
+                                   days_to_maturity: 60, hybrid_status: 1)
+user2_plant2 = user2.plants.create(name: 'Rosa Bianca', plant_type: 'Eggplant', days_relative_to_frost_date: 14,
+                                   days_to_maturity: 70, hybrid_status: 1)
+user2_plant3 = user2.plants.create(name: 'Jalafuego', plant_type: 'Pepper', days_relative_to_frost_date: 14,
+                                   days_to_maturity: 65, hybrid_status: 1)
+user2_plant4 = user2.plants.create(name: 'French Breakfast', plant_type: 'Radish', days_relative_to_frost_date: 28,
+                                   days_to_maturity: 21, hybrid_status: 1)
+user2_plant5 = user2.plants.create(name: 'Provider', plant_type: 'Green Bean', days_relative_to_frost_date: 7,
+                                   days_to_maturity: 45, hybrid_status: 1)
+user2_plant6 = user2.plants.create(name: 'San Marzano II', plant_type: 'Tomato', days_relative_to_frost_date: 14,
+                                   days_to_maturity: 68, hybrid_status: 1)
 
-plant1.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-plant2.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-plant3.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-plant4.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
-plant5.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
+plant1.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                            actual_seed_sewing_date: Date.today)
+plant2.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                            actual_seed_sewing_date: Date.today)
+plant3.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                            actual_seed_sewing_date: Date.today)
+plant4.garden_plants.create(planting_status: 'not_started', plant_start_method: :direct_sew,
+                            actual_seed_sewing_date: Date.today)
+plant5.garden_plants.create(planting_status: 'not_started', plant_start_method: :direct_sew,
+                            actual_seed_sewing_date: Date.today)
 
-user2_plant1.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-user2_plant2.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-user2_plant3.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew, actual_seed_sewing_date: Date.today)
-user2_plant4.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
-user2_plant5.garden_plants.create(planting_status: "not_started", plant_start_method: :direct_sew, actual_seed_sewing_date: Date.today)
-user2_plant6.garden_plants.create(planting_status: "not_started", plant_start_method: :indirect_sew)
+user2_plant1.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                                  actual_seed_sewing_date: Date.today)
+user2_plant2.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                                  actual_seed_sewing_date: Date.today)
+user2_plant3.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew,
+                                  actual_seed_sewing_date: Date.today)
+user2_plant4.garden_plants.create(planting_status: 'not_started', plant_start_method: :direct_sew,
+                                  actual_seed_sewing_date: Date.today)
+user2_plant5.garden_plants.create(planting_status: 'not_started', plant_start_method: :direct_sew,
+                                  actual_seed_sewing_date: Date.today)
+user2_plant6.garden_plants.create(planting_status: 'not_started', plant_start_method: :indirect_sew)
