@@ -38,6 +38,7 @@ gem 'mutex_m'
 # For CI/CD Lint job
 gem 'bundler-audit'
 gem 'brakeman'
+gem 'rubocop'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
