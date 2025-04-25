@@ -174,7 +174,8 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (6.0.1)
-    puma (3.12.6)
+    puma (6.6.0)
+      nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.13)
     rack-test (2.2.0)
@@ -288,7 +289,7 @@ DEPENDENCIES
   mutex_m
   pg (>= 0.18, < 2.0)
   pry
-  puma (~> 3.11)
+  puma (>= 6.4.3)
   rails (~> 7.0.6)
   rspec-rails
   rspec_junit_formatter
