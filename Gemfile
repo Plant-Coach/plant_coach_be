@@ -35,6 +35,9 @@ gem "factory_bot_rails"
 gem 'faker'
 gem 'mutex_m'
 
+# For CI/CD Lint job
+gem 'bundler-audit'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
