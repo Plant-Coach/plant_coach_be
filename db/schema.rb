@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_10_221426) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_25_180927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_221426) do
     t.date "harvest_finish"
     t.integer "harvest_period", default: 0, null: false
     t.bigint "plant_id"
+    t.integer "hybrid_status"
     t.index ["plant_id"], name: "index_garden_plants_on_plant_id"
   end
 
