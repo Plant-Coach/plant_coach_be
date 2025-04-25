@@ -45,8 +45,8 @@ jobs:
       - name: Resolve bundler with binstubs
         run: bundle binstubs bundler --force
       - name: Generate binstubs
-      # run: bundle binstubs bundler-audit brakeman rubocop
-        run: bundle binstubs bundler-audit brakeman
+        run: bundle binstubs bundler-audit brakeman rubocop
+        # run: bundle binstubs bundler-audit brakeman
       # Add or replace any other lints here
       - name: Security audit dependencies
         run: bin/bundler-audit --update
