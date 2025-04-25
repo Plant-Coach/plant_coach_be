@@ -26,11 +26,11 @@ class GardenPlant < ApplicationRecord
 
   belongs_to :plant
 
-  enum hybrid_status: [:unknown, :open_pollinated, :f1]
-  enum planting_status: [:not_started, :started_indoors,
-    :direct_sewn_outside, :transplanted_outside]
-  enum plant_start_method: [:indirect_sew, :direct_sew, :direct_transplant]
-  enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
+  enum :hybrid_status, { unknown: 0, open_pollinated: 1, f1: 2 }
+  enum :planting_status, { not_started: 0, started_indoors: 1,
+    direct_sewn_outside: 2, transplanted_outside: 3 }
+  enum :plant_start_method, { indirect_sew: 0, direct_sew: 1, direct_transplant: 2 }
+  enum :harvest_period, { season_long: 0, four_week: 1, three_week: 2, two_week: 3, one_week: 4, one_time: 5 }
 
   before_save :update_planting_dates, if: :actual_seed_sewing_date_changed?
 
