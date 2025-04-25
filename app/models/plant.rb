@@ -37,8 +37,8 @@ class Plant < ApplicationRecord
   belongs_to :user
   has_many :garden_plants
 
-  enum hybrid_status: [:unknown, :open_pollinated, :f1]
-  enum harvest_period: [:season_long, :four_week, :three_week, :two_week, :one_week, :one_time]
+  enum :hybrid_status, { unknown: 0, open_pollinated: 1, f1: 2 }
+  enum :harvest_period, { season_long: 0, four_week: 1, three_week: 2, two_week: 3, one_week: 4, one_time: 5 }
 
   after_initialize :set_defaults, unless: :skip_callbacks
 
