@@ -9,16 +9,17 @@ class Api::V1::GardenPlantsController < ApplicationController
     plant = @user.plants.find_by(id: params[:plant_id])
     if plant.nil?
       render json: GardenPlantSerializer.error(
-        "There was a problem finding a plant to copy!"), status: :bad_request
-      else
-        new_garden_plant = plant.garden_plants.create(garden_plant_params)
+        'There was a problem finding a plant to copy!'
+      ), status: :bad_request
+    else
+      new_garden_plant = plant.garden_plants.create(garden_plant_params)
       render json: GardenPlantSerializer.new(new_garden_plant)
     end
   end
 
   def update
     garden_plant = @user.garden_plants.find_by(id: params[:id])
-    result = garden_plant.update(garden_plant_params)
+    garden_plant.update(garden_plant_params)
 
     if garden_plant.valid?
       render json: GardenPlantSerializer.new(garden_plant)
@@ -31,10 +32,10 @@ class Api::V1::GardenPlantsController < ApplicationController
 
   def destroy
     garden_plant = @user.garden_plants.where(id: params[:id]).first
-    if !garden_plant.nil?
-      result = GardenPlant.destroy(garden_plant.id)
-      render json: GardenPlantSerializer.confirm, status: :ok
-    end
+    return if garden_plant.nil?
+
+    GardenPlant.destroy(garden_plant.id)
+    render json: GardenPlantSerializer.confirm, status: :ok
   end
 end
 

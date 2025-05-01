@@ -4,11 +4,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.6'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 6.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -27,11 +27,14 @@ gem "csv"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'coderay'
+gem 'factory_bot_rails'
+gem 'faker'
 gem 'faraday', '>= 1.8.0'
 gem 'figaro'
 gem 'jsonapi-serializer'
-gem 'rspec_junit_formatter'
 gem 'jwt'
+<<<<<<< HEAD
 gem 'coderay'
 gem "factory_bot_rails"
 gem 'faker'
@@ -42,17 +45,28 @@ gem 'reline'
 gem 'benchmark'
 gem 'rdoc'
 gem 'psych'
+=======
+gem 'mutex_m'
+gem 'rspec_junit_formatter'
+
+# For CI/CD Lint job
+gem 'brakeman'
+gem 'bundler-audit'
+gem 'rubocop'
+
+gem 'csv'
+>>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
-  gem 'simplecov'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry'
+  gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'simplecov'
 end
 
 group :development do
@@ -63,11 +77,11 @@ group :development do
 end
 
 group :test do
-  gem 'webmock'
   gem 'vcr'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "concurrent-ruby", "= 1.3.4"
+gem 'concurrent-ruby', '= 1.3.4'

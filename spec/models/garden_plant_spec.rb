@@ -11,7 +11,6 @@ RSpec.describe GardenPlant, type: :model do
     # it { should validate_presence_of(:recommended_transplant_date) }
     # it { should validate_presence_of(:recommended_seed_sewing_date) }
     it { should validate_presence_of(:seedling_days_to_transplant) }
-
   end
 
   describe 'relationships' do

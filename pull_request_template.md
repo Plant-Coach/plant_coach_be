@@ -4,6 +4,7 @@
 
 ## Fix Categories
 - [ ] Bug fix
+- [ ] Infrastructure
 - [ ] New Feature (non-breaking change that adds functionality)
 - [ ] This change requires an update to documentation
 - [ ] Refactor

@@ -1,3 +1,2 @@
 class PlantGuideMaster < ApplicationRecord
-  
 end

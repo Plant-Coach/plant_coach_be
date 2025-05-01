@@ -30,7 +30,7 @@ RSpec.describe 'Weather Alert API Endpoints', :vcr do
       }
       post '/api/v1/users', params: body3
 
-      post '/api/v1/alert_check', headers: { Auth: "qwerty" }
+      post '/api/v1/alert_check', headers: { Auth: 'qwerty' }
       result = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
@@ -41,5 +41,4 @@ RSpec.describe 'Weather Alert API Endpoints', :vcr do
       end
     end
   end
-
 end
