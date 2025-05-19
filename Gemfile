@@ -15,9 +15,7 @@ gem 'puma', '~> 6.0'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem "mutex_m"
 gem "drb"
-gem "csv"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -34,28 +32,15 @@ gem 'faraday', '>= 1.8.0'
 gem 'figaro'
 gem 'jsonapi-serializer'
 gem 'jwt'
-<<<<<<< HEAD
-gem 'coderay'
-gem "factory_bot_rails"
-gem 'faker'
-gem 'dotenv'
-
-gem 'irb'
-gem 'reline'
-gem 'benchmark'
-gem 'rdoc'
-gem 'psych'
-=======
 gem 'mutex_m'
 gem 'rspec_junit_formatter'
-
+gem 'dotenv'
 # For CI/CD Lint job
 gem 'brakeman'
 gem 'bundler-audit'
 gem 'rubocop'
 
 gem 'csv'
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'

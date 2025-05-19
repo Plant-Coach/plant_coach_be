@@ -90,7 +90,7 @@ GEM
     byebug (12.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.3.4)
-    connection_pool (2.5.2)
+    connection_pool (2.5.3)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -99,6 +99,7 @@ GEM
     date (3.4.1)
     diff-lcs (1.6.1)
     docile (1.4.1)
+    dotenv (3.1.8)
     drb (2.2.1)
     erubi (1.13.1)
     factory_bot (6.5.1)
@@ -134,11 +135,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-<<<<<<< HEAD
-    json (2.11.2)
-=======
     json (2.11.3)
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (2.10.1)
@@ -165,7 +162,7 @@ GEM
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.7)
+    net-imap (0.5.8)
       date
       net-protocol
     net-pop (0.1.2)
@@ -191,33 +188,23 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
-<<<<<<< HEAD
-=======
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
-<<<<<<< HEAD
-=======
     prism (1.4.0)
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.2.3)
+    psych (5.2.4)
       date
       stringio
-    public_suffix (6.0.1)
-<<<<<<< HEAD
-    puma (4.3.12)
-=======
+    public_suffix (6.0.2)
     puma (6.6.0)
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.13)
@@ -264,33 +251,30 @@ GEM
       ffi (~> 1.0)
     rdoc (6.13.1)
       psych (>= 4.0.0)
-<<<<<<< HEAD
-=======
     regexp_parser (2.10.0)
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
     reline (0.6.1)
       io-console (~> 0.5)
     rexml (3.4.1)
     rspec-core (3.13.3)
       rspec-support (~> 3.13.0)
-    rspec-expectations (3.13.3)
+    rspec-expectations (3.13.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-mocks (3.13.2)
+    rspec-mocks (3.13.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (7.1.1)
-      actionpack (>= 7.0)
-      activesupport (>= 7.0)
-      railties (>= 7.0)
+    rspec-rails (8.0.0)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
       rspec-core (~> 3.13)
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
-    rspec-support (3.13.2)
+    rspec-support (3.13.3)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.75.3)
+    rubocop (1.75.4)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -352,7 +336,6 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  benchmark
   bootsnap (>= 1.1.0)
   brakeman
   bundler-audit
@@ -360,34 +343,20 @@ DEPENDENCIES
   coderay
   concurrent-ruby (= 1.3.4)
   csv
-<<<<<<< HEAD
   dotenv
   drb
-=======
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
   factory_bot_rails
   faker
   faraday (>= 1.8.0)
   figaro
-  irb
   jsonapi-serializer
   jwt
   listen (>= 3.0.5, < 3.2)
   mutex_m
-<<<<<<< HEAD
   pg (~> 1.1)
-  pry
-  psych
-  puma (~> 4.3)
-  rails (~> 7.0.6)
-  rdoc
-  reline
-=======
-  pg (>= 0.18, < 2.0)
   pry
   puma (~> 6.0)
   rails (~> 8.0)
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
   rspec-rails
   rspec_junit_formatter
   rubocop
