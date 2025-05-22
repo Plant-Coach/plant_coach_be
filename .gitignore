@@ -28,3 +28,5 @@
 
 # Ignore the .VSCodeCounter extension files added from VSCode
 /.VSCodeCounter
+
+.env
