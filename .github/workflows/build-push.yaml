@@ -6,8 +6,6 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_SHA_SHORT: ${{ github.sha }}:0:7
     steps:
       -
         name: Create build commit
@@ -33,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: jmgrant/plant-coach-be:amd64-${{ env.GITHUB_SHA_SHORT }}
+          tags: jmgrant/plant-coach-be:amd64-${{ github.sha }}
