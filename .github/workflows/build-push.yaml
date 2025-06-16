@@ -6,14 +6,14 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env: 
-        HASH: ${{ github.sha }}
-        GITHUB_SHA_SHORT: $HASH:0:7
     steps:
       -
         name: Create build commit
         run: |
-          echo "GitHub commit hash: $GITHUB_SHA_SHORT"
+          github_sha_hash=${{ github.sha }}
+          github_sha_short="${github_sha_hash:0:7}"
+
+          echo "GitHub commit hash: ${github_sha_short}"
       -
         name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: jmgrant/plant-coach-be:amd64-"$GITHUB_SHA_SHORT"
+          tags: jmgrant/plant-coach-be:amd64-"${github_sha_short}"
