@@ -10,27 +10,27 @@
 # PlantGuide.destroy_all
 # User.destroy_all
 
-# User.create(
-#   name: 'Joel Grant',
-#   email: 'joel@plantcoach.com',
-#   zip_code: '80121',
-#   password: '12345',
-#   password_confirmation: '12345'
-# )
-# user = User.create(
-#   name: 'Joel Test',
-#   email: 'joelaccount@plantcoach.com',
-#   zip_code: '80121',
-#   password: '12345',
-#   password_confirmation: '12345'
-# )
-# user2 = User.create(
-#   name: 'Joel Grant2',
-#   email: 'joel2@plantcoach.com',
-#   zip_code: '80121',
-#   password: '12345',
-#   password_confirmation: '12345'
-# )
+User.create(
+  name: 'Joel Grant',
+  email: 'joel@plantcoach.com',
+  zip_code: '80121',
+  password: '12345',
+  password_confirmation: '12345'
+)
+user = User.create(
+  name: 'Joel Test',
+  email: 'joelaccount@plantcoach.com',
+  zip_code: '80121',
+  password: '12345',
+  password_confirmation: '12345'
+)
+user2 = User.create(
+  name: 'Joel Grant2',
+  email: 'joel2@plantcoach.com',
+  zip_code: '80121',
+  password: '12345',
+  password_confirmation: '12345'
+)
 
 # # tomato = user.plant_guides.create(
 # #   plant_type: "Tomato",
