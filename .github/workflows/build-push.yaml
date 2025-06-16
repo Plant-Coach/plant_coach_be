@@ -24,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: jmgrant/plant-coach-be:amd64-${ .github.sha }
+          tags: jmgrant/plant-coach-be:amd64-${{ github.sha }}
