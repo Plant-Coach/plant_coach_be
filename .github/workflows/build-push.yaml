@@ -10,6 +10,7 @@ jobs:
       -
         name: Create build commit
         run: |
+          github_sha_hash=${{ github.sha }}
           github_sha_short="${github_sha_hash:0:7}"
 
           echo "GitHub commit hash: ${github_sha_short}"
