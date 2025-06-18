@@ -2,8 +2,8 @@ name: Release Chart
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 
 jobs:
   deploy:
