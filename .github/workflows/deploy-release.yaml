@@ -1,4 +1,4 @@
-name: Release Chart
+name: Deploy/Release Chart
 
 on:
   workflow_run:
