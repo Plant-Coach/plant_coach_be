@@ -6,7 +6,13 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: jmgrant/plant-coach-be:amd64-${{ github.sha }}
     steps:
+      -
+        name: Prepare Docker Image
+        run: |
+          echo "Preparing Docker Image $DOCKER_IMAGE"
       -
         name: Create build commit
         run: |

@@ -1,5 +1,11 @@
 Please visit the main README [here](https://github.com/Plant-Coach) on the project's main page.
 
+## Docker Instructions:
+
+`docker compose up`
+
+`docker build . -t jmgrant/plant-coach-be:amd64-6 --platform linux/amd64`
+
 ## Pipelines
 - Uses GitHub Actions
 
