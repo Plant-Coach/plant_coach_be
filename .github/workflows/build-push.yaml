@@ -6,6 +6,8 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: jmgrant/plant-coach-be:amd64-${{ github.sha }}
     steps:
       -
         name: Create build commit
@@ -31,4 +33,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: jmgrant/plant-coach-be:amd64-${{ github.sha }}
+          tags: "$DOCKER_IMAGE"
