@@ -1,0 +1,33 @@
+name: Deploy/Release Chart
+
+on:
+  workflow_run:
+    workflows:
+      - "Build and Push"
+    branches:
+      - main
+    types:
+      - completed
+
+jobs:
+  deploy:
+    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
+    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Add Kubeconfig
+        run: |
+          mkdir /home/runner/.kube
+          touch /home/runner/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > /home/runner/.kube/config
+
+      - name: Deploy Chart
+        run: |
+          helm upgrade --install --set image.repository=jmgrant/plant-coach-be:amd64-${{ github.sha }} --set-json='imagePullSecrets=[{"name": "${{ secrets.SECRET_NAME }}"}]' --set-json='env_variables=[{"name": "RAILS_ENV", "value": "${{ secrets.RAILS_ENV }}"}, {"name": "RAILS_MASTER_KEY", "value": "${{ secrets.RAILS_MASTER_KEY }}"}, {"name": "POSTGRES_PORT", "value": "${{ secrets.POSTGRES_PORT }}"}, {"name": "POSTGRES_DB", "value": "${{ secrets.POSTGRES_DB }}"}, {"name": "POSTGRES_HOST", "value": "${{ secrets.POSTGRES_HOST }}"}, {"name": "POSTGRES_USER", "value": "${{ secrets.POSTGRES_USER }}"}, {"name": "POSTGRES_PASSWORD", "value": "${{ secrets.POSTGRES_PASSWORD }}"}]' plant-coach-be https://github.com/Plant-Coach/plant-coach-helm/releases/download/plant-coach-be-0.4.0/plant-coach-be-0.4.0.tgz --kube-context "$KUBE_CONTEXT"
