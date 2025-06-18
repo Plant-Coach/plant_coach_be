@@ -4,8 +4,8 @@ on:
   workflow_run:
     workflows:
       - "Build and Push"
-    # branches:
-    #   - main
+    branches:
+      - main
     types:
       - completed
 
