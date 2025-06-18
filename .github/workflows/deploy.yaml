@@ -2,10 +2,8 @@ name: Release Chart
 
 on:
   push:
-    # This is the ideal state, but currently omitting for ease of initial development and playgrounding.
-    # https://github.com/Plant-Coach/plant_coach_be/issues/319
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   deploy:
