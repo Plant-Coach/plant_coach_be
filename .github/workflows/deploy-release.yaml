@@ -1,13 +1,14 @@
 name: Deploy/Release Chart
 
 on:
-  workflow_run:
-    workflows:
-      - "Build and Push"
-    branches:
-      - main
-    types:
-      - completed
+  push:
+  # workflow_run:
+  #   workflows:
+  #     - "Build and Push"
+  #   branches:
+  #     - main
+  #   types:
+  #     - completed
 
 jobs:
   deploy:
@@ -30,4 +31,4 @@ jobs:
 
       - name: Deploy Chart
         run: |
-          helm upgrade --install --set fullnameOverride=plant-coach-be --set serviceAccount.name=plant-coach-be --set image.repository=jmgrant/plant-coach-be:amd64-${{ github.sha }} --set-json='imagePullSecrets=[{"name": "${{ secrets.SECRET_NAME }}"}]' --set-json='env_variables=[{"name": "RAILS_ENV", "value": "${{ secrets.RAILS_ENV }}"}, {"name": "RAILS_MASTER_KEY", "value": "${{ secrets.RAILS_MASTER_KEY }}"}, {"name": "POSTGRES_PORT", "value": "${{ secrets.POSTGRES_PORT }}"}, {"name": "POSTGRES_DB", "value": "${{ secrets.POSTGRES_DB }}"}, {"name": "POSTGRES_HOST", "value": "${{ secrets.POSTGRES_HOST }}"}, {"name": "POSTGRES_USER", "value": "${{ secrets.POSTGRES_USER }}"}, {"name": "POSTGRES_PASSWORD", "value": "${{ secrets.POSTGRES_PASSWORD }}"}]' plant-coach-be https://github.com/Plant-Coach/plant-coach-helm/releases/download/plant-coach-be-0.5.0/plant-coach-be-0.5.0.tgz --kube-context "$KUBE_CONTEXT"
+          helm upgrade --install --set fullnameOverride=plant-coach-be --set serviceAccount.name=plant-coach-be --set image.repository=jmgrant/plant-coach-be:amd64-${{ github.sha }} --set-json='imagePullSecrets=[{"name": "${{ secrets.SECRET_NAME }}"}]' --set-json='env_variables=[{"name": "RAILS_ENV", "value": "${{ secrets.RAILS_ENV }}"}, {"name": "RAILS_MASTER_KEY", "value": "${{ secrets.RAILS_MASTER_KEY }}"}, {"name": "POSTGRES_PORT", "value": "${{ secrets.POSTGRES_PORT }}"}, {"name": "POSTGRES_DB", "value": "${{ secrets.POSTGRES_DB }}"}, {"name": "POSTGRES_HOST", "value": "${{ secrets.POSTGRES_HOST }}"}, {"name": "POSTGRES_USER", "value": "${{ secrets.POSTGRES_USER }}"}, {"name": "POSTGRES_PASSWORD", "value": "${{ secrets.POSTGRES_PASSWORD }}"}]' plant-coach-be https://github.com/Plant-Coach/plant-coach-helm/releases/download/plant-coach-be-0.6.0/plant-coach-be-0.6.0.tgz --kube-context "$KUBE_CONTEXT"
