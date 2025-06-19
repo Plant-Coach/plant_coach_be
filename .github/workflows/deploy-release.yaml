@@ -1,14 +1,14 @@
 name: Deploy/Release Chart
 
 on:
-  push:
-  # workflow_run:
-  #   workflows:
-  #     - "Build and Push"
+  # push:
+  workflow_run:
+    workflows:
+      - "Build and Push"
   #   branches:
   #     - main
-  #   types:
-  #     - completed
+    types:
+      - completed
 
 jobs:
   deploy:
