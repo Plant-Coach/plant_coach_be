@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
+    uri: http://localhost:3000/api/v1/frost?zip_code=80121
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.0
+      - Faraday v2.13.1
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -18,35 +18,35 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Cowboy
-      Date:
-      - Thu, 24 Apr 2025 20:18:26 GMT
-      Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525906&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=FSCfMZkVPCr41wABpT0ntDcSy6ueXazyKNuQIgEtFis%3D"}]}'
-      Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1745525906&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=FSCfMZkVPCr41wABpT0ntDcSy6ueXazyKNuQIgEtFis%3D
-      Nel:
-      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
-      Connection:
-      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Content-Type:
       - application/json; charset=utf-8
+      Vary:
+      - Accept
       Etag:
       - W/"43098a6258e79296c49fb455c2cd482f"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - fe1b256a-3c10-4ed4-9d27-42e04a483fa7
+      - 0eb8f040-6768-4b6c-a5f4-5eb827faa463
       X-Runtime:
-      - '0.388758'
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
+      - '0.555011'
+      Content-Length:
+      - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Thu, 24 Apr 2025 20:18:27 GMT
+  recorded_at: Sat, 21 Jun 2025 23:04:57 GMT
 recorded_with: VCR 6.3.1

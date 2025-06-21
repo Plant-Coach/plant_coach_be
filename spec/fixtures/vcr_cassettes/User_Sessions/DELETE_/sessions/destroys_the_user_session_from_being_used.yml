@@ -2,66 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
+    uri: http://localhost:3000/api/v1/frost?zip_code=80121
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.0
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Cowboy
-      Date:
-      - Thu, 24 Apr 2025 20:18:41 GMT
-      Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745525921&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=MrJOVagfEWf9QqFfsLiSW95X%2FZTgOKL7LzzqixhapEY%3D"}]}'
-      Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1745525921&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=MrJOVagfEWf9QqFfsLiSW95X%2FZTgOKL7LzzqixhapEY%3D
-      Nel:
-      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      Etag:
-      - W/"43098a6258e79296c49fb455c2cd482f"
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Request-Id:
-      - 2d46ca53-a4bf-43de-ad3d-a63b393bd79e
-      X-Runtime:
-      - '0.354846'
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
-    body:
-      encoding: UTF-8
-      string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
-        Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Thu, 24 Apr 2025 20:18:41 GMT
-- request:
-    method: get
-    uri: https://glacial-fjord-58347.herokuapp.com/api/v1/frost?zip_code=80121
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-<<<<<<< HEAD
-      - Faraday v2.13.0
-=======
       - Faraday v2.13.1
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -71,53 +18,35 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - Cowboy
-      Date:
-<<<<<<< HEAD
-      - Thu, 24 Apr 2025 20:30:21 GMT
-      Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745526621&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=B0hyen9tP8IByoxCC96CMwWvM01Bya5RxpuSxGs4jMo%3D"}]}'
-      Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1745526621&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=B0hyen9tP8IByoxCC96CMwWvM01Bya5RxpuSxGs4jMo%3D
-=======
-      - Fri, 25 Apr 2025 17:39:23 GMT
-      Report-To:
-      - '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1745602763&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=y8LDjcRl0pybJOnYMEjw0aH%2Fsm9reRU9zBNV%2BpfXztg%3D"}]}'
-      Reporting-Endpoints:
-      - heroku-nel=https://nel.heroku.com/reports?ts=1745602763&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=y8LDjcRl0pybJOnYMEjw0aH%2Fsm9reRU9zBNV%2BpfXztg%3D
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
-      Nel:
-      - '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}'
-      Connection:
-      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
       Content-Type:
       - application/json; charset=utf-8
+      Vary:
+      - Accept
       Etag:
       - W/"43098a6258e79296c49fb455c2cd482f"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-<<<<<<< HEAD
-      - e2974ccc-dd1d-43fa-b7c9-c6f1a4d55efb
+      - af88f0b5-80ae-4e67-b6b8-14dec3ac0f41
       X-Runtime:
-      - '0.350557'
-=======
-      - 8cac88b2-fce5-4e40-9662-347c5ab29d20
-      X-Runtime:
-      - '0.435059'
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
-      Transfer-Encoding:
-      - chunked
-      Via:
-      - 1.1 vegur
+      - '0.533163'
+      Content-Length:
+      - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-<<<<<<< HEAD
-  recorded_at: Thu, 24 Apr 2025 20:30:21 GMT
-=======
-  recorded_at: Fri, 25 Apr 2025 17:39:23 GMT
->>>>>>> 769b6f80c1e8e74d2caa33a501b6c5ba13e44b0d
+  recorded_at: Sat, 21 Jun 2025 23:05:15 GMT
 recorded_with: VCR 6.3.1
