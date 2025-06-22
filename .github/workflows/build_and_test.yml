@@ -1,4 +1,4 @@
-name: "test and lint"
+name: Test and Lint
 on:
   push:
   pull_request:
@@ -18,6 +18,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,6 +31,13 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       # Add or replace test runners here
+      - name: Connect to Weather API Service
+        run: |
+          mkdir /home/runner/.kube
+          touch /home/runner/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > /home/runner/.kube/config
+          kubectl port-forward service/plant-coach-weather-api 3000:80 &
+
       - name: Run tests
         run: bin/rake
 
