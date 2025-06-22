@@ -30,7 +30,7 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       # Add or replace test runners here
-      - name: Add Kubeconfig
+      - name: Connect to Weather API Service
         run: |
           mkdir /home/runner/.kube
           touch /home/runner/.kube/config
