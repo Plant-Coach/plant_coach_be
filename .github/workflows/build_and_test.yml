@@ -16,9 +16,12 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
       plant-coach-weather-api:
-        image: ""
+        image: jmgrant/plant-coach-weather-api:amd64-d7a5b259917bb791324b1c569f49b2208bf9689c
         ports:
           - 3000:80
+        credentials:
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_password }}
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
