@@ -20,8 +20,8 @@ jobs:
         ports:
           - 3000:80
         credentials:
-          username: ${{ secrets.dockerhub_username }}
-          password: ${{ secrets.dockerhub_password }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -37,14 +37,6 @@ jobs:
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
-      # Add or replace test runners here
-      - name: Connect to Weather API Service
-        run: |
-          mkdir /home/runner/.kube
-          touch /home/runner/.kube/config
-          echo "${{ secrets.KUBECONFIG }}" > /home/runner/.kube/config
-          kubectl port-forward service/plant-coach-weather-api 3000:80 &
-
       - name: Run tests
         run: bin/rake
 
