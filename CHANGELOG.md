@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.2...v0.3.3) (2025-06-24)
+
+
+### Features
+
+* Add health/liveness probes for Kubernetes  ([#365](https://github.com/Plant-Coach/plant_coach_be/issues/365)) ([3162756](https://github.com/Plant-Coach/plant_coach_be/commit/31627562c546556006a871f374a67b5e241e5cf0))
+
 ## [0.3.2](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.1...v0.3.2) (2025-06-24)
 
 
