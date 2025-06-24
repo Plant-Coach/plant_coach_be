@@ -16,7 +16,7 @@ services:
     image: jmgrant/plant-coach-weather-api-dev:latest
     command: "./bin/rails server -p 3001"
     environment:
-      - RAILS_ENV=test
+      - RAILS_ENV=${RAILS_ENV}
       - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
       - RAILS_MASTER_KEY=${WEATHER_API_MASTER_KEY}
     network_mode: service:plant-coach-be-web
