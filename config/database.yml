@@ -60,6 +60,10 @@ development:
 test:
   <<: *default
   database: plant_coach_test
+  host: <%= ENV['POSTGRES_HOST'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  port: <%= ENV['POSTGRES_PORT'] %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
