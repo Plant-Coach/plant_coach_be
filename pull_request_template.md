@@ -31,3 +31,4 @@
 Overall Test Coverage: **<#>**
 New Tests Added: **<#>**
 Skipped Tests: **<#>**
+Test Run time: **<#>**

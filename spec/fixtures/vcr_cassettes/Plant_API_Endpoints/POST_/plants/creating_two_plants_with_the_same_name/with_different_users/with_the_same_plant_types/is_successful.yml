@@ -39,16 +39,16 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - e1063a4b-ef28-44f3-a385-75eafff24bbd
+      - 267ee291-04ac-4a58-b896-0247c20fe13f
       X-Runtime:
-      - '0.760109'
+      - '0.956462'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sat, 21 Jun 2025 23:05:02 GMT
+  recorded_at: Tue, 24 Jun 2025 18:09:44 GMT
 - request:
     method: get
     uri: http://localhost:3000/api/v1/frost?zip_code=80121
@@ -88,16 +88,16 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - ea51363b-1dcb-49b9-8c48-a93b52d55fa9
+      - c8d4f03f-b661-4bc3-be8a-9523a38e4c8e
       X-Runtime:
-      - '0.608779'
+      - '1.018620'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sat, 21 Jun 2025 23:05:02 GMT
+  recorded_at: Tue, 24 Jun 2025 18:09:45 GMT
 - request:
     method: get
     uri: http://localhost:3000/api/v1/frost?zip_code=80121
@@ -137,14 +137,14 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 949a30aa-5a81-4907-a788-d01769938bdb
+      - a4bf1983-6711-4140-978a-86b9904ca504
       X-Runtime:
-      - '0.598106'
+      - '1.070457'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Sat, 21 Jun 2025 23:05:03 GMT
+  recorded_at: Tue, 24 Jun 2025 18:09:46 GMT
 recorded_with: VCR 6.3.1
