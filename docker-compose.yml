@@ -18,6 +18,7 @@ services:
     environment:
       - RAILS_ENV=test
       - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
+      - RAILS_MASTER_KEY=${WEATHER_API_MASTER_KEY}
     network_mode: service:plant-coach-be-web
 
   plant-coach-be-web:
