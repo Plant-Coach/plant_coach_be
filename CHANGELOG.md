@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.1...v0.3.2) (2025-06-24)
+
+
+### Bug Fixes
+
+* **seeds file:** 'turn on' the seeds file again ([#360](https://github.com/Plant-Coach/plant_coach_be/issues/360)) ([0da6bff](https://github.com/Plant-Coach/plant_coach_be/commit/0da6bff64f91fae523eef765a73769b0af6341ee))
+
 ## [0.3.1](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.0...v0.3.1) (2025-06-24)
 
 
