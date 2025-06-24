@@ -1,8 +1,7 @@
-version: '3'
 services:
   db:
     image: postgres
-    container_name: plant_coach_be_db
+    container_name: db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     command:
@@ -13,6 +12,14 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
+  plant-coach-weather-api:
+    image: jmgrant/plant-coach-weather-api-dev:latest
+    command: "./bin/rails server -p 3001"
+    environment:
+      - RAILS_ENV=test
+      - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
+    network_mode: service:plant-coach-be-web
+
   plant-coach-be-web:
     build: .
     command: "./bin/rails server"
@@ -23,10 +30,11 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - PLANT_COACH_WEATHER_API_BASE_URL=http://localhost:3001
     volumes:
       - app-storage:/rails/storage
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - db
 
