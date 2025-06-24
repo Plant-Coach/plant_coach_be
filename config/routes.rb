@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get "up" => "rails/health#show", as: :rails_health_check
-  get "up" => "rails/ready#show", as: :rails_ready_check
+  get "/rails/health" => "rails/health#show", as: :rails_health_check
+  get "/rails/ready" => "rails/ready#show", as: :rails_ready_check
 
   namespace :api do
     namespace :v1 do
