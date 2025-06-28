@@ -1,6 +1,7 @@
 name: Deploy/Release Chart
 
 on:
+  push:
   workflow_run:
     workflows:
       - "Build and Push"
@@ -21,6 +22,15 @@ jobs:
         with:
           fetch-depth: 0
       
+      -
+        name: Create build commit
+        run: |
+          github_sha_hash=${{ github.sha }}
+          github_sha_short="${github_sha_hash:0:7}"
+
+          echo "GitHub commit hash: ${github_sha_short}"
+          echo "COMMIT_HASH=${github_sha_short}" >> $GITHUB_ENV
+      
       - name: Add Kubeconfig
         run: |
           mkdir /home/runner/.kube
@@ -31,8 +41,8 @@ jobs:
         run: |
           REPO_NAME=${GITHUB_REPOSITORY##*/}
           REPO_NAME="${REPO_NAME//_/-}"
-          helm upgrade --install --set fullnameOverride=plant-coach-be --set serviceAccount.name=plant-coach-be --set image.repository=jmgrant/plant-coach-be:amd64-${{ github.sha }} --set-json='imagePullSecrets=[{"name": "${{ secrets.SECRET_NAME }}"}]' --set-json='env_variables=[{"name": "RAILS_ENV", "value": "${{ secrets.RAILS_ENV }}"}, {"name": "RAILS_MASTER_KEY", "value": "${{ secrets.RAILS_MASTER_KEY }}"}, {"name": "POSTGRES_PORT", "value": "${{ secrets.POSTGRES_PORT }}"}, {"name": "POSTGRES_DB", "value": "${{ secrets.POSTGRES_DB }}"}, {"name": "POSTGRES_HOST", "value": "${{ secrets.POSTGRES_HOST }}"}, {"name": "POSTGRES_USER", "value": "${{ secrets.POSTGRES_USER }}"}, {"name": "POSTGRES_PASSWORD", "value": "${{ secrets.POSTGRES_PASSWORD }}"}, {"name": "PLANT_COACH_WEATHER_API_BASE_URL", "value": "${{ secrets.PLANT_COACH_WEATHER_API_BASE_URL }}"}]' plant-coach-be ${{ secrets.HELM_CHART }} \
-          --namespace plant-coach-production \
+          helm upgrade --install --set fullnameOverride=$REPO_NAME --set serviceAccount.name=$REPO_NAME --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/$REPO_NAME:$COMMIT_HASH --set-json='imagePullSecrets=[{"name": "${{ secrets.SECRET_NAME }}"}]' --set-json='env_variables=[{"name": "RAILS_ENV", "value": "${{ secrets.RAILS_ENV }}"}, {"name": "RAILS_MASTER_KEY", "value": "${{ secrets.RAILS_MASTER_KEY }}"}, {"name": "POSTGRES_PORT", "value": "${{ secrets.POSTGRES_PORT }}"}, {"name": "POSTGRES_DB", "value": "${{ secrets.POSTGRES_DB }}"}, {"name": "POSTGRES_HOST", "value": "${{ secrets.POSTGRES_HOST }}"}, {"name": "POSTGRES_USER", "value": "${{ secrets.POSTGRES_USER }}"}, {"name": "POSTGRES_PASSWORD", "value": "${{ secrets.POSTGRES_PASSWORD }}"}, {"name": "PLANT_COACH_WEATHER_API_BASE_URL", "value": "${{ secrets.PLANT_COACH_WEATHER_API_BASE_URL }}"}]' $REPO_NAME ${{ secrets.HELM_CHART }} \
+          --namespace ${{ secrets.K8S_ENVIRONMENT }} \
           --kube-context "$KUBE_CONTEXT" \
-          --username joel-grant \
+          --username ${{ secrets.CLOUDSMITH_USERNAME }} \
           --password ${{ secrets.CLOUDSMITH_API_KEY }}

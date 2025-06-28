@@ -9,12 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Create build commit
+        name: Set Repo Variable
+        id: set-repo
+        run: |
+          REPO_NAME=${GITHUB_REPOSITORY##*/}
+          REPO_NAME="${REPO_NAME//_/-}"
+          echo "REPO_NAME=${REPO_NAME}" >> $GITHUB_OUTPUT
+      -
+        name: Grab Commit Hash
+        id: commit-hash
         run: |
           github_sha_hash=${{ github.sha }}
           github_sha_short="${github_sha_hash:0:7}"
 
           echo "GitHub commit hash: ${github_sha_short}"
+          echo "COMMIT_HASH=${github_sha_short}" >> $GITHUB_OUTPUT
       -
         name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -32,4 +41,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: jmgrant/plant-coach-be:amd64-${{ github.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
