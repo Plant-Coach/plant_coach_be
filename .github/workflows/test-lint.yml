@@ -6,6 +6,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      PLANT_COACH_WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL}}
+      PLANT_COACH_WEATHER_API_DOCKER_BUILD: ${{ secrets.PLANT_COACH_WEATHER_API_DOCKER_BUILD }}
     services:
       postgres:
         image: postgres:14.12-alpine
@@ -22,11 +27,6 @@ jobs:
         credentials:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      PLANT_COACH_WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL }}
-      PLANT_COACH_WEATHER_API_DOCKER_BUILD: ${{ secrets.PLANT_COACH_WEATHER_API_DOCKER_BUILD }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
