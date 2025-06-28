@@ -17,7 +17,7 @@ jobs:
           POSTGRES_PASSWORD: password
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       plant-coach-weather-api:
-        image: $DOCKERHUB_USERNAME/plant-coach-weather-api:latest
+        image: "$DOCKERHUB_USERNAME/plant-coach-weather-api:latest"
         ports:
           - 3000:80
         credentials:
