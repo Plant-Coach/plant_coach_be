@@ -10,7 +10,6 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
       PLANT_COACH_WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL}}
-      PLANT_COACH_WEATHER_API_DOCKER_BUILD: ${{ secrets.PLANT_COACH_WEATHER_API_DOCKER_BUILD }}
     services:
       postgres:
         image: postgres:14.12-alpine
@@ -20,8 +19,9 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       plant-coach-weather-api:
-        image: "$PLANT_COACH_WEATHER_API_DOCKER_BUILD"
+        image: jmgrant/plant-coach-weather-api:latest
         ports:
           - 3000:80
         credentials:
