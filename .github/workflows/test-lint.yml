@@ -16,11 +16,11 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
       plant-coach-weather-api:
-        image: jmgrant/plant-coach-weather-api:amd64-d7a5b259917bb791324b1c569f49b2208bf9689c
+        image: jmgrant/plant-coach-weather-api:latest
         ports:
           - 3000:80
         credentials:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     env:
       RAILS_ENV: test
