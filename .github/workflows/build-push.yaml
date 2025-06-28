@@ -42,3 +42,18 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
+      
+      - name: Save Latest Build Tag as a GitHub Org Secret
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          REPO_NAME=${GITHUB_REPOSITORY##*/}
+          REPO_NAME="${REPO_NAME//-/_}"
+          REPO_NAME=${REPO_NAME^^}
+
+          BUILD=${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
+
+          echo "[INFO] Setting the GitHub Org secret to the latest Helm Chart package: $BUILD"
+          gh secret set ${REPO_NAME}_DOCKER_BUILD --org Plant-Coach --visibility all --body "$BUILD"
+          
+          echo "[INFO] Done!"

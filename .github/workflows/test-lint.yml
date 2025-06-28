@@ -16,7 +16,7 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
       plant-coach-weather-api:
-        image: jmgrant/plant-coach-weather-api:4aaaf30
+        image: $PLANT_COACH_WEATHER_API_DOCKER_BUILD
         ports:
           - 3000:80
         credentials:
@@ -25,7 +25,8 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      PLANT_COACH_WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL}}
+      PLANT_COACH_WEATHER_API_BASE_URL: ${{ secrets.WEATHER_API_BASE_URL }}
+      PLANT_COACH_WEATHER_API_DOCKER_BUILD: ${{ secrets.PLANT_COACH_WEATHER_API_DOCKER_BUILD }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
