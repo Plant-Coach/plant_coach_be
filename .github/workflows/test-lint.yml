@@ -19,7 +19,6 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       plant-coach-weather-api:
         image: jmgrant/plant-coach-weather-api:latest
         ports:
