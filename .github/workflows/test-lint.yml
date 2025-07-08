@@ -1,8 +1,8 @@
 name: Test and Lint
 on:
   push:
-  pull_request:
-    branches: [ "main" ]
+    # branches: [ "main" ]
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -58,6 +58,48 @@ jobs:
         run: bin/bundler-audit --update
       - name: Security audit application code
         run: bin/brakeman -q -w2
-        # ToDo: Turn back on :)
+        # ToDo: Turn back on
       # - name: Lint Ruby files
       #   run: bin/rubocop --parallel
+    
+  ruby-critic:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+     
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+          
+      - name: Fetch all branches
+        run: git fetch
+
+      - name: Run RubyCritic
+        if: github.ref != 'refs/heads/main'
+        run: |
+          bundle exec rubycritic --mode-ci --no-browser
+
+      - name: Upload RubyCritic report
+        if: always() && github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rubycritic-report
+          path: tmp/rubycritic
+
+      - name: Deploy RubyCritic report to GitHub Pages
+        if: always() && github.ref != 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./tmp/rubycritic
+          publish_branch: gh-pages
+      
+      - name: View Job Output
+        if: always()
+        run: |
+          echo "View Report: https://plant-coach.github.io/joel-grant-be/compare/main/overview.html"
