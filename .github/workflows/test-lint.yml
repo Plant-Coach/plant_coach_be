@@ -65,7 +65,6 @@ jobs:
       - name: Run RubyCritic
         if: github.ref != 'refs/heads/main'
         run: |
-          bundle 
           bundle exec rubycritic
       
       - name: Upload RubyCritic report
