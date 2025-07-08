@@ -63,7 +63,7 @@ jobs:
       #   run: bin/rubocop --parallel
     
   ruby-critic:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
