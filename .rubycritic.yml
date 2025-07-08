@@ -1,5 +1,5 @@
 mode_ci:
-  enabled: true # default is false
+  # enabled: true # default is false
 # formats: # Available values are: html, json, console, lint. Default value is html.
 #   - console
 #   - json

@@ -82,7 +82,7 @@ jobs:
       - name: Run RubyCritic
         if: github.ref != 'refs/heads/main'
         run: |
-          bundle exec rubycritic
+          bundle exec rubycritic --mode-ci --no-browser
 
       - name: Upload RubyCritic report
         if: always() && github.ref != 'refs/heads/main'
