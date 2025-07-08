@@ -34,6 +34,7 @@ gem 'jsonapi-serializer'
 gem 'jwt'
 gem 'mutex_m'
 gem 'rspec_junit_formatter'
+gem 'dotenv'
 # For CI/CD Lint job
 gem 'brakeman'
 gem 'bundler-audit'
