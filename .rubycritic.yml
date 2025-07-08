@@ -1,4 +1,4 @@
-mode_ci:
+# mode_ci:
   # enabled: true # default is false
 # formats: # Available values are: html, json, console, lint. Default value is html.
 #   - console
@@ -8,3 +8,4 @@ minimum_score: 98 # default is 0
 paths: # Files to analyse. Churn calculation is scoped to these files when using Git SCM.
   - 'app/'
   - 'config/'
+  - 'spec/'
