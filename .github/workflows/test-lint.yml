@@ -76,6 +76,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
           
+      - name: Fetch all branches
+        run: git fetch
+        
       - name: Run RubyCritic
         if: github.ref != 'refs/heads/main'
         run: |
