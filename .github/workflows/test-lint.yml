@@ -62,10 +62,19 @@ jobs:
       # - name: Lint Ruby files
       #   run: bin/rubocop --parallel
     
+  ruby-critic:
+    runs-on: unbuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Run RubyCritic
         if: github.ref != 'refs/heads/main'
         run: |
           bundle exec rubycritic
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1.234.0
+        with:
+          bundler-cache: true
       
       - name: Upload RubyCritic report
         if: github.ref != 'refs/heads/main'
