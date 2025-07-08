@@ -58,7 +58,7 @@ jobs:
         run: bin/bundler-audit --update
       - name: Security audit application code
         run: bin/brakeman -q -w2
-        # ToDo: Turn back on :)
+        # ToDo: Turn back on
       # - name: Lint Ruby files
       #   run: bin/rubocop --parallel
     
