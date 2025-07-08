@@ -34,7 +34,6 @@ gem 'jsonapi-serializer'
 gem 'jwt'
 gem 'mutex_m'
 gem 'rspec_junit_formatter'
-gem 'dotenv'
 # For CI/CD Lint job
 gem 'brakeman'
 gem 'bundler-audit'
@@ -42,7 +41,6 @@ gem 'rubocop'
 
 gem 'csv'
 
-gem 'ostruct'
 gem 'rubycritic', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
