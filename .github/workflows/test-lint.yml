@@ -97,7 +97,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./tmp/rubycritic
-          # publish_branch: gh-pages
+          publish_branch: gh-pages
       
       - name: View Job Output
         if: always()
