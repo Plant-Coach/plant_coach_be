@@ -1,27 +1,9 @@
 require 'rails_helper'
+require './spec/support/user_setup'
 
 RSpec.describe 'User Sessions', :vcr do
-  before(:each) do
-    post '/api/v1/users', params: body
-  end
-
-  let(:body) do
-    { name: 'Joel Grant', email: 'joel@plantcoach.com',
-      zip_code: '80121', password: '12345', password_confirmation: '12345' }
-  end
-
-  let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
-
-  let(:plant_params) do
-    {
-      plant_type: 'Green Bean',
-      name: 'Provider',
-      days_relative_to_frost_date: -7,
-      days_to_maturity: 45,
-      hybrid_status: :f1
-    }
-  end
-
+  include_context 'user_setup'
+  
   describe 'POST /sessions' do
     it 'logs in a user' do
       expect(response).to be_successful
@@ -101,7 +83,7 @@ RSpec.describe 'User Sessions', :vcr do
 
       expect(response.status).to eq(204)
 
-      post '/api/v1/plants', params: plant_params
+      post '/api/v1/plants', params: plant5_params
 
       result = JSON.parse(response.body, symbolize_names: true)
 

@@ -1,128 +1,8 @@
 require 'rails_helper'
+require './spec/support/user_setup'
 
 RSpec.describe 'Plant API Endpoints', :vcr do
-  before(:each) do
-    body = {
-      name: 'Joel Grant',
-      email: 'joel@plantcoach.com',
-      zip_code: '80121',
-      password: '12345',
-      password_confirmation: '12345'
-    }
-    post '/api/v1/users', params: body
-
-    @user_response = JSON.parse(response.body, symbolize_names: true)
-    @user = User.find_by_id(@user_response[:user][:data][:id])
-
-    @user.plant_guides.create(
-      plant_type: 'Something else',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'one_time'
-    )
-
-    @tomato_guide = @user.plant_guides.create(
-      plant_type: 'Tomato',
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false,
-      days_to_maturity: 55,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'season_long'
-    )
-
-    @user.plant_guides.create(
-      plant_type: 'Pepper',
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'season_long'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Eggplant',
-      seedling_days_to_transplant: 49,
-      direct_seed_recommended: false,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'season_long'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Romaine Lettuce',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'one_time'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Green Bean',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'season_long'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Radish',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: 14,
-      harvest_period: 'one_time'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Carrot',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 60,
-      days_relative_to_frost_date: -30,
-      harvest_period: 'one_week'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Sprouting Broccoli',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 45,
-      days_relative_to_frost_date: -30,
-      harvest_period: 'four_week'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Basil',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 30,
-      days_relative_to_frost_date: 0,
-      harvest_period: 'three_week'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Cilantro',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: true,
-      days_to_maturity: 30,
-      days_relative_to_frost_date: 0,
-      harvest_period: 'two_week'
-    )
-    @user.plant_guides.create(
-      plant_type: 'Raspberry',
-      seedling_days_to_transplant: 0,
-      direct_seed_recommended: false,
-      days_to_maturity: 100,
-      days_relative_to_frost_date: 0,
-      harvest_period: 'season_long'
-    )
-  end
-
-  let(:body) do
-    {
-      name: 'Joel Grant',
-      email: 'joel@plantcoach.com',
-      zip_code: '80121',
-      password: '12345',
-      password_confirmation: '12345'
-    }
-  end
+  include_context 'user_setup'
 
   let(:plant1_params) do
     {
@@ -366,7 +246,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       expect(response.status).to eq(201)
       expect(result).to be_a Hash
       expect(result[:data][:attributes][:name]).to eq('Sungold')
-      expect(result[:data][:attributes][:days_to_maturity]).to eq(55)
+      expect(result[:data][:attributes][:days_to_maturity]).to eq(45)
       expect(result[:data][:attributes][:days_relative_to_frost_date]).to eq(14)
     end
 

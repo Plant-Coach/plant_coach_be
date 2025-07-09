@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.1
+      - Faraday v2.13.2
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -39,14 +39,14 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - f42d6218-b5f1-47fe-9a62-6a1b30530b07
+      - be36bc6a-16f0-412b-b36f-bd4c50249df8
       X-Runtime:
-      - '0.984750'
+      - '0.976212'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 24 Jun 2025 18:10:04 GMT
+  recorded_at: Tue, 08 Jul 2025 23:56:59 GMT
 recorded_with: VCR 6.3.1

@@ -46,6 +46,10 @@ gem 'rubycritic', require: false
 
 gem 'ostruct'
 
+gem 'flay'
+gem 'flog'
+gem 'reek'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

@@ -20,8 +20,6 @@ RSpec.describe 'Users API', :vcr do
 
   describe 'POST /users' do
     it 'creates a new user' do
-      User.last
-
       expect(response).to be_successful
 
       user_response = JSON.parse(response.body, symbolize_names: true)

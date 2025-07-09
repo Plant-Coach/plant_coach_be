@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.1
+      - Faraday v2.13.2
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -39,16 +39,16 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - bbcef58f-7de8-4a69-97b2-3168392cd279
+      - fc7b3e4a-a3d6-45ca-a5b1-2e4d628e0939
       X-Runtime:
-      - '0.989040'
+      - '0.916111'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 24 Jun 2025 18:10:17 GMT
+  recorded_at: Tue, 08 Jul 2025 23:57:13 GMT
 - request:
     method: get
     uri: http://localhost:3000/api/v1/frost?zip_code=99501
@@ -57,7 +57,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.13.1
+      - Faraday v2.13.2
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -88,13 +88,13 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - bb77df0c-e293-4e6b-860a-03b5f4d4f2e0
+      - 18cba10b-3877-41d6-9450-5316dcaac0c4
       X-Runtime:
-      - '1.125124'
+      - '1.178159'
       Content-Length:
       - '184'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"99501","location_name":"Anchorage","lat":61.2116,"lon":-149.8761,"spring_frost":"0510","fall_frost":"0921"}}}'
-  recorded_at: Tue, 24 Jun 2025 18:10:19 GMT
+  recorded_at: Tue, 08 Jul 2025 23:57:14 GMT
 recorded_with: VCR 6.3.1
