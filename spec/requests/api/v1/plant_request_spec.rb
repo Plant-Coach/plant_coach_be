@@ -778,7 +778,7 @@ RSpec.describe 'Plant API Endpoints', :vcr do
       }
 
       result = JSON.parse(response.body, symbolize_names: true)
-      expect(result[:error]).to eq('Something happened!')
+      expect(result[:error]).to eq('The record could not be found for deletion!')
     end
   end
 end

@@ -23,6 +23,13 @@ class GardenPlantSerializer
     }
   end
 
+  def self.errors(errors)
+    {
+      "error": errors.each do |error|
+      end
+    }
+  end
+
   def self.confirm
     {
       "status": 'success'

@@ -39,16 +39,16 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - ca0c63d0-faa4-47a6-86d8-0f96f3577aba
+      - e3cda434-0001-4544-b841-d6da19676c38
       X-Runtime:
-      - '0.995679'
+      - '1.117520'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 08 Jul 2025 23:56:18 GMT
+  recorded_at: Wed, 09 Jul 2025 18:31:04 GMT
 - request:
     method: get
     uri: http://localhost:3000/api/v1/frost?zip_code=80121
@@ -88,14 +88,14 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - bb74a6c3-40c2-43ee-bd2c-5594c4c39723
+      - 0dc8b84b-490c-49f9-ab95-9d4730e494f0
       X-Runtime:
-      - '1.004253'
+      - '1.088303'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 08 Jul 2025 23:56:19 GMT
+  recorded_at: Wed, 09 Jul 2025 18:31:05 GMT
 recorded_with: VCR 6.3.1

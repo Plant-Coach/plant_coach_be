@@ -1,3 +1,4 @@
+# CRUD for plants in a User's database.
 class Api::V1::PlantsController < ApplicationController
   # Returns the list of plants that a user has in their personal database.
   def index
@@ -30,13 +31,11 @@ class Api::V1::PlantsController < ApplicationController
   end
 
   def destroy
-    plant = @user.plants.find_by(id: params[:id])
-    if !plant.nil?
-      deleted_plant = plant.destroy
-      render json: PlantSerializer.new(deleted_plant), status: :ok
-    else
-      render json: PlantSerializer.single_error('Something happened!'), status: :bad_request
-    end
+    plant = @user.plants.find_by!(id: params[:id])
+    deleted_plant = plant.destroy
+    render json: PlantSerializer.new(deleted_plant), status: :ok
+  rescue ActiveRecord::RecordNotFound
+    render json: PlantSerializer.single_error('The record could not be found for deletion!'), status: :bad_request
   end
 
   private

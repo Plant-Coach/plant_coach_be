@@ -1,3 +1,4 @@
+# Reminder the User can set up for themselves.
 class Api::V1::GardenReminderController < ApplicationController
   # Skipped since this is available for a microservice and not a user request.
   skip_before_action :authorized, only: [:create]
