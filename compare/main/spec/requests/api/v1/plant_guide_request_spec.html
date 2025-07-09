@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../add-rubycritic/overview.html"><span class="branch">add-rubycritic</span></a>
+          <a href="../../../../../feature/issue-376/overview.html"><span class="branch">feature/issue-376</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-08 14:06:35 -0600'>2025-07-08 14:06:35 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-08 18:00:09 -0600'>2025-07-08 18:00:09 -0600</time>
         
       </span>
     </div>
@@ -298,7 +298,7 @@ RSpec.describe &#39;/plant_guides API Endpoint&#39;, :vcr do
       expect(result[:errors]).to include(&#39;A Plant Type must be provided.&#39;)
     end
 
-    it &#39;returns an informative error if Days to Maturity is missing&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
+    it &#39;returns an informative error if Days to Maturity is missing&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
       plant_params_with_missing_data = {
         plant_type: &#39;Watermelon&#39;,
         direct_seed_recommended: false,
@@ -317,7 +317,7 @@ RSpec.describe &#39;/plant_guides API Endpoint&#39;, :vcr do
       expect(result[:errors]).to include(&#39;Days to Maturity can not be blank.&#39;)
     end
 
-    it &#39;returns an informative error if Days Relative to Frost Date is missing&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
+    it &#39;returns an informative error if Days Relative to Frost Date is missing&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
       plant_params_with_missing_data = {
         plant_type: &#39;Watermelon&#39;,
         direct_seed_recommended: false,
@@ -336,7 +336,7 @@ RSpec.describe &#39;/plant_guides API Endpoint&#39;, :vcr do
       expect(result[:errors]).to include(&#39;Days Relative to Frost Date must not be blank.&#39;)
     end
 
-    it &#39;returns an informative error if Harvest Period is not provided&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
+    it &#39;returns an informative error if Harvest Period is not provided&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L196" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L215" class="js-smell-location">1</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plant_guide_request_spec.html#L234" class="js-smell-location">2</a>                  </div>  </li></ol>
       plant_params_with_missing_data = {
         plant_type: &#39;Watermelon&#39;,
         direct_seed_recommended: false,

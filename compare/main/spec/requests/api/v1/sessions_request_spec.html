@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../add-rubycritic/overview.html"><span class="branch">add-rubycritic</span></a>
+          <a href="../../../../../feature/issue-376/overview.html"><span class="branch">feature/issue-376</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-08 14:06:35 -0600'>2025-07-08 14:06:35 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-08 18:00:09 -0600'>2025-07-08 18:00:09 -0600</time>
         
       </span>
     </div>
@@ -157,7 +157,7 @@ RSpec.describe &#39;User Sessions&#39;, :vcr do
       expect(result[:jwt]).to_not be nil
     end
 
-    it &#39;returns an error if the password is bad&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L55" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L67" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(POST /sessions)::it#returns an error if the password is bad has a flog score of 31</span>          </div>  </li></ol>
+    it &#39;returns an error if the password is bad&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L55" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L67" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(POST /sessions)::it#returns an error if the password is bad has a flog score of 31</span>          </div>  </li></ol>
       expect(response).to be_successful
 
       login_params = { email: &#39;joel@plantcoach.com&#39;, password: &#39;WRONG PASSWORD&#39; }
@@ -169,7 +169,7 @@ RSpec.describe &#39;User Sessions&#39;, :vcr do
       expect(result[:error]).to eq(&#39;Your credentials are incorrect!&#39;)
     end
 
-    it &#39;returns an error if the user doesnt exist&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L55" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L67" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(POST /sessions)::it#returns an error if the user doesnt exist has a flog score of 31</span>          </div>  </li></ol>
+    it &#39;returns an error if the user doesnt exist&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L55" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L67" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(POST /sessions)::it#returns an error if the user doesnt exist has a flog score of 31</span>          </div>  </li></ol>
       expect(response).to be_successful
 
       non_existent_user = { email: &#39;joe12345@shmo.com&#39;, password: &#39;ABCDE&#39; }
@@ -188,7 +188,7 @@ RSpec.describe &#39;User Sessions&#39;, :vcr do
       post &#39;/api/v1/sessions&#39;, params: login_params
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete &quot;/api/v1/sessions/#{result[:user][:data][:id]}&quot;, headers: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Identical code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L86" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L98" class="js-smell-location">1</a>                  </div>  </li></ol>
+      delete &quot;/api/v1/sessions/#{result[:user][:data][:id]}&quot;, headers: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Identical code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L86" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L98" class="js-smell-location">1</a>                  </div>  </li></ol>
         Authorization: &quot;Bearer #{result[:jwt]}&quot;
       }
 
@@ -200,7 +200,7 @@ RSpec.describe &#39;User Sessions&#39;, :vcr do
       post &#39;/api/v1/sessions&#39;, params: login_params
       result = JSON.parse(response.body, symbolize_names: true)
 
-      delete &quot;/api/v1/sessions/#{result[:user][:data][:id]}&quot;, headers: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Identical code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L86" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/sessions_request_spec.html#L98" class="js-smell-location">1</a>                  </div>  </li></ol>
+      delete &quot;/api/v1/sessions/#{result[:user][:data][:id]}&quot;, headers: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Identical code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L86" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/sessions_request_spec.html#L98" class="js-smell-location">1</a>                  </div>  </li></ol>
         Authorization: &quot;Bearer #{result[:jwt]}&quot;
       }
 

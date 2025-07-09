@@ -1,2 +1,2 @@
 Base branch (main) score: 80.24 
-Feature branch (add-rubycritic) score: 80.24 
+Feature branch (feature/issue-376) score: 81.81 

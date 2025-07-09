@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../add-rubycritic/overview.html"><span class="branch">add-rubycritic</span></a>
+          <a href="../../../../../feature/issue-376/overview.html"><span class="branch">feature/issue-376</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-08 14:06:35 -0600'>2025-07-08 14:06:35 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-08 18:00:09 -0600'>2025-07-08 18:00:09 -0600</time>
         
       </span>
     </div>
@@ -106,7 +106,7 @@
     <code class="prettyprint linenums lang-ruby file-code js-file-code">require &#39;rails_helper&#39;
 
 RSpec.describe &#39;Plants Waiting To Be Started API Endpoint&#39;, :vcr do
-  before(:each) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 4 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/garden_plants_request_spec.html#L4" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_in_the_garden_request_spec.html#L4" class="js-smell-location">1</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L4" class="js-smell-location">2</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/started_indoor_seeds_request_spec.html#L4" class="js-smell-location">3</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>before#each has a flog score of 57</span>          </div>  </li></ol>
+  before(:each) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 4 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/garden_plants_request_spec.html#L4" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_in_the_garden_request_spec.html#L4" class="js-smell-location">1</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L4" class="js-smell-location">2</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/started_indoor_seeds_request_spec.html#L4" class="js-smell-location">3</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>before#each has a flog score of 57</span>          </div>  </li></ol>
     ActiveRecord::Base.skip_callbacks = false
 
     body = {
@@ -267,7 +267,7 @@ RSpec.describe &#39;Plants Waiting To Be Started API Endpoint&#39;, :vcr do
         Authorization: &quot;Bearer #{@user_response[:jwt]}&quot;
       }
 
-      post &#39;/api/v1/garden_plants&#39;, params: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L165" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L180" class="js-smell-location">1</a>                  </div>  </li></ol>
+      post &#39;/api/v1/garden_plants&#39;, params: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L165" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L180" class="js-smell-location">1</a>                  </div>  </li></ol>
         plant_id: plant2_object.id,
         name: &#39;Jalafuego&#39;,
         plant_type: &#39;Pepper&#39;,
@@ -282,7 +282,7 @@ RSpec.describe &#39;Plants Waiting To Be Started API Endpoint&#39;, :vcr do
         Authorization: &quot;Bearer #{@user_response[:jwt]}&quot;
       }
 
-      post &#39;/api/v1/garden_plants&#39;, params: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L165" class="js-smell-location">0</a>                  <a href="../../../../../add-rubycritic/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L180" class="js-smell-location">1</a>                  </div>  </li></ol>
+      post &#39;/api/v1/garden_plants&#39;, params: {<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L165" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/spec/requests/api/v1/plants_waiting_to_be_started_request_spec.html#L180" class="js-smell-location">1</a>                  </div>  </li></ol>
         plant_id: plant3_object.id,
         name: &#39;Rosa Bianca&#39;,
         plant_type: &#39;Eggplant&#39;,
