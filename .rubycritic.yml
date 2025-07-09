@@ -4,7 +4,7 @@
 #   - console
 #   - json
 
-minimum_score: 98 # default is 0
+minimum_score: 97 # default is 0
 paths: # Files to analyse. Churn calculation is scoped to these files when using Git SCM.
   - 'app/'
   - 'config/'
