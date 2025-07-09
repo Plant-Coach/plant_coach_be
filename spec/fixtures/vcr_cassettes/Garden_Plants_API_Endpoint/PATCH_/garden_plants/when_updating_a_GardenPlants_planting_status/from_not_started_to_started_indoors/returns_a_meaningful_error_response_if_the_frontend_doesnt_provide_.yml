@@ -39,14 +39,14 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 435389db-800e-493a-b1ec-a0eaa07d9057
+      - 4d5ff638-e1b0-47c3-9c5a-bf95a73dd709
       X-Runtime:
-      - '1.022725'
+      - '1.054690'
       Content-Length:
       - '192'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80121","location_name":"Greenwood
         Village","lat":39.6111,"lon":-104.9532,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 08 Jul 2025 22:50:31 GMT
+  recorded_at: Tue, 08 Jul 2025 23:55:52 GMT
 recorded_with: VCR 6.3.1

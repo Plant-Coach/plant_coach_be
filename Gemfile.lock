@@ -434,6 +434,8 @@ DEPENDENCIES
   faker
   faraday (>= 1.8.0)
   figaro
+  flay
+  flog
   jsonapi-serializer
   jwt
   listen (>= 3.0.5, < 3.2)
@@ -443,6 +445,7 @@ DEPENDENCIES
   pry
   puma (~> 6.0)
   rails (~> 8.0)
+  reek
   rspec-rails
   rspec_junit_formatter
   rubocop

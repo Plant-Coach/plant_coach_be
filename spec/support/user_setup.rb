@@ -103,6 +103,14 @@ RSpec.shared_context 'user_setup' do
       days_relative_to_frost_date: 0,
       harvest_period: 'two_week'
     )
+    @raspberry_guide = @user.plant_guides.create(
+      plant_type: 'Raspberry',
+      seedling_days_to_transplant: 0,
+      direct_seed_recommended: false,
+      days_to_maturity: 100,
+      days_relative_to_frost_date: 0,
+      harvest_period: 'season_long'
+    )
   end
 
   let(:plant1_object) do
@@ -126,4 +134,65 @@ RSpec.shared_context 'user_setup' do
       organic: false
     )
   end
+
+  let(:plant3_object) do
+    last_user.plants.create!(
+      plant_type: 'Radish',
+      name: 'French Breakfast',
+      days_relative_to_frost_date: 30,
+      days_to_maturity: 21,
+      hybrid_status: :f1
+    )
+  end
+
+  let(:user_response) { JSON.parse(response.body, symbolize_names: true) }
+  let(:user) { User.find_by_id(user_response[:user][:data][:id]) }
+  let(:last_user) { User.last }
+
+  let(:plant1_params) do
+    {
+      plant_type: 'Tomato',
+      name: 'Sungold',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 54,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant2_params) do
+    {
+      plant_type: 'Pepper',
+      name: 'Round of Hungary',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 60,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant3_params) do
+    {
+      plant_type: 'Eggplant',
+      name: 'Rosa Bianca',
+      days_relative_to_frost_date: 14,
+      days_to_maturity: 68,
+      hybrid_status: :open_pollinated
+    }
+  end
+  let(:plant4_params) do
+    {
+      plant_type: 'Romaine Lettuce',
+      name: 'Costal Star',
+      days_relative_to_frost_date: 30,
+      days_to_maturity: 25,
+      hybrid_status: :f1
+    }
+  end
+  let(:plant5_params) do
+    {
+      plant_type: 'Green Bean',
+      name: 'Provider',
+      days_relative_to_frost_date: -7,
+      days_to_maturity: 45,
+      hybrid_status: :f1
+    }
+  end
+  
 end
