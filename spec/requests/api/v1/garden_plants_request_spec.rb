@@ -517,7 +517,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:error]).to eq('You must specify a seed-sewing date!')
+          expect(result[:error].first).to eq('You must specify a seed-sewing date!')
         end
       end
 
@@ -566,7 +566,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:error]).to eq('You must specify a transplant date!')
+          expect(result[:error].first).to eq('You must specify a transplant date!')
         end
       end
 
@@ -590,7 +590,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:error]).to eq('You must specify a transplant date!')
+          expect(result[:error].first).to eq('You must specify a transplant date!')
         end
 
         it 'will only update the object when an actual_transplant_date is passed' do
@@ -664,7 +664,7 @@ RSpec.describe 'Garden Plants API Endpoint', :vcr do
           }
           result = JSON.parse(response.body, symbolize_names: true)
 
-          expect(result[:error]).to eq('You must specify a seed-sewing date!')
+          expect(result[:error].first).to eq('You must specify a seed-sewing date!')
         end
       end
     end

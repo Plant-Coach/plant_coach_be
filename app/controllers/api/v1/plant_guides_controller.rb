@@ -1,3 +1,4 @@
+# CRUD for a User's Plant Guides.
 class Api::V1::PlantGuidesController < ApplicationController
   def index
     render json: PlantGuideSerializer.all_guides(@user.plant_guides), status: :accepted
@@ -13,12 +14,10 @@ class Api::V1::PlantGuidesController < ApplicationController
   end
 
   def show
-    plant_guide = @user.plant_guides.find_by_id(params[:id])
-    if !plant_guide.nil?
-      render json: PlantGuideSerializer.new(plant_guide)
-    else
-      render json: PlantGuideSerializer.error('This plant guide could not be found.')
-    end
+    plant_guide = @user.plant_guides.find_by_id!(params[:id])
+    render json: PlantGuideSerializer.new(plant_guide)
+  rescue ActiveRecord::RecordNotFound
+    render json: PlantGuideSerializer.error('This plant guide could not be found.')
   end
 
   def update

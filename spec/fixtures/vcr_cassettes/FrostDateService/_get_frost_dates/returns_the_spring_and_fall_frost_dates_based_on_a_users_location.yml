@@ -39,13 +39,13 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 9d496fd3-4e0d-4f1c-83bc-b4ff7ea0ea40
+      - a0614f9d-3d51-4cbf-b082-91a52d22b355
       X-Runtime:
-      - '1.179484'
+      - '1.136845'
       Content-Length:
       - '185'
     body:
       encoding: UTF-8
       string: '{"data":{"id":null,"type":"frost_date","attributes":{"id":null,"zip_code":"80112","location_name":"Centennial","lat":39.5805,"lon":-104.9011,"spring_frost":"0520","fall_frost":"0924"}}}'
-  recorded_at: Tue, 08 Jul 2025 23:57:20 GMT
+  recorded_at: Wed, 09 Jul 2025 18:32:08 GMT
 recorded_with: VCR 6.3.1
