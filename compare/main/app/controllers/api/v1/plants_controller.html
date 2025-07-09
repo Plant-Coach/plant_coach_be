@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../feature/issue-376/overview.html"><span class="branch">feature/issue-376</span></a>
+          <a href="../../../../../feature/issue-378/overview.html"><span class="branch">feature/issue-378</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-08 18:00:09 -0600'>2025-07-08 18:00:09 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-09 12:34:59 -0600'>2025-07-09 12:34:59 -0600</time>
         
       </span>
     </div>
@@ -110,7 +110,7 @@
     render json: PlantSerializer.new(plants), status: :accepted
   end
 
-  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-376/app/controllers/api/v1/plant_guides_controller.html#L6" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-376/app/controllers/api/v1/plants_controller.html#L8" class="js-smell-location">1</a>                  </div>  </li></ol>
+  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plant_guides_controller.html#L6" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plants_controller.html#L8" class="js-smell-location">1</a>                  </div>  </li></ol>
     plant = @user.plants.create(plant_params)
     if plant.save
       render json: PlantSerializer.new(plant), status: :created
