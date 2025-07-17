@@ -2,7 +2,6 @@ services:
   db:
     image: postgres:15
     container_name: db
-    platform: linux/amd64
     # volumes:
     #   - postgres_data:/var/lib/postgresql/data
     command:
@@ -14,7 +13,7 @@ services:
     ports:
       - "5432:5432"
   plant-coach-weather-api:
-    image: jmgrant/plant-coach-weather-api-dev:latest
+    image: jmgrant/plant-coach-weather-api:latest
     command: "./bin/rails server -p 3001"
     environment:
       - RAILS_ENV=${RAILS_ENV}
