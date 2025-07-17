@@ -1,2 +1,2 @@
 Base branch (main) score: 97.31 
-Feature branch (fix-latest-tag) score: 97.31 
+Feature branch (fix-platform) score: 97.31 
