@@ -42,14 +42,13 @@ jobs:
         name: Build and push commit hash (AMD64 only)
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
       -
         name: Build and push latest (multi-platform)
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:latest
       
