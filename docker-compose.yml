@@ -1,7 +1,8 @@
 services:
   db:
-    image: postgres
+    image: postgres:15
     container_name: db
+    platform: linux/amd64
     # volumes:
     #   - postgres_data:/var/lib/postgresql/data
     command:
@@ -22,7 +23,7 @@ services:
     network_mode: service:plant-coach-be-web
 
   plant-coach-be-web:
-    build: .
+    image: jmgrant/plant-coach-be:latest
     command: "./bin/rails server"
     environment:
       - RAILS_ENV=${RAILS_ENV}
