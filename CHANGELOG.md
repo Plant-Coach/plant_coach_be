@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.4](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.3...v0.3.4) (2025-07-17)
+
+
+### Bug Fixes
+
+* add multi support for image ([#380](https://github.com/Plant-Coach/plant_coach_be/issues/380)) ([ef989ed](https://github.com/Plant-Coach/plant_coach_be/commit/ef989ed9fe19a3cf3a05faf0a69803f258a519e9))
+* **ci:** remove context config ([#383](https://github.com/Plant-Coach/plant_coach_be/issues/383)) ([a19ea87](https://github.com/Plant-Coach/plant_coach_be/commit/a19ea870ff11bb412105093207d9dd4e4b06e8c1))
+
 ## [0.3.3](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.2...v0.3.3) (2025-06-24)
 
 
