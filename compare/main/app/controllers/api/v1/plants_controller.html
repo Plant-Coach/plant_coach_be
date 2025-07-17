@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../feature/issue-378/overview.html"><span class="branch">feature/issue-378</span></a>
+          <a href="../../../../../fix-docker-image/overview.html"><span class="branch">fix-docker-image</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-09 12:37:07 -0600'>2025-07-09 12:37:07 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-17 16:47:45 -0600'>2025-07-17 16:47:45 -0600</time>
         
       </span>
     </div>
@@ -68,21 +68,21 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-1">
-            <div class="rating c big">
-              C
+            <div class="rating b big">
+              B
             </div>
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">55</span><small> lines of codes</small></div>
+              <div><span class="metric">54</span><small> lines of codes</small></div>
               <div><span class="metric">6</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">8.4</span><small> complexity/method</small></div>
-              <div><span class="metric">20</span><small> churn</small></div>
+              <div><span class="metric">8.2</span><small> complexity/method</small></div>
+              <div><span class="metric">21</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">50.41</span><small> complexity</small></div>
+              <div><span class="metric">49.07</span><small> complexity</small></div>
               <div><span class="metric">28</span><small> duplications</small></div>
             </div>
           </div>
@@ -94,7 +94,7 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                4
+                2
                 smells
               </a>
             </li>
@@ -103,14 +103,15 @@
       </div>
     </div>
 
-    <code class="prettyprint linenums lang-ruby file-code js-file-code">class Api::V1::PlantsController &lt; ApplicationController<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Instance-Variable-Assumption.md" target="_blank"><b>InstanceVariableAssumption</b></a>        </span>      </div>      <span>Api::V1::PlantsController assumes too much for instance variable '@user'</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>Api::V1::PlantsController has no descriptive comment</span>          </div>  </li></ol>
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># CRUD for plants in a User&#39;s database.
+class Api::V1::PlantsController &lt; ApplicationController<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Instance-Variable-Assumption.md" target="_blank"><b>InstanceVariableAssumption</b></a>        </span>      </div>      <span>Api::V1::PlantsController assumes too much for instance variable '@user'</span>          </div>  </li></ol>
   # Returns the list of plants that a user has in their personal database.
   def index
     plants = @user.plants
     render json: PlantSerializer.new(plants), status: :accepted
   end
 
-  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plant_guides_controller.html#L6" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plants_controller.html#L8" class="js-smell-location">1</a>                  </div>  </li></ol>
+  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../fix-docker-image/app/controllers/api/v1/plant_guides_controller.html#L7" class="js-smell-location">0</a>                  <a href="../../../../../fix-docker-image/app/controllers/api/v1/plants_controller.html#L9" class="js-smell-location">1</a>                  </div>  </li></ol>
     plant = @user.plants.create(plant_params)
     if plant.save
       render json: PlantSerializer.new(plant), status: :created
@@ -135,13 +136,11 @@
   end
 
   def destroy
-    plant = @user.plants.find_by(id: params[:id])
-    if !plant.nil?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Nil-Check.md" target="_blank"><b>NilCheck</b></a>        </span>      </div>      <span>Api::V1::PlantsController#destroy performs a nil-check</span>          </div>  </li></ol>
-      deleted_plant = plant.destroy
-      render json: PlantSerializer.new(deleted_plant), status: :ok
-    else
-      render json: PlantSerializer.single_error(&#39;Something happened!&#39;), status: :bad_request
-    end
+    plant = @user.plants.find_by!(id: params[:id])
+    deleted_plant = plant.destroy
+    render json: PlantSerializer.new(deleted_plant), status: :ok
+  rescue ActiveRecord::RecordNotFound
+    render json: PlantSerializer.single_error(&#39;The record could not be found for deletion!&#39;), status: :bad_request
   end
 
   private

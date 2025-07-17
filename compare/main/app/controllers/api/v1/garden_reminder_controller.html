@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../feature/issue-378/overview.html"><span class="branch">feature/issue-378</span></a>
+          <a href="../../../../../fix-docker-image/overview.html"><span class="branch">fix-docker-image</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-09 12:37:07 -0600'>2025-07-09 12:37:07 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-17 16:47:45 -0600'>2025-07-17 16:47:45 -0600</time>
         
       </span>
     </div>
@@ -74,12 +74,12 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">18</span><small> lines of codes</small></div>
+              <div><span class="metric">19</span><small> lines of codes</small></div>
               <div><span class="metric">1</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">8.7</span><small> complexity/method</small></div>
-              <div><span class="metric">6</span><small> churn</small></div>
+              <div><span class="metric">7</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">8.66</span><small> complexity</small></div>
@@ -94,7 +94,7 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                1
+                0
                 smell
               </a>
             </li>
@@ -103,7 +103,8 @@
       </div>
     </div>
 
-    <code class="prettyprint linenums lang-ruby file-code js-file-code">class Api::V1::GardenReminderController &lt; ApplicationController<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>Api::V1::GardenReminderController has no descriptive comment</span>          </div>  </li></ol>
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># Reminder the User can set up for themselves.
+class Api::V1::GardenReminderController &lt; ApplicationController
   # Skipped since this is available for a microservice and not a user request.
   skip_before_action :authorized, only: [:create]
 

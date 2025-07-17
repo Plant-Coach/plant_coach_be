@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../feature/issue-378/overview.html"><span class="branch">feature/issue-378</span></a>
+          <a href="../../../../../fix-docker-image/overview.html"><span class="branch">fix-docker-image</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-09 12:37:07 -0600'>2025-07-09 12:37:07 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-17 16:47:45 -0600'>2025-07-17 16:47:45 -0600</time>
         
       </span>
     </div>
@@ -74,15 +74,15 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">60</span><small> lines of codes</small></div>
+              <div><span class="metric">59</span><small> lines of codes</small></div>
               <div><span class="metric">6</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">9.1</span><small> complexity/method</small></div>
-              <div><span class="metric">5</span><small> churn</small></div>
+              <div><span class="metric">8.9</span><small> complexity/method</small></div>
+              <div><span class="metric">6</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">54.56</span><small> complexity</small></div>
+              <div><span class="metric">53.39</span><small> complexity</small></div>
               <div><span class="metric">28</span><small> duplications</small></div>
             </div>
           </div>
@@ -94,7 +94,7 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                4
+                2
                 smells
               </a>
             </li>
@@ -103,12 +103,13 @@
       </div>
     </div>
 
-    <code class="prettyprint linenums lang-ruby file-code js-file-code">class Api::V1::PlantGuidesController &lt; ApplicationController<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Instance-Variable-Assumption.md" target="_blank"><b>InstanceVariableAssumption</b></a>        </span>      </div>      <span>Api::V1::PlantGuidesController assumes too much for instance variable '@user'</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>Api::V1::PlantGuidesController has no descriptive comment</span>          </div>  </li></ol>
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># CRUD for a User&#39;s Plant Guides.
+class Api::V1::PlantGuidesController &lt; ApplicationController<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Instance-Variable-Assumption.md" target="_blank"><b>InstanceVariableAssumption</b></a>        </span>      </div>      <span>Api::V1::PlantGuidesController assumes too much for instance variable '@user'</span>          </div>  </li></ol>
   def index
     render json: PlantGuideSerializer.all_guides(@user.plant_guides), status: :accepted
   end
 
-  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plant_guides_controller.html#L6" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-378/app/controllers/api/v1/plants_controller.html#L8" class="js-smell-location">1</a>                  </div>  </li></ol>
+  def create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../fix-docker-image/app/controllers/api/v1/plant_guides_controller.html#L7" class="js-smell-location">0</a>                  <a href="../../../../../fix-docker-image/app/controllers/api/v1/plants_controller.html#L9" class="js-smell-location">1</a>                  </div>  </li></ol>
     new_plant_guide = @user.plant_guides.create(plant_guide_params)
     if new_plant_guide.valid?
       render json: PlantGuideSerializer.new(new_plant_guide), status: :created
@@ -118,12 +119,10 @@
   end
 
   def show
-    plant_guide = @user.plant_guides.find_by_id(params[:id])
-    if !plant_guide.nil?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Nil-Check.md" target="_blank"><b>NilCheck</b></a>        </span>      </div>      <span>Api::V1::PlantGuidesController#show performs a nil-check</span>          </div>  </li></ol>
-      render json: PlantGuideSerializer.new(plant_guide)
-    else
-      render json: PlantGuideSerializer.error(&#39;This plant guide could not be found.&#39;)
-    end
+    plant_guide = @user.plant_guides.find_by_id!(params[:id])
+    render json: PlantGuideSerializer.new(plant_guide)
+  rescue ActiveRecord::RecordNotFound
+    render json: PlantGuideSerializer.error(&#39;This plant guide could not be found.&#39;)
   end
 
   def update

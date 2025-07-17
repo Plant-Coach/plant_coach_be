@@ -1,2 +1,2 @@
-Base branch (main) score: 97.22 
-Feature branch (feature/issue-378) score: 97.31 
+Base branch (main) score: 97.31 
+Feature branch (fix-docker-image) score: 97.31 
