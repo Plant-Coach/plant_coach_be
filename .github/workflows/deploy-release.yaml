@@ -1,7 +1,6 @@
 name: Deploy/Release Chart
 
 on:
-  push:
   workflow_run:
     workflows:
       - "Build and Push"
