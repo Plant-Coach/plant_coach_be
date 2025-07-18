@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.4...v0.4.0) (2025-07-18)
+
+
+### Features
+
+* add logging setup ([#387](https://github.com/Plant-Coach/plant_coach_be/issues/387)) ([c6acbef](https://github.com/Plant-Coach/plant_coach_be/commit/c6acbefe20611a9dac1b96d517b9c2eab3fbba4c))
+
 ## [0.3.4](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.3...v0.3.4) (2025-07-17)
 
 
