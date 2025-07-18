@@ -19,11 +19,13 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client bash bash-completion tzdata && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Set production environment
+# Set production environment (can be overridden at runtime)
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development" \
+    RAILS_LOG_TO_STDOUT="1" \
+    RAILS_SERVE_STATIC_FILES="1"
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -55,12 +57,15 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails db log storage tmp && \
+    mkdir -p /rails/log && \
+    touch /rails/log/production.log && \
+    chown -R rails:rails /rails/log
 USER 1000:1000
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["./bin/rails", "server"]
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
