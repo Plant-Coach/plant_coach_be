@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../feature/issue-386/overview.html"><span class="branch">feature/issue-386</span></a>
+          <a href="../../../release-please--branches--main/overview.html"><span class="branch">release-please--branches--main</span></a>
           <a href="../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-18 15:00:46 -0600'>2025-07-18 15:00:46 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-18 15:21:37 -0600'>2025-07-18 15:21:37 -0600</time>
         
       </span>
     </div>
@@ -74,12 +74,12 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">64</span><small> lines of codes</small></div>
+              <div><span class="metric">70</span><small> lines of codes</small></div>
               <div><span class="metric">0</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">N/A</span><small> complexity/method</small></div>
-              <div><span class="metric">7</span><small> churn</small></div>
+              <div><span class="metric">8</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">0.0</span><small> complexity</small></div>
@@ -145,6 +145,12 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
+
+  # Configure logging for development
+  config.log_level = :debug
+  config.log_formatter = ::Logger::Formatter.new
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.colorize_logging = true
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
