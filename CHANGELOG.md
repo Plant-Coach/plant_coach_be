@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/Plant-Coach/plant_coach_be/compare/v0.4.1...v0.4.2) (2025-07-19)
+
+
+### Bug Fixes
+
+* prevent excessive jobs from running ([#393](https://github.com/Plant-Coach/plant_coach_be/issues/393)) ([d488141](https://github.com/Plant-Coach/plant_coach_be/commit/d48814186704c058505844edc43fe583fb0986d5))
+
 ## [0.4.1](https://github.com/Plant-Coach/plant_coach_be/compare/v0.4.0...v0.4.1) (2025-07-19)
 
 
