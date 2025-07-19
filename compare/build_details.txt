@@ -1,2 +1,2 @@
 Base branch (main) score: 96.91 
-Feature branch (release-please--branches--main) score: 96.91 
+Feature branch (v0.4.2) score: 96.91 
