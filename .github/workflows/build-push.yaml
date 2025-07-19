@@ -2,6 +2,10 @@ name: Build and Push
 
 on:
   push:
+    branches-ignore:
+      - 'release-please--**'  # Ignore release-please branches
+    tags-ignore:
+      - '**'  # Ignore all tag pushes (release-please creates these)
     
 jobs:
   docker:
