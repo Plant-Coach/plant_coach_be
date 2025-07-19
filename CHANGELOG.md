@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/Plant-Coach/plant_coach_be/compare/v0.4.0...v0.4.1) (2025-07-19)
+
+
+### Bug Fixes
+
+* remove health checks from logs ([#390](https://github.com/Plant-Coach/plant_coach_be/issues/390)) ([1927c3f](https://github.com/Plant-Coach/plant_coach_be/commit/1927c3f5e51378175a7ed8a7c963b4d79d3dc44a))
+
 ## [0.4.0](https://github.com/Plant-Coach/plant_coach_be/compare/v0.3.4...v0.4.0) (2025-07-18)
 
 
