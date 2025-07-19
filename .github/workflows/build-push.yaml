@@ -39,13 +39,24 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
-        name: Build and push
+        name: Build and push AMD64
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=amd64
+          cache-to: type=gha,mode=max,scope=amd64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
+      -
+        name: Build and push ARM64
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/arm64
+          push: true
+          cache-from: type=gha,scope=arm64
+          cache-to: type=gha,mode=max,scope=arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:latest
             ${{ secrets.DOCKERHUB_USERNAME}}/${{ steps.set-repo.outputs.REPO_NAME }}:${{ steps.commit-hash.outputs.COMMIT_HASH }}
