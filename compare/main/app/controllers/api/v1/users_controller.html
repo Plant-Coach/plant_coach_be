@@ -21,7 +21,7 @@
       
         <ul class="nav navbar-nav navbar-right">
           <a href="../../../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../../../feature/issue-389/overview.html"><span class="branch">feature/issue-389</span></a>
+          <a href="../../../../../release-please--branches--main/overview.html"><span class="branch">release-please--branches--main</span></a>
           <a href="../../../../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-18 19:39:47 -0600'>2025-07-18 19:39:47 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-18 20:45:25 -0600'>2025-07-18 20:45:25 -0600</time>
         
       </span>
     </div>
@@ -116,7 +116,7 @@
   def create
     user = User.create(user_params)
     if user.valid?
-      token = encode_token(user_id: user.id)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../feature/issue-389/app/controllers/api/v1/sessions_controller.html#L8" class="js-smell-location">0</a>                  <a href="../../../../../feature/issue-389/app/controllers/api/v1/users_controller.html#L14" class="js-smell-location">1</a>                  </div>  </li></ol>
+      token = encode_token(user_id: user.id)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="../../../../../release-please--branches--main/app/controllers/api/v1/sessions_controller.html#L8" class="js-smell-location">0</a>                  <a href="../../../../../release-please--branches--main/app/controllers/api/v1/users_controller.html#L14" class="js-smell-location">1</a>                  </div>  </li></ol>
       render json: { user: UserSerializer.new(user), jwt: token }, status: :created
     elsif passwords_dont_match
       render json: UserSerializer.error(&#39;Your passwords must match!&#39;), status: :not_acceptable
