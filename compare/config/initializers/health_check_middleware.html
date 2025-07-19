@@ -20,9 +20,9 @@
       <a href="../../overview.html"><img src="../../assets/images/logo.png" alt="Ruby Critic Logo" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
       
         <ul class="nav navbar-nav navbar-right">
-          <a href="../../overview.html"><span class="branch">main</span></a>
-          <a href="../../../feature/issue-389/overview.html"><span class="branch">feature/issue-389</span></a>
-          <a href="../../../overview.html"><span class="branch">Build</span></a>
+          <a href="../../main/overview.html"><span class="branch">main</span></a>
+          <a href="../../feature/issue-389/config/initializers/health_check_middleware.html"><span class="branch">feature/issue-389</span></a>
+          <a href="../../overview.html"><span class="branch">Build</span></a>
         </ul>
       
     </header>
@@ -58,7 +58,7 @@
       </span>
     </div>
     <div>
-      <h3><small>app/serializers /</small> garden_reminder_serializer.rb</h3>
+      <h3><small>config/initializers /</small> health_check_middleware.rb</h3>
     </div>
   </div>
   <!--End Page Title -->
@@ -74,12 +74,12 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">8</span><small> lines of codes</small></div>
-              <div><span class="metric">1</span><small> methods</small></div>
+              <div><span class="metric">3</span><small> lines of codes</small></div>
+              <div><span class="metric">0</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">0.0</span><small> complexity/method</small></div>
-              <div><span class="metric">3</span><small> churn</small></div>
+              <div><span class="metric">N/A</span><small> complexity/method</small></div>
+              <div><span class="metric">1</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">0.0</span><small> complexity</small></div>
@@ -94,7 +94,7 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                1
+                0
                 smell
               </a>
             </li>
@@ -103,14 +103,9 @@
       </div>
     </div>
 
-    <code class="prettyprint linenums lang-ruby file-code js-file-code">class GardenReminderSerializer<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>GardenReminderSerializer has no descriptive comment</span>          </div>  </li></ol>
-  include JSONAPI::Serializer
-  def self.confirm
-    {
-      message: &#39;Reminder sent.&#39;
-    }
-  end
-end
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># Require and add custom middleware to filter health check logs
+require_relative &#39;../../lib/rack/health_check_logger_filter&#39;
+Rails.application.config.middleware.insert_before Rails::Rack::Logger, HealthCheckLoggerFilter
 </code>
   </div>
 </div>

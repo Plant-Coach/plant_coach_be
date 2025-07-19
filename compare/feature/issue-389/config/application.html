@@ -53,7 +53,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2025-07-18 18:57:02 -0600'>2025-07-18 18:57:02 -0600</time>
+          Updated <time class='js-timeago' datetime='2025-07-18 19:39:47 -0600'>2025-07-18 19:39:47 -0600</time>
         
       </span>
     </div>
@@ -74,7 +74,7 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">42</span><small> lines of codes</small></div>
+              <div><span class="metric">35</span><small> lines of codes</small></div>
               <div><span class="metric">0</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
@@ -128,18 +128,11 @@ module PlantCoach
     #
     # config.time_zone = &quot;Central Time (US &amp; Canada)&quot;
     # config.eager_load_paths &lt;&lt; Rails.root.join(&quot;extras&quot;)
-    
-    # Ensure custom middleware is loaded
-    config.eager_load_paths &lt;&lt; Rails.root.join(&quot;lib&quot;)
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    
-    # Silence health check logs to reduce noise
-    config.middleware.insert_before Rails::Rack::Logger, Rack::SilentLogger, 
-                                   paths: [&#39;/rails/health&#39;, &#39;/rails/ready&#39;, &#39;/up&#39;, &#39;/health&#39;, &#39;/ready&#39;, &#39;/livez&#39;, &#39;/readyz&#39;]
     
     # config.middleware.use ActionDispatch::Cookies
     # config.middleware.use ActionDispatch::Session::CookieStore
